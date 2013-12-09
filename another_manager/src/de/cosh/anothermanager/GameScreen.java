@@ -4,14 +4,18 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen implements Screen {
 	private Game myGame;
 	private Board board;
+	private SpriteBatch batch;
 
 	public GameScreen(Game myGame) {
 		this.myGame = myGame;
 		board = new Board();
+		batch = new SpriteBatch();
+		board.init();
 	}
 	@Override
 	public void render(float delta) {
@@ -24,7 +28,7 @@ public class GameScreen implements Screen {
 	}
 
 	private void draw_client() {
-		board.draw();
+		board.draw(batch);
 	}
 	private void update_client(float delta) {
 		
@@ -39,7 +43,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		board.init();
 	}
 
 	@Override

@@ -4,11 +4,13 @@ import com.badlogic.gdx.Game;
 
 public class AnotherManager extends Game {
 	private GameScreen gameScreen;
+	private SplashScreen splashScreen;
 	
 	@Override
 	public void create() {
 		gameScreen = new GameScreen(this);
-		setScreen(gameScreen);
+		splashScreen = new SplashScreen(this);
+		setScreen(splashScreen);
 	}
 
 	@Override
