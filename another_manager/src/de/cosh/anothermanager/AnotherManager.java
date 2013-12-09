@@ -3,8 +3,11 @@ package de.cosh.anothermanager;
 import com.badlogic.gdx.Game;
 
 public class AnotherManager extends Game {
-	private GameScreen gameScreen;
-	private SplashScreen splashScreen;
+	public GameScreen gameScreen;
+	public SplashScreen splashScreen;
+
+    public final int VIRTUAL_WIDTH = 1280;
+    public final int VIRTUAL_HEIGHT = 720;
 	
 	@Override
 	public void create() {

@@ -8,8 +8,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "another_manager";
 		cfg.useGL20 = true;
-		cfg.width = 1024;
-		cfg.height = 640;
+		cfg.width = 540;
+		cfg.height = 960;
 		
 		new LwjglApplication(new AnotherManager(), cfg);
 	}

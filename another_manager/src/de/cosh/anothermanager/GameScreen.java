@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen implements Screen {
-	private Game myGame;
+	private AnotherManager myGame;
 	private Board board;
 	private SpriteBatch batch;
 
-	public GameScreen(Game myGame) {
+	public GameScreen(AnotherManager myGame) {
 		this.myGame = myGame;
 		board = new Board();
 		batch = new SpriteBatch();
