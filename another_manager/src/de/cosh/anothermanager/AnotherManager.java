@@ -1,17 +1,21 @@
 package de.cosh.anothermanager;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class AnotherManager extends Game {
-	public GameScreen gameScreen;
+	public MenuScreen menuScreen;
 	public SplashScreen splashScreen;
+    public OrthographicCamera camera;
 
-    public final int VIRTUAL_WIDTH = 1280;
-    public final int VIRTUAL_HEIGHT = 720;
+    public final int VIRTUAL_WIDTH = 720;
+    public final int VIRTUAL_HEIGHT = 1280;
 	
 	@Override
 	public void create() {
-		gameScreen = new GameScreen(this);
+        camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		menuScreen = new MenuScreen(this);
 		splashScreen = new SplashScreen(this);
 		setScreen(splashScreen);
 	}

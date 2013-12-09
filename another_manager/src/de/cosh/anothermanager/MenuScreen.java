@@ -4,38 +4,41 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
-public class GameScreen implements Screen {
+public class MenuScreen implements Screen {
 	private AnotherManager myGame;
 	private Board board;
 	private SpriteBatch batch;
 
-	public GameScreen(AnotherManager myGame) {
+    private Texture logoTexture;
+    private Vector2 logoPosition;
+    private float logoSpeed;
+
+	public MenuScreen(AnotherManager myGame) {
 		this.myGame = myGame;
 		board = new Board();
 		batch = new SpriteBatch();
 		board.init();
+
+        logoTexture = new Texture("data/logo.png");
+        logoPosition = new Vector2();
+        logoSpeed = 50f;
+
+        logoPosition.x = 160;
+        logoPosition.y = 20;
 	}
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.5f, 0.5f, 1.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		update_input();
-		update_client(delta);
-		draw_client();
+        batch.begin();
+        batch.draw(logoTexture, logoPosition.x, logoPosition.y);
+        batch.end();
 	}
 
-	private void draw_client() {
-		board.draw(batch);
-	}
-	private void update_client(float delta) {
-		
-	}
-	private void update_input() {
-		
-	}
 	@Override
 	public void resize(int width, int height) {
 		

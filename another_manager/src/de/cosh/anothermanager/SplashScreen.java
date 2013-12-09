@@ -18,12 +18,8 @@ public class SplashScreen implements Screen {
     private final AnotherManager myGame;
     private Texture splashTexture;
 
-    private OrthographicCamera camera;
-
     public SplashScreen(final AnotherManager myGame) {
         this.myGame = myGame;
-        camera = new OrthographicCamera(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
-        camera.setToOrtho(false, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
     }
 
     @Override
@@ -56,12 +52,12 @@ public class SplashScreen implements Screen {
         } else {
             fadeInTime -= delta;
             if( fadeInTime <= 0f ) {
-                myGame.setScreen(myGame.gameScreen);
+                myGame.setScreen(myGame.menuScreen);
             }
         }
         float d = 1f - (fadeCompleteTime - fadeInTime);
         batch.setColor(d, d, d, d);
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(myGame.camera.combined);
         batch.begin();
         batch.draw(splashTexture, 0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         batch.end();
