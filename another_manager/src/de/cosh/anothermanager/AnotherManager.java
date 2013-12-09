@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class AnotherManager extends Game {
 	public MenuScreen menuScreen;
 	public SplashScreen splashScreen;
+    public GameScreen gameScreen;
     public OrthographicCamera camera;
 
     public final int VIRTUAL_WIDTH = 720;
@@ -16,6 +17,7 @@ public class AnotherManager extends Game {
         camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		menuScreen = new MenuScreen(this);
+        gameScreen = new GameScreen(this);
 		splashScreen = new SplashScreen(this);
 		setScreen(splashScreen);
 	}
