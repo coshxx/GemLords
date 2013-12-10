@@ -60,7 +60,7 @@ public class SplashScreen implements Screen {
         splashImage = new Image(splashTexture);
         splashImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         splashImage.addAction(Actions.alpha(0));
-        splashImage.addAction(Actions.sequence(Actions.fadeIn(1), Actions.delay(3), Actions.fadeOut(1), Actions.run(new Runnable() {
+        splashImage.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.delay(2), Actions.fadeOut(.5f), Actions.run(new Runnable() {
             @Override
             public void run() {
                 myGame.setScreen(myGame.menuScreen);

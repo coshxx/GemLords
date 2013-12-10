@@ -53,10 +53,10 @@ public class MapTraverseScreen implements Screen {
 
         pointButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y ) {
-                stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.run(new Runnable() {
+                stage.addAction(Actions.sequence(Actions.fadeOut(.5f), Actions.delay(.5f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println("bla");
+                        myGame.setScreen(myGame.gameScreen);
                     }
                 })));
             }

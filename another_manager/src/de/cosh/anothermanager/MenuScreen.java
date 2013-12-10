@@ -64,7 +64,7 @@ public class MenuScreen implements Screen {
         newGameButton.addListener(new ClickListener() {
             public void clicked (com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 blub1.play();
-                stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
+                stage.addAction(Actions.sequence(Actions.fadeOut(.5f), Actions.delay(.5f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
                         myGame.setScreen(myGame.mapTraverseScreen);
