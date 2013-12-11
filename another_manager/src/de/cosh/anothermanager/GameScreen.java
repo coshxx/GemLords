@@ -19,6 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class GameScreen implements Screen {
     private final AnotherManager myGame;
 
+    private Stage stage;
+
     public GameScreen(final AnotherManager myGame) {
         this.myGame = myGame;
     }
@@ -37,6 +39,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        stage = new Stage();
     }
 
     @Override

@@ -31,15 +31,33 @@ public class MapTraverseScreen implements Screen {
 
     public MapTraverseScreen(AnotherManager anotherManager) {
         myGame = anotherManager;
+
+    }
+
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0.5f, 0.5f, 1f, 1f);
+        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+    }
+
+    @Override
+    public void show() {
         stage = new Stage();
         skin = new Skin();
+        pointTexture = new TextureRegion(myGame.assets.get("data/point.png", Texture.class));
+        mapTexture = myGame.assets.get("data/map.png", Texture.class);
 
         stage.setCamera(myGame.camera);
-        pointTexture = new TextureRegion(new Texture(Gdx.files.internal("data/point.png")));
         ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle();
         style.up = new TextureRegionDrawable(pointTexture);
         style.down = new TextureRegionDrawable(pointTexture);
-        mapTexture = new Texture(Gdx.files.internal("data/map.png"));
+
         pointButton = new ImageButton(style.up, style.down);
         Vector2 position = new Vector2(110, 110);
         pointButton.setPosition(position.x, position.y);
@@ -61,22 +79,7 @@ public class MapTraverseScreen implements Screen {
                 })));
             }
         });
-    }
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0.5f, 0.5f, 1f, 1f);
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        stage.act(delta);
-        stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-    }
-
-    @Override
-    public void show() {
         Gdx.input.setInputProcessor(stage);
     }
 

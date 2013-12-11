@@ -2,6 +2,7 @@ package de.cosh.anothermanager;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,6 +13,7 @@ public class AnotherManager extends Game {
     public GameScreen gameScreen;
     public OrthographicCamera camera;
     public MapTraverseScreen mapTraverseScreen;
+    public AssetManager assets;
 
     public Player player;
     public final int VIRTUAL_WIDTH = 768;
@@ -22,6 +24,7 @@ public class AnotherManager extends Game {
 	
 	@Override
 	public void create() {
+        assets = new AssetManager();
         batch = new SpriteBatch();
         bitmapFont = new BitmapFont();
         camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);

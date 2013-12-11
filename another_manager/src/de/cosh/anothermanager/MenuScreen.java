@@ -34,10 +34,28 @@ public class MenuScreen implements Screen {
     public MenuScreen(final AnotherManager myGame) {
         this.myGame = myGame;
 
-        blub1 = Gdx.audio.newSound(Gdx.files.internal("data/blub1.ogg"));
-        blub2 = Gdx.audio.newSound(Gdx.files.internal("data/blub2.ogg"));
+    }
 
-        logoTexture = new Texture("data/logo.png");
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void show() {
+
+        blub1 = myGame.assets.get("data/blub1.ogg", Sound.class);
+        blub2 = myGame.assets.get("data/blub2.ogg", Sound.class);
+        logoTexture = myGame.assets.get("data/logo.png", Texture.class);
+        Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
+
         logoPosition = new Vector2();
         logoPosition.x = (myGame.VIRTUAL_WIDTH / 2) - (logoTexture.getWidth() / 2);
         logoPosition.y = myGame.VIRTUAL_HEIGHT - (logoTexture.getHeight() * 1.1f);
@@ -49,7 +67,6 @@ public class MenuScreen implements Screen {
 
         stage.setCamera(myGame.camera);
 
-        Texture buttonTexture = new Texture("data/button.png");
         TextureRegion upRegion = new TextureRegion(buttonTexture);
         TextureRegion downRegion = new TextureRegion(buttonTexture);
         BitmapFont buttonFont = new BitmapFont();
@@ -96,22 +113,6 @@ public class MenuScreen implements Screen {
         stage.addAction(Actions.alpha(0));
         stage.addAction(Actions.fadeIn(1));
 
-    }
-
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        stage.act(delta);
-        stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void show() {
         Gdx.input.setInputProcessor(stage);
     }
 
