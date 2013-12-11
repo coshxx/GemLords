@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -70,10 +69,12 @@ public class MapTraverseScreen implements Screen {
         stage.addAction(Actions.fadeIn(1));
 
         pointButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y ) {
+            public void clicked(InputEvent event, float x, float y) {
+                myGame.soundPlayer.PlayBlub1();
                 stage.addAction(Actions.sequence(Actions.fadeOut(.5f), Actions.delay(.5f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
+
                         myGame.setScreen(myGame.gameScreen);
                     }
                 })));

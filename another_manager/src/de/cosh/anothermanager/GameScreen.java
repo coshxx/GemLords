@@ -12,6 +12,10 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Texture redBall, greenBall, blueBall, purpleBall, whiteBall, yellowBall;
 
+    private int MAX_SIZE_X = 9;
+    private int MAX_SIZE_Y = 9;
+
+    private Cell[][] board;
 
     public GameScreen(final AnotherManager myGame) {
         this.myGame = myGame;
@@ -40,13 +44,16 @@ public class GameScreen implements Screen {
         purpleBall = myGame.assets.get("data/ball_purple.png", Texture.class);
         whiteBall = myGame.assets.get("data/ball_white.png", Texture.class);
         yellowBall = myGame.assets.get("data/ball_yellow.png", Texture.class);
+        // ball white enough ?
 
-        for (int x = 0; x < myGame.VIRTUAL_WIDTH; x += 48 ) {
-            Image a = new Image(whiteBall);
-            a.setColor(1f, 0.2f, 0.2f, 1f);
-            a.setBounds(x, 200, 48, 48);
-            stage.addActor(a);
+        board = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
+        for( int x = 0; x < MAX_SIZE_X; x++ ) {
+            for( int y = 0; y < MAX_SIZE_Y; y++) {
+                board[x][y] = new Cell();
+                board[x][y].setOccupant(new Gem(myGame, Gem.GemColor.GEM_RED));
+            }
         }
+
     }
 
     @Override

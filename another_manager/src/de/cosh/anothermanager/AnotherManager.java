@@ -14,6 +14,7 @@ public class AnotherManager extends Game {
     public OrthographicCamera camera;
     public MapTraverseScreen mapTraverseScreen;
     public AssetManager assets;
+    public SoundPlayer soundPlayer;
 
     public Player player;
     public final int VIRTUAL_WIDTH = 720;
@@ -30,9 +31,11 @@ public class AnotherManager extends Game {
         camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         player = new Player();
+        splashScreen = new SplashScreen(this);
+        soundPlayer = new SoundPlayer(this);
 		menuScreen = new MenuScreen(this);
         gameScreen = new GameScreen(this);
-		splashScreen = new SplashScreen(this);
+
         mapTraverseScreen = new MapTraverseScreen(this);
 		setScreen(splashScreen);
 	}

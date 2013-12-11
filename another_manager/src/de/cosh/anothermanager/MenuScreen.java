@@ -26,8 +26,6 @@ public class MenuScreen implements Screen {
     private Stage stage;
     private TextButton newGameButton;
     private TextButton exitGameButton;
-    private Sound blub1;
-    private Sound blub2;
     private RectActor rectActor;
 
 
@@ -50,9 +48,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
-
-        blub1 = myGame.assets.get("data/blub1.ogg", Sound.class);
-        blub2 = myGame.assets.get("data/blub2.ogg", Sound.class);
         logoTexture = myGame.assets.get("data/logo.png", Texture.class);
         Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
 
@@ -79,8 +74,8 @@ public class MenuScreen implements Screen {
         newGameButton.setPosition(logoPosition.x, 400);
         newGameButton.addListener(new ClickListener() {
             public void clicked (com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                blub1.play();
-                stage.addAction(Actions.sequence(Actions.fadeOut(.5f), Actions.delay(.5f), Actions.run(new Runnable() {
+                myGame.soundPlayer.PlayBlub1();
+                stage.addAction(Actions.sequence(Actions.fadeOut(.25f), Actions.delay(.25f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
                         myGame.setScreen(myGame.mapTraverseScreen);
@@ -93,8 +88,8 @@ public class MenuScreen implements Screen {
         exitGameButton.setPosition(logoPosition.x, 150);
         exitGameButton.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                blub2.play();
-                stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.run(new Runnable() {
+                myGame.soundPlayer.PlayBlub2();
+                stage.addAction(Actions.sequence(Actions.fadeOut(.25f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
                         Gdx.app.exit();

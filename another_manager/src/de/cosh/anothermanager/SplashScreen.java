@@ -53,6 +53,8 @@ public class SplashScreen implements Screen {
         stage.draw();
 
         if (myGame.assets.update()) {
+            myGame.soundPlayer.touchSounds();
+            myGame.soundPlayer.PlayBlub2();
             myGame.setScreen(myGame.menuScreen);
         }
         float left = Gdx.graphics.getWidth() * 0.1f;
