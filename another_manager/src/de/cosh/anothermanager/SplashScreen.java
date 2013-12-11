@@ -81,7 +81,6 @@ public class SplashScreen implements Screen {
     @Override
     public void show() {
         splashTexture = new Texture("data/splash.jpg");
-        //batch = new SpriteBatch();
         stage = new Stage();
         stage.setCamera(myGame.camera);
         splashImage = new Image(splashTexture);

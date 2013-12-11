@@ -64,7 +64,6 @@ public class MenuScreen implements Screen {
         logoImage.setPosition(logoPosition.x, logoPosition.y);
 
         stage = new Stage();
-
         stage.setCamera(myGame.camera);
 
         TextureRegion upRegion = new TextureRegion(buttonTexture);

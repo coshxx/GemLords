@@ -5,10 +5,10 @@ package de.cosh.anothermanager;
  */
 public class Player {
     private int currentLevel;
-    private int lifes;
+    private int lives;
 
     public Player() {
         currentLevel = 0;
-        lifes = 5;
+        lives = 5;
     }
 }

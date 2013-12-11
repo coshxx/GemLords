@@ -16,7 +16,7 @@ public class AnotherManager extends Game {
     public AssetManager assets;
 
     public Player player;
-    public final int VIRTUAL_WIDTH = 768;
+    public final int VIRTUAL_WIDTH = 720;
     public final int VIRTUAL_HEIGHT = 1280;
 
     private SpriteBatch batch;
@@ -50,8 +50,8 @@ public class AnotherManager extends Game {
 		super.render();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        bitmapFont.draw(batch, "VW:" + VIRTUAL_WIDTH, 10, 20 );
-        bitmapFont.draw(batch, "VH:" + VIRTUAL_HEIGHT, 10, 50 );
+        bitmapFont.draw(batch, "TW:" + Gdx.graphics.getWidth(), 10, 20 );
+        bitmapFont.draw(batch, "TH:" + Gdx.graphics.getHeight(), 10, 50 );
         batch.end();
 
 	}
