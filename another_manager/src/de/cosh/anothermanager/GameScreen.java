@@ -42,7 +42,8 @@ public class GameScreen implements Screen {
         yellowBall = myGame.assets.get("data/ball_yellow.png", Texture.class);
 
         for (int x = 0; x < myGame.VIRTUAL_WIDTH; x += 48 ) {
-            Image a = new Image(redBall);
+            Image a = new Image(whiteBall);
+            a.setColor(1f, 0.2f, 0.2f, 1f);
             a.setBounds(x, 200, 48, 48);
             stage.addActor(a);
         }
