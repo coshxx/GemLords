@@ -10,12 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class GameScreen implements Screen {
     private final AnotherManager myGame;
     private Stage stage;
-    private Texture redBall, greenBall, blueBall, purpleBall, whiteBall, yellowBall;
 
     private int MAX_SIZE_X = 9;
     private int MAX_SIZE_Y = 9;
+    private int CELL_SIZE = 70;
+    private int PADDING_LEFT = 45;
+    private int PADDING_BOT = 45;
 
     private Cell[][] board;
+    private Image backGroundImage;
 
     public GameScreen(final AnotherManager myGame) {
         this.myGame = myGame;
@@ -38,19 +41,22 @@ public class GameScreen implements Screen {
     public void show() {
         stage = new Stage();
         stage.setCamera(myGame.camera);
-        redBall = myGame.assets.get("data/ball_red.png", Texture.class);
-        greenBall = myGame.assets.get("data/ball_green.png", Texture.class);
-        blueBall = myGame.assets.get("data/ball_blue.png", Texture.class);
-        purpleBall = myGame.assets.get("data/ball_purple.png", Texture.class);
-        whiteBall = myGame.assets.get("data/ball_white.png", Texture.class);
-        yellowBall = myGame.assets.get("data/ball_yellow.png", Texture.class);
-        // ball white enough ?
-
         board = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
+        backGroundImage = new Image(myGame.assets.get("data/background.png", Texture.class));
+        backGroundImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+        stage.addActor(backGroundImage);
+        stage.getSpriteBatch().enableBlending();
         for( int x = 0; x < MAX_SIZE_X; x++ ) {
             for( int y = 0; y < MAX_SIZE_Y; y++) {
-                board[x][y] = new Cell();
-                board[x][y].setOccupant(new Gem(myGame, Gem.GemColor.GEM_RED));
+                board[x][y] = new Cell(myGame.assets.get("data/cell_back.png", Texture.class));
+                board[x][y].setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
+                board[x][y].setColor(1f, 1f, 1f, 0.33f);
+
+                board[x][y].setOccupant(new Gem(myGame, myGame.assets.get("data/ball_red.png", Texture.class)));
+                board[x][y].getOccupant().setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
+
+                stage.addActor(board[x][y]);
+                stage.addActor(board[x][y].getOccupant());
             }
         }
 

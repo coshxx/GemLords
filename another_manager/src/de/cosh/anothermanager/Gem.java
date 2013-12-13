@@ -10,30 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class Gem extends Image {
     private Texture gemTexture;
     private AnotherManager myGame;
-
     private Vector2 current_position;
     private Vector2 destination;
 
-    public enum GemColor {
-        GEM_RED,
-        GEM_WHITE,
-        GEM_BLUE,
-        GEM_YELLOW,
-        GEM_PURPLE,
-        GEM_GREEN
-    }
-
-    ;
-
-    public Gem(AnotherManager game, GemColor gemColor) {
+    public Gem(AnotherManager game, Texture t) {
+        super(t);
         myGame = game;
-        // TODO: change this shit, use only white-gem + color
-        switch (gemColor) {
-            case GEM_RED:
-                gemTexture = game.assets.get("data/ball_red.png", Texture.class);
-                break;
-        }
     }
-
-
 }
