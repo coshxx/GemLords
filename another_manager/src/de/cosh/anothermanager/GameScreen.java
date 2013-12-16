@@ -3,25 +3,20 @@ package de.cosh.anothermanager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.input.GestureDetector.GestureListener;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, GestureListener {
     private final AnotherManager myGame;
     private Stage stage;
-
-    private int MAX_SIZE_X = 9;
-    private int MAX_SIZE_Y = 9;
-    private int CELL_SIZE = 70;
-    private int PADDING_LEFT = 45;
-    private int PADDING_BOT = 45;
-
-    private Cell[][] board;
-    private Image backGroundImage;
+    private SwapGame swapGame;
+    private Vector2 flingStartPosition;
 
     public GameScreen(final AnotherManager myGame) {
         this.myGame = myGame;
+        flingStartPosition = new Vector2();
     }
 
     @Override
@@ -41,25 +36,10 @@ public class GameScreen implements Screen {
     public void show() {
         stage = new Stage();
         stage.setCamera(myGame.camera);
-        board = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
-        backGroundImage = new Image(myGame.assets.get("data/background.png", Texture.class));
-        backGroundImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
-        stage.addActor(backGroundImage);
-        stage.getSpriteBatch().enableBlending();
-        for( int x = 0; x < MAX_SIZE_X; x++ ) {
-            for( int y = 0; y < MAX_SIZE_Y; y++) {
-                board[x][y] = new Cell(myGame.assets.get("data/cell_back.png", Texture.class));
-                board[x][y].setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
-                board[x][y].setColor(1f, 1f, 1f, 0.33f);
-
-                board[x][y].setOccupant(new Gem(myGame, myGame.assets.get("data/ball_red.png", Texture.class)));
-                board[x][y].getOccupant().setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
-
-                stage.addActor(board[x][y]);
-                stage.addActor(board[x][y].getOccupant());
-            }
-        }
-
+        Gdx.input.setInputProcessor(new GestureDetector(this));
+        swapGame = new SwapGame(myGame);
+        swapGame.init();
+        stage.addActor(swapGame);
     }
 
     @Override
@@ -81,4 +61,58 @@ public class GameScreen implements Screen {
     public void dispose() {
     }
 
+    @Override
+    public boolean touchDown(float x, float y, int pointer, int button) {
+        flingStartPosition.set(x, y);
+        stage.screenToStageCoordinates(flingStartPosition);
+        return false;
+    }
+
+    @Override
+    public boolean tap(float x, float y, int count, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean longPress(float x, float y) {
+        return false;
+    }
+
+    @Override
+    public boolean fling(float velocityX, float velocityY, int button) {
+        if (Math.abs(velocityX) > Math.abs(velocityY)) {
+            if (velocityX > 0) {
+                swapGame.swapToTheRight(flingStartPosition);
+            } else {
+                swapGame.swapToTheLeft(flingStartPosition);
+            }
+        } else {
+            if (velocityY > 0) {
+                swapGame.swapToTheBottom(flingStartPosition);
+            } else {
+                swapGame.swapToTheTop(flingStartPosition);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean pan(float x, float y, float deltaX, float deltaY) {
+        return false;
+    }
+
+    @Override
+    public boolean panStop(float x, float y, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean zoom(float initialDistance, float distance) {
+        return false;
+    }
+
+    @Override
+    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+        return false;
+    }
 }
