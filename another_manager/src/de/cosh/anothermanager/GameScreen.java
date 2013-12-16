@@ -23,6 +23,9 @@ public class GameScreen implements Screen, GestureListener {
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+        swapGame.update(delta);
+
         stage.act(delta);
         stage.draw();
     }
