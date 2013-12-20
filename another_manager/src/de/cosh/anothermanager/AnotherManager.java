@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AnotherManager extends Game {
-	public MenuScreen menuScreen;
-	public SplashScreen splashScreen;
+    public MenuScreen menuScreen;
+    public SplashScreen splashScreen;
     public GameScreen gameScreen;
     public OrthographicCamera camera;
     public MapTraverseScreen mapTraverseScreen;
@@ -22,9 +22,9 @@ public class AnotherManager extends Game {
 
     private SpriteBatch batch;
     private BitmapFont bitmapFont;
-	
-	@Override
-	public void create() {
+
+    @Override
+    public void create() {
         assets = new AssetManager();
         batch = new SpriteBatch();
         bitmapFont = new BitmapFont();
@@ -33,37 +33,37 @@ public class AnotherManager extends Game {
         player = new Player();
         splashScreen = new SplashScreen(this);
         soundPlayer = new SoundPlayer(this);
-		menuScreen = new MenuScreen(this);
+        menuScreen = new MenuScreen(this);
         gameScreen = new GameScreen(this);
 
         mapTraverseScreen = new MapTraverseScreen(this);
-		setScreen(splashScreen);
-	}
+        setScreen(splashScreen);
+    }
 
-	@Override
-	public void dispose() {
-	}
+    @Override
+    public void dispose() {
+    }
 
-	@Override
-	public void pause() {
-	}
+    @Override
+    public void pause() {
+    }
 
-	@Override
-	public void render() {		
-		super.render();
+    @Override
+    public void render() {
+        super.render();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        bitmapFont.draw(batch, "TW:" + Gdx.graphics.getWidth(), 10, 20 );
-        bitmapFont.draw(batch, "TH:" + Gdx.graphics.getHeight(), 10, 50 );
+        bitmapFont.draw(batch, "TW:" + Gdx.graphics.getWidth(), 10, 20);
+        bitmapFont.draw(batch, "TH:" + Gdx.graphics.getHeight(), 10, 50);
         batch.end();
 
-	}
+    }
 
-	@Override
-	public void resize(int width, int height) {
-	}
+    @Override
+    public void resize(int width, int height) {
+    }
 
-	@Override
-	public void resume() {
-	}
+    @Override
+    public void resume() {
+    }
 }

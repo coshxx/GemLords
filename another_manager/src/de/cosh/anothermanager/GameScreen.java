@@ -85,15 +85,15 @@ public class GameScreen implements Screen, GestureListener {
     public boolean fling(float velocityX, float velocityY, int button) {
         if (Math.abs(velocityX) > Math.abs(velocityY)) {
             if (velocityX > 0) {
-                swapGame.swapToTheRight(flingStartPosition);
+                swapGame.swapTo(flingStartPosition, 1, 0);
             } else {
-                swapGame.swapToTheLeft(flingStartPosition);
+                swapGame.swapTo(flingStartPosition, -1, 0);
             }
         } else {
             if (velocityY > 0) {
-                swapGame.swapToTheBottom(flingStartPosition);
+                swapGame.swapTo(flingStartPosition, 0, -1);
             } else {
-                swapGame.swapToTheTop(flingStartPosition);
+                swapGame.swapTo(flingStartPosition, 0, 1);
             }
         }
         return false;

@@ -76,57 +76,31 @@ public class SwapGame extends Table {
         return point;
     }
 
-    public void swapToTheRight(Vector2 flingStartPosition) {
+    public void swapTo(Vector2 flingStartPosition, int x, int y) {
         GridPoint2 boardLocation = convertToBoardIndex(flingStartPosition);
-        board[boardLocation.x][boardLocation.y].getOccupant().addAction(Actions.moveBy(CELL_SIZE, 0, GEM_SPEED));
-        board[boardLocation.x + 1][boardLocation.y].getOccupant().addAction(Actions.moveBy(-CELL_SIZE, 0, GEM_SPEED));
+        board[boardLocation.x][boardLocation.y].getOccupant().addAction(Actions.moveBy(CELL_SIZE * x, CELL_SIZE * y, GEM_SPEED));
+        board[boardLocation.x + x][boardLocation.y + y].getOccupant().addAction(Actions.moveBy(-(CELL_SIZE * x), -(CELL_SIZE * y), GEM_SPEED));
         Gem oldOccupant = board[boardLocation.x][boardLocation.y].getOccupant();
-        board[boardLocation.x][boardLocation.y].setOccupant(board[boardLocation.x + 1][boardLocation.y].getOccupant());
-        board[boardLocation.x + 1][boardLocation.y].setOccupant(oldOccupant);
-    }
-
-    public void swapToTheLeft(Vector2 flingStartPosition) {
-        GridPoint2 boardLocation = convertToBoardIndex(flingStartPosition);
-        board[boardLocation.x][boardLocation.y].getOccupant().addAction(Actions.moveBy(-CELL_SIZE, 0, GEM_SPEED));
-        board[boardLocation.x - 1][boardLocation.y].getOccupant().addAction(Actions.moveBy(CELL_SIZE, 0, GEM_SPEED));
-        Gem oldOccupant = board[boardLocation.x][boardLocation.y].getOccupant();
-        board[boardLocation.x][boardLocation.y].setOccupant(board[boardLocation.x - 1][boardLocation.y].getOccupant());
-        board[boardLocation.x - 1][boardLocation.y].setOccupant(oldOccupant);
-    }
-
-    public void swapToTheTop(Vector2 flingStartPosition) {
-        GridPoint2 boardLocation = convertToBoardIndex(flingStartPosition);
-        board[boardLocation.x][boardLocation.y].getOccupant().addAction(Actions.moveBy(0, CELL_SIZE, GEM_SPEED));
-        board[boardLocation.x][boardLocation.y + 1].getOccupant().addAction(Actions.moveBy(0, -CELL_SIZE, GEM_SPEED));
-        Gem oldOccupant = board[boardLocation.x][boardLocation.y].getOccupant();
-        board[boardLocation.x][boardLocation.y].setOccupant(board[boardLocation.x][boardLocation.y + 1].getOccupant());
-        board[boardLocation.x][boardLocation.y + 1].setOccupant(oldOccupant);
-    }
-
-    public void swapToTheBottom(Vector2 flingStartPosition) {
-        GridPoint2 boardLocation = convertToBoardIndex(flingStartPosition);
-        board[boardLocation.x][boardLocation.y].getOccupant().addAction(Actions.moveBy(0, -CELL_SIZE, GEM_SPEED));
-        board[boardLocation.x][boardLocation.y - 1].getOccupant().addAction(Actions.moveBy(0, CELL_SIZE, GEM_SPEED));
-        Gem oldOccupant = board[boardLocation.x][boardLocation.y].getOccupant();
-        board[boardLocation.x][boardLocation.y].setOccupant(board[boardLocation.x][boardLocation.y - 1].getOccupant());
-        board[boardLocation.x][boardLocation.y - 1].setOccupant(oldOccupant);
+        board[boardLocation.x][boardLocation.y].setOccupant(board[boardLocation.x + x][boardLocation.y + y].getOccupant());
+        board[boardLocation.x + x][boardLocation.y + y].setOccupant(oldOccupant);
     }
 
     public void update(float delta) {
-            checkHits();
+        checkHits();
         updateBoardState();
     }
 
     private void updateBoardState() {
-            boolean hadToMove = false;
-            for (int x = 0; x < MAX_SIZE_X; x++) {
-                for (int y = 0; y < MAX_SIZE_Y; y++) {
-                    if (board[x][y].getOccupant().getActions().size > 0)
-                        hadToMove = true;
-                }
+        boolean hadToMove = false;
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
+                if (board[x][y].getOccupant().getActions().size > 0)
+                    hadToMove = true;
             }
-            if (!hadToMove) {
-            }
+        }
+        if (!hadToMove) {
+
+        }
     }
 
     private void checkHits() {
