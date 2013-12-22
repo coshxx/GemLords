@@ -84,12 +84,19 @@ public class SwapGame extends Table {
     }
 
     public void swapTo(Vector2 flingStartPosition, int x, int y) {
-        GridPoint2 boardLocation = convertToBoardIndex(flingStartPosition);
-        board[boardLocation.x][boardLocation.y].getOccupant().addAction(Actions.moveBy(CELL_SIZE * x, CELL_SIZE * y, GEM_SPEED));
-        board[boardLocation.x + x][boardLocation.y + y].getOccupant().addAction(Actions.moveBy(-(CELL_SIZE * x), -(CELL_SIZE * y), GEM_SPEED));
-        Gem oldOccupant = board[boardLocation.x][boardLocation.y].getOccupant();
-        board[boardLocation.x][boardLocation.y].setOccupant(board[boardLocation.x + x][boardLocation.y + y].getOccupant());
-        board[boardLocation.x + x][boardLocation.y + y].setOccupant(oldOccupant);
+        GridPoint2 start = convertToBoardIndex(flingStartPosition);
+        GridPoint2 end = new GridPoint2(start.x + x, start.y + y );
+
+        Gem startOccupant = board[start.x][start.y].getOccupant(), endOccupant = board[end.x][end.y].getOccupant();
+
+        if( startOccupant.getGemType() == GemType.TYPE_NONE || endOccupant.getGemType() == GemType.TYPE_NONE )
+            return;
+
+        board[start.x][start.y].getOccupant().addAction(Actions.moveBy(CELL_SIZE * x, CELL_SIZE * y, GEM_SPEED));
+        board[end.x][end.y].getOccupant().addAction(Actions.moveBy(-(CELL_SIZE * x), -(CELL_SIZE * y), GEM_SPEED));
+        Gem oldOccupant = startOccupant;
+        board[start.x][start.y].setOccupant(board[end.x][end.y].getOccupant());
+        board[end.x][end.y].setOccupant(oldOccupant);
         boardState = BoardState.MOVING;
     }
 
