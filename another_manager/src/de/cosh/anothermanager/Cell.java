@@ -11,12 +11,11 @@ import java.awt.*;
  */
 public class Cell extends Image {
     private Gem currently_occupied_by;
-    private Point position;
     private boolean markedForRemoval;
-    private boolean isEmpty;
 
     public Cell(Texture t) {
         super(t);
+        markedForRemoval = false;
     }
 
     public void setOccupant( Gem g ) {
@@ -27,11 +26,15 @@ public class Cell extends Image {
         return currently_occupied_by;
     }
 
-    public void setMarkedForRemoval(boolean b) { markedForRemoval = b; }
+    public void markForRemoval() {
+        markedForRemoval = true;
+    }
 
-    public boolean isMarkedForRemoval() { return markedForRemoval; }
+    public boolean isMarkedForRemoval() {
+        return markedForRemoval;
+    }
 
-    public void setEmpty(boolean b) { isEmpty = b; }
-
-    public boolean isEmpty() { return isEmpty; }
+    public void removeOccupant() {
+        currently_occupied_by = null;
+    }
 }
