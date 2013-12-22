@@ -37,4 +37,8 @@ public class Cell extends Image {
     public void removeOccupant() {
         currently_occupied_by = null;
     }
+
+    public void unmarkForRemoval() {
+        markedForRemoval = false;
+    }
 }

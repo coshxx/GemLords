@@ -85,11 +85,11 @@ public class SwapGame extends Table {
 
     public void swapTo(Vector2 flingStartPosition, int x, int y) {
         GridPoint2 start = convertToBoardIndex(flingStartPosition);
-        GridPoint2 end = new GridPoint2(start.x + x, start.y + y );
+        GridPoint2 end = new GridPoint2(start.x + x, start.y + y);
 
         Gem startOccupant = board[start.x][start.y].getOccupant(), endOccupant = board[end.x][end.y].getOccupant();
 
-        if( startOccupant.getGemType() == GemType.TYPE_NONE || endOccupant.getGemType() == GemType.TYPE_NONE )
+        if (startOccupant.getGemType() == GemType.TYPE_NONE || endOccupant.getGemType() == GemType.TYPE_NONE)
             return;
 
         board[start.x][start.y].getOccupant().addAction(Actions.moveBy(CELL_SIZE * x, CELL_SIZE * y, GEM_SPEED));
@@ -104,8 +104,34 @@ public class SwapGame extends Table {
         if (boardState == BoardState.IDLE) {
             markHits();
             removeMarkedGems();
+            applyFallingMovement();
         }
         updateBoardState();
+    }
+
+    private void applyFallingMovement() {
+        boolean neededToMoveOne = false;
+
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
+                Gem currentGem = board[x][y].getOccupant();
+
+                if (currentGem.getGemType() == GemType.TYPE_NONE) {
+                    for (int d = y + 1; d < MAX_SIZE_Y; d++) {
+                        if (board[x][d].getOccupant().getGemType() != GemType.TYPE_NONE) {
+                            neededToMoveOne = true;
+                            board[x][d].getOccupant().addAction(Actions.moveBy(0, -(CELL_SIZE * (d - y)), (GEM_SPEED * (d-y))));
+                            System.out.println("Action added: " + x + ", " + d);
+                            board[x][y].setOccupant(board[x][d].getOccupant());
+                            board[x][d].setOccupant(currentGem);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (neededToMoveOne)
+            boardState = BoardState.MOVING;
     }
 
     private void removeMarkedGems() {
@@ -114,6 +140,7 @@ public class SwapGame extends Table {
                 if (board[x][y].isMarkedForRemoval()) {
                     foreGround.removeActor(board[x][y].getOccupant());
                     board[x][y].getOccupant().setToNoGem();
+                    board[x][y].unmarkForRemoval();
                 }
             }
         }
@@ -124,13 +151,13 @@ public class SwapGame extends Table {
 
     private void updateBoardState() {
         boolean hadToMove = false;
-        for( int x = 0; x < MAX_SIZE_X; x++ ) {
-            for( int y = 0; y < MAX_SIZE_Y; y++ ) {
-                if( board[x][y].getOccupant().getActions().size > 0 )
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
+                if (board[x][y].getOccupant().getActions().size > 0)
                     hadToMove = true;
             }
         }
-        if( !hadToMove )
+        if (!hadToMove)
             boardState = BoardState.IDLE;
     }
 
