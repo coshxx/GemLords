@@ -24,7 +24,8 @@ public class SwapGame extends Table {
     private Cell[][] board;
     private Image backGroundImage;
     private Group foreGround, backGround;
-    private float GEM_SPEED = 0.125f;
+    private float GEM_SPEED = 1.125f;
+    private Random r = new Random();
 
     private enum BoardState {
         IDLE,
@@ -58,7 +59,6 @@ public class SwapGame extends Table {
                 board[x][y].setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
                 board[x][y].setColor(1f, 1f, 1f, 0.33f);
 
-                Random r = new Random();
                 board[x][y].setOccupant(new Gem(myGame, GemType.values()[r.nextInt(6)]));
                 board[x][y].getOccupant().setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
 
@@ -105,8 +105,29 @@ public class SwapGame extends Table {
             markHits();
             removeMarkedGems();
             applyFallingMovement();
+            respawnMissingGems();
         }
         updateBoardState();
+    }
+
+    private void respawnMissingGems() {
+
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            int counter = 0;
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
+                Gem currentGem = board[x][y].getOccupant();
+
+                if (currentGem.getGemType() == GemType.TYPE_NONE) {
+                    Gem newGem = new Gem(myGame, GemType.values()[r.nextInt(6)]);
+                    newGem.setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + ((MAX_SIZE_Y + counter) * CELL_SIZE));
+                    counter++;
+                    //newGem.addAction(Actions.moveBy(0, -(CELL_SIZE * (MAX_SIZE_Y-y)), GEM_SPEED * (MAX_SIZE_Y-y)));
+                    newGem.addAction(Actions.moveTo(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE), GEM_SPEED * ((MAX_SIZE_Y+counter) - (y))));
+                    foreGround.addActor(newGem);
+                    board[x][y].setOccupant(newGem);
+                }
+            }
+        }
     }
 
     private void applyFallingMovement() {
@@ -120,7 +141,7 @@ public class SwapGame extends Table {
                     for (int d = y + 1; d < MAX_SIZE_Y; d++) {
                         if (board[x][d].getOccupant().getGemType() != GemType.TYPE_NONE) {
                             neededToMoveOne = true;
-                            board[x][d].getOccupant().addAction(Actions.moveBy(0, -(CELL_SIZE * (d - y)), (GEM_SPEED * (d-y))));
+                            board[x][d].getOccupant().addAction(Actions.moveBy(0, -(CELL_SIZE * (d - y)), (GEM_SPEED * (d - y))));
                             System.out.println("Action added: " + x + ", " + d);
                             board[x][y].setOccupant(board[x][d].getOccupant());
                             board[x][d].setOccupant(currentGem);
