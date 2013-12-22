@@ -25,7 +25,13 @@ public class SwapGame extends Table {
     private Image backGroundImage;
     private Group foreGround, backGround;
     private float GEM_SPEED = 0.125f;
-    private boolean lastMoveChecked;
+
+    private enum BoardState {
+        WAITING,
+        MOVING
+    }
+
+    private BoardState boardState;
 
     public SwapGame(AnotherManager game) {
         myGame = game;
@@ -55,11 +61,13 @@ public class SwapGame extends Table {
                 Random r = new Random();
                 board[x][y].setOccupant(new Gem(myGame, GemType.values()[r.nextInt(6)]));
                 board[x][y].getOccupant().setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
+                board[x][y].setMarkedForRemoval(false);
 
                 backGround.addActor(board[x][y]);
                 foreGround.addActor(board[x][y].getOccupant());
             }
         }
+        boardState = BoardState.WAITING;
     }
 
     private GridPoint2 convertToBoardIndex(Vector2 position) {
@@ -83,11 +91,40 @@ public class SwapGame extends Table {
         Gem oldOccupant = board[boardLocation.x][boardLocation.y].getOccupant();
         board[boardLocation.x][boardLocation.y].setOccupant(board[boardLocation.x + x][boardLocation.y + y].getOccupant());
         board[boardLocation.x + x][boardLocation.y + y].setOccupant(oldOccupant);
+        boardState = BoardState.MOVING;
     }
 
     public void update(float delta) {
-        checkHits();
         updateBoardState();
+        if (boardState == BoardState.WAITING) {
+            markHits();
+            removeMarkedGems();
+        }
+    }
+
+    private void removeMarkedGems() {
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
+                if (board[x][y].isMarkedForRemoval()) {
+                    board[x][y].setMarkedForRemoval(false);
+                    board[x][y].setEmpty(true);
+                    applyForceToGemsAbove(x, y);
+                    foreGround.removeActor(board[x][y].getOccupant());
+                }
+            }
+        }
+    }
+
+    private void applyForceToGemsAbove(int x, int y) {
+        int startAtY = y + 1;
+        if (startAtY >= MAX_SIZE_Y)
+            return;
+
+        for (; startAtY < MAX_SIZE_Y; startAtY++) {
+            if (board[x][startAtY].isMarkedForRemoval() || board[x][startAtY].isEmpty())
+                continue;
+            board[x][startAtY].getOccupant().addAction(Actions.moveBy(0f, -CELL_SIZE, GEM_SPEED));
+        }
     }
 
     private void updateBoardState() {
@@ -99,25 +136,29 @@ public class SwapGame extends Table {
             }
         }
         if (!hadToMove) {
-
+            boardState = BoardState.WAITING;
         }
     }
 
-    private void checkHits() {
+    private void markHits() {
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 int countSame = howManyMatchesToTheRight(x, y);
 
                 if (countSame >= 3) {
                     for (int delta = 0; delta < countSame; delta++) {
-                        foreGround.removeActor(board[x + delta][y].getOccupant());
+                        if (!board[x + delta][y].isEmpty()) {
+                            board[x + delta][y].setMarkedForRemoval(true);
+                        }
                     }
                 }
                 countSame = howManyMatchesToTheTop(x, y);
 
                 if (countSame >= 3) {
                     for (int delta = 0; delta < countSame; delta++) {
-                        foreGround.removeActor(board[x][y + delta].getOccupant());
+                        if (!board[x][y + delta].isEmpty()) {
+                            board[x][y + delta].setMarkedForRemoval(true);
+                        }
                     }
                 }
             }

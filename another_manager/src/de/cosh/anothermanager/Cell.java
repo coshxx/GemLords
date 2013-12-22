@@ -12,6 +12,8 @@ import java.awt.*;
 public class Cell extends Image {
     private Gem currently_occupied_by;
     private Point position;
+    private boolean markedForRemoval;
+    private boolean isEmpty;
 
     public Cell(Texture t) {
         super(t);
@@ -24,4 +26,12 @@ public class Cell extends Image {
     public Gem getOccupant() {
         return currently_occupied_by;
     }
+
+    public void setMarkedForRemoval(boolean b) { markedForRemoval = b; }
+
+    public boolean isMarkedForRemoval() { return markedForRemoval; }
+
+    public void setEmpty(boolean b) { isEmpty = b; }
+
+    public boolean isEmpty() { return isEmpty; }
 }
