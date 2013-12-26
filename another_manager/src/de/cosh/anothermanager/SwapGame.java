@@ -59,6 +59,7 @@ public class SwapGame extends Table {
     }
 
     public void init() {
+        // le merge
         board = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
         backGroundImage = new Image(myGame.assets.get("data/background.png", Texture.class));
         backGroundImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
