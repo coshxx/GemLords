@@ -29,6 +29,8 @@ public class SwapGame extends Table {
 
     private int hits_during_current_move;
 
+    private int INDEV_MAX_GEMS = 6;
+
     private enum BoardState {
         IDLE,
         MOVING
@@ -61,7 +63,7 @@ public class SwapGame extends Table {
                 board[x][y].setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
                 board[x][y].setColor(1f, 1f, 1f, 0.33f);
 
-                board[x][y].setOccupant(new Gem(myGame, GemType.values()[r.nextInt(6)]));
+                board[x][y].setOccupant(new Gem(myGame, GemType.values()[r.nextInt(INDEV_MAX_GEMS)]));
                 board[x][y].getOccupant().setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
 
                 backGround.addActor(board[x][y]);
@@ -87,6 +89,9 @@ public class SwapGame extends Table {
     }
 
     public void swapTo(Vector2 flingStartPosition, int x, int y) {
+        if( boardState != BoardState.IDLE )
+            return;
+
         GridPoint2 start = convertToBoardIndex(flingStartPosition);
         GridPoint2 end = new GridPoint2(start.x + x, start.y + y);
         hits_during_current_move = 0;
@@ -122,10 +127,9 @@ public class SwapGame extends Table {
                 Gem currentGem = board[x][y].getOccupant();
 
                 if (currentGem.getGemType() == GemType.TYPE_NONE) {
-                    Gem newGem = new Gem(myGame, GemType.values()[r.nextInt(6)]);
+                    Gem newGem = new Gem(myGame, GemType.values()[r.nextInt(INDEV_MAX_GEMS)]);
                     newGem.setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (((MAX_SIZE_Y) + counter) * CELL_SIZE));
                     counter++;
-                    //newGem.addAction(Actions.moveBy(0, -(CELL_SIZE * (MAX_SIZE_Y-y)), GEM_SPEED * (MAX_SIZE_Y-y)));
                     newGem.addAction(Actions.moveTo(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE), GEM_SPEED * (((MAX_SIZE_Y - 1) + counter) - (y))));
                     foreGround.addActor(newGem);
                     board[x][y].setOccupant(newGem);
@@ -172,6 +176,7 @@ public class SwapGame extends Table {
         }
 
         if( hadToRemoveSome ) {
+            boardState = BoardState.MOVING;
             myGame.soundPlayer.PlayDing(hits_during_current_move);
             hits_during_current_move++;
         }

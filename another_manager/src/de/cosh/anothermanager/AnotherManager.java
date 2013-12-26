@@ -28,7 +28,7 @@ public class AnotherManager extends Game {
         assets = new AssetManager();
         batch = new SpriteBatch();
         bitmapFont = new BitmapFont();
-        camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         player = new Player();
         splashScreen = new SplashScreen(this);
@@ -61,6 +61,10 @@ public class AnotherManager extends Game {
 
     @Override
     public void resize(int width, int height) {
+        super.resize(width, height);
+        camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        camera.update();
     }
 
     @Override

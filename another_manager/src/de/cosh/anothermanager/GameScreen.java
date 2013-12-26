@@ -32,12 +32,12 @@ public class GameScreen implements Screen, GestureListener {
 
     @Override
     public void resize(int width, int height) {
-
+        stage.setViewport(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
     }
 
     @Override
     public void show() {
-        stage = new Stage();
+        stage = new Stage(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
         stage.setCamera(myGame.camera);
         Gdx.input.setInputProcessor(new GestureDetector(this));
         swapGame = new SwapGame(myGame);
@@ -66,8 +66,12 @@ public class GameScreen implements Screen, GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
+        /*
         flingStartPosition.set(x, y);
         stage.screenToStageCoordinates(flingStartPosition);
+        */
+
+        flingStartPosition = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
         return false;
     }
 
