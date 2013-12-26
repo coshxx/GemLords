@@ -126,6 +126,12 @@ public class SplashScreen implements Screen {
         myGame.assets.load("data/blub1.ogg", Sound.class);
         myGame.assets.load("data/blub2.ogg", Sound.class);
         myGame.assets.load("data/blub3.ogg", Sound.class);
+
+        myGame.assets.load("data/ding1.ogg", Sound.class);
+        myGame.assets.load("data/ding2.ogg", Sound.class);
+        myGame.assets.load("data/ding3.ogg", Sound.class);
+        myGame.assets.load("data/ding4.ogg", Sound.class);
+        myGame.assets.load("data/ding5.ogg", Sound.class);
     }
 
 }
