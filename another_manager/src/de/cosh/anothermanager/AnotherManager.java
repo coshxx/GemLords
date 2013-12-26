@@ -39,7 +39,7 @@ public class AnotherManager extends Game {
 
         mapTraverseScreen = new MapTraverseScreen(this);
 
-        bitmapFont = new BitmapFont()
+        bitmapFont = new BitmapFont();
         setScreen(splashScreen);
     }
 

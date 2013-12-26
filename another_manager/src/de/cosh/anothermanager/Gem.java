@@ -24,7 +24,8 @@ public class Gem extends Image {
         TYPE_RED("data/ball_red.png"),
         TYPE_WHITE("data/ball_white.png"),
         TYPE_YELLOW("data/ball_yellow.png"),
-        TYPE_NONE("");
+        TYPE_NONE(""),
+        TYPE_GREEN_SPECIAL("data/ball_green_special.png");
 
         private String texturePath;
 

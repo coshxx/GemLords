@@ -10,7 +10,7 @@ public class SoundPlayer {
     private AnotherManager myGame;
     private Sound blub1, blub2;
     private Sound[] dings;
-
+    private Sound error;
 
     public SoundPlayer(AnotherManager game) {
         myGame = game;
@@ -35,14 +35,20 @@ public class SoundPlayer {
         dings[2] = myGame.assets.get("data/ding3.ogg", Sound.class);
         dings[3] = myGame.assets.get("data/ding4.ogg", Sound.class);
         dings[4] = myGame.assets.get("data/ding5.ogg", Sound.class);
+
+        error = myGame.assets.get("data/error.ogg", Sound.class);
     }
 
-    public void PlayDing(int hits_during_current_move) {
+    public void playDing(int hits_during_current_move) {
         if( hits_during_current_move > 4 )
             hits_during_current_move = 4;
 
         dings[hits_during_current_move].play();
 
         System.out.println("Playing " + hits_during_current_move);
+    }
+
+    public void playSwapError() {
+        error.play();
     }
 }

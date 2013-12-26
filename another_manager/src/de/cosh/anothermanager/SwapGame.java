@@ -24,12 +24,16 @@ public class SwapGame extends Table {
     private Cell[][] board;
     private Image backGroundImage;
     private Group foreGround, backGround;
-    private float GEM_SPEED = 0.25f;
+    private float GEM_SPEED = 0.20f;
     private Random r = new Random();
 
     private int hits_during_current_move;
 
-    private int INDEV_MAX_GEMS = 6;
+    private int INDEV_MAX_DIFFERENT_GEMS = 6;
+
+    private boolean justSwapped;
+    private Vector2 lastFlingPosition;
+    private GridPoint2 lastSwapDirection;
 
     private enum BoardState {
         IDLE,
@@ -50,6 +54,8 @@ public class SwapGame extends Table {
 
         addActor(backGround);
         addActor(foreGround);
+
+        justSwapped = false;
     }
 
     public void init() {
@@ -63,7 +69,7 @@ public class SwapGame extends Table {
                 board[x][y].setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
                 board[x][y].setColor(1f, 1f, 1f, 0.33f);
 
-                board[x][y].setOccupant(new Gem(myGame, GemType.values()[r.nextInt(INDEV_MAX_GEMS)]));
+                board[x][y].setOccupant(new Gem(myGame, GemType.values()[r.nextInt(INDEV_MAX_DIFFERENT_GEMS)]));
                 board[x][y].getOccupant().setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
 
                 backGround.addActor(board[x][y]);
@@ -89,11 +95,14 @@ public class SwapGame extends Table {
     }
 
     public void swapTo(Vector2 flingStartPosition, int x, int y) {
-        if( boardState != BoardState.IDLE )
+        if (boardState != BoardState.IDLE)
             return;
 
+        justSwapped = true;
+        lastFlingPosition = new Vector2(flingStartPosition);
         GridPoint2 start = convertToBoardIndex(flingStartPosition);
         GridPoint2 end = new GridPoint2(start.x + x, start.y + y);
+        lastSwapDirection = new GridPoint2(x, y);
         hits_during_current_move = 0;
 
         Gem startOccupant = board[start.x][start.y].getOccupant(), endOccupant = board[end.x][end.y].getOccupant();
@@ -120,14 +129,13 @@ public class SwapGame extends Table {
     }
 
     private void respawnMissingGems() {
-
         for (int x = 0; x < MAX_SIZE_X; x++) {
             int counter = 0;
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 Gem currentGem = board[x][y].getOccupant();
 
                 if (currentGem.getGemType() == GemType.TYPE_NONE) {
-                    Gem newGem = new Gem(myGame, GemType.values()[r.nextInt(INDEV_MAX_GEMS)]);
+                    Gem newGem = new Gem(myGame, GemType.values()[r.nextInt(INDEV_MAX_DIFFERENT_GEMS)]);
                     newGem.setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (((MAX_SIZE_Y) + counter) * CELL_SIZE));
                     counter++;
                     newGem.addAction(Actions.moveTo(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE), GEM_SPEED * (((MAX_SIZE_Y - 1) + counter) - (y))));
@@ -175,14 +183,11 @@ public class SwapGame extends Table {
             }
         }
 
-        if( hadToRemoveSome ) {
+        if (hadToRemoveSome) {
             boardState = BoardState.MOVING;
-            myGame.soundPlayer.PlayDing(hits_during_current_move);
+            myGame.soundPlayer.playDing(hits_during_current_move);
             hits_during_current_move++;
         }
-    }
-
-    private void applyForceToGemsAbove(int x, int y) {
     }
 
     private void updateBoardState() {
@@ -199,22 +204,35 @@ public class SwapGame extends Table {
     }
 
     private void markHits() {
+        boolean markedSome = false;
+
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 int result = howManyMatchesToTheRight(x, y);
+
                 if (result >= 3) {
                     for (int d = 0; d < result; d++) {
                         board[x + d][y].markForRemoval();
+                        markedSome = true;
                     }
                 }
                 result = howManyMatchesToTheTop(x, y);
                 if (result >= 3) {
                     for (int d = 0; d < result; d++) {
                         board[x][y + d].markForRemoval();
+                        markedSome = true;
                     }
                 }
             }
         }
+        if( !markedSome ) {
+            if( justSwapped ) {
+                myGame.soundPlayer.playSwapError();
+                swapTo(lastFlingPosition, lastSwapDirection.x, lastSwapDirection.y);
+                boardState = BoardState.MOVING;
+            }
+        }
+        justSwapped = false;
     }
 
     private int howManyMatchesToTheTop(int x, int y) {
