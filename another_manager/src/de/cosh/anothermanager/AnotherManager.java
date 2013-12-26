@@ -22,12 +22,13 @@ public class AnotherManager extends Game {
 
     private SpriteBatch batch;
     private BitmapFont bitmapFont;
+    private static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
     @Override
     public void create() {
         assets = new AssetManager();
         batch = new SpriteBatch();
-        bitmapFont = new BitmapFont();
+
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         player = new Player();
@@ -37,6 +38,8 @@ public class AnotherManager extends Game {
         gameScreen = new GameScreen(this);
 
         mapTraverseScreen = new MapTraverseScreen(this);
+
+        bitmapFont = new BitmapFont()
         setScreen(splashScreen);
     }
 
