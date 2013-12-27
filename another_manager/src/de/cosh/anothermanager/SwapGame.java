@@ -26,9 +26,10 @@ public class SwapGame extends Table {
     private Group foreGround, backGround;
     private float GEM_SPEED = 0.20f;
     private Random r = new Random();
-    private BoardFiller boardFiller;
-
     private int hits_during_current_move;
+
+    private BoardController boardController;
+    private MatchFinder matchFinder;
 
     private int INDEV_MAX_DIFFERENT_GEMS = 6;
 
@@ -44,7 +45,7 @@ public class SwapGame extends Table {
     private BoardState boardState;
 
     public SwapGame(AnotherManager game) {
-        boardFiller = new BoardFiller();
+
         myGame = game;
         setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         setClip(true);
@@ -58,13 +59,19 @@ public class SwapGame extends Table {
         addActor(foreGround);
 
         justSwapped = false;
+
+        boardController = new BoardController();
+        boardController.init(PADDING_BOT, PADDING_LEFT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y, myGame);
+
+        matchFinder = new MatchFinder();
     }
 
     public void init() {
         backGroundImage = new Image(myGame.assets.get("data/background.png", Texture.class));
         backGroundImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         backGround.addActor(backGroundImage);
-        board = boardFiller.fillBoard(MAX_SIZE_X, MAX_SIZE_Y, PADDING_LEFT, PADDING_BOT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, myGame);
+        board = boardController.fillBoard(backGround, foreGround);
+        matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
         boardState = BoardState.IDLE;
         hits_during_current_move = 0;
     }
@@ -90,20 +97,10 @@ public class SwapGame extends Table {
         justSwapped = true;
         lastFlingPosition = new Vector2(flingStartPosition);
         GridPoint2 start = convertToBoardIndex(flingStartPosition);
-        GridPoint2 end = new GridPoint2(start.x + x, start.y + y);
         lastSwapDirection = new GridPoint2(x, y);
         hits_during_current_move = 0;
 
-        Gem startOccupant = board[start.x][start.y].getOccupant(), endOccupant = board[end.x][end.y].getOccupant();
-
-        if (startOccupant.getGemType() == GemType.TYPE_NONE || endOccupant.getGemType() == GemType.TYPE_NONE)
-            return;
-
-        board[start.x][start.y].getOccupant().addAction(Actions.moveBy(CELL_SIZE * x, CELL_SIZE * y, GEM_SPEED));
-        board[end.x][end.y].getOccupant().addAction(Actions.moveBy(-(CELL_SIZE * x), -(CELL_SIZE * y), GEM_SPEED));
-        Gem oldOccupant = startOccupant;
-        board[start.x][start.y].setOccupant(board[end.x][end.y].getOccupant());
-        board[end.x][end.y].setOccupant(oldOccupant);
+        boardController.swapCellTo(start, x, y);
         boardState = BoardState.MOVING;
     }
 
@@ -122,7 +119,6 @@ public class SwapGame extends Table {
             int counter = 0;
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 Gem currentGem = board[x][y].getOccupant();
-
                 if (currentGem.getGemType() == GemType.TYPE_NONE) {
                     Gem newGem = new Gem(myGame, GemType.values()[r.nextInt(INDEV_MAX_DIFFERENT_GEMS)]);
                     newGem.setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (((MAX_SIZE_Y) + counter) * CELL_SIZE));
@@ -193,27 +189,7 @@ public class SwapGame extends Table {
     }
 
     private void markHits() {
-        boolean markedSome = false;
-
-        for (int x = 0; x < MAX_SIZE_X; x++) {
-            for (int y = 0; y < MAX_SIZE_Y; y++) {
-                int result = howManyMatchesToTheRight(x, y);
-
-                if (result >= 3) {
-                    for (int d = 0; d < result; d++) {
-                        board[x + d][y].markForRemoval();
-                        markedSome = true;
-                    }
-                }
-                result = howManyMatchesToTheTop(x, y);
-                if (result >= 3) {
-                    for (int d = 0; d < result; d++) {
-                        board[x][y + d].markForRemoval();
-                        markedSome = true;
-                    }
-                }
-            }
-        }
+        boolean markedSome = matchFinder.markMatches(board);
         if( !markedSome ) {
             if( justSwapped ) {
                 myGame.soundPlayer.playSwapError();
@@ -224,41 +200,5 @@ public class SwapGame extends Table {
         justSwapped = false;
     }
 
-    private int howManyMatchesToTheTop(int x, int y) {
-        GemType currentType = board[x][y].getOccupant().getGemType();
-        if (currentType == GemType.TYPE_NONE)
-            return 0;
-        int searchPos = y;
-        int count = 1;
 
-        while (true) {
-            if (searchPos + 1 >= MAX_SIZE_Y)
-                break;
-            if (board[x][searchPos + 1].getOccupant().getGemType() == currentType) {
-                count++;
-                searchPos++;
-            } else {
-                break;
-            }
-        }
-        return count;
-    }
-
-    private int howManyMatchesToTheRight(int x, int y) {
-        GemType currentType = board[x][y].getOccupant().getGemType();
-        int searchPos = x;
-        int count = 1;
-
-        while (true) {
-            if (searchPos + 1 >= MAX_SIZE_X)
-                break;
-            if (board[searchPos + 1][y].getOccupant().getGemType() == currentType) {
-                count++;
-                searchPos++;
-            } else {
-                break;
-            }
-        }
-        return count;
-    }
 }
