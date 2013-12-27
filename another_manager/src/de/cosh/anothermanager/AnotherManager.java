@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -17,6 +18,7 @@ public class AnotherManager extends Game {
     public SoundPlayer soundPlayer;
 
     public Player player;
+    public Enemy enemy;
     public final int VIRTUAL_WIDTH = 720;
     public final int VIRTUAL_HEIGHT = 1280;
 
@@ -31,7 +33,7 @@ public class AnotherManager extends Game {
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-        player = new Player();
+        player = new Player(this);
         splashScreen = new SplashScreen(this);
         soundPlayer = new SoundPlayer(this);
         menuScreen = new MenuScreen(this);

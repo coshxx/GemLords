@@ -17,6 +17,7 @@ public class BoardController {
     private int PADDING_BOT, PADDING_LEFT, CELL_SIZE, MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y;
     private AnotherManager myGame;
     private float GEM_SPEED = 0.20f;
+    private Random r;
 
     public void init(int PADDING_BOT, int PADDING_LEFT, int CELL_SIZE, int MAX_DIFFERENT_GEMS, int MAX_SIZE_X, int MAX_SIZE_Y, AnotherManager myGame) {
         this.PADDING_BOT = PADDING_BOT;
@@ -26,11 +27,12 @@ public class BoardController {
         this.MAX_SIZE_X = MAX_SIZE_X;
         this.MAX_SIZE_Y = MAX_SIZE_Y;
         this.myGame = myGame;
+        r = new Random();
     }
 
     public Cell[][] fillBoard(Group backGround, Group foreGround) {
         currentBoard = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
-        Random r = new Random();
+
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 currentBoard[x][y] = new Cell(myGame.assets.get("data/cell_back.png", Texture.class));
@@ -63,4 +65,57 @@ public class BoardController {
         currentBoard[end.x][end.y].setOccupant(oldOccupant);
     }
 
+    public int removeAllMarkedGems(Group foreGround) {
+        int hadToRemoveSome = 0;
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
+                if (currentBoard[x][y].isMarkedForRemoval()) {
+                    hadToRemoveSome++;
+                    foreGround.removeActor(currentBoard[x][y].getOccupant());
+                    currentBoard[x][y].getOccupant().setToNoGem();
+                    currentBoard[x][y].unmarkForRemoval();
+                }
+            }
+        }
+        return hadToRemoveSome;
+    }
+
+    public boolean applyFallingActionToGems() {
+        boolean neededToMoveOne = false;
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
+                Gem currentGem = currentBoard[x][y].getOccupant();
+
+                if (currentGem.getGemType() == GemType.TYPE_NONE) {
+                    for (int d = y + 1; d < MAX_SIZE_Y; d++) {
+                        if (currentBoard[x][d].getOccupant().getGemType() != GemType.TYPE_NONE) {
+                            neededToMoveOne = true;
+                            currentBoard[x][d].getOccupant().addAction(Actions.moveBy(0, -(CELL_SIZE * (d - y)), (GEM_SPEED * (d - y))));
+                            currentBoard[x][y].setOccupant(currentBoard[x][d].getOccupant());
+                            currentBoard[x][d].setOccupant(currentGem);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return neededToMoveOne;
+    }
+
+    public void respawnMissingGems(Group foreGround) {
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            int counter = 0;
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
+                Gem currentGem = currentBoard[x][y].getOccupant();
+                if (currentGem.getGemType() == GemType.TYPE_NONE) {
+                    Gem newGem = new Gem(myGame, GemType.values()[r.nextInt(MAX_DIFFERENT_GEMS)]);
+                    newGem.setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (((MAX_SIZE_Y) + counter) * CELL_SIZE));
+                    counter++;
+                    newGem.addAction(Actions.moveTo(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE), GEM_SPEED * (((MAX_SIZE_Y - 1) + counter) - (y))));
+                    foreGround.addActor(newGem);
+                    currentBoard[x][y].setOccupant(newGem);
+                }
+            }
+        }
+    }
 }

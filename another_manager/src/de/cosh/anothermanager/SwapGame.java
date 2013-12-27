@@ -1,6 +1,7 @@
 package de.cosh.anothermanager;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -37,12 +38,22 @@ public class SwapGame extends Table {
     private Vector2 lastFlingPosition;
     private GridPoint2 lastSwapDirection;
 
+    private Player player;
+    private Enemy enemy;
+
     private enum BoardState {
         IDLE,
         MOVING
     }
 
     private BoardState boardState;
+
+    @Override
+    public void draw(SpriteBatch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        player.draw(batch, parentAlpha);
+        enemy.draw(batch, parentAlpha);
+    }
 
     public SwapGame(AnotherManager game) {
 
@@ -64,6 +75,16 @@ public class SwapGame extends Table {
         boardController.init(PADDING_BOT, PADDING_LEFT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y, myGame);
 
         matchFinder = new MatchFinder();
+        player = myGame.player;
+        player.setHealthBarPosition(PADDING_LEFT, PADDING_BOT-40, (CELL_SIZE * MAX_SIZE_X), 25 );
+
+        enemy = new Enemy(myGame.assets.get("data/enemy.png", Texture.class), myGame);
+        enemy.init();
+        enemy.setHealthBarPosition(PADDING_LEFT, PADDING_BOT + (CELL_SIZE*MAX_SIZE_Y) + 160, (CELL_SIZE * MAX_SIZE_X), 25);
+        enemy.setPosition(PADDING_LEFT + 250, PADDING_BOT + (CELL_SIZE*MAX_SIZE_Y) + 200);
+
+        foreGround.addActor(player);
+        foreGround.addActor(enemy);
     }
 
     public void init() {
@@ -74,6 +95,7 @@ public class SwapGame extends Table {
         matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
         boardState = BoardState.IDLE;
         hits_during_current_move = 0;
+
     }
 
     private GridPoint2 convertToBoardIndex(Vector2 position) {
@@ -94,6 +116,7 @@ public class SwapGame extends Table {
         if (boardState != BoardState.IDLE)
             return;
 
+        player.damage(5);
         justSwapped = true;
         lastFlingPosition = new Vector2(flingStartPosition);
         GridPoint2 start = convertToBoardIndex(flingStartPosition);
@@ -115,63 +138,24 @@ public class SwapGame extends Table {
     }
 
     private void respawnMissingGems() {
-        for (int x = 0; x < MAX_SIZE_X; x++) {
-            int counter = 0;
-            for (int y = 0; y < MAX_SIZE_Y; y++) {
-                Gem currentGem = board[x][y].getOccupant();
-                if (currentGem.getGemType() == GemType.TYPE_NONE) {
-                    Gem newGem = new Gem(myGame, GemType.values()[r.nextInt(INDEV_MAX_DIFFERENT_GEMS)]);
-                    newGem.setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (((MAX_SIZE_Y) + counter) * CELL_SIZE));
-                    counter++;
-                    newGem.addAction(Actions.moveTo(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE), GEM_SPEED * (((MAX_SIZE_Y - 1) + counter) - (y))));
-                    foreGround.addActor(newGem);
-                    board[x][y].setOccupant(newGem);
-                }
-            }
-        }
+        boardController.respawnMissingGems(foreGround);
     }
 
     private void applyFallingMovement() {
-        boolean neededToMoveOne = false;
+        boolean neededToMoveOne = boardController.applyFallingActionToGems();
 
-        for (int x = 0; x < MAX_SIZE_X; x++) {
-            for (int y = 0; y < MAX_SIZE_Y; y++) {
-                Gem currentGem = board[x][y].getOccupant();
-
-                if (currentGem.getGemType() == GemType.TYPE_NONE) {
-                    for (int d = y + 1; d < MAX_SIZE_Y; d++) {
-                        if (board[x][d].getOccupant().getGemType() != GemType.TYPE_NONE) {
-                            neededToMoveOne = true;
-                            board[x][d].getOccupant().addAction(Actions.moveBy(0, -(CELL_SIZE * (d - y)), (GEM_SPEED * (d - y))));
-                            board[x][y].setOccupant(board[x][d].getOccupant());
-                            board[x][d].setOccupant(currentGem);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
         if (neededToMoveOne)
             boardState = BoardState.MOVING;
     }
 
     private void removeMarkedGems() {
-        boolean hadToRemoveSome = false;
-        for (int x = 0; x < MAX_SIZE_X; x++) {
-            for (int y = 0; y < MAX_SIZE_Y; y++) {
-                if (board[x][y].isMarkedForRemoval()) {
-                    hadToRemoveSome = true;
-                    foreGround.removeActor(board[x][y].getOccupant());
-                    board[x][y].getOccupant().setToNoGem();
-                    board[x][y].unmarkForRemoval();
-                }
-            }
-        }
+        int hadToRemoveSome = boardController.removeAllMarkedGems(foreGround);
 
-        if (hadToRemoveSome) {
+        if (hadToRemoveSome > 0) {
             boardState = BoardState.MOVING;
             myGame.soundPlayer.playDing(hits_during_current_move);
             hits_during_current_move++;
+            enemy.damage(hadToRemoveSome);
         }
     }
 
@@ -199,6 +183,6 @@ public class SwapGame extends Table {
         }
         justSwapped = false;
     }
-
-
 }
+
+
