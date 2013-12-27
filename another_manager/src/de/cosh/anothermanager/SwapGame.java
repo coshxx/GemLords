@@ -26,6 +26,7 @@ public class SwapGame extends Table {
     private Group foreGround, backGround;
     private float GEM_SPEED = 0.20f;
     private Random r = new Random();
+    private BoardFiller boardFiller;
 
     private int hits_during_current_move;
 
@@ -43,6 +44,7 @@ public class SwapGame extends Table {
     private BoardState boardState;
 
     public SwapGame(AnotherManager game) {
+        boardFiller = new BoardFiller();
         myGame = game;
         setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         setClip(true);
@@ -59,24 +61,10 @@ public class SwapGame extends Table {
     }
 
     public void init() {
-        // le merge
-        board = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
         backGroundImage = new Image(myGame.assets.get("data/background.png", Texture.class));
         backGroundImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         backGround.addActor(backGroundImage);
-        for (int x = 0; x < MAX_SIZE_X; x++) {
-            for (int y = 0; y < MAX_SIZE_Y; y++) {
-                board[x][y] = new Cell(myGame.assets.get("data/cell_back.png", Texture.class));
-                board[x][y].setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
-                board[x][y].setColor(1f, 1f, 1f, 0.33f);
-
-                board[x][y].setOccupant(new Gem(myGame, GemType.values()[r.nextInt(INDEV_MAX_DIFFERENT_GEMS)]));
-                board[x][y].getOccupant().setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE));
-
-                backGround.addActor(board[x][y]);
-                foreGround.addActor(board[x][y].getOccupant());
-            }
-        }
+        board = boardFiller.fillBoard(MAX_SIZE_X, MAX_SIZE_Y, PADDING_LEFT, PADDING_BOT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, myGame);
         boardState = BoardState.IDLE;
         hits_during_current_move = 0;
     }
