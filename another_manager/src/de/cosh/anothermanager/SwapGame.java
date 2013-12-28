@@ -5,10 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import de.cosh.anothermanager.Gem.GemType;
 
 import java.util.Random;
 
@@ -56,7 +54,6 @@ public class SwapGame extends Table {
     }
 
     public SwapGame(AnotherManager game) {
-
         myGame = game;
         setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         setClip(true);
@@ -75,6 +72,23 @@ public class SwapGame extends Table {
         boardController.init(PADDING_BOT, PADDING_LEFT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y, myGame);
 
         matchFinder = new MatchFinder();
+    }
+
+    public void init() {
+        backGroundImage = new Image(myGame.assets.get("data/background.png", Texture.class));
+        backGroundImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+        backGround.addActor(backGroundImage);
+        board = boardController.fillBoard(backGround, foreGround);
+        matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
+
+        while( matchFinder.findMatches(board, false)) {
+            backGround.clear();
+            foreGround.clear();
+            backGround.addActor(backGroundImage);
+            board = boardController.fillBoard(backGround, foreGround);
+            matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
+        }
+
         player = myGame.player;
         player.setHealthBarPosition(PADDING_LEFT, PADDING_BOT-40, (CELL_SIZE * MAX_SIZE_X), 25 );
 
@@ -85,14 +99,7 @@ public class SwapGame extends Table {
 
         foreGround.addActor(player);
         foreGround.addActor(enemy);
-    }
 
-    public void init() {
-        backGroundImage = new Image(myGame.assets.get("data/background.png", Texture.class));
-        backGroundImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
-        backGround.addActor(backGroundImage);
-        board = boardController.fillBoard(backGround, foreGround);
-        matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
         boardState = BoardState.IDLE;
         hits_during_current_move = 0;
 
@@ -173,7 +180,7 @@ public class SwapGame extends Table {
     }
 
     private void markHits() {
-        boolean markedSome = matchFinder.markMatches(board);
+        boolean markedSome = matchFinder.findMatches(board, true);
         if( !markedSome ) {
             if( justSwapped ) {
                 myGame.soundPlayer.playSwapError();

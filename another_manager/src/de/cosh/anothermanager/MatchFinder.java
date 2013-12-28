@@ -8,7 +8,7 @@ public class MatchFinder {
     private int MAX_SIZE_X, MAX_SIZE_Y;
     private Cell[][] board;
 
-    public boolean markMatches(Cell[][] board) {
+    public boolean findMatches(Cell[][] board, boolean mark) {
         boolean foundSome = false;
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
@@ -16,14 +16,18 @@ public class MatchFinder {
 
                 if (result >= 3) {
                     for (int d = 0; d < result; d++) {
-                        board[x + d][y].markForRemoval();
+                        if (mark) {
+                            board[x + d][y].markForRemoval();
+                        }
                         foundSome = true;
                     }
                 }
                 result = howManyMatchesToTheTop(x, y);
                 if (result >= 3) {
                     for (int d = 0; d < result; d++) {
-                        board[x][y + d].markForRemoval();
+                        if (mark) {
+                            board[x][y + d].markForRemoval();
+                        }
                         foundSome = true;
                     }
                 }
