@@ -1,12 +1,20 @@
 package de.cosh.anothermanager;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.Random;
 
@@ -38,6 +46,8 @@ public class SwapGame extends Table {
 
     private Player player;
     private Enemy enemy;
+
+    private boolean showingWindow;
 
     private enum BoardState {
         IDLE,
@@ -72,6 +82,7 @@ public class SwapGame extends Table {
         boardController.init(PADDING_BOT, PADDING_LEFT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y, myGame);
 
         matchFinder = new MatchFinder();
+        showingWindow = false;
     }
 
     public void init() {
@@ -81,7 +92,7 @@ public class SwapGame extends Table {
         board = boardController.fillBoard(backGround, foreGround);
         matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
 
-        while( matchFinder.findMatches(board, false)) {
+        while (matchFinder.findMatches(board, false)) {
             backGround.clear();
             foreGround.clear();
             backGround.addActor(backGroundImage);
@@ -90,12 +101,12 @@ public class SwapGame extends Table {
         }
 
         player = myGame.player;
-        player.setHealthBarPosition(PADDING_LEFT, PADDING_BOT-40, (CELL_SIZE * MAX_SIZE_X), 25 );
+        player.setHealthBarPosition(PADDING_LEFT, PADDING_BOT - 40, (CELL_SIZE * MAX_SIZE_X), 25);
 
         enemy = new Enemy(myGame.assets.get("data/enemy.png", Texture.class), myGame);
         enemy.init();
-        enemy.setHealthBarPosition(PADDING_LEFT, PADDING_BOT + (CELL_SIZE*MAX_SIZE_Y) + 160, (CELL_SIZE * MAX_SIZE_X), 25);
-        enemy.setPosition(PADDING_LEFT + 250, PADDING_BOT + (CELL_SIZE*MAX_SIZE_Y) + 200);
+        enemy.setHealthBarPosition(PADDING_LEFT, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 160, (CELL_SIZE * MAX_SIZE_X), 25);
+        enemy.setPosition(PADDING_LEFT + 250, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 200);
 
         foreGround.addActor(player);
         foreGround.addActor(enemy);
@@ -135,13 +146,44 @@ public class SwapGame extends Table {
     }
 
     public void update(float delta) {
-        if (boardState == BoardState.IDLE) {
-            markHits();
-            removeMarkedGems();
-            applyFallingMovement();
-            respawnMissingGems();
+        if (!showingWindow) {
+            if (boardState == BoardState.IDLE) {
+                markHits();
+                removeMarkedGems();
+                applyFallingMovement();
+                respawnMissingGems();
+            }
+            updateBoardState();
+            updateGameState();
         }
-        updateBoardState();
+    }
+
+    private void updateGameState() {
+        if (player.getHealth() <= 0 && !showingWindow) {
+            showingWindow = true;
+            Window.WindowStyle style = new Window.WindowStyle();
+            style.titleFont = new BitmapFont();
+            style.titleFont.setScale(2f);
+            style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
+            style.titleFontColor = new Color(1.0f, 0.2f, 0.2f, 1f);
+            Window window = new Window("You lose", style);
+            window.setPosition(200, 200);
+            window.setSize(200, 200);
+            foreGround.addActor(window);
+        }
+
+        if (enemy.getHealth() <= 0 && !showingWindow) {
+            showingWindow = true;
+            Window.WindowStyle style = new Window.WindowStyle();
+            style.titleFont = new BitmapFont();
+            style.titleFont.setScale(2f);
+            style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
+            style.titleFontColor = new Color(0.2f, 1.0f, 0.2f, 1f);
+            Window window = new Window("You win", style);
+            window.setPosition(200, 200);
+            window.setSize(200, 200);
+            foreGround.addActor(window);
+        }
     }
 
     private void respawnMissingGems() {
@@ -181,8 +223,8 @@ public class SwapGame extends Table {
 
     private void markHits() {
         boolean markedSome = matchFinder.findMatches(board, true);
-        if( !markedSome ) {
-            if( justSwapped ) {
+        if (!markedSome) {
+            if (justSwapped) {
                 myGame.soundPlayer.playSwapError();
                 swapTo(lastFlingPosition, lastSwapDirection.x, lastSwapDirection.y);
                 boardState = BoardState.MOVING;

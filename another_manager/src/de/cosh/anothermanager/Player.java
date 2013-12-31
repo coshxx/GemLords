@@ -37,4 +37,8 @@ public class Player extends Actor {
     public void damage(int damage) {
         healthBar.hit(damage);
     }
+
+    public int getHealth() {
+        return healthBar.getHealthpoints();
+    }
 }

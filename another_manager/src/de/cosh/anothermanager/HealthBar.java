@@ -57,4 +57,8 @@ public class HealthBar {
             healthpoints = 0;
         }
     }
+
+    public int getHealthpoints() {
+        return healthpoints;
+    }
 }

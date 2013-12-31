@@ -39,4 +39,8 @@ public class Enemy extends Image {
     public void act(float delta) {
         healthBar.update(delta);
     }
+
+    public int getHealth() {
+        return healthBar.getHealthpoints();
+    }
 }
