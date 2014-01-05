@@ -11,6 +11,7 @@ public class SoundPlayer {
     private Sound blub1, blub2;
     private Sound[] dings;
     private Sound error;
+    private Sound awesome;
 
     public SoundPlayer(AnotherManager game) {
         myGame = game;
@@ -37,6 +38,8 @@ public class SoundPlayer {
         dings[4] = myGame.assets.get("data/ding5.ogg", Sound.class);
 
         error = myGame.assets.get("data/error.ogg", Sound.class);
+
+        awesome = myGame.assets.get("data/awesome.ogg", Sound.class);
     }
 
     public void playDing(int hits_during_current_move) {
@@ -50,5 +53,9 @@ public class SoundPlayer {
 
     public void playSwapError() {
         error.play();
+    }
+
+    public void playAwesome() {
+        awesome.play();
     }
 }

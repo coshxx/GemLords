@@ -65,19 +65,17 @@ public class BoardController {
         currentBoard[end.x][end.y].setOccupant(oldOccupant);
     }
 
-    public int removeAllMarkedGems(Group foreGround) {
-        int hadToRemoveSome = 0;
+    public int playFadingAnimationOnMarkedGems(Group foreGround) {
+        int didSome = 0;
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 if (currentBoard[x][y].isMarkedForRemoval()) {
-                    hadToRemoveSome++;
-                    foreGround.removeActor(currentBoard[x][y].getOccupant());
-                    currentBoard[x][y].getOccupant().setToNoGem();
-                    currentBoard[x][y].unmarkForRemoval();
+                    didSome++;
+                    currentBoard[x][y].getOccupant().addAction(Actions.parallel(Actions.scaleBy(-1f, -1f, 0.15f), Actions.moveBy(35f, 35f, 0.15f)));
                 }
             }
         }
-        return hadToRemoveSome;
+        return didSome;
     }
 
     public boolean applyFallingActionToGems() {
@@ -117,5 +115,18 @@ public class BoardController {
                 }
             }
         }
+    }
+
+    public void removeMarkedGems(Group foreGround) {
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
+                if (currentBoard[x][y].isMarkedForRemoval()) {
+                    foreGround.removeActor(currentBoard[x][y].getOccupant());
+                    currentBoard[x][y].getOccupant().setToNoGem();
+                    currentBoard[x][y].unmarkForRemoval();
+                }
+            }
+        }
+        return;
     }
 }

@@ -1,5 +1,6 @@
 package de.cosh.anothermanager;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,12 +9,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.Random;
@@ -38,7 +37,7 @@ public class SwapGame extends Table {
     private BoardController boardController;
     private MatchFinder matchFinder;
 
-    private int INDEV_MAX_DIFFERENT_GEMS = 6;
+    private int INDEV_MAX_DIFFERENT_GEMS = 4;
 
     private boolean justSwapped;
     private Vector2 lastFlingPosition;
@@ -51,7 +50,9 @@ public class SwapGame extends Table {
 
     private enum BoardState {
         IDLE,
-        MOVING
+        CHECK,
+        MOVING,
+        FADING
     }
 
     private BoardState boardState;
@@ -139,19 +140,15 @@ public class SwapGame extends Table {
         lastFlingPosition = new Vector2(flingStartPosition);
         GridPoint2 start = convertToBoardIndex(flingStartPosition);
         lastSwapDirection = new GridPoint2(x, y);
-        hits_during_current_move = 0;
-
         boardController.swapCellTo(start, x, y);
         boardState = BoardState.MOVING;
     }
 
     public void update(float delta) {
         if (!showingWindow) {
-            if (boardState == BoardState.IDLE) {
+            if (boardState == BoardState.IDLE || boardState == BoardState.CHECK) {
                 markHits();
-                removeMarkedGems();
-                applyFallingMovement();
-                respawnMissingGems();
+                fadeMarkedGems();
             }
             updateBoardState();
             updateGameState();
@@ -197,26 +194,43 @@ public class SwapGame extends Table {
             boardState = BoardState.MOVING;
     }
 
-    private void removeMarkedGems() {
-        int hadToRemoveSome = boardController.removeAllMarkedGems(foreGround);
+    private void fadeMarkedGems() {
+        int didSome = boardController.playFadingAnimationOnMarkedGems(foreGround);
 
-        if (hadToRemoveSome > 0) {
-            boardState = BoardState.MOVING;
+        if (didSome > 0) {
+            boardState = BoardState.FADING;
             myGame.soundPlayer.playDing(hits_during_current_move);
             hits_during_current_move++;
-            enemy.damage(hadToRemoveSome);
+            enemy.damage(didSome);
         }
     }
 
     private void updateBoardState() {
-        boolean hadToMove = false;
+        boolean hadActions = false;
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 if (board[x][y].getOccupant().getActions().size > 0)
-                    hadToMove = true;
+                    hadActions = true;
             }
         }
-        if (!hadToMove) {
+        if (!hadActions && boardState == BoardState.FADING) {
+            boardController.removeMarkedGems(foreGround);
+            applyFallingMovement();
+            respawnMissingGems();
+            boardState = BoardState.MOVING;
+
+        } else if (!hadActions && boardState == BoardState.MOVING) {
+            boardState = BoardState.CHECK;
+        } else if (!hadActions && boardState == BoardState.CHECK) {
+            if (hits_during_current_move > 3) {
+                myGame.soundPlayer.playAwesome();
+                Image awesome = new Image(myGame.assets.get("data/awesome.png", Texture.class));
+                awesome.setPosition(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT/2);
+                // TODO: hardcoded shit
+                awesome.addAction(Actions.sequence(Actions.moveBy(-myGame.VIRTUAL_WIDTH*0.845f, 0, 0.15f), Actions.delay(1f), Actions.moveBy(-myGame.VIRTUAL_WIDTH, 0, 0.15f), Actions.removeActor(awesome)));
+                foreGround.addActor(awesome);
+            }
+            hits_during_current_move = 0;
             boardState = BoardState.IDLE;
         }
     }
