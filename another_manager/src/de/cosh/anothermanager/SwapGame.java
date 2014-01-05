@@ -37,7 +37,7 @@ public class SwapGame extends Table {
     private BoardController boardController;
     private MatchFinder matchFinder;
 
-    private int INDEV_MAX_DIFFERENT_GEMS = 4;
+    private int INDEV_MAX_DIFFERENT_GEMS = 6;
 
     private boolean justSwapped;
     private Vector2 lastFlingPosition;
@@ -132,7 +132,7 @@ public class SwapGame extends Table {
     }
 
     public void swapTo(Vector2 flingStartPosition, int x, int y) {
-        if (boardState != BoardState.IDLE)
+        if (boardState != BoardState.IDLE && boardState != BoardState.CHECK)
             return;
 
         player.damage(5);
