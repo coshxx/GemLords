@@ -2,6 +2,7 @@ package de.cosh.anothermanager;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import de.cosh.anothermanager.Gem.GemType;
@@ -16,7 +17,7 @@ public class BoardController {
     private Cell[][] currentBoard;
     private int PADDING_BOT, PADDING_LEFT, CELL_SIZE, MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y;
     private AnotherManager myGame;
-    private float GEM_SPEED = 0.20f;
+    private float GEM_SPEED = 0.15f;
     private Random r;
 
     public void init(int PADDING_BOT, int PADDING_LEFT, int CELL_SIZE, int MAX_DIFFERENT_GEMS, int MAX_SIZE_X, int MAX_SIZE_Y, AnotherManager myGame) {
@@ -88,7 +89,7 @@ public class BoardController {
                     for (int d = y + 1; d < MAX_SIZE_Y; d++) {
                         if (currentBoard[x][d].getOccupant().getGemType() != GemType.TYPE_NONE) {
                             neededToMoveOne = true;
-                            currentBoard[x][d].getOccupant().addAction(Actions.moveBy(0, -(CELL_SIZE * (d - y)), (GEM_SPEED * (d - y))));
+                            currentBoard[x][d].getOccupant().addAction(Actions.moveBy(0, -(CELL_SIZE * (d - y)), (GEM_SPEED * (d - y)), new Interpolation.ExpOut(0.2f, 1f)));
                             currentBoard[x][y].setOccupant(currentBoard[x][d].getOccupant());
                             currentBoard[x][d].setOccupant(currentGem);
                             break;
@@ -109,7 +110,7 @@ public class BoardController {
                     Gem newGem = new Gem(myGame, GemType.values()[r.nextInt(MAX_DIFFERENT_GEMS)]);
                     newGem.setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (((MAX_SIZE_Y) + counter) * CELL_SIZE));
                     counter++;
-                    newGem.addAction(Actions.moveTo(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE), GEM_SPEED * (((MAX_SIZE_Y - 1) + counter) - (y))));
+                    newGem.addAction(Actions.moveTo(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE), (GEM_SPEED * (((MAX_SIZE_Y - 1) + counter) - (y))), new Interpolation.ExpOut(0.2f, 1f)));
                     foreGround.addActor(newGem);
                     currentBoard[x][y].setOccupant(newGem);
                 }
@@ -122,8 +123,11 @@ public class BoardController {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 if (currentBoard[x][y].isMarkedForRemoval()) {
                     foreGround.removeActor(currentBoard[x][y].getOccupant());
+                    StarEffect e = new StarEffect(myGame);
+                    e.spawnStars(currentBoard[x][y].getOccupant().getX(), currentBoard[x][y].getOccupant().getY(), foreGround);
                     currentBoard[x][y].getOccupant().setToNoGem();
                     currentBoard[x][y].unmarkForRemoval();
+
                 }
             }
         }

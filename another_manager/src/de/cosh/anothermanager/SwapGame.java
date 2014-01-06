@@ -30,7 +30,6 @@ public class SwapGame extends Table {
     private Cell[][] board;
     private Image backGroundImage;
     private Group foreGround, backGround;
-    private float GEM_SPEED = 0.20f;
     private Random r = new Random();
     private int hits_during_current_move;
 
