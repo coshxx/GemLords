@@ -38,10 +38,7 @@ public class Gem extends Image {
         }
     }
 
-    private Texture gemTexture;
     private AnotherManager myGame;
-    private Vector2 current_position;
-    private Vector2 destination;
     private GemType gemType;
 
     public Gem(AnotherManager game, GemType g) {
@@ -57,17 +54,16 @@ public class Gem extends Image {
     @Override
     public void draw(SpriteBatch batch, float parentAlpha) {
         Stage stage = this.getStage();
-        Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, myGame.VIRTUAL_HEIGHT));
-        Vector2 end = stage.stageToScreenCoordinates(new Vector2(myGame.VIRTUAL_WIDTH-150, myGame.VIRTUAL_HEIGHT-675));
+        Vector2 begin = stage.stageToScreenCoordinates(new Vector2(45, myGame.VIRTUAL_HEIGHT-45));
+        Vector2 end = stage.stageToScreenCoordinates(new Vector2(myGame.VIRTUAL_WIDTH-90, myGame.VIRTUAL_HEIGHT-630));
         Rectangle scissor = new Rectangle();
         Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
         ScissorStack.calculateScissors(myGame.camera, 0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, batch.getTransformMatrix(), clipBounds, scissor);
-
+        batch.flush();
         ScissorStack.pushScissors(scissor);
 
         super.draw(batch, parentAlpha);
         batch.flush();
-
         ScissorStack.popScissors();
     }
 
