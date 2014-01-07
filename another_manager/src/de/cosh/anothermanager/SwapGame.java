@@ -9,10 +9,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -57,13 +60,6 @@ public class SwapGame extends Table {
 
     private BoardState boardState;
 
-    @Override
-    public void draw(SpriteBatch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        player.draw(batch, parentAlpha);
-        enemy.draw(batch, parentAlpha);
-    }
-
     public SwapGame(AnotherManager game) {
         myGame = game;
         setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
@@ -106,11 +102,11 @@ public class SwapGame extends Table {
 
         enemy = new Enemy(myGame.assets.get("data/enemy.png", Texture.class), myGame);
         enemy.init();
-        enemy.setHealthBarPosition(PADDING_LEFT, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 160, (CELL_SIZE * MAX_SIZE_X), 25);
-        enemy.setPosition(PADDING_LEFT + 250, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 200);
+        enemy.setHealthBarPosition(PADDING_LEFT, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 360, (CELL_SIZE * MAX_SIZE_X), 25);
+        enemy.setPosition(PADDING_LEFT + 250, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 400);
 
-        foreGround.addActor(player);
         foreGround.addActor(enemy);
+        foreGround.addActor(player);
 
         boardState = BoardState.IDLE;
         hits_during_current_move = 0;
@@ -164,9 +160,36 @@ public class SwapGame extends Table {
             style.titleFont.setScale(2f);
             style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
             style.titleFontColor = new Color(1.0f, 0.2f, 0.2f, 1f);
+
+
+
             Window window = new Window("You lose", style);
             window.setPosition(200, 200);
+            window.setMovable(true);
+            window.setModal(false);
             window.setSize(200, 200);
+
+            TextButton button;
+            TextButton.TextButtonStyle tStyle;
+            tStyle = new TextButton.TextButtonStyle();
+            Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
+            BitmapFont buttonFont = new BitmapFont();
+            tStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+            tStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+            tStyle.font = buttonFont;
+
+            button = new TextButton("Loot", tStyle);
+            button.setPosition(50, 50);
+            button.setSize(100, 100);
+            Gdx.input.setInputProcessor(this.getStage());
+            button.addListener(new ClickListener() {
+                public void clicked(InputEvent event, float x, float y) {
+                    fadeToLoot();
+                }
+            });
+            window.addActor(button);
+
+
             foreGround.addActor(window);
         }
 
@@ -179,9 +202,35 @@ public class SwapGame extends Table {
             style.titleFontColor = new Color(0.2f, 1.0f, 0.2f, 1f);
             Window window = new Window("You win", style);
             window.setPosition(200, 200);
+            window.setMovable(true);
+            window.setModal(false);
             window.setSize(200, 200);
+
+            TextButton button;
+            TextButton.TextButtonStyle tStyle;
+            tStyle = new TextButton.TextButtonStyle();
+            Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
+            BitmapFont buttonFont = new BitmapFont();
+            tStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+            tStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+            tStyle.font = buttonFont;
+            button = new TextButton("Loot", tStyle);
+            button.setPosition(50, 50);
+            button.setSize(100, 100);
+            window.addActor(button);
+
+
             foreGround.addActor(window);
         }
+    }
+
+    private void fadeToLoot() {
+        this.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                myGame.setScreen(myGame.lootScreen);
+            }
+        })));
     }
 
     private void respawnMissingGems() {

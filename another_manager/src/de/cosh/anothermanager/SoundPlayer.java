@@ -12,6 +12,7 @@ public class SoundPlayer {
     private Sound[] dings;
     private Sound error;
     private Sound awesome;
+    private Sound loot;
 
     public SoundPlayer(AnotherManager game) {
         myGame = game;
@@ -23,6 +24,10 @@ public class SoundPlayer {
     }
     public void PlayBlub2() {
         blub2.play();
+    }
+
+    public void playLootMusic() {
+        loot.play();
     }
 
     public void touchSounds() {
@@ -38,6 +43,8 @@ public class SoundPlayer {
         dings[4] = myGame.assets.get("data/ding5.ogg", Sound.class);
 
         error = myGame.assets.get("data/error.ogg", Sound.class);
+
+        loot = myGame.assets.get("data/loot.ogg", Sound.class);
 
         awesome = myGame.assets.get("data/awesome.ogg", Sound.class);
     }

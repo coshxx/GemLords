@@ -15,6 +15,7 @@ public class AnotherManager extends Game {
     public OrthographicCamera camera;
     public MapTraverseScreen mapTraverseScreen;
     public AssetManager assets;
+    public LootScreen lootScreen;
     public SoundPlayer soundPlayer;
 
     public Player player;
@@ -39,6 +40,7 @@ public class AnotherManager extends Game {
         soundPlayer = new SoundPlayer(this);
         menuScreen = new MenuScreen(this);
         gameScreen = new GameScreen(this);
+        lootScreen = new LootScreen(this);
 
         mapTraverseScreen = new MapTraverseScreen(this);
 

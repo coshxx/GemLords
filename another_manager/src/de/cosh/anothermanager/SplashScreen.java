@@ -124,6 +124,7 @@ public class SplashScreen implements Screen {
         myGame.assets.load("data/cell_back.png", Texture.class);
         myGame.assets.load("data/enemy.png", Texture.class);
         myGame.assets.load("data/star.png", Texture.class);
+        myGame.assets.load("data/treasure.jpg", Texture.class);
 
 
         myGame.assets.load("data/blub1.ogg", Sound.class);
@@ -135,6 +136,8 @@ public class SplashScreen implements Screen {
         myGame.assets.load("data/ding3.ogg", Sound.class);
         myGame.assets.load("data/ding4.ogg", Sound.class);
         myGame.assets.load("data/ding5.ogg", Sound.class);
+
+        myGame.assets.load("data/loot.ogg", Sound.class);
 
         myGame.assets.load("data/awesome.ogg", Sound.class);
         myGame.assets.load("data/awesome.png", Texture.class);
