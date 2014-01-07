@@ -56,16 +56,13 @@ public class Gem extends Image {
 
     @Override
     public void draw(SpriteBatch batch, float parentAlpha) {
-        /*
-        if( this.getY() < 650 )
-            super.draw(batch, parentAlpha);
-            */
         Stage stage = this.getStage();
-        Vector2 begin = stage.stageToScreenCoordinates(new Vector2(45, myGame.VIRTUAL_HEIGHT-45));
-        Vector2 end = stage.stageToScreenCoordinates(new Vector2(675, myGame.VIRTUAL_HEIGHT-630));
+        Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, myGame.VIRTUAL_HEIGHT));
+        Vector2 end = stage.stageToScreenCoordinates(new Vector2(myGame.VIRTUAL_WIDTH-150, myGame.VIRTUAL_HEIGHT-675));
         Rectangle scissor = new Rectangle();
         Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
         ScissorStack.calculateScissors(myGame.camera, 0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, batch.getTransformMatrix(), clipBounds, scissor);
+
         ScissorStack.pushScissors(scissor);
 
         super.draw(batch, parentAlpha);

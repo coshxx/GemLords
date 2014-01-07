@@ -70,7 +70,6 @@ public class GameScreen implements Screen, GestureListener {
         flingStartPosition.set(x, y);
         stage.screenToStageCoordinates(flingStartPosition);
         */
-
         flingStartPosition = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
         return false;
     }

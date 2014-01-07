@@ -3,6 +3,8 @@ package de.cosh.anothermanager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import de.cosh.anothermanager.Gem.GemType;

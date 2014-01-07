@@ -31,8 +31,9 @@ public class AnotherManager extends Game {
         assets = new AssetManager();
         batch = new SpriteBatch();
 
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        camera.update();
         player = new Player(this);
         splashScreen = new SplashScreen(this);
         soundPlayer = new SoundPlayer(this);
