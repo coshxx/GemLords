@@ -48,7 +48,7 @@ public class GameScreen implements Screen, GestureListener {
 
     @Override
     public void hide() {
-
+        stage.dispose();
     }
 
     @Override

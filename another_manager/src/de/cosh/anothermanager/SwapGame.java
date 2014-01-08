@@ -97,6 +97,7 @@ public class SwapGame extends Table {
         }
 
         player = myGame.player;
+        player.init();
         player.setHealthBarPosition(PADDING_LEFT, PADDING_BOT - 40, (CELL_SIZE * MAX_SIZE_X), 25);
 
         enemy = new Enemy(myGame.assets.get("data/enemy.png", Texture.class), myGame);
@@ -156,7 +157,7 @@ public class SwapGame extends Table {
             showingWindow = true;
             Window.WindowStyle style = new Window.WindowStyle();
             style.titleFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
-            style.titleFont.setScale(2f);
+            style.titleFont.setScale(1f);
             //style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
             Texture nTexture = new Texture("data/menuskin.png");
             NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
@@ -166,6 +167,51 @@ public class SwapGame extends Table {
             window.setPosition(200, 200);
             window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
             window.setMovable(true);
+            window.pad(20, 0, 0, 0);
+            window.setModal(false);
+            window.align(Align.center);
+            window.setTitleAlignment(Align.center);
+            window.setSize(200, 200);
+
+            TextButton button;
+            TextButton.TextButtonStyle tStyle;
+            tStyle = new TextButton.TextButtonStyle();
+            Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
+            BitmapFont buttonFont = new BitmapFont();
+            tStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+            tStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+            tStyle.font = buttonFont;
+
+            button = new TextButton("Map", tStyle);
+            button.setPosition(50, 50);
+            button.setSize(100, 100);
+            Gdx.input.setInputProcessor(this.getStage());
+            button.addListener(new ClickListener() {
+                public void clicked(InputEvent event, float x, float y) {
+                    fadeToMap();
+                }
+            });
+            window.addActor(button);
+
+
+            foreGround.addActor(window);
+        }
+
+        if (enemy.getHealth() <= 0 && !showingWindow) {
+            showingWindow = true;
+            Window.WindowStyle style = new Window.WindowStyle();
+            style.titleFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
+            style.titleFont.setScale(1f);
+            //style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
+            Texture nTexture = new Texture("data/menuskin.png");
+            NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
+            style.background = new NinePatchDrawable(nPatch);
+
+            Window window = new Window("You win", style);
+            window.setPosition(200, 200);
+            window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
+            window.setMovable(true);
+            window.pad(20, 0, 0, 0);
             window.setModal(false);
             window.align(Align.center);
             window.setTitleAlignment(Align.center);
@@ -194,36 +240,15 @@ public class SwapGame extends Table {
 
             foreGround.addActor(window);
         }
+    }
 
-        if (enemy.getHealth() <= 0 && !showingWindow) {
-            showingWindow = true;
-            Window.WindowStyle style = new Window.WindowStyle();
-            style.titleFont = new BitmapFont();
-            style.titleFont.setScale(2f);
-            style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
-            style.titleFontColor = new Color(0.2f, 1.0f, 0.2f, 1f);
-            Window window = new Window("You win", style);
-            window.setPosition(200, 200);
-            window.setMovable(true);
-            window.setModal(false);
-            window.setSize(200, 200);
-
-            TextButton button;
-            TextButton.TextButtonStyle tStyle;
-            tStyle = new TextButton.TextButtonStyle();
-            Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
-            BitmapFont buttonFont = new BitmapFont();
-            tStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-            tStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-            tStyle.font = buttonFont;
-            button = new TextButton("Loot", tStyle);
-            button.setPosition(50, 50);
-            button.setSize(100, 100);
-            window.addActor(button);
-
-
-            foreGround.addActor(window);
-        }
+    private void fadeToMap() {
+        this.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                myGame.setScreen(myGame.mapTraverseScreen);
+            }
+        })));
     }
 
     private void fadeToLoot() {

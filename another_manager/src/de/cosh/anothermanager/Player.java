@@ -7,12 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * Created by cosh on 10.12.13.
  */
 public class Player extends Actor {
+    private AnotherManager myGame;
     private int currentLevel;
     private int lives;
 
     private HealthBar healthBar;
 
     public Player(AnotherManager myGame) {
+        this.myGame = myGame;
         currentLevel = 0;
         lives = 5;
         healthBar = new HealthBar();
@@ -40,5 +42,12 @@ public class Player extends Actor {
 
     public int getHealth() {
         return healthBar.getHealthpoints();
+    }
+
+    public void init() {
+        currentLevel = 0;
+        lives = 5;
+        healthBar = new HealthBar();
+        healthBar.init(100, myGame);
     }
 }
