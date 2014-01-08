@@ -14,6 +14,7 @@ public class SoundPlayer {
     private Sound error;
     private Sound awesome;
     private Sound loot;
+    private Sound victorySound;
 
     private Music mapMusic;
     private float mapMusicVolume;
@@ -47,6 +48,8 @@ public class SoundPlayer {
         dings[4] = myGame.assets.get("data/ding5.ogg", Sound.class);
 
         mapMusic = myGame.assets.get("data/music.ogg", Music.class);
+
+        victorySound = myGame.assets.get("data/victory.ogg", Sound.class);
 
         error = myGame.assets.get("data/error.ogg", Sound.class);
 
@@ -88,5 +91,13 @@ public class SoundPlayer {
         if( mapMusicVolume <= 0 )
             mapMusicVolume = 0;
         mapMusic.setVolume(mapMusicVolume);
+    }
+
+    public void playVictorySound() {
+        victorySound.play();
+    }
+
+    public void stopLootMusic() {
+        loot.stop();
     }
 }

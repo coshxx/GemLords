@@ -242,6 +242,8 @@ public class SwapGame extends Table {
             foreGround.addAction(Actions.alpha(0.5f, 1.0f));
             backGround.addAction(Actions.alpha(0.5f, 1.0f));
             windowGroup.addActor(window);
+
+            myGame.soundPlayer.playVictorySound();
         }
 
     }
