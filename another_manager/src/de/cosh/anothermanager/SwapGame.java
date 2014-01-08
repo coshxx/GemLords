@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
@@ -15,9 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.*;
 
 import java.util.Random;
 
@@ -156,17 +155,20 @@ public class SwapGame extends Table {
         if (player.getHealth() <= 0 && !showingWindow) {
             showingWindow = true;
             Window.WindowStyle style = new Window.WindowStyle();
-            style.titleFont = new BitmapFont();
+            style.titleFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
             style.titleFont.setScale(2f);
-            style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
-            style.titleFontColor = new Color(1.0f, 0.2f, 0.2f, 1f);
-
-
+            //style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
+            Texture nTexture = new Texture("data/menuskin.png");
+            NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
+            style.background = new NinePatchDrawable(nPatch);
 
             Window window = new Window("You lose", style);
             window.setPosition(200, 200);
+            window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
             window.setMovable(true);
             window.setModal(false);
+            window.align(Align.center);
+            window.setTitleAlignment(Align.center);
             window.setSize(200, 200);
 
             TextButton button;

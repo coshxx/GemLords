@@ -18,7 +18,7 @@ public class Enemy extends Image {
 
     public void init() {
         healthBar = new HealthBar();
-        healthBar.init(100, myGame);
+        healthBar.init(10, myGame);
     }
 
     public void setHealthBarPosition(int left, int bot, int width, int height) {
