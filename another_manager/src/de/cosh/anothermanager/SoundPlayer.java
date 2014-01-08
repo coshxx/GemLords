@@ -1,6 +1,7 @@
 package de.cosh.anothermanager;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 /**
@@ -13,6 +14,9 @@ public class SoundPlayer {
     private Sound error;
     private Sound awesome;
     private Sound loot;
+
+    private Music mapMusic;
+    private float mapMusicVolume;
 
     public SoundPlayer(AnotherManager game) {
         myGame = game;
@@ -42,11 +46,24 @@ public class SoundPlayer {
         dings[3] = myGame.assets.get("data/ding4.ogg", Sound.class);
         dings[4] = myGame.assets.get("data/ding5.ogg", Sound.class);
 
+        mapMusic = myGame.assets.get("data/music.ogg", Music.class);
+
         error = myGame.assets.get("data/error.ogg", Sound.class);
 
         loot = myGame.assets.get("data/loot.ogg", Sound.class);
 
         awesome = myGame.assets.get("data/awesome.ogg", Sound.class);
+    }
+
+    public void playMapMusic() {
+        mapMusic.setLooping(true);
+        mapMusicVolume = 1f;
+        mapMusic.setVolume(mapMusicVolume);
+        mapMusic.play();
+    }
+
+    public void stopMapMusic() {
+        mapMusic.stop();
     }
 
     public void playDing(int hits_during_current_move) {
@@ -64,5 +81,12 @@ public class SoundPlayer {
 
     public void playAwesome() {
         awesome.play();
+    }
+
+    public void fadeOutMapMusic(float delta) {
+        mapMusicVolume -= delta*1.0f;
+        if( mapMusicVolume <= 0 )
+            mapMusicVolume = 0;
+        mapMusic.setVolume(mapMusicVolume);
     }
 }

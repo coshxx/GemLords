@@ -32,7 +32,7 @@ public class SwapGame extends Table {
     private int PADDING_BOT = 45;
     private Cell[][] board;
     private Image backGroundImage;
-    private Group foreGround, backGround;
+    private Group foreGround, backGround, windowGroup;
     private Random r = new Random();
     private int hits_during_current_move;
 
@@ -65,12 +65,15 @@ public class SwapGame extends Table {
         setClip(true);
         foreGround = new Group();
         backGround = new Group();
+        windowGroup = new Group();
 
         backGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         foreGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+        windowGroup.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
 
         addActor(backGround);
         addActor(foreGround);
+        addActor(windowGroup);
 
         justSwapped = false;
 
@@ -158,7 +161,6 @@ public class SwapGame extends Table {
             Window.WindowStyle style = new Window.WindowStyle();
             style.titleFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
             style.titleFont.setScale(1f);
-            //style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
             Texture nTexture = new Texture("data/menuskin.png");
             NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
             style.background = new NinePatchDrawable(nPatch);
@@ -193,8 +195,9 @@ public class SwapGame extends Table {
             });
             window.addActor(button);
 
-
-            foreGround.addActor(window);
+            foreGround.addAction(Actions.alpha(0.5f, 1.0f));
+            backGround.addAction(Actions.alpha(0.5f, 1.0f));
+            windowGroup.addActor(window);
         }
 
         if (enemy.getHealth() <= 0 && !showingWindow) {
@@ -202,7 +205,6 @@ public class SwapGame extends Table {
             Window.WindowStyle style = new Window.WindowStyle();
             style.titleFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
             style.titleFont.setScale(1f);
-            //style.background = new TextureRegionDrawable(new TextureRegion(myGame.assets.get("data/background.png", Texture.class)));
             Texture nTexture = new Texture("data/menuskin.png");
             NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
             style.background = new NinePatchDrawable(nPatch);
@@ -237,9 +239,11 @@ public class SwapGame extends Table {
             });
             window.addActor(button);
 
-
-            foreGround.addActor(window);
+            foreGround.addAction(Actions.alpha(0.5f, 1.0f));
+            backGround.addAction(Actions.alpha(0.5f, 1.0f));
+            windowGroup.addActor(window);
         }
+
     }
 
     private void fadeToMap() {

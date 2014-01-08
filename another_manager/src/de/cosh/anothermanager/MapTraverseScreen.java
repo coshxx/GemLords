@@ -27,10 +27,10 @@ public class MapTraverseScreen implements Screen {
     private Image mapImage;
     private Skin skin;
     private ImageButton pointButton;
+    private boolean fadeMusic;
 
     public MapTraverseScreen(AnotherManager anotherManager) {
         myGame = anotherManager;
-
     }
 
     @Override
@@ -39,6 +39,10 @@ public class MapTraverseScreen implements Screen {
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
+
+        if( fadeMusic ) {
+            myGame.soundPlayer.fadeOutMapMusic(delta);
+        }
     }
 
     @Override
@@ -49,6 +53,7 @@ public class MapTraverseScreen implements Screen {
     public void show() {
         stage = new Stage();
         skin = new Skin();
+        fadeMusic = false;
         pointTexture = new TextureRegion(myGame.assets.get("data/point.png", Texture.class));
         mapTexture = myGame.assets.get("data/map.png", Texture.class);
 
@@ -70,23 +75,24 @@ public class MapTraverseScreen implements Screen {
 
         pointButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                fadeMusic = true;
                 myGame.soundPlayer.PlayBlub1();
                 stage.addAction(Actions.sequence(Actions.fadeOut(.5f), Actions.delay(.5f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
-
                         myGame.setScreen(myGame.gameScreen);
                     }
                 })));
             }
         });
-
+        myGame.soundPlayer.playMapMusic();
         Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void hide() {
-
+        stage.dispose();
+        myGame.soundPlayer.stopMapMusic();
     }
 
     @Override

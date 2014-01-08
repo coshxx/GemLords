@@ -2,6 +2,7 @@ package de.cosh.anothermanager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
@@ -55,7 +56,7 @@ public class SplashScreen implements Screen {
         if (myGame.assets.update()) {
             myGame.soundPlayer.touchSounds();
             myGame.soundPlayer.PlayBlub2();
-            myGame.setScreen(myGame.gameScreen);
+            myGame.setScreen(myGame.mapTraverseScreen);
         }
         float left = Gdx.graphics.getWidth() * 0.1f;
         float bot = Gdx.graphics.getHeight() * 0.5f;
@@ -136,7 +137,7 @@ public class SplashScreen implements Screen {
         myGame.assets.load("data/ding3.ogg", Sound.class);
         myGame.assets.load("data/ding4.ogg", Sound.class);
         myGame.assets.load("data/ding5.ogg", Sound.class);
-
+        myGame.assets.load("data/music.ogg", Music.class);
         myGame.assets.load("data/loot.ogg", Sound.class);
 
         myGame.assets.load("data/awesome.ogg", Sound.class);
