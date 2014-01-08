@@ -7,6 +7,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 
 public class GameScreen implements Screen, GestureListener {
@@ -43,6 +44,8 @@ public class GameScreen implements Screen, GestureListener {
         Gdx.input.setInputProcessor(new GestureDetector(this));
         swapGame = new SwapGame(myGame);
         swapGame.init();
+        swapGame.addAction(Actions.alpha(0.0f));
+        swapGame.addAction(Actions.fadeIn(0.5f));
         stage.addActor(swapGame);
     }
 
