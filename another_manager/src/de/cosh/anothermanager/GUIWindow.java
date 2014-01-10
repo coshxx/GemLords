@@ -122,7 +122,7 @@ public class GUIWindow {
         windowGroup.addActor(window);
     }
 
-    public void showMapEnemyWindow() {
+    public void showMapEnemyWindow(int enemyHP) {
         if (!myGame.mapTraverseScreen.enemyWindowOpen) {
             myGame.mapTraverseScreen.enemyWindowOpen = true;
             Window window = new Window("Challenge:", windowStyle);
@@ -145,7 +145,7 @@ public class GUIWindow {
             t.add(enemy);
             t.row();
 
-            Label enemyInfoLabel = new Label("30 HP", labelStyle);
+            Label enemyInfoLabel = new Label(enemyHP + " HP", labelStyle);
             t.add(enemyInfoLabel);
             t.row();
 

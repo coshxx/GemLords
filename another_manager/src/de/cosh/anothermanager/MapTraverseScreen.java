@@ -25,6 +25,7 @@ public class MapTraverseScreen implements Screen {
 
     private ArrayList<MapEnemyLocation> enemyLocations;
     public boolean enemyWindowOpen;
+    private Object lastEnemyImage;
 
     public MapTraverseScreen(AnotherManager anotherManager) {
         myGame = anotherManager;
@@ -77,12 +78,32 @@ public class MapTraverseScreen implements Screen {
 
         MapEnemyLocation enemy1 = new MapEnemyLocation(myGame);
         enemy1.revealed = true;
-        enemy1.addPositionalButtonToMap(position, enemyImage, stage);
+        enemy1.locationComplete = myGame.player.levelDone[0];
+        enemy1.addPositionalButtonToMap(position, enemyImage, 10, stage);
 
         MapEnemyLocation enemy2 = new MapEnemyLocation(myGame);
         enemy2.revealed = true;
+        enemy2.locationComplete = myGame.player.levelDone[1];
         position = new Vector2(150, 110);
-        enemy2.addPositionalButtonToMap(position, enemyImage, stage);
+        enemy2.addPositionalButtonToMap(position, enemyImage, 20, stage);
+
+        MapEnemyLocation enemy3 = new MapEnemyLocation(myGame);
+        enemy3.revealed = true;
+        enemy3.locationComplete = myGame.player.levelDone[2];
+        position = new Vector2(220, 120);
+        enemy3.addPositionalButtonToMap(position, enemyImage, 40, stage);
+
+        MapEnemyLocation enemy4 = new MapEnemyLocation(myGame);
+        enemy4.revealed = true;
+        enemy4.locationComplete = myGame.player.levelDone[3];
+        position = new Vector2(250, 140);
+        enemy4.addPositionalButtonToMap(position, enemyImage, 80, stage);
+
+        MapEnemyLocation enemy5 = new MapEnemyLocation(myGame);
+        enemy5.revealed = true;
+        enemy5.locationComplete = myGame.player.levelDone[4];
+        position = new Vector2(340, 140);
+        enemy5.addPositionalButtonToMap(position, enemyImage, 160, stage);
     }
 
     @Override

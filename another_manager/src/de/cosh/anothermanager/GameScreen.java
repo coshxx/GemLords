@@ -42,7 +42,7 @@ public class GameScreen implements Screen, GestureListener {
         stage = new Stage(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
         stage.setCamera(myGame.camera);
         Gdx.input.setInputProcessor(new GestureDetector(this));
-        swapGame = new SwapGame(myGame);
+        swapGame = myGame.swapGame;
         swapGame.init();
         swapGame.addAction(Actions.alpha(0.0f));
         swapGame.addAction(Actions.fadeIn(0.5f));
@@ -51,6 +51,7 @@ public class GameScreen implements Screen, GestureListener {
 
     @Override
     public void hide() {
+        swapGame.dispose();
         stage.dispose();
     }
 
@@ -70,10 +71,6 @@ public class GameScreen implements Screen, GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        /*
-        flingStartPosition.set(x, y);
-        stage.screenToStageCoordinates(flingStartPosition);
-        */
         flingStartPosition = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
         return false;
     }

@@ -73,6 +73,7 @@ public class LootScreen implements Screen {
                     @Override
                     public void run() {
                         myGame.soundPlayer.stopLootMusic();
+                        myGame.player.levelDone();
                         myGame.setScreen(myGame.mapTraverseScreen);
                     }
                 })));

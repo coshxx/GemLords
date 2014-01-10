@@ -15,11 +15,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public class MapEnemyLocation {
     public boolean revealed;
+    public boolean locationComplete;
+
     private TextureRegion pointTexture, pointDoneTexture;
     private AnotherManager myGame;
     private Vector2 position;
     private Image enemyImage;
-    private boolean locationComplete;
     private ImageButton pointButton, pointButtonDone;
     private ImageButton.ImageButtonStyle style, styleDone;
 
@@ -37,14 +38,14 @@ public class MapEnemyLocation {
         style.down = new TextureRegionDrawable(pointTexture);
 
         styleDone = new ImageButton.ImageButtonStyle();
-        styleDone.up = new TextureRegionDrawable(pointTexture);
-        styleDone.down = new TextureRegionDrawable(pointTexture);
+        styleDone.up = new TextureRegionDrawable(pointDoneTexture);
+        styleDone.down = new TextureRegionDrawable(pointDoneTexture);
 
         pointButton = new ImageButton(style.up, style.down);
         pointButtonDone = new ImageButton(styleDone.up, styleDone.down);
     }
 
-    public void addPositionalButtonToMap(Vector2 position, Image enemyImage, final Stage stage) {
+    public void addPositionalButtonToMap(Vector2 position, Image enemyImage, final int enemyHP, final Stage stage) {
         this.position = position;
         this.enemyImage = enemyImage;
 
@@ -53,9 +54,10 @@ public class MapEnemyLocation {
         pointButton.addListener(new ClickListener() {
 
             public void clicked(InputEvent event, float x, float y) {
-                    myGame.soundPlayer.PlayBlub1();
-                    GUIWindow guiWindow = new GUIWindow(myGame, stage);
-                    guiWindow.showMapEnemyWindow();
+                myGame.soundPlayer.PlayBlub1();
+                myGame.swapGame.setupEnemy(enemyHP);
+                GUIWindow guiWindow = new GUIWindow(myGame, stage);
+                guiWindow.showMapEnemyWindow(enemyHP);
             }
         });
 

@@ -8,8 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class Player extends Actor {
     private AnotherManager myGame;
-    private int currentLevel;
     private int lives;
+
+
+    public boolean[] levelDone;
+    private int currentLevel;
 
     private HealthBar healthBar;
 
@@ -18,6 +21,9 @@ public class Player extends Actor {
         currentLevel = 0;
         lives = 5;
         healthBar = new HealthBar();
+        levelDone = new boolean[200];
+        for( int x = 0; x < 200; x++ )
+            levelDone[x] = false;
         healthBar.init(100, myGame);
     }
 
@@ -45,9 +51,13 @@ public class Player extends Actor {
     }
 
     public void init() {
-        currentLevel = 0;
         lives = 5;
         healthBar = new HealthBar();
         healthBar.init(100, myGame);
+    }
+
+    public void levelDone() {
+        levelDone[currentLevel] = true;
+        currentLevel++;
     }
 }

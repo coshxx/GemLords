@@ -17,6 +17,7 @@ public class AnotherManager extends Game {
     public AssetManager assets;
     public LootScreen lootScreen;
     public SoundPlayer soundPlayer;
+    public SwapGame swapGame;
 
     public Player player;
     public Enemy enemy;
@@ -41,7 +42,7 @@ public class AnotherManager extends Game {
         menuScreen = new MenuScreen(this);
         gameScreen = new GameScreen(this);
         lootScreen = new LootScreen(this);
-
+        swapGame = new SwapGame(this);
         mapTraverseScreen = new MapTraverseScreen(this);
 
         bitmapFont = new BitmapFont();

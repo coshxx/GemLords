@@ -40,6 +40,12 @@ public class SwapGame extends Table {
 
     private boolean showingWindow;
 
+    public void dispose() {
+        foreGround.clear();
+        backGround.clear();
+        windowGroup.clear();
+    }
+
     private enum BoardState {
         IDLE,
         CHECK,
@@ -53,6 +59,16 @@ public class SwapGame extends Table {
         myGame = game;
         setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         setClip(true);
+
+        justSwapped = false;
+
+        boardController = new BoardController();
+        boardController.init(PADDING_BOT, PADDING_LEFT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y, myGame);
+
+        matchFinder = new MatchFinder();
+    }
+
+    public void init() {
         foreGround = new Group();
         backGround = new Group();
         windowGroup = new Group();
@@ -61,29 +77,17 @@ public class SwapGame extends Table {
         foreGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         windowGroup.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
 
-        addActor(backGround);
-        addActor(foreGround);
-        addActor(windowGroup);
-
-        justSwapped = false;
-
-        boardController = new BoardController();
-        boardController.init(PADDING_BOT, PADDING_LEFT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y, myGame);
-
-        matchFinder = new MatchFinder();
-        showingWindow = false;
-    }
-
-    public void init() {
         backGroundImage = new Image(myGame.assets.get("data/background.png", Texture.class));
         backGroundImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         backGround.addActor(backGroundImage);
         board = boardController.fillBoard(backGround, foreGround);
         matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
 
+
         while (matchFinder.findMatches(board, false)) {
             backGround.clear();
             foreGround.clear();
+            windowGroup.clear();
             backGround.addActor(backGroundImage);
             board = boardController.fillBoard(backGround, foreGround);
             matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
@@ -93,18 +97,16 @@ public class SwapGame extends Table {
         player.init();
         player.setHealthBarPosition(PADDING_LEFT, PADDING_BOT - 40, (CELL_SIZE * MAX_SIZE_X), 25);
 
-        enemy = new Enemy(myGame.assets.get("data/enemy.png", Texture.class), myGame);
-        enemy.init();
-        enemy.setHealthBarPosition(PADDING_LEFT, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 360, (CELL_SIZE * MAX_SIZE_X), 25);
-        enemy.setPosition(PADDING_LEFT + 250, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 400);
-
         foreGround.addActor(enemy);
         foreGround.addActor(player);
 
         boardState = BoardState.IDLE;
         hits_during_current_move = 0;
+        showingWindow = false;
 
-
+        addActor(backGround);
+        addActor(foreGround);
+        addActor(windowGroup);
     }
 
     private GridPoint2 convertToBoardIndex(Vector2 position) {
@@ -222,6 +224,13 @@ public class SwapGame extends Table {
             }
         }
         justSwapped = false;
+    }
+
+    public void setupEnemy(int hp) {
+        enemy = new Enemy(myGame.assets.get("data/enemy.png", Texture.class), myGame);
+        enemy.init(hp);
+        enemy.setHealthBarPosition(PADDING_LEFT, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 360, (CELL_SIZE * MAX_SIZE_X), 25);
+        enemy.setPosition(PADDING_LEFT + 250, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 400);
     }
 }
 
