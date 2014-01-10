@@ -4,16 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import java.util.ArrayList;
 
 /**
  * Created by cosh on 10.12.13.
@@ -21,16 +18,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class MapTraverseScreen implements Screen {
     private AnotherManager myGame;
     private Stage stage;
-
     private Texture mapTexture;
-    private TextureRegion pointTexture;
     private Image mapImage;
     private Skin skin;
-    private ImageButton pointButton;
     private boolean fadeMusic;
+
+    private ArrayList<MapEnemyLocation> enemyLocations;
+    public boolean enemyWindowOpen;
 
     public MapTraverseScreen(AnotherManager anotherManager) {
         myGame = anotherManager;
+        enemyLocations = new ArrayList<MapEnemyLocation>();
     }
 
     @Override
@@ -40,7 +38,7 @@ public class MapTraverseScreen implements Screen {
         stage.act(delta);
         stage.draw();
 
-        if( fadeMusic ) {
+        if (fadeMusic) {
             myGame.soundPlayer.fadeOutMapMusic(delta);
         }
     }
@@ -54,39 +52,37 @@ public class MapTraverseScreen implements Screen {
         stage = new Stage();
         skin = new Skin();
         fadeMusic = false;
-        pointTexture = new TextureRegion(myGame.assets.get("data/point.png", Texture.class));
+        enemyWindowOpen = false;
+        enemyLocations.clear();
         mapTexture = myGame.assets.get("data/map.png", Texture.class);
 
         stage.setCamera(myGame.camera);
-        ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle();
-        style.up = new TextureRegionDrawable(pointTexture);
-        style.down = new TextureRegionDrawable(pointTexture);
 
-        pointButton = new ImageButton(style.up, style.down);
-        Vector2 position = new Vector2(110, 110);
-        pointButton.setPosition(position.x, position.y);
-        pointButton.setScale(0.8f);
         mapImage = new Image(mapTexture);
         mapImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+
         stage.addActor(mapImage);
-        stage.addActor(pointButton);
         stage.addAction(Actions.alpha(0));
         stage.addAction(Actions.fadeIn(1));
 
-        pointButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                fadeMusic = true;
-                myGame.soundPlayer.PlayBlub1();
-                stage.addAction(Actions.sequence(Actions.fadeOut(.5f), Actions.delay(.5f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        myGame.setScreen(myGame.gameScreen);
-                    }
-                })));
-            }
-        });
+        initEnemyLocations();
+
         myGame.soundPlayer.playMapMusic();
         Gdx.input.setInputProcessor(stage);
+    }
+
+    private void initEnemyLocations() {
+        Vector2 position = new Vector2(110, 110);
+        Image enemyImage = new Image(myGame.assets.get("data/enemy.png", Texture.class));
+
+        MapEnemyLocation enemy1 = new MapEnemyLocation(myGame);
+        enemy1.revealed = true;
+        enemy1.addPositionalButtonToMap(position, enemyImage, stage);
+
+        MapEnemyLocation enemy2 = new MapEnemyLocation(myGame);
+        enemy2.revealed = true;
+        position = new Vector2(150, 110);
+        enemy2.addPositionalButtonToMap(position, enemyImage, stage);
     }
 
     @Override
@@ -108,5 +104,9 @@ public class MapTraverseScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public void fadeMusic() {
+        fadeMusic = true;
     }
 }

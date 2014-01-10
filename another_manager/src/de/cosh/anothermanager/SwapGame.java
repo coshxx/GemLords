@@ -1,22 +1,12 @@
 package de.cosh.anothermanager;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.*;
 
 import java.util.Random;
 
@@ -158,112 +148,16 @@ public class SwapGame extends Table {
     private void updateGameState() {
         if (player.getHealth() <= 0 && !showingWindow) {
             showingWindow = true;
-            Window.WindowStyle style = new Window.WindowStyle();
-            style.titleFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
-            style.titleFont.setScale(1f);
-            Texture nTexture = new Texture("data/menuskin.png");
-            NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
-            style.background = new NinePatchDrawable(nPatch);
-
-            Window window = new Window("You lose", style);
-            window.setPosition(200, 200);
-            window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
-            window.setMovable(true);
-            window.pad(20, 0, 0, 0);
-            window.setModal(false);
-            window.align(Align.center);
-            window.setTitleAlignment(Align.center);
-            window.setSize(200, 200);
-
-            TextButton button;
-            TextButton.TextButtonStyle tStyle;
-            tStyle = new TextButton.TextButtonStyle();
-            Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
-            BitmapFont buttonFont = new BitmapFont();
-            tStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-            tStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-            tStyle.font = buttonFont;
-
-            button = new TextButton("Map", tStyle);
-            button.setPosition(50, 50);
-            button.setSize(100, 100);
-            Gdx.input.setInputProcessor(this.getStage());
-            button.addListener(new ClickListener() {
-                public void clicked(InputEvent event, float x, float y) {
-                    fadeToMap();
-                }
-            });
-            window.addActor(button);
-
-            foreGround.addAction(Actions.alpha(0.5f, 1.0f));
-            backGround.addAction(Actions.alpha(0.5f, 1.0f));
-            windowGroup.addActor(window);
+            GUIWindow guiWindow = new GUIWindow(myGame, this.getStage());
+            guiWindow.createDefeatWindow(foreGround, backGround, windowGroup);
         }
 
         if (enemy.getHealth() <= 0 && !showingWindow) {
             showingWindow = true;
-            Window.WindowStyle style = new Window.WindowStyle();
-            style.titleFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
-            style.titleFont.setScale(1f);
-            Texture nTexture = new Texture("data/menuskin.png");
-            NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
-            style.background = new NinePatchDrawable(nPatch);
-
-            Window window = new Window("You win", style);
-            window.setPosition(200, 200);
-            window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
-            window.setMovable(true);
-            window.pad(20, 0, 0, 0);
-            window.setModal(false);
-            window.align(Align.center);
-            window.setTitleAlignment(Align.center);
-            window.setSize(200, 200);
-
-            TextButton button;
-            TextButton.TextButtonStyle tStyle;
-            tStyle = new TextButton.TextButtonStyle();
-            Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
-            BitmapFont buttonFont = new BitmapFont();
-            tStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-            tStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-            tStyle.font = buttonFont;
-
-            button = new TextButton("Loot", tStyle);
-            button.setPosition(50, 50);
-            button.setSize(100, 100);
-            Gdx.input.setInputProcessor(this.getStage());
-            button.addListener(new ClickListener() {
-                public void clicked(InputEvent event, float x, float y) {
-                    fadeToLoot();
-                }
-            });
-            window.addActor(button);
-
-            foreGround.addAction(Actions.alpha(0.5f, 1.0f));
-            backGround.addAction(Actions.alpha(0.5f, 1.0f));
-            windowGroup.addActor(window);
-
             myGame.soundPlayer.playVictorySound();
+            GUIWindow guiWindow = new GUIWindow(myGame, this.getStage());
+            guiWindow.createVictoryWindow(foreGround, backGround, windowGroup);
         }
-
-    }
-
-    private void fadeToMap() {
-        this.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                myGame.setScreen(myGame.mapTraverseScreen);
-            }
-        })));
-    }
-
-    private void fadeToLoot() {
-        this.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                myGame.setScreen(myGame.lootScreen);
-            }
-        })));
     }
 
     private void respawnMissingGems() {
