@@ -1,46 +1,83 @@
 package de.cosh.anothermanager;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
- * Created by cosh on 16.12.13.
+ * Created by cosh on 10.01.14.
  */
-public class Enemy extends Image {
-    private HealthBar healthBar;
+public class Enemy extends Character {
+    private Image enemyImage;
     private AnotherManager myGame;
+    private boolean isDefeated;
+    private TextureRegion pointTexture, pointDoneTexture;
+    private ImageButton.ImageButtonStyle style, styleDone;
+    private ImageButton pointButton, pointButtonDone;
 
-    public Enemy(Texture t, AnotherManager myGame) {
-        super(t);
+    public Enemy(AnotherManager myGame, Texture texture) {
+        super(myGame, 20);
         this.myGame = myGame;
+        this.enemyImage = new Image(texture);
+
+        this.isDefeated = false;
+        this.myGame = myGame;
+
+        pointTexture = new TextureRegion(myGame.assets.get("data/point.png", Texture.class));
+        pointDoneTexture = new TextureRegion(myGame.assets.get("data/pointdone.png", Texture.class));
+
+        style = new ImageButton.ImageButtonStyle();
+        style.up = new TextureRegionDrawable(pointTexture);
+        style.down = new TextureRegionDrawable(pointTexture);
+
+        styleDone = new ImageButton.ImageButtonStyle();
+        styleDone.up = new TextureRegionDrawable(pointDoneTexture);
+        styleDone.down = new TextureRegionDrawable(pointDoneTexture);
+
+        pointButton = new ImageButton(style.up, style.down);
+        pointButtonDone = new ImageButton(styleDone.up, styleDone.down);
+
+
+
     }
 
-    public void init(int hp) {
-        healthBar = new HealthBar();
-        healthBar.init(hp, myGame);
+    public void setPosition(float x, float y) {
+        enemyImage.setPosition(x, y);
     }
 
-    public void setHealthBarPosition(int left, int bot, int width, int height) {
-        healthBar.setPosition(left, bot, width, height);
+    public Image getImage() {
+        return enemyImage;
     }
 
-    @Override
-    public void draw(SpriteBatch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        healthBar.draw(batch, parentAlpha);
+    public boolean isDefeated() { return isDefeated; }
+
+    public void setDefeated(boolean defeated) {
+        isDefeated = defeated;
     }
 
-    public void damage(int damage) {
-        healthBar.hit(damage);
-    }
+    public void addPositionalButtonToMap(float x, float y, Image enemyImage, final int enemyHP, final Stage stage) {
+        this.enemyImage = enemyImage;
 
-    @Override
-    public void act(float delta) {
-        healthBar.update(delta);
-    }
+        pointButton.setPosition(x, y);
+        pointButtonDone.setPosition(x, y);
+        pointButton.addListener(new ClickListener() {
 
-    public int getHealth() {
-        return healthBar.getHealthpoints();
+            public void clicked(InputEvent event, float x, float y) {
+                myGame.soundPlayer.PlayBlub1();
+                myGame.swapGame.setupEnemy(enemyHP);
+                GUIWindow guiWindow = new GUIWindow(myGame, stage);
+                guiWindow.showMapEnemyWindow(enemyHP);
+            }
+        });
+
+        stage.addActor(isDefeated ? pointButtonDone : pointButton);
     }
 }
+

@@ -6,11 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * Created by cosh on 27.12.13.
  */
-public class HealthBar {
+public class HealthBar extends Actor {
     private int healthpoints, maxHP;
     private AnotherManager myGame;
 
@@ -40,6 +41,7 @@ public class HealthBar {
         this.height = height;
     }
 
+    @Override
     public void draw(SpriteBatch batch, float parentAlpha) {
         empty.draw(batch, left, bot, width, height);
         if( healthpoints > 0 )
@@ -47,7 +49,7 @@ public class HealthBar {
 
     }
 
-    public void update(float delta) {
+    public void act(float delta) {
         done = (float)healthpoints / (float)maxHP;
     }
 

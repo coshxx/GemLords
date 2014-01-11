@@ -97,8 +97,9 @@ public class SwapGame extends Table {
         player.init();
         player.setHealthBarPosition(PADDING_LEFT, PADDING_BOT - 40, (CELL_SIZE * MAX_SIZE_X), 25);
 
-        foreGround.addActor(enemy);
-        foreGround.addActor(player);
+        foreGround.addActor(enemy.getImage());
+        foreGround.addActor(enemy.getHealthBar());
+        foreGround.addActor(player.getHealthBar());
 
         boardState = BoardState.IDLE;
         hits_during_current_move = 0;
@@ -150,8 +151,10 @@ public class SwapGame extends Table {
     private void updateGameState() {
         if (player.getHealth() <= 0 && !showingWindow) {
             showingWindow = true;
+            myGame.soundPlayer.playLoseSound();
             GUIWindow guiWindow = new GUIWindow(myGame, this.getStage());
             guiWindow.createDefeatWindow(foreGround, backGround, windowGroup);
+            player.decreaseLife();
         }
 
         if (enemy.getHealth() <= 0 && !showingWindow) {
@@ -159,6 +162,7 @@ public class SwapGame extends Table {
             myGame.soundPlayer.playVictorySound();
             GUIWindow guiWindow = new GUIWindow(myGame, this.getStage());
             guiWindow.createVictoryWindow(foreGround, backGround, windowGroup);
+            enemy.setDefeated(true);
         }
     }
 
@@ -227,8 +231,8 @@ public class SwapGame extends Table {
     }
 
     public void setupEnemy(int hp) {
-        enemy = new Enemy(myGame.assets.get("data/enemy.png", Texture.class), myGame);
-        enemy.init(hp);
+        enemy = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
+        enemy.setHealth(hp);
         enemy.setHealthBarPosition(PADDING_LEFT, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 360, (CELL_SIZE * MAX_SIZE_X), 25);
         enemy.setPosition(PADDING_LEFT + 250, PADDING_BOT + (CELL_SIZE * MAX_SIZE_Y) + 400);
     }

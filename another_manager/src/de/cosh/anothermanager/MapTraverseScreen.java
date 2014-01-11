@@ -4,13 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-import java.util.ArrayList;
 
 /**
  * Created by cosh on 10.12.13.
@@ -23,18 +20,15 @@ public class MapTraverseScreen implements Screen {
     private Skin skin;
     private boolean fadeMusic;
 
-    private ArrayList<MapEnemyLocation> enemyLocations;
     public boolean enemyWindowOpen;
-    private Object lastEnemyImage;
 
     public MapTraverseScreen(AnotherManager anotherManager) {
         myGame = anotherManager;
-        enemyLocations = new ArrayList<MapEnemyLocation>();
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.5f, 0.5f, 1f, 1f);
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
@@ -54,7 +48,6 @@ public class MapTraverseScreen implements Screen {
         skin = new Skin();
         fadeMusic = false;
         enemyWindowOpen = false;
-        enemyLocations.clear();
         mapTexture = myGame.assets.get("data/map.png", Texture.class);
 
         stage.setCamera(myGame.camera);
@@ -68,42 +61,30 @@ public class MapTraverseScreen implements Screen {
 
         initEnemyLocations();
 
+        for (int x = 0; x < 5; x++) {
+            Image heartEmpty = new Image(myGame.assets.get("data/heartempty.png", Texture.class));
+            heartEmpty.setPosition(32 + (32 * x), myGame.VIRTUAL_HEIGHT - 64);
+            stage.addActor(heartEmpty);
+        }
+
+        for (int x = 0; x < myGame.player.getLives(); x++) {
+            Image heart = new Image(myGame.assets.get("data/heart.png", Texture.class));
+            heart.setPosition(32 + (32 * x), myGame.VIRTUAL_HEIGHT - 64);
+            stage.addActor(heart);
+        }
         myGame.soundPlayer.playMapMusic();
         Gdx.input.setInputProcessor(stage);
     }
 
     private void initEnemyLocations() {
-        Vector2 position = new Vector2(110, 110);
-        Image enemyImage = new Image(myGame.assets.get("data/enemy.png", Texture.class));
+        Enemy enemy = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
+        enemy.setDefeated(myGame.player.levelDone[0]);
+        enemy.addPositionalButtonToMap(110, 110, enemy.getImage(), 10, stage);
 
-        MapEnemyLocation enemy1 = new MapEnemyLocation(myGame);
-        enemy1.revealed = true;
-        enemy1.locationComplete = myGame.player.levelDone[0];
-        enemy1.addPositionalButtonToMap(position, enemyImage, 10, stage);
+        Enemy enemy2 = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
+        enemy2.setDefeated(myGame.player.levelDone[1]);
+        enemy2.addPositionalButtonToMap(150, 110, enemy.getImage(), 50, stage);
 
-        MapEnemyLocation enemy2 = new MapEnemyLocation(myGame);
-        enemy2.revealed = true;
-        enemy2.locationComplete = myGame.player.levelDone[1];
-        position = new Vector2(150, 110);
-        enemy2.addPositionalButtonToMap(position, enemyImage, 20, stage);
-
-        MapEnemyLocation enemy3 = new MapEnemyLocation(myGame);
-        enemy3.revealed = true;
-        enemy3.locationComplete = myGame.player.levelDone[2];
-        position = new Vector2(220, 120);
-        enemy3.addPositionalButtonToMap(position, enemyImage, 40, stage);
-
-        MapEnemyLocation enemy4 = new MapEnemyLocation(myGame);
-        enemy4.revealed = true;
-        enemy4.locationComplete = myGame.player.levelDone[3];
-        position = new Vector2(250, 140);
-        enemy4.addPositionalButtonToMap(position, enemyImage, 80, stage);
-
-        MapEnemyLocation enemy5 = new MapEnemyLocation(myGame);
-        enemy5.revealed = true;
-        enemy5.locationComplete = myGame.player.levelDone[4];
-        position = new Vector2(340, 140);
-        enemy5.addPositionalButtonToMap(position, enemyImage, 160, stage);
     }
 
     @Override

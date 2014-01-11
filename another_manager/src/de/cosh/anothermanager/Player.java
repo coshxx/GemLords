@@ -1,63 +1,48 @@
 package de.cosh.anothermanager;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
  * Created by cosh on 10.12.13.
  */
-public class Player extends Actor {
+public class Player extends Character {
     private AnotherManager myGame;
     private int lives;
-
-
+    private Enemy lastEnemey;
     public boolean[] levelDone;
     private int currentLevel;
-
     private HealthBar healthBar;
 
     public Player(AnotherManager myGame) {
+        super(myGame, 100);
         this.myGame = myGame;
         currentLevel = 0;
-        lives = 5;
-        healthBar = new HealthBar();
         levelDone = new boolean[200];
-        for( int x = 0; x < 200; x++ )
+        for (int x = 0; x < 200; x++)
             levelDone[x] = false;
-        healthBar.init(100, myGame);
-    }
-
-    public void setHealthBarPosition(int left, int bot, int width, int height) {
-        healthBar.setPosition(left, bot, width, height);
-    }
-
-    @Override
-    public void draw (SpriteBatch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        healthBar.draw(batch, parentAlpha);
-    }
-
-    @Override
-    public void act(float delta) {
-        healthBar.update(delta);
-    }
-
-    public void damage(int damage) {
-        healthBar.hit(damage);
-    }
-
-    public int getHealth() {
-        return healthBar.getHealthpoints();
-    }
-
-    public void init() {
         lives = 5;
-        healthBar = new HealthBar();
-        healthBar.init(100, myGame);
     }
 
     public void levelDone() {
         levelDone[currentLevel] = true;
         currentLevel++;
+    }
+
+    public void setLastEnemy(Enemy e) {
+        lastEnemey = e;
+    }
+
+    public Enemy getLastEnemy() {
+        return lastEnemey;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void decreaseLife() {
+        lives--;
     }
 }

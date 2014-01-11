@@ -14,7 +14,7 @@ public class SoundPlayer {
     private Sound error;
     private Sound awesome;
     private Sound loot;
-    private Sound victorySound;
+    private Sound victorySound, loseSound;
 
     private Music mapMusic;
     private float mapMusicVolume;
@@ -50,6 +50,7 @@ public class SoundPlayer {
         mapMusic = myGame.assets.get("data/music.ogg", Music.class);
 
         victorySound = myGame.assets.get("data/victory.ogg", Sound.class);
+        loseSound = myGame.assets.get("data/boo.ogg", Sound.class);
 
         error = myGame.assets.get("data/error.ogg", Sound.class);
 
@@ -95,6 +96,10 @@ public class SoundPlayer {
 
     public void playVictorySound() {
         victorySound.play();
+    }
+
+    public void playLoseSound() {
+        loseSound.play();
     }
 
     public void stopLootMusic() {
