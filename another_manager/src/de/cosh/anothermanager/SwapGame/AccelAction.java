@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 public class AccelAction extends Action {
     private float yGoal, speed;
     private float yTranslated;
-    private final float ACCEL_FACTOR = 750f;
+    private final float ACCEL_FACTOR = 850f;
 
     public AccelAction(float yGoal, float speed ) {
         this.yGoal = yGoal;

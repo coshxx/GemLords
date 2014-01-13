@@ -19,7 +19,7 @@ public class Gem extends Image {
     private boolean markedForRemoval;
     private AnotherManager myGame;
     private final float GEM_SPEED = 150f;
-    private final float SWAP_SPEED = 0.25f;
+    private final float SWAP_SPEED = 0.20f;
 
     public Gem(AnotherManager myGame, GemType g) {
         super(myGame.assets.get(g.getTexturePath(), Texture.class));

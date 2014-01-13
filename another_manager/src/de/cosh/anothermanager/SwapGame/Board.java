@@ -1,8 +1,10 @@
 package de.cosh.anothermanager.SwapGame;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.cosh.anothermanager.AnotherManager;
 
@@ -46,6 +48,9 @@ public class Board extends Table {
         backGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         foreGround = new Group();
         foreGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+        Image backImage = new Image(myGame.assets.get("data/background.png", Texture.class));
+        backImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+        backGround.addActor(backImage);
         addActor(backGround);
         addActor(foreGround);
         boardState = BoardState.STATE_EMPTY;
@@ -56,6 +61,7 @@ public class Board extends Table {
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 cells[x][y] = new Cell(myGame);
+                cells[x][y].setColor(1f, 1f, 1f, 0.35f);
                 cells[x][y].setPosition(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE));
                 cells[x][y].putGem(myGame.gemFactory.newRandomGem());
                 backGround.addActor(cells[x][y]);
