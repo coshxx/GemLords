@@ -4,9 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import de.cosh.anothermanager.Characters.Enemy;
+import de.cosh.anothermanager.Characters.Player;
+import de.cosh.anothermanager.Screens.*;
+import de.cosh.anothermanager.SwapGame.GemFactory;
 
 public class AnotherManager extends Game {
     public MenuScreen menuScreen;
@@ -17,7 +20,7 @@ public class AnotherManager extends Game {
     public AssetManager assets;
     public LootScreen lootScreen;
     public SoundPlayer soundPlayer;
-    public SwapGame swapGame;
+    public GemFactory gemFactory;
 
     public Player player;
     public Enemy enemy;
@@ -42,9 +45,8 @@ public class AnotherManager extends Game {
         menuScreen = new MenuScreen(this);
         gameScreen = new GameScreen(this);
         lootScreen = new LootScreen(this);
-        swapGame = new SwapGame(this);
         mapTraverseScreen = new MapTraverseScreen(this);
-
+        gemFactory = new GemFactory(this);
         bitmapFont = new BitmapFont();
         setScreen(splashScreen);
     }

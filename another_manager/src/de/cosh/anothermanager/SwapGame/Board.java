@@ -1,10 +1,10 @@
-package de.cosh.anothermanager;
+package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import de.cosh.anothermanager.AnotherManager;
 
 import java.util.Random;
 
@@ -17,9 +17,10 @@ public class Board extends Table {
     public static final int CELL_PAD_X = 45;
     public static final int CELL_PAD_Y = 45;
     public static final int CELL_SIZE = 70;
+
     private AnotherManager myGame;
     private Cell[][] cells;
-    private Random r;
+    private Random random;
     private Group backGround;
     private Group foreGround;
 
@@ -27,6 +28,7 @@ public class Board extends Table {
     private MatchFinder matchFinder;
     private GravityApplier gravityApplier;
     private GemRemover gemRemover;
+    private GemRespawner gemRespawner;
 
     private boolean initialized;
     private BoardState boardState;
@@ -38,7 +40,8 @@ public class Board extends Table {
         matchFinder = new MatchFinder(cells);
         gravityApplier = new GravityApplier(cells);
         gemRemover = new GemRemover(cells);
-        r = new Random();
+        gemRespawner = new GemRespawner(cells, random, myGame.gemFactory);
+        random = new Random();
         backGround = new Group();
         backGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         foreGround = new Group();
@@ -54,7 +57,7 @@ public class Board extends Table {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 cells[x][y] = new Cell(myGame);
                 cells[x][y].setPosition(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE));
-                cells[x][y].putGem(new Gem(myGame, Gem.GemType.values()[r.nextInt(6)]));
+                cells[x][y].putGem(myGame.gemFactory.newRandomGem());
                 backGround.addActor(cells[x][y]);
                 foreGround.addActor(cells[x][y].getGem());
             }
@@ -68,27 +71,36 @@ public class Board extends Table {
             boardState = BoardState.STATE_IDLE;
         }
 
-        updateBoardState();
-
-        if( boardState == BoardState.STATE_IDLE ) {
-            matchFinder.markAllMatchingGems();
-            gemRemover.fadeMatchingGems();
-            boardState = BoardState.STATE_FADING;
+        if (boardState == BoardState.STATE_IDLE) {
+            if( matchFinder.markAllMatchingGems() ) {
+                gemRemover.fadeMarkedGems();
+                boardState = BoardState.STATE_FADING;
+            }
         }
+
+        updateBoardState();
     }
 
     private void updateBoardState() {
         boolean stillMovement = false;
-        for( int x = 0; x < MAX_SIZE_X; x++ ) {
-            for( int y = 0; y < MAX_SIZE_Y; y++ ) {
+        for (int x = 0; x < MAX_SIZE_X; x++) {
+            for (int y = 0; y < MAX_SIZE_Y; y++) {
                 Gem gem = cells[x][y].getGem();
-                if( gem.getActions().size > 0 ) {
+                if (gem.getActions().size > 0) {
                     stillMovement = true;
                 }
             }
         }
-        if( !stillMovement )
+        if (!stillMovement && boardState == BoardState.STATE_FADING) {
+            gemRemover.removeFadedGems(myGame, foreGround);
+            gravityApplier.applyGravity();
+            gemRespawner.respawn(foreGround);
+            boardState = BoardState.STATE_MOVING;
+        } else if (!stillMovement && boardState == BoardState.STATE_SWAPPING) {
             boardState = BoardState.STATE_IDLE;
+        } else if (!stillMovement && boardState == BoardState.STATE_MOVING) {
+            boardState = BoardState.STATE_IDLE;
+        }
     }
 
     public void swapTo(Vector2 flingStartPosition, int x, int y) {
@@ -113,7 +125,8 @@ public class Board extends Table {
         STATE_EMPTY,
         STATE_IDLE,
         STATE_SWAPPING,
-        STATE_FADING
+        STATE_FADING,
+        STATE_MOVING
     }
 
 }

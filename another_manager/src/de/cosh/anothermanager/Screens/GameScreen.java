@@ -1,4 +1,4 @@
-package de.cosh.anothermanager;
+package de.cosh.anothermanager.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
+import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.SwapGame.Board;
 
 public class GameScreen implements Screen, GestureListener {
     private final AnotherManager myGame;

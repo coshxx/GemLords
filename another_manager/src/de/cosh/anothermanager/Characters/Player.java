@@ -1,8 +1,7 @@
-package de.cosh.anothermanager;
+package de.cosh.anothermanager.Characters;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GUI.HealthBar;
 
 /**
  * Created by cosh on 10.12.13.

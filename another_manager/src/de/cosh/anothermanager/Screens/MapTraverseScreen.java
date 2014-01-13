@@ -1,4 +1,4 @@
-package de.cosh.anothermanager;
+package de.cosh.anothermanager.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Characters.Enemy;
 
 /**
  * Created by cosh on 10.12.13.

@@ -1,4 +1,4 @@
-package de.cosh.anothermanager;
+package de.cosh.anothermanager.GUI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import de.cosh.anothermanager.AnotherManager;
 
 /**
  * Created by cosh on 27.12.13.

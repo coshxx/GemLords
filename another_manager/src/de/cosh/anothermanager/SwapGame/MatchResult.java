@@ -1,4 +1,4 @@
-package de.cosh.anothermanager;
+package de.cosh.anothermanager.SwapGame;
 
 /**
  * Created by cosh on 13.01.14.

@@ -1,15 +1,15 @@
-package de.cosh.anothermanager;
+package de.cosh.anothermanager.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GUI.GUIWindow;
 
 /**
  * Created by cosh on 10.01.14.
@@ -71,7 +71,6 @@ public class Enemy extends Character {
 
             public void clicked(InputEvent event, float x, float y) {
                 myGame.soundPlayer.PlayBlub1();
-                myGame.swapGame.setupEnemy(enemyHP);
                 GUIWindow guiWindow = new GUIWindow(myGame, stage);
                 guiWindow.showMapEnemyWindow(enemyHP);
             }

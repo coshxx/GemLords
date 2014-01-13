@@ -1,4 +1,4 @@
-package de.cosh.anothermanager;
+package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -19,8 +19,11 @@ public class SwapController {
         Gem firstGem = cells[start.x][start.y].getGem();
         Gem secondGem = cells[start.x + x][start.y + y].getGem();
 
-        firstGem.moveTo(x, y);
-        secondGem.moveTo(-x, -y);
+        if( firstGem.isTypeNone() || secondGem.isTypeNone() )
+            return;
+
+        firstGem.moveBy(x, y);
+        secondGem.moveBy(-x, -y);
 
         cells[start.x][start.y].setGem(secondGem);
         cells[start.x+x][start.y+y].setGem(firstGem);
