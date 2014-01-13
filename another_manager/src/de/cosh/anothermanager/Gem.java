@@ -11,6 +11,7 @@ public class Gem extends Image {
     private GemType gemType;
     private boolean isSpecialGem;
     private boolean markedForRemoval;
+    private boolean typeNone;
 
     public Gem(AnotherManager myGame, GemType g) {
         super(myGame.assets.get(g.getTexturePath(), Texture.class));
@@ -37,6 +38,14 @@ public class Gem extends Image {
 
     public void moveTo(int x, int y) {
         addAction(Actions.moveBy(x * getWidth(), y * getWidth(), 1.0f));
+    }
+
+    public boolean isMarkedForRemoval() {
+        return markedForRemoval;
+    }
+
+    public boolean isTypeNone() {
+        return gemType == GemType.TYPE_NONE;
     }
 
     public enum GemType {

@@ -3,8 +3,8 @@ package de.cosh.anothermanager;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.sun.org.apache.bcel.internal.generic.SWAP;
 
 import java.util.Random;
 
@@ -22,8 +22,12 @@ public class Board extends Table {
     private Random r;
     private Group backGround;
     private Group foreGround;
+
     private SwapController swapController;
     private MatchFinder matchFinder;
+    private GravityApplier gravityApplier;
+    private GemRemover gemRemover;
+
     private boolean initialized;
     private BoardState boardState;
 
@@ -32,6 +36,8 @@ public class Board extends Table {
         cells = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
         swapController = new SwapController(cells);
         matchFinder = new MatchFinder(cells);
+        gravityApplier = new GravityApplier(cells);
+        gemRemover = new GemRemover(cells);
         r = new Random();
         backGround = new Group();
         backGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
@@ -65,8 +71,9 @@ public class Board extends Table {
         updateBoardState();
 
         if( boardState == BoardState.STATE_IDLE ) {
-            boolean boardHasMatches = matchFinder.checkForMatches();
             matchFinder.markAllMatchingGems();
+            gemRemover.fadeMatchingGems();
+            boardState = BoardState.STATE_FADING;
         }
     }
 
@@ -105,7 +112,8 @@ public class Board extends Table {
     private enum BoardState {
         STATE_EMPTY,
         STATE_IDLE,
-        STATE_SWAPPING
+        STATE_SWAPPING,
+        STATE_FADING
     }
 
 }

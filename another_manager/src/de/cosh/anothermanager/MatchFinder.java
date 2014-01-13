@@ -17,13 +17,15 @@ public class MatchFinder {
                 int countMatchesRight = howManyMatchesRight(x, y);
                 if (countMatchesRight >= 3) {
                     for( int d = x; d < x+countMatchesRight; d++ ) {
-                        cells[d][y].getGem().markGemForRemoval();
+                        Gem rem = cells[d][y].getGem();
+                        rem.markGemForRemoval();
                     }
                 }
                 int countMatchesTop = howManyMatchesTop(x, y);
                 if (countMatchesTop >= 3) {
                     for( int d = y; d < y+countMatchesTop; d++ ) {
-                        cells[d][y].getGem().markGemForRemoval();
+                        Gem rem = cells[x][d].getGem();
+                        rem.markGemForRemoval();
                     }
                 }
             }
@@ -54,6 +56,8 @@ public class MatchFinder {
         int count = 1;
 
         Gem checkGem = cells[x][y].getGem();
+        if( checkGem.isTypeNone())
+            return 0;
         for (int d = y + 1; d < Board.MAX_SIZE_Y; d++) {
             Gem nextGem = cells[x][d].getGem();
             if (checkGem.equals(nextGem))
@@ -67,6 +71,8 @@ public class MatchFinder {
         int count = 1;
 
         Gem checkGem = cells[x][y].getGem();
+        if( checkGem.isTypeNone())
+            return 0;
         for (int d = x + 1; d < Board.MAX_SIZE_X; d++) {
             Gem nextGem = cells[d][y].getGem();
             if (checkGem.equals(nextGem))
