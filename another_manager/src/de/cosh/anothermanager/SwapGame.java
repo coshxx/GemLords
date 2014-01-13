@@ -20,14 +20,14 @@ public class SwapGame extends Table {
     private int CELL_SIZE = 70;
     private int PADDING_LEFT = 45;
     private int PADDING_BOT = 45;
-    private Cell[][] board;
+    private CellOld[][] board;
     private Image backGroundImage;
     private Group foreGround, backGround, windowGroup;
     private Random r = new Random();
     private int hits_during_current_move;
 
-    private BoardController boardController;
-    private MatchFinder matchFinder;
+    private BoardControllerOld boardControllerOld;
+    private MatchFinderOld matchFinderOld;
 
     private int INDEV_MAX_DIFFERENT_GEMS = 6;
 
@@ -62,10 +62,10 @@ public class SwapGame extends Table {
 
         justSwapped = false;
 
-        boardController = new BoardController();
-        boardController.init(PADDING_BOT, PADDING_LEFT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y, myGame);
+        boardControllerOld = new BoardControllerOld();
+        boardControllerOld.init(PADDING_BOT, PADDING_LEFT, CELL_SIZE, INDEV_MAX_DIFFERENT_GEMS, MAX_SIZE_X, MAX_SIZE_Y, myGame);
 
-        matchFinder = new MatchFinder();
+        matchFinderOld = new MatchFinderOld();
     }
 
     public void init() {
@@ -80,17 +80,17 @@ public class SwapGame extends Table {
         backGroundImage = new Image(myGame.assets.get("data/background.png", Texture.class));
         backGroundImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         backGround.addActor(backGroundImage);
-        board = boardController.fillBoard(backGround, foreGround);
-        matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
+        board = boardControllerOld.fillBoard(backGround, foreGround);
+        matchFinderOld.init(board, MAX_SIZE_X, MAX_SIZE_Y);
 
 
-        while (matchFinder.findMatches(board, false)) {
+        while (matchFinderOld.findMatches(board, false)) {
             backGround.clear();
             foreGround.clear();
             windowGroup.clear();
             backGround.addActor(backGroundImage);
-            board = boardController.fillBoard(backGround, foreGround);
-            matchFinder.init(board, MAX_SIZE_X, MAX_SIZE_Y);
+            board = boardControllerOld.fillBoard(backGround, foreGround);
+            matchFinderOld.init(board, MAX_SIZE_X, MAX_SIZE_Y);
         }
 
         player = myGame.player;
@@ -133,7 +133,7 @@ public class SwapGame extends Table {
         lastFlingPosition = new Vector2(flingStartPosition);
         GridPoint2 start = convertToBoardIndex(flingStartPosition);
         lastSwapDirection = new GridPoint2(x, y);
-        boardController.swapCellTo(start, x, y);
+        boardControllerOld.swapCellTo(start, x, y);
         boardState = BoardState.MOVING;
     }
 
@@ -167,18 +167,18 @@ public class SwapGame extends Table {
     }
 
     private void respawnMissingGems() {
-        boardController.respawnMissingGems(foreGround);
+        boardControllerOld.respawnMissingGems(foreGround);
     }
 
     private void applyFallingMovement() {
-        boolean neededToMoveOne = boardController.applyFallingActionToGems();
+        boolean neededToMoveOne = boardControllerOld.applyFallingActionToGems();
 
         if (neededToMoveOne)
             boardState = BoardState.MOVING;
     }
 
     private void fadeMarkedGems() {
-        MatchResult r = boardController.playFadingAnimationOnMarkedGems(foreGround);
+        MatchResult r = boardControllerOld.playFadingAnimationOnMarkedGems(foreGround);
 
         if (r.howMany > 0) {
             boardState = BoardState.FADING;
@@ -199,7 +199,7 @@ public class SwapGame extends Table {
             }
         }
         if (!hadActions && boardState == BoardState.FADING) {
-            boardController.removeMarkedGems(foreGround);
+            boardControllerOld.removeMarkedGems(foreGround);
             applyFallingMovement();
             respawnMissingGems();
             boardState = BoardState.MOVING;
@@ -226,7 +226,7 @@ public class SwapGame extends Table {
     }
 
     private void markHits() {
-        boolean markedSome = matchFinder.findMatches(board, true);
+        boolean markedSome = matchFinderOld.findMatches(board, true);
         if (!markedSome) {
             if (justSwapped) {
                 myGame.soundPlayer.playSwapError();

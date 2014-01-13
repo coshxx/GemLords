@@ -1,142 +1,78 @@
 package de.cosh.anothermanager;
 
 /**
- * Created by cosh on 27.12.13.
+ * Created by cosh on 13.01.14.
  */
 public class MatchFinder {
+    private Cell[][] cells;
 
-    private int MAX_SIZE_X, MAX_SIZE_Y;
-    private Cell[][] board;
+    public MatchFinder(Cell[][] cells) {
+        this.cells = cells;
+    }
 
-    public boolean findMatches(Cell[][] board, boolean mark) {
-        boolean foundSome = false;
-        boolean oneMarkedForSpecial = false;
+    public void markAllMatchingGems() {
+        for (int x = 0; x < Board.MAX_SIZE_X; x++) {
+            for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
 
-        for (int x = 0; x < MAX_SIZE_X; x++) {
-            for (int y = 0; y < MAX_SIZE_Y; y++) {
-                int result = howManyMatchesToTheRight(x, y);
-                if (result >= 4) {
-                    for (int d = 0; d < result; d++) {
-                        if (mark) {
-                            if (board[x + d][y].getOccupant().isSpecial()) {
-                                markSurroundingGems(x + d, y);
-                            }
-                            if (board[x + d][y].getOccupant().didMoveLast() && !oneMarkedForSpecial) {
-                                board[x + d][y].markForSepcial();
-                                oneMarkedForSpecial = true;
-                            }
-                            board[x + d][y].markForRemoval();
-                        }
-                        foundSome = true;
-                    }
-                } else if (result >= 3) {
-                    for (int d = 0; d < result; d++) {
-                        if (mark) {
-                            if (board[x + d][y].getOccupant().isSpecial()) {
-                                markSurroundingGems(x + d, y);
-                            }
-                            board[x + d][y].markForRemoval();
-                        }
-                        foundSome = true;
+                int countMatchesRight = howManyMatchesRight(x, y);
+                if (countMatchesRight >= 3) {
+                    for( int d = x; d < x+countMatchesRight; d++ ) {
+                        cells[d][y].getGem().markGemForRemoval();
                     }
                 }
-
-                result = howManyMatchesToTheTop(x, y);
-                oneMarkedForSpecial = false;
-
-                if (result >= 4) {
-                    for (int d = 0; d < result; d++) {
-                        if (mark) {
-                            if (board[x][y + d].getOccupant().isSpecial()) {
-                                markSurroundingGems(x + d, y);
-                            }
-                            if (board[x][y + d].getOccupant().didMoveLast() && !oneMarkedForSpecial) {
-                                board[x][y + d].markForSepcial();
-                                oneMarkedForSpecial = true;
-                            }
-                            board[x][y + d].markForRemoval();
-                        }
-                        foundSome = true;
-                    }
-                } else if (result >= 3) {
-                    for (int d = 0; d < result; d++) {
-                        if (mark) {
-                            if (board[x][y + d].getOccupant().isSpecial()) {
-                                markSurroundingGems(x + d, y);
-                            }
-                            board[x][y + d].markForRemoval();
-                        }
-                        foundSome = true;
+                int countMatchesTop = howManyMatchesTop(x, y);
+                if (countMatchesTop >= 3) {
+                    for( int d = y; d < y+countMatchesTop; d++ ) {
+                        cells[d][y].getGem().markGemForRemoval();
                     }
                 }
             }
         }
-        return foundSome;
+        return;
     }
 
-    private void markSurroundingGems(int x, int y) {
-        if (x - 1 >= 0) {
-            board[x - 1][y].markForRemoval();
-            if (y + 1 < MAX_SIZE_Y)
-                board[x - 1][y + 1].markForRemoval();
-            if (y - 1 >= 0)
-                board[x - 1][y - 1].markForRemoval();
-        }
+    public boolean checkForMatches() {
+        boolean matchFound = false;
+        for (int x = 0; x < Board.MAX_SIZE_X; x++) {
+            for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
 
-        if (x + 1 < MAX_SIZE_X) {
-            board[x + 1][y].markForRemoval();
-            if (y + 1 < MAX_SIZE_Y)
-                board[x + 1][y + 1].markForRemoval();
-            if (y - 1 >= 0)
-                board[x + 1][y - 1].markForRemoval();
+                int countMatchesRight = howManyMatchesRight(x, y);
+                if (countMatchesRight >= 2) {
+                    matchFound = true;
+                }
+
+                int countMatchesTop = howManyMatchesTop(x, y);
+                if (countMatchesTop >= 2) {
+                    matchFound = true;
+                }
+            }
         }
-        if (y + 1 < MAX_SIZE_Y)
-            board[x][y + 1].markForRemoval();
-        if (y - 1 >= 0)
-            board[x][y - 1].markForRemoval();
+        return matchFound;
     }
 
-    private int howManyMatchesToTheTop(int x, int y) {
-        Gem.GemType currentType = board[x][y].getOccupant().getGemType();
-        if (currentType == Gem.GemType.TYPE_NONE)
-            return 0;
-        int searchPos = y;
+    private int howManyMatchesTop(int x, int y) {
         int count = 1;
 
-        while (true) {
-            if (searchPos + 1 >= MAX_SIZE_Y)
-                break;
-            if (board[x][searchPos + 1].getOccupant().getGemType() == currentType) {
+        Gem checkGem = cells[x][y].getGem();
+        for (int d = y + 1; d < Board.MAX_SIZE_Y; d++) {
+            Gem nextGem = cells[x][d].getGem();
+            if (checkGem.equals(nextGem))
                 count++;
-                searchPos++;
-            } else {
-                break;
-            }
+            else break;
         }
         return count;
     }
 
-    private int howManyMatchesToTheRight(int x, int y) {
-        Gem.GemType currentType = board[x][y].getOccupant().getGemType();
-        int searchPos = x;
+    private int howManyMatchesRight(int x, int y) {
         int count = 1;
 
-        while (true) {
-            if (searchPos + 1 >= MAX_SIZE_X)
-                break;
-            if (board[searchPos + 1][y].getOccupant().getGemType() == currentType) {
+        Gem checkGem = cells[x][y].getGem();
+        for (int d = x + 1; d < Board.MAX_SIZE_X; d++) {
+            Gem nextGem = cells[d][y].getGem();
+            if (checkGem.equals(nextGem))
                 count++;
-                searchPos++;
-            } else {
-                break;
-            }
+            else break;
         }
         return count;
-    }
-
-    public void init(Cell[][] board, int max_size_x, int max_size_y) {
-        this.MAX_SIZE_X = max_size_x;
-        this.MAX_SIZE_Y = max_size_y;
-        this.board = board;
     }
 }

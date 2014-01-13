@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 public class GameScreen implements Screen, GestureListener {
     private final AnotherManager myGame;
     private Stage stage;
-    private SwapGame swapGame;
+    private Board swapGame;
     private Vector2 flingStartPosition;
 
     public GameScreen(final AnotherManager myGame) {
@@ -42,16 +42,20 @@ public class GameScreen implements Screen, GestureListener {
         stage = new Stage(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
         stage.setCamera(myGame.camera);
         Gdx.input.setInputProcessor(new GestureDetector(this));
+        swapGame = new Board(myGame);
+        stage.addActor(swapGame);
+        /*
         swapGame = myGame.swapGame;
         swapGame.init();
         swapGame.addAction(Actions.alpha(0.0f));
         swapGame.addAction(Actions.fadeIn(0.5f));
         stage.addActor(swapGame);
+        */
     }
 
     @Override
     public void hide() {
-        swapGame.dispose();
+        //swapGame.dispose();
         stage.dispose();
     }
 

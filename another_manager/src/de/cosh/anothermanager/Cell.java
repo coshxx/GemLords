@@ -1,55 +1,29 @@
 package de.cosh.anothermanager;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import java.awt.*;
-
 /**
- * Created by cosh on 11.12.13.
+ * Created by cosh on 13.01.14.
  */
-public class Cell extends Image {
-    private Gem currently_occupied_by;
-    private boolean markedForRemoval;
-    private boolean replaceWithSpecial;
+public class Cell extends Image{
+    private AnotherManager myGame;
+    private Gem occupant;
 
-    public Cell(Texture t) {
-        super(t);
-        markedForRemoval = false;
-        replaceWithSpecial = false;
+    public Cell(AnotherManager myGame) {
+        super(myGame.assets.get("data/cell_back.png", Texture.class));
+        this.myGame = myGame;
+    }
+    public void putGem(Gem gem) {
+        occupant = gem;
+        occupant.setPosition(getX(), getY());
     }
 
-    public void setOccupant( Gem g ) {
-        currently_occupied_by = g;
+    public Gem getGem() {
+        return occupant;
     }
 
-    public Gem getOccupant() {
-        return currently_occupied_by;
-    }
-
-    public void markForRemoval() {
-        markedForRemoval = true;
-    }
-
-    public void markForSepcial() {
-        replaceWithSpecial = true;
-    }
-
-    public boolean isMarkedForRemoval() {
-        return markedForRemoval;
-    }
-    public boolean isMarkedForSpecial() { return replaceWithSpecial; }
-
-    public void removeOccupant() {
-        currently_occupied_by = null;
-    }
-
-    public void unmarkForRemoval() {
-        markedForRemoval = false;
-    }
-
-    public void unmarkForSpecial() {
-        replaceWithSpecial = false;
+    public void setGem(Gem gem) {
+        occupant = gem;
     }
 }
