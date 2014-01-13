@@ -12,6 +12,7 @@ public class SoundPlayer {
     private Sound blub1, blub2;
     private Sound[] dings;
     private Sound error;
+    private Sound bang;
     private Sound awesome;
     private Sound loot;
     private Sound victorySound, loseSound;
@@ -46,8 +47,10 @@ public class SoundPlayer {
         dings[2] = myGame.assets.get("data/ding3.ogg", Sound.class);
         dings[3] = myGame.assets.get("data/ding4.ogg", Sound.class);
         dings[4] = myGame.assets.get("data/ding5.ogg", Sound.class);
+        bang = myGame.assets.get("data/bang.ogg", Sound.class);
 
         mapMusic = myGame.assets.get("data/music.ogg", Music.class);
+
 
         victorySound = myGame.assets.get("data/victory.ogg", Sound.class);
         loseSound = myGame.assets.get("data/boo.ogg", Sound.class);
@@ -104,5 +107,9 @@ public class SoundPlayer {
 
     public void stopLootMusic() {
         loot.stop();
+    }
+
+    public void playBang() {
+        bang.play();
     }
 }

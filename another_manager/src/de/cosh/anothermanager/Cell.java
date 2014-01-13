@@ -12,10 +12,12 @@ import java.awt.*;
 public class Cell extends Image {
     private Gem currently_occupied_by;
     private boolean markedForRemoval;
+    private boolean replaceWithSpecial;
 
     public Cell(Texture t) {
         super(t);
         markedForRemoval = false;
+        replaceWithSpecial = false;
     }
 
     public void setOccupant( Gem g ) {
@@ -30,9 +32,14 @@ public class Cell extends Image {
         markedForRemoval = true;
     }
 
+    public void markForSepcial() {
+        replaceWithSpecial = true;
+    }
+
     public boolean isMarkedForRemoval() {
         return markedForRemoval;
     }
+    public boolean isMarkedForSpecial() { return replaceWithSpecial; }
 
     public void removeOccupant() {
         currently_occupied_by = null;
@@ -40,5 +47,9 @@ public class Cell extends Image {
 
     public void unmarkForRemoval() {
         markedForRemoval = false;
+    }
+
+    public void unmarkForSpecial() {
+        replaceWithSpecial = false;
     }
 }

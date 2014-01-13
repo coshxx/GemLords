@@ -109,12 +109,21 @@ public class SplashScreen implements Screen {
 
     private void loadAllAssets() {
         myGame.assets.load("data/background.png", Texture.class);
+
         myGame.assets.load("data/ball_blue.png", Texture.class);
         myGame.assets.load("data/ball_green.png", Texture.class);
         myGame.assets.load("data/ball_purple.png", Texture.class);
         myGame.assets.load("data/ball_red.png", Texture.class);
         myGame.assets.load("data/ball_white.png", Texture.class);
         myGame.assets.load("data/ball_yellow.png", Texture.class);
+
+        myGame.assets.load("data/special_blue.png", Texture.class);
+        myGame.assets.load("data/special_green.png", Texture.class);
+        myGame.assets.load("data/special_purple.png", Texture.class);
+        myGame.assets.load("data/special_red.png", Texture.class);
+        myGame.assets.load("data/special_white.png", Texture.class);
+        myGame.assets.load("data/special_yellow.png", Texture.class);
+
         myGame.assets.load("data/empty.png", Texture.class);
         myGame.assets.load("data/full.png", Texture.class);
         myGame.assets.load("data/logo.png", Texture.class);
@@ -139,6 +148,7 @@ public class SplashScreen implements Screen {
         myGame.assets.load("data/ding3.ogg", Sound.class);
         myGame.assets.load("data/ding4.ogg", Sound.class);
         myGame.assets.load("data/ding5.ogg", Sound.class);
+        myGame.assets.load("data/bang.ogg", Sound.class);
         myGame.assets.load("data/music.ogg", Music.class);
         myGame.assets.load("data/loot.ogg", Sound.class);
         myGame.assets.load("data/victory.ogg", Sound.class);
@@ -151,8 +161,6 @@ public class SplashScreen implements Screen {
 
         myGame.assets.load("data/font.fnt", BitmapFont.class);
         myGame.assets.load("data/font2.fnt", BitmapFont.class);
-
-        myGame.assets.load("data/ball_green_special.png", Texture.class);
     }
 
 }

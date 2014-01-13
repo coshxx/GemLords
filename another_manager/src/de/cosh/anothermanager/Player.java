@@ -16,7 +16,7 @@ public class Player extends Character {
     private HealthBar healthBar;
 
     public Player(AnotherManager myGame) {
-        super(myGame, 100);
+        super(myGame, 500);
         this.myGame = myGame;
         currentLevel = 0;
         levelDone = new boolean[200];
@@ -44,5 +44,9 @@ public class Player extends Character {
 
     public void decreaseLife() {
         lives--;
+    }
+    public void init(int hp) {
+        healthBar = new HealthBar();
+        healthBar.init(hp, myGame);
     }
 }

@@ -32,7 +32,7 @@ public class StarEffect {
 
             star.setPosition(x, y);
             star.addAction(Actions.sequence(
-                    Actions.parallel(Actions.moveBy(xAmount, -800f, duration), Actions.rotateBy(rot, duration)
+                    Actions.parallel(Actions.moveBy(xAmount, -800f, duration), Actions.rotateBy(rot, duration), Actions.fadeOut(2f)
                     ),
                     Actions.removeActor()
             ));

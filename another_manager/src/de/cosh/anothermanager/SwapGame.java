@@ -94,7 +94,7 @@ public class SwapGame extends Table {
         }
 
         player = myGame.player;
-        player.init();
+        player.init(200);
         player.setHealthBarPosition(PADDING_LEFT, PADDING_BOT - 40, (CELL_SIZE * MAX_SIZE_X), 25);
 
         foreGround.addActor(enemy.getImage());
@@ -178,13 +178,15 @@ public class SwapGame extends Table {
     }
 
     private void fadeMarkedGems() {
-        int didSome = boardController.playFadingAnimationOnMarkedGems(foreGround);
+        MatchResult r = boardController.playFadingAnimationOnMarkedGems(foreGround);
 
-        if (didSome > 0) {
+        if (r.howMany > 0) {
             boardState = BoardState.FADING;
-            myGame.soundPlayer.playDing(hits_during_current_move);
+            if( r.specialExplo )
+                myGame.soundPlayer.playBang();
+            else myGame.soundPlayer.playDing(hits_during_current_move);
             hits_during_current_move++;
-            enemy.damage(didSome);
+            enemy.damage(r.howMany);
         }
     }
 
@@ -215,6 +217,11 @@ public class SwapGame extends Table {
             }
             hits_during_current_move = 0;
             boardState = BoardState.IDLE;
+            for (int x = 0; x < MAX_SIZE_X; x++) {
+                for (int y = 0; y < MAX_SIZE_Y; y++) {
+                    board[x][y].getOccupant().setMoved(false);
+                }
+            }
         }
     }
 

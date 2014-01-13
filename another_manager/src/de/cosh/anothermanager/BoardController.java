@@ -62,23 +62,27 @@ public class BoardController {
             return;
 
         currentBoard[start.x][start.y].getOccupant().addAction(Actions.moveBy(CELL_SIZE * x, CELL_SIZE * y, GEM_SPEED));
+        currentBoard[start.x][start.y].getOccupant().setMoved(true);
         currentBoard[end.x][end.y].getOccupant().addAction(Actions.moveBy(-(CELL_SIZE * x), -(CELL_SIZE * y), GEM_SPEED));
+        currentBoard[end.x][end.y].getOccupant().setMoved(true);
         Gem oldOccupant = startOccupant;
         currentBoard[start.x][start.y].setOccupant(currentBoard[end.x][end.y].getOccupant());
         currentBoard[end.x][end.y].setOccupant(oldOccupant);
     }
 
-    public int playFadingAnimationOnMarkedGems(Group foreGround) {
-        int didSome = 0;
+    public MatchResult playFadingAnimationOnMarkedGems(Group foreGround) {
+        MatchResult result = new MatchResult();
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
-                if (currentBoard[x][y].isMarkedForRemoval()) {
-                    didSome++;
+                if (currentBoard[x][y].isMarkedForRemoval() && !currentBoard[x][y].isMarkedForSpecial()) {
+                    result.howMany++;
+                    if( currentBoard[x][y].getOccupant().isSpecial() )
+                        result.specialExplo = true;
                     currentBoard[x][y].getOccupant().addAction(Actions.parallel(Actions.scaleBy(-1f, -1f, 0.15f), Actions.moveBy(35f, 35f, 0.15f)));
                 }
             }
         }
-        return didSome;
+        return result;
     }
 
     public boolean applyFallingActionToGems() {
@@ -91,7 +95,9 @@ public class BoardController {
                     for (int d = y + 1; d < MAX_SIZE_Y; d++) {
                         if (currentBoard[x][d].getOccupant().getGemType() != GemType.TYPE_NONE) {
                             neededToMoveOne = true;
-                            currentBoard[x][d].getOccupant().addAction(Actions.moveBy(0, -(CELL_SIZE * (d - y)), (GEM_SPEED * (d - y)), new Interpolation.ExpOut(0.2f, 1f)));
+                            Gem moveGem = currentBoard[x][d].getOccupant();
+                            moveGem.addAction(Actions.moveTo(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE), (GEM_SPEED * (d - y)), new Interpolation.ExpOut(0.2f, 1f)));
+                            moveGem.setMoved(true);
                             currentBoard[x][y].setOccupant(currentBoard[x][d].getOccupant());
                             currentBoard[x][d].setOccupant(currentGem);
                             break;
@@ -113,6 +119,7 @@ public class BoardController {
                     newGem.setPosition(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (((MAX_SIZE_Y) + counter) * CELL_SIZE));
                     counter++;
                     newGem.addAction(Actions.moveTo(PADDING_LEFT + (x * CELL_SIZE), PADDING_BOT + (y * CELL_SIZE), (GEM_SPEED * (((MAX_SIZE_Y - 1) + counter) - (y))), new Interpolation.ExpOut(0.2f, 1f)));
+                    newGem.setMoved(true);
                     foreGround.addActor(newGem);
                     currentBoard[x][y].setOccupant(newGem);
                 }
@@ -123,13 +130,19 @@ public class BoardController {
     public void removeMarkedGems(Group foreGround) {
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
-                if (currentBoard[x][y].isMarkedForRemoval()) {
+                if( currentBoard[x][y].isMarkedForSpecial()) {
+                    Gem currentGem = currentBoard[x][y].getOccupant();
+                    currentGem.convertToSpecial();
+                    currentBoard[x][y].unmarkForRemoval();
+                    currentBoard[x][y].unmarkForSpecial();
+
+                }
+                else if (currentBoard[x][y].isMarkedForRemoval()) {
                     foreGround.removeActor(currentBoard[x][y].getOccupant());
                     StarEffect e = new StarEffect(myGame);
                     e.spawnStars(currentBoard[x][y].getOccupant().getX(), currentBoard[x][y].getOccupant().getY(), foreGround);
                     currentBoard[x][y].getOccupant().setToNoGem();
                     currentBoard[x][y].unmarkForRemoval();
-
                 }
             }
         }

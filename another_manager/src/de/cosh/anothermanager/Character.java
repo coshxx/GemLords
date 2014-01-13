@@ -21,10 +21,16 @@ public class Character {
         return healthBar.getHealthpoints();
     }
 
+    public void setHealth(int hp) {
+        healthPoints = hp;
+        healthBar.init(healthPoints, myGame);
+    }
+
     public void init() {
         healthBar = new HealthBar();
         healthBar.init(100, myGame);
     }
+
     public void damage(int damage) {
         healthBar.hit(damage);
     }
@@ -35,9 +41,5 @@ public class Character {
 
     public Actor getHealthBar() {
         return healthBar;
-    }
-
-    public void setHealth(int hp) {
-        healthPoints = hp;
     }
 }
