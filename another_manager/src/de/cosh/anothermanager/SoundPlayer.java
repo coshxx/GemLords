@@ -1,5 +1,6 @@
 package de.cosh.anothermanager;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -11,11 +12,14 @@ public class SoundPlayer {
     private AnotherManager myGame;
     private Sound blub1, blub2;
     private Sound[] dings;
+    private Sound ding;
     private Sound error;
     private Sound bang;
     private Sound awesome;
     private Sound loot;
     private Sound victorySound, loseSound;
+    private Sound woosh;
+    private Sound convert;
 
     private Music mapMusic;
     private float mapMusicVolume;
@@ -50,8 +54,9 @@ public class SoundPlayer {
         bang = myGame.assets.get("data/bang.ogg", Sound.class);
 
         mapMusic = myGame.assets.get("data/music.ogg", Music.class);
-
-
+        woosh = myGame.assets.get("data/woosh.ogg", Sound.class);
+        convert = myGame.assets.get("data/convert.ogg", Sound.class);
+        ding = myGame.assets.get("data/ding.ogg", Sound.class);
         victorySound = myGame.assets.get("data/victory.ogg", Sound.class);
         loseSound = myGame.assets.get("data/boo.ogg", Sound.class);
 
@@ -74,12 +79,16 @@ public class SoundPlayer {
     }
 
     public void playDing(int hits_during_current_move) {
+        /*
         if( hits_during_current_move > 4 )
             hits_during_current_move = 4;
 
         dings[hits_during_current_move].play();
 
         System.out.println("Playing " + hits_during_current_move);
+        */
+        float pitch = hits_during_current_move / 10f;
+        ding.play(1f, 1f+pitch, 1f);
     }
 
     public void playSwapError() {
@@ -111,5 +120,13 @@ public class SoundPlayer {
 
     public void playBang() {
         bang.play();
+    }
+
+    public void playWoosh() {
+        woosh.play();
+    }
+
+    public void playConvert() {
+        convert.play();
     }
 }

@@ -24,6 +24,8 @@ public class SwapController {
 
         firstGem.moveBy(x, y);
         secondGem.moveBy(-x, -y);
+        firstGem.setMoving(true);
+        secondGem.setMoving(true);
 
         cells[start.x][start.y].setGem(secondGem);
         cells[start.x+x][start.y+y].setGem(firstGem);

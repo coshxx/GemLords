@@ -20,6 +20,7 @@ public class GravityApplier {
                         if (fall.isTypeNone())
                             continue;
                         fall.fallBy(0, -(d - y));
+                        fall.setMoving(true);
 
                         Gem temp = cells[x][y].getGem();
                         cells[x][y].setGem(fall);

@@ -19,21 +19,20 @@ public class Board extends Table {
     public static final int CELL_PAD_X = 45;
     public static final int CELL_PAD_Y = 45;
     public static final int CELL_SIZE = 70;
-
     private AnotherManager myGame;
     private Cell[][] cells;
     private Random random;
     private Group backGround;
     private Group foreGround;
-
+    private Group effectGroup;
     private SwapController swapController;
     private MatchFinder matchFinder;
     private GravityApplier gravityApplier;
     private GemRemover gemRemover;
     private GemRespawner gemRespawner;
-
     private boolean initialized;
     private BoardState boardState;
+    private int matchesDuringCurrentMove;
 
     public Board(AnotherManager myGame) {
         this.myGame = myGame;
@@ -48,11 +47,14 @@ public class Board extends Table {
         backGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         foreGround = new Group();
         foreGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+        effectGroup = new Group();
+        effectGroup.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         Image backImage = new Image(myGame.assets.get("data/background.png", Texture.class));
         backImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
         backGround.addActor(backImage);
         addActor(backGround);
         addActor(foreGround);
+        addActor(effectGroup);
         boardState = BoardState.STATE_EMPTY;
         initialized = false;
     }
@@ -75,11 +77,20 @@ public class Board extends Table {
             initialized = true;
             fillWithRandomGems();
             boardState = BoardState.STATE_IDLE;
+            matchesDuringCurrentMove = 0;
         }
 
         if (boardState == BoardState.STATE_IDLE) {
-            if( matchFinder.markAllMatchingGems() ) {
-                gemRemover.fadeMarkedGems();
+            MatchResult result = matchFinder.markAllMatchingGems();
+            if( result.howMany > 0 ) {
+                if( result.conversion )
+                    myGame.soundPlayer.playConvert();
+                else {
+                    myGame.soundPlayer.playDing(matchesDuringCurrentMove++);
+                }
+                result = gemRemover.fadeMarkedGems(effectGroup);
+                if( result.specialExplo )
+                    myGame.soundPlayer.playWoosh();
                 boardState = BoardState.STATE_FADING;
             }
         }
@@ -98,7 +109,7 @@ public class Board extends Table {
             }
         }
         if (!stillMovement && boardState == BoardState.STATE_FADING) {
-            gemRemover.removeFadedGems(myGame, foreGround);
+            gemRemover.removeFadedGems(myGame, effectGroup);
             gravityApplier.applyGravity();
             gemRespawner.respawn(foreGround);
             boardState = BoardState.STATE_MOVING;
@@ -111,6 +122,7 @@ public class Board extends Table {
 
     public void swapTo(Vector2 flingStartPosition, int x, int y) {
         if (boardState == BoardState.STATE_IDLE) {
+            matchesDuringCurrentMove = 0;
             GridPoint2 start = convertToBoardIndex(flingStartPosition);
             swapController.swap(start, x, y);
             boardState = BoardState.STATE_SWAPPING;

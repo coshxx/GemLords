@@ -6,9 +6,11 @@ package de.cosh.anothermanager.SwapGame;
 public class MatchResult {
     public int howMany;
     public boolean specialExplo;
+    public boolean conversion;
 
     public MatchResult() {
         howMany = 0;
         specialExplo = false;
+        conversion = false;
     }
 }

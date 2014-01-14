@@ -10,30 +10,52 @@ public class MatchFinder {
         this.cells = cells;
     }
 
-    public boolean markAllMatchingGems() {
-        boolean markedSome = false;
+    public MatchResult markAllMatchingGems() {
+        MatchResult result = new MatchResult();
         for (int x = 0; x < Board.MAX_SIZE_X; x++) {
             for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
 
                 int countMatchesRight = howManyMatchesRight(x, y);
-                if (countMatchesRight >= 3) {
+                if (countMatchesRight >= 4) {
+                    boolean convertedOne = false;
+                    for (int d = x; d < x + countMatchesRight; d++) {
+                        Gem rem = cells[d][y].getGem();
+                        if (rem.isMoving() && !convertedOne) {
+                            convertedOne = true;
+                            result.conversion = true;
+                            rem.markForSpecialConversion();
+                        } else rem.markGemForRemoval();
+                    }
+                } else if (countMatchesRight >= 3) {
                     for (int d = x; d < x + countMatchesRight; d++) {
                         Gem rem = cells[d][y].getGem();
                         rem.markGemForRemoval();
-                        markedSome = true;
+                        result.howMany++;
                     }
                 }
                 int countMatchesTop = howManyMatchesTop(x, y);
-                if (countMatchesTop >= 3) {
+
+                if (countMatchesTop >= 4) {
+                    boolean convertedOne = false;
+                    for (int d = y; d < y + countMatchesTop; d++) {
+                        Gem rem = cells[x][d].getGem();
+                        if (rem.isMoving() && !convertedOne) {
+                            convertedOne = true;
+                            result.conversion = true;
+                            rem.markForSpecialConversion();
+                        } else rem.markGemForRemoval();
+                    }
+                } else if (countMatchesTop >= 3) {
                     for (int d = y; d < y + countMatchesTop; d++) {
                         Gem rem = cells[x][d].getGem();
                         rem.markGemForRemoval();
-                        markedSome = true;
+                        result.howMany++;
                     }
                 }
+                cells[x][y].getGem().setMoving(false);
             }
         }
-        return markedSome;
+        return result;
     }
 
     private int howManyMatchesTop(int x, int y) {
