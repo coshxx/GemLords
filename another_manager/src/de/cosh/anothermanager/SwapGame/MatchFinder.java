@@ -58,6 +58,22 @@ public class MatchFinder {
         return result;
     }
 
+    public boolean hasMatches() {
+        boolean hasHits = false;
+        for (int x = 0; x < Board.MAX_SIZE_X; x++) {
+            for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
+                int countMatchesRight = howManyMatchesRight(x, y);
+                if (countMatchesRight >= 3)
+                    hasHits = true;
+
+                int countMatchesTop = howManyMatchesTop(x, y);
+                if (countMatchesTop >= 3)
+                    hasHits = true;
+            }
+        }
+        return hasHits;
+    }
+
     private int howManyMatchesTop(int x, int y) {
 
         int count = 1;

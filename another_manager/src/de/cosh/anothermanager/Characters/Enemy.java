@@ -1,13 +1,17 @@
 package de.cosh.anothermanager.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import de.cosh.anothermanager.Abilities.Ability;
+import de.cosh.anothermanager.Abilities.AbilityAttack;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.GUI.GUIWindow;
 
@@ -16,11 +20,14 @@ import de.cosh.anothermanager.GUI.GUIWindow;
  */
 public class Enemy extends BaseCharacter {
     private Image enemyImage;
-    private AnotherManager myGame;
-    private boolean isDefeated;
     private TextureRegion pointTexture, pointDoneTexture;
     private ImageButton.ImageButtonStyle style, styleDone;
     private ImageButton pointButton, pointButtonDone;
+
+    private AnotherManager myGame;
+    private boolean isDefeated;
+    private AbilityAttack abilityAttack;
+
 
     public Enemy(AnotherManager myGame, Texture texture) {
         super(myGame, 20);
@@ -43,13 +50,24 @@ public class Enemy extends BaseCharacter {
 
         pointButton = new ImageButton(style.up, style.down);
         pointButtonDone = new ImageButton(styleDone.up, styleDone.down);
-
-
-
+        abilityAttack = new AbilityAttack(myGame);
     }
 
     public void setPosition(float x, float y) {
         enemyImage.setPosition(x, y);
+    }
+
+    public void turn() {
+        if( !abilityAttack.fire(myGame.player) )
+            abilityAttack.update();
+    }
+
+    public Ability getAbility1() {
+        return abilityAttack;
+    }
+
+    public void draw(SpriteBatch batch, float parentAlpha) {
+        abilityAttack.drawCooldown(batch, parentAlpha);
     }
 
     public Image getImage() {
@@ -65,9 +83,9 @@ public class Enemy extends BaseCharacter {
     public void addPositionalButtonToMap(float x, float y, Image enemyImage, final int enemyHP, final Stage stage) {
         this.enemyImage = enemyImage;
         final Enemy e = this;
-
         pointButton.setPosition(x, y);
         pointButtonDone.setPosition(x, y);
+        setHealth(enemyHP);
         pointButton.addListener(new ClickListener() {
 
             public void clicked(InputEvent event, float x, float y) {
@@ -79,6 +97,16 @@ public class Enemy extends BaseCharacter {
         });
 
         stage.addActor(isDefeated ? pointButtonDone : pointButton);
+    }
+
+    public void addToBoard(Group foreGround) {
+        init(getHealth());
+        enemyImage.setPosition(myGame.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), myGame.VIRTUAL_HEIGHT * 0.75f);
+        setHealthBarPosition(0, 800, myGame.VIRTUAL_WIDTH, 50);
+        abilityAttack.getImage().setPosition(enemyImage.getX(), 880 );
+        foreGround.addActor(enemyImage);
+        foreGround.addActor(getHealthBar());
+        foreGround.addActor(abilityAttack.getImage());
     }
 }
 

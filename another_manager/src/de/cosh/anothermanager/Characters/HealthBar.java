@@ -1,4 +1,4 @@
-package de.cosh.anothermanager.GUI;
+package de.cosh.anothermanager.Characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

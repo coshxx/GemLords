@@ -1,7 +1,7 @@
 package de.cosh.anothermanager.Characters;
 
+import com.badlogic.gdx.scenes.scene2d.Group;
 import de.cosh.anothermanager.AnotherManager;
-import de.cosh.anothermanager.GUI.HealthBar;
 
 /**
  * Created by cosh on 10.12.13.
@@ -12,7 +12,6 @@ public class Player extends BaseCharacter {
     private Enemy lastEnemey;
     public boolean[] levelDone;
     private int currentLevel;
-    private HealthBar healthBar;
 
     public Player(AnotherManager myGame) {
         super(myGame, 500);
@@ -44,8 +43,10 @@ public class Player extends BaseCharacter {
     public void decreaseLife() {
         lives--;
     }
-    public void init(int hp) {
-        healthBar = new HealthBar();
-        healthBar.init(hp, myGame);
+
+    public void addToBoard(Group foreGround) {
+        init(100);
+        setHealthBarPosition(0, 10, myGame.VIRTUAL_WIDTH, 30);
+        foreGround.addActor(getHealthBar());
     }
 }

@@ -2,7 +2,6 @@ package de.cosh.anothermanager.Characters;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.cosh.anothermanager.AnotherManager;
-import de.cosh.anothermanager.GUI.HealthBar;
 
 /**
  * Created by cosh on 11.01.14.
@@ -28,9 +27,9 @@ public class BaseCharacter {
         healthBar.init(healthPoints, myGame);
     }
 
-    public void init() {
+    public void init(int hp) {
         healthBar = new HealthBar();
-        healthBar.init(100, myGame);
+        healthBar.init(hp, myGame);
     }
 
     public void damage(int damage) {

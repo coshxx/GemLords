@@ -20,6 +20,7 @@ public class SoundPlayer {
     private Sound victorySound, loseSound;
     private Sound woosh;
     private Sound convert;
+    private Sound abilityAttack;
 
     private Music mapMusic;
     private float mapMusicVolume;
@@ -59,6 +60,7 @@ public class SoundPlayer {
         ding = myGame.assets.get("data/ding.ogg", Sound.class);
         victorySound = myGame.assets.get("data/victory.ogg", Sound.class);
         loseSound = myGame.assets.get("data/boo.ogg", Sound.class);
+        abilityAttack = myGame.assets.get("data/abilityattack.ogg", Sound.class);
 
         error = myGame.assets.get("data/error.ogg", Sound.class);
 
@@ -128,5 +130,9 @@ public class SoundPlayer {
 
     public void playConvert() {
         convert.play();
+    }
+
+    public void playAbilityAttack() {
+        abilityAttack.play();
     }
 }
