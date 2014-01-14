@@ -6,7 +6,7 @@ import de.cosh.anothermanager.GUI.HealthBar;
 /**
  * Created by cosh on 10.12.13.
  */
-public class Player extends Character {
+public class Player extends BaseCharacter {
     private AnotherManager myGame;
     private int lives;
     private Enemy lastEnemey;

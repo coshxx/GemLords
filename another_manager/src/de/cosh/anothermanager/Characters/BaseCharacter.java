@@ -7,12 +7,12 @@ import de.cosh.anothermanager.GUI.HealthBar;
 /**
  * Created by cosh on 11.01.14.
  */
-public class Character {
+public class BaseCharacter {
     private HealthBar healthBar;
     private int healthPoints;
     private AnotherManager myGame;
 
-    public Character(AnotherManager myGame, int hp) {
+    public BaseCharacter(AnotherManager myGame, int hp) {
         this.healthPoints = hp;
         this.myGame = myGame;
         healthBar = new HealthBar();

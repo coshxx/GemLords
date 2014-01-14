@@ -14,7 +14,7 @@ import de.cosh.anothermanager.GUI.GUIWindow;
 /**
  * Created by cosh on 10.01.14.
  */
-public class Enemy extends Character {
+public class Enemy extends BaseCharacter {
     private Image enemyImage;
     private AnotherManager myGame;
     private boolean isDefeated;
