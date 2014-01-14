@@ -7,15 +7,15 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
 /**
  * Created by cosh on 14.01.14.
  */
-public interface Ability {
+public abstract interface Ability {
     // use ability
-    public boolean fire(BaseCharacter target);
+    public abstract boolean fire(BaseCharacter target);
 
     // once every turn
-    public void update();
+    public abstract void update();
 
     // mhh
-    public Image getImage();
+    public abstract Image getImage();
 
-    public int getCooldown();
+    public abstract int getCooldown();
 }

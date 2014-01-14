@@ -67,6 +67,7 @@ public class AbilityAttack implements Ability {
 
     public void drawCooldown(SpriteBatch batch, float parentAlpha) {
         Integer cooldown = getCooldown();
+        bmf.setColor(1f, 1f, 1f, parentAlpha);
         if (!abilityReady)
             bmf.draw(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY());
         else bmf.draw(batch, "Ready", abilityImage.getX(), abilityImage.getY());
