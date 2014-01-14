@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Characters.Enemy;
+import de.cosh.anothermanager.GUI.GUIWindow;
 
 import java.util.Random;
 
@@ -33,6 +35,7 @@ public class Board extends Table {
     private boolean initialized;
     private BoardState boardState;
     private int matchesDuringCurrentMove;
+    private Enemy enemy;
 
     public Board(AnotherManager myGame) {
         this.myGame = myGame;
@@ -72,24 +75,37 @@ public class Board extends Table {
         }
     }
 
+    private void prepareEnemy() {
+        enemy = myGame.enemyManager.getSelectedEnemy();
+        enemy.init();
+        enemy.getImage().setPosition(myGame.VIRTUAL_WIDTH / 2 - (enemy.getImage().getWidth() / 2), myGame.VIRTUAL_HEIGHT * 0.75f);
+        enemy.setHealthBarPosition(0, 800, myGame.VIRTUAL_WIDTH, 50);
+        foreGround.addActor(enemy.getImage());
+        foreGround.addActor(enemy.getHealthBar());
+    }
+
     public void update(float delta) {
         if (!initialized) {
             initialized = true;
             fillWithRandomGems();
+            prepareEnemy();
             boardState = BoardState.STATE_IDLE;
             matchesDuringCurrentMove = 0;
         }
 
         if (boardState == BoardState.STATE_IDLE) {
             MatchResult result = matchFinder.markAllMatchingGems();
-            if( result.howMany > 0 ) {
-                if( result.conversion )
+            if (result.howMany > 0) {
+                if (result.conversion)
                     myGame.soundPlayer.playConvert();
                 else {
                     myGame.soundPlayer.playDing(matchesDuringCurrentMove++);
                 }
+                result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
-                if( result.specialExplo )
+                enemy.damage(result.howMany);
+                System.out.println("Enemy damage: " + result.howMany);
+                if (result.specialExplo)
                     myGame.soundPlayer.playWoosh();
                 boardState = BoardState.STATE_FADING;
             }

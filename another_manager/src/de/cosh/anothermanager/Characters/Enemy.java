@@ -64,6 +64,7 @@ public class Enemy extends Character {
 
     public void addPositionalButtonToMap(float x, float y, Image enemyImage, final int enemyHP, final Stage stage) {
         this.enemyImage = enemyImage;
+        final Enemy e = this;
 
         pointButton.setPosition(x, y);
         pointButtonDone.setPosition(x, y);
@@ -73,6 +74,7 @@ public class Enemy extends Character {
                 myGame.soundPlayer.PlayBlub1();
                 GUIWindow guiWindow = new GUIWindow(myGame, stage);
                 guiWindow.showMapEnemyWindow(enemyHP);
+                myGame.enemyManager.setSelectedEnemy(e);
             }
         });
 

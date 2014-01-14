@@ -10,13 +10,17 @@ import de.cosh.anothermanager.AnotherManager;
 public class GemRemover {
     private Cell[][] cells;
     private final float FADE_TIME = 0.25f;
+    private MatchResult result;
 
     public GemRemover(Cell[][] cells) {
         this.cells = cells;
+        this.result = new MatchResult();
     }
 
     public MatchResult fadeMarkedGems(Group effectGroup) {
-        MatchResult result = new MatchResult();
+        result.howMany = 0;
+        result.specialExplo = false;
+        result.conversion = false;
         for( int x = 0; x < Board.MAX_SIZE_X; x++ ) {
             for( int y = 0; y < Board.MAX_SIZE_Y; y++ ) {
                 Gem rem = cells[x][y].getGem();
@@ -33,6 +37,7 @@ public class GemRemover {
                     }
                     if( rem.getActions().size > 0 )
                         continue;
+                    result.howMany++;
                     rem.addAction(Actions.parallel(
                             Actions.scaleTo(0.0f, 0.0f, FADE_TIME),
                             Actions.moveBy(rem.getWidth() / 2, rem.getHeight() / 2, FADE_TIME)
@@ -52,6 +57,7 @@ public class GemRemover {
             effectGroup.addActor(effect);
             if( rem.getActions().size > 0 )
                 continue;
+            result.howMany++;
             rem.addAction(Actions.parallel(
                     Actions.scaleTo(0.0f, 0.0f, FADE_TIME),
                     Actions.moveBy(rem.getWidth()/2, rem.getHeight()/2, FADE_TIME)
