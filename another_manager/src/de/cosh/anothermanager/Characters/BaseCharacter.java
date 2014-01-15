@@ -7,9 +7,9 @@ import de.cosh.anothermanager.AnotherManager;
  * Created by cosh on 11.01.14.
  */
 public class BaseCharacter {
-    private HealthBar healthBar;
+    private transient HealthBar healthBar;
     private int healthPoints;
-    private AnotherManager myGame;
+    private transient AnotherManager myGame;
 
     public BaseCharacter(AnotherManager myGame, int hp) {
         this.healthPoints = hp;

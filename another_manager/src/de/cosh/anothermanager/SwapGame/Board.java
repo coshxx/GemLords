@@ -11,7 +11,6 @@ import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIWindow;
-import org.omg.PortableInterceptor.INACTIVE;
 
 import java.util.Random;
 
@@ -22,7 +21,7 @@ public class Board extends Table {
     public static final int MAX_SIZE_X = 9;
     public static final int MAX_SIZE_Y = 9;
     public static final int CELL_PAD_X = 45;
-    public static final int CELL_PAD_Y = 45;
+    public static final int CELL_PAD_Y = 145;
     public static final int CELL_SIZE = 70;
     private AnotherManager myGame;
     private Cell[][] cells;
@@ -39,10 +38,8 @@ public class Board extends Table {
     private boolean justSwapped;
     private BoardState boardState;
     private int matchesDuringCurrentMove;
-
     private GridPoint2 lastSwap;
     private int lastX, lastY;
-
     private Enemy enemy;
     private Player player;
 
@@ -73,8 +70,6 @@ public class Board extends Table {
         justSwapped = false;
     }
 
-
-
     private void fillWithRandomGems() {
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
@@ -103,7 +98,7 @@ public class Board extends Table {
         if (!initialized) {
             initialized = true;
             fillWithRandomGems();
-            while (matchFinder.hasMatches() ) {
+            while (matchFinder.hasMatches()) {
                 backGround.clear();
                 foreGround.clear();
                 Image backImage = new Image(myGame.assets.get("data/background.png", Texture.class));
@@ -121,9 +116,7 @@ public class Board extends Table {
             if (result.howMany > 0) {
                 if (result.conversion)
                     myGame.soundPlayer.playConvert();
-                else {
-                    myGame.soundPlayer.playDing(matchesDuringCurrentMove++);
-                }
+                myGame.soundPlayer.playDing(matchesDuringCurrentMove++);
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
                 enemy.damage(result.howMany);
@@ -153,32 +146,31 @@ public class Board extends Table {
             gemRespawner.respawn(foreGround);
             boardState = BoardState.STATE_MOVING;
         } else if (!stillMovement && boardState == BoardState.STATE_SWAPPING) {
-            if( !matchFinder.hasMatches() ) {
+            if (!matchFinder.hasMatches()) {
                 boardState = BoardState.STATE_MOVING;
                 swapController.swap(lastSwap, lastX, lastY);
             }
             boardState = BoardState.STATE_CHECK;
         } else if (!stillMovement && boardState == BoardState.STATE_CHECK) {
 
-            if( enemy.getHealth() <= 0 ) {
+            if (enemy.getHealth() <= 0) {
                 GUIWindow guiWindow = new GUIWindow(myGame, getStage());
                 guiWindow.createVictoryWindow(foreGround, backGround, effectGroup);
                 myGame.soundPlayer.playVictorySound();
                 boardState = BoardState.STATE_INACTIVE;
-            }
-            else if( player.getHealth() <= 0 ) {
+            } else if (player.getHealth() <= 0) {
                 GUIWindow guiWindow = new GUIWindow(myGame, getStage());
                 guiWindow.createDefeatWindow(foreGround, backGround, effectGroup);
                 myGame.soundPlayer.playLoseSound();
                 boardState = BoardState.STATE_INACTIVE;
             }
 
-            if( justSwapped ) {
+            if (justSwapped) {
                 justSwapped = false;
                 enemy.turn();
             }
             boardState = BoardState.STATE_IDLE;
-        } else if( !stillMovement && boardState == BoardState.STATE_MOVING ) {
+        } else if (!stillMovement && boardState == BoardState.STATE_MOVING) {
             boardState = BoardState.STATE_CHECK;
         }
     }

@@ -46,7 +46,7 @@ public class Player extends BaseCharacter {
 
     public void addToBoard(Group foreGround) {
         init(100);
-        setHealthBarPosition(0, 10, myGame.VIRTUAL_WIDTH, 30);
+        setHealthBarPosition(0, 25, myGame.VIRTUAL_WIDTH, 50);
         foreGround.addActor(getHealthBar());
     }
 }

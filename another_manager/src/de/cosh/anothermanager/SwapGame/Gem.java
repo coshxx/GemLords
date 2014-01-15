@@ -38,7 +38,7 @@ public class Gem extends Image {
     @Override
     public void draw(SpriteBatch batch, float parentAlpha) {
         Stage stage = this.getStage();
-        Vector2 begin = stage.stageToScreenCoordinates(new Vector2(45, myGame.VIRTUAL_HEIGHT - 45));
+        Vector2 begin = stage.stageToScreenCoordinates(new Vector2(45, myGame.VIRTUAL_HEIGHT - 145));
         Vector2 end = stage.stageToScreenCoordinates(new Vector2(myGame.VIRTUAL_WIDTH - 90, myGame.VIRTUAL_HEIGHT - 630));
         Rectangle scissor = new Rectangle();
         Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);

@@ -10,8 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import de.cosh.anothermanager.Abilities.Ability;
 import de.cosh.anothermanager.Abilities.AbilityAttack;
+import de.cosh.anothermanager.Abilities.AbilityFireball;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.GUI.GUIWindow;
 
@@ -19,15 +23,13 @@ import de.cosh.anothermanager.GUI.GUIWindow;
  * Created by cosh on 10.01.14.
  */
 public class Enemy extends BaseCharacter {
-    private Image enemyImage;
-    private TextureRegion pointTexture, pointDoneTexture;
-    private ImageButton.ImageButtonStyle style, styleDone;
-    private ImageButton pointButton, pointButtonDone;
-
-    private AnotherManager myGame;
+    private transient Image enemyImage;
+    private transient TextureRegion pointTexture, pointDoneTexture;
+    private transient ImageButton.ImageButtonStyle style, styleDone;
+    private transient ImageButton pointButton, pointButtonDone;
+    private transient AnotherManager myGame;
     private boolean isDefeated;
-    private AbilityAttack abilityAttack;
-
+    private Array<Ability> abilities;
 
     public Enemy(AnotherManager myGame, Texture texture) {
         super(myGame, 20);
@@ -50,7 +52,14 @@ public class Enemy extends BaseCharacter {
 
         pointButton = new ImageButton(style.up, style.down);
         pointButtonDone = new ImageButton(styleDone.up, styleDone.down);
-        abilityAttack = new AbilityAttack(myGame);
+
+        abilities = new Array<Ability>();
+
+        AbilityAttack abilityAttack = new AbilityAttack(myGame);
+        AbilityFireball abilityFireball = new AbilityFireball(myGame);
+
+        abilities.add(abilityAttack);
+        abilities.add(abilityFireball);
     }
 
     public void setPosition(float x, float y) {
@@ -58,23 +67,28 @@ public class Enemy extends BaseCharacter {
     }
 
     public void turn() {
-        if( !abilityAttack.fire(myGame.player) )
-            abilityAttack.update();
-    }
-
-    public Ability getAbility1() {
-        return abilityAttack;
+        for (int i = 0; i < abilities.size; i++) {
+            Ability current = abilities.get(i);
+            if (!current.fire(myGame.player))
+                current.turn();
+        }
     }
 
     public void draw(SpriteBatch batch, float parentAlpha) {
-        abilityAttack.drawCooldown(batch, parentAlpha);
+        for( int i = 0; i < abilities.size; i++ ) {
+            Ability current = abilities.get(i);
+            current.drawCooldown(batch, parentAlpha);
+        }
+
     }
 
     public Image getImage() {
         return enemyImage;
     }
 
-    public boolean isDefeated() { return isDefeated; }
+    public boolean isDefeated() {
+        return isDefeated;
+    }
 
     public void setDefeated(boolean defeated) {
         isDefeated = defeated;
@@ -101,12 +115,17 @@ public class Enemy extends BaseCharacter {
 
     public void addToBoard(Group foreGround) {
         init(getHealth());
-        enemyImage.setPosition(myGame.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), myGame.VIRTUAL_HEIGHT * 0.75f);
-        setHealthBarPosition(0, 800, myGame.VIRTUAL_WIDTH, 50);
-        abilityAttack.getImage().setPosition(enemyImage.getX(), 880 );
+        enemyImage.setPosition(myGame.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), myGame.VIRTUAL_HEIGHT - 150);
+        setHealthBarPosition(0, myGame.VIRTUAL_HEIGHT-(250+50), myGame.VIRTUAL_WIDTH, 50);
+
         foreGround.addActor(enemyImage);
         foreGround.addActor(getHealthBar());
-        foreGround.addActor(abilityAttack.getImage());
+
+        for( int i = 0; i < abilities.size; i++ ) {
+            Ability current = abilities.get(i);
+            current.getImage().setPosition(enemyImage.getX() + (i * 55), myGame.VIRTUAL_HEIGHT - 200);
+            foreGround.addActor(current.getImage());
+        }
     }
 }
 

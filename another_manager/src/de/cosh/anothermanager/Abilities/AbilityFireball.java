@@ -9,9 +9,9 @@ import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 
 /**
- * Created by cosh on 14.01.14.
+ * Created by cosh on 15.01.14.
  */
-public class AbilityAttack implements Ability {
+public class AbilityFireball implements Ability {
     private int damage;
     private int cooldown;
     private int currentCooldown;
@@ -21,12 +21,12 @@ public class AbilityAttack implements Ability {
     private transient BitmapFont bmf;
     private transient AnotherManager myGame;
 
-    public AbilityAttack(AnotherManager myGame) {
-        damage = 10;
-        currentCooldown = 2;
-        cooldown = 2;
+    public AbilityFireball(AnotherManager myGame) {
+        damage = 15;
+        currentCooldown = 4;
+        cooldown = 5;
         abilityReady = false;
-        abilityImage = new Image(myGame.assets.get("data/abilityattack.png", Texture.class));
+        abilityImage = new Image(myGame.assets.get("data/abilityfireball.png", Texture.class));
         bmf = new BitmapFont();
         this.myGame = myGame;
     }
@@ -38,7 +38,12 @@ public class AbilityAttack implements Ability {
             abilityReady = false;
             currentCooldown = cooldown;
             abilityImage.addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
-            myGame.soundPlayer.playAbilityAttack();
+
+            Image projectile = new Image(abilityImage.getDrawable());
+            projectile.setPosition(abilityImage.getX(), abilityImage.getY());
+            abilityImage.getStage().addActor(projectile);
+            projectile.addAction(Actions.sequence(Actions.moveTo(myGame.VIRTUAL_WIDTH/2, -50, 0.25f), Actions.removeActor(projectile)));
+            myGame.soundPlayer.playFireballStart();
             return true;
         }
         return false;
@@ -65,6 +70,7 @@ public class AbilityAttack implements Ability {
         return currentCooldown;
     }
 
+    @Override
     public void drawCooldown(SpriteBatch batch, float parentAlpha) {
         Integer cooldown = getCooldown();
         bmf.setColor(1f, 1f, 1f, parentAlpha);

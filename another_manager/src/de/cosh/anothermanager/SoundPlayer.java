@@ -11,7 +11,6 @@ import com.badlogic.gdx.audio.Sound;
 public class SoundPlayer {
     private AnotherManager myGame;
     private Sound blub1, blub2;
-    private Sound[] dings;
     private Sound ding;
     private Sound error;
     private Sound bang;
@@ -21,6 +20,7 @@ public class SoundPlayer {
     private Sound woosh;
     private Sound convert;
     private Sound abilityAttack;
+    private Sound fireball_start;
 
     private Music mapMusic;
     private float mapMusicVolume;
@@ -45,13 +45,6 @@ public class SoundPlayer {
         blub1 = myGame.assets.get("data/blub1.ogg", Sound.class);
         blub2 = myGame.assets.get("data/blub2.ogg", Sound.class);
 
-        dings = new Sound[5];
-
-        dings[0] = myGame.assets.get("data/ding1.ogg", Sound.class);
-        dings[1] = myGame.assets.get("data/ding2.ogg", Sound.class);
-        dings[2] = myGame.assets.get("data/ding3.ogg", Sound.class);
-        dings[3] = myGame.assets.get("data/ding4.ogg", Sound.class);
-        dings[4] = myGame.assets.get("data/ding5.ogg", Sound.class);
         bang = myGame.assets.get("data/bang.ogg", Sound.class);
 
         mapMusic = myGame.assets.get("data/music.ogg", Music.class);
@@ -61,6 +54,7 @@ public class SoundPlayer {
         victorySound = myGame.assets.get("data/victory.ogg", Sound.class);
         loseSound = myGame.assets.get("data/boo.ogg", Sound.class);
         abilityAttack = myGame.assets.get("data/abilityattack.ogg", Sound.class);
+        fireball_start = myGame.assets.get("data/fireball_start.ogg", Sound.class);
 
         error = myGame.assets.get("data/error.ogg", Sound.class);
 
@@ -81,16 +75,8 @@ public class SoundPlayer {
     }
 
     public void playDing(int hits_during_current_move) {
-        /*
-        if( hits_during_current_move > 4 )
-            hits_during_current_move = 4;
-
-        dings[hits_during_current_move].play();
-
-        System.out.println("Playing " + hits_during_current_move);
-        */
         float pitch = hits_during_current_move / 10f;
-        ding.play(1f, 1f+pitch, 1f);
+        ding.play(1f, 1f + pitch, 1f);
     }
 
     public void playSwapError() {
@@ -99,6 +85,10 @@ public class SoundPlayer {
 
     public void playAwesome() {
         awesome.play();
+    }
+      
+    public void playFireballStart() {
+        fireball_start.play();
     }
 
     public void fadeOutMapMusic(float delta) {
