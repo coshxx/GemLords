@@ -128,6 +128,8 @@ public class SplashScreen implements Screen {
         myGame.assets.load("data/abilityattack.png", Texture.class);
         myGame.assets.load("data/abilityfireball.png", Texture.class);
 
+        myGame.assets.load("data/debuff_border.png", Texture.class);
+
         myGame.assets.load("data/empty.png", Texture.class);
         myGame.assets.load("data/full.png", Texture.class);
         myGame.assets.load("data/logo.png", Texture.class);

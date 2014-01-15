@@ -114,6 +114,7 @@ public class Enemy extends BaseCharacter {
     }
 
     public void addToBoard(Group foreGround) {
+        super.addToBoard(foreGround);
         init(getHealth());
         enemyImage.setPosition(myGame.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), myGame.VIRTUAL_HEIGHT - 150);
         setHealthBarPosition(0, myGame.VIRTUAL_HEIGHT-(250+50), myGame.VIRTUAL_WIDTH, 50);

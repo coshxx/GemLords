@@ -20,7 +20,7 @@ public class HealthBar extends Actor {
     private Texture emptyT, fullT;
     private NinePatch empty, full;
 
-    private int left, bot, width, height;
+    private float left, bot, width, height;
     private float done;
 
     private BitmapFont bmf;
@@ -40,7 +40,7 @@ public class HealthBar extends Actor {
         bmf = new BitmapFont();
     }
 
-    public void setPosition(int left, int bot, int width, int height) {
+    public void setPosition(float left, float bot, float width, float height) {
         this.left = left;
         this.bot = bot;
         this.width = width;
@@ -74,4 +74,7 @@ public class HealthBar extends Actor {
     public int getHealthpoints() {
         return healthpoints;
     }
+
+    public float getWidth() { return width; }
+    public float getHeight() { return height; }
 }

@@ -167,6 +167,7 @@ public class Board extends Table {
 
             if (justSwapped) {
                 justSwapped = false;
+                player.turn();
                 enemy.turn();
             }
             boardState = BoardState.STATE_IDLE;
@@ -205,6 +206,7 @@ public class Board extends Table {
     public void draw(SpriteBatch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         enemy.draw(batch, parentAlpha);
+        player.draw(batch, parentAlpha);
     }
 
     private enum BoardState {
