@@ -55,8 +55,8 @@ public class Enemy extends BaseCharacter {
 
         abilities = new Array<Ability>();
 
-        AbilityAttack abilityAttack = new AbilityAttack(myGame);
-        AbilityFireball abilityFireball = new AbilityFireball(myGame);
+        AbilityAttack abilityAttack = new AbilityAttack(myGame, 10, 2);
+        AbilityFireball abilityFireball = new AbilityFireball(myGame, 12, 4);
 
         abilities.add(abilityAttack);
         abilities.add(abilityFireball);
