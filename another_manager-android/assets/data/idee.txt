@@ -34,6 +34,8 @@ valors totem (heal x hp each turn)
 staff of the alien (increase next damage by ... )
 ice block amulet (prevent next fatal damage)
 amulet of cleansing (remove debuffs)
+amulet of warding (prevent x debuffs)
+
 
 a lot of one use damage items
 (10 - 20)

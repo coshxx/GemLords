@@ -24,7 +24,7 @@ public class AbilityPoison extends BaseAbility {
             projectile.setPosition(abilityImage.getX(), abilityImage.getY());
             abilityImage.getStage().addActor(projectile);
             projectile.addAction(Actions.sequence(Actions.moveTo(myGame.VIRTUAL_WIDTH/2, -50, 0.25f), Actions.removeActor(projectile)));
-            myGame.soundPlayer.playFireballStart();
+            myGame.soundPlayer.playPoisonSound();
 
             Debuff poisonDebuff = new Debuff(myGame);
             poisonDebuff.setup( 5, 5, target);

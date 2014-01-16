@@ -21,6 +21,7 @@ public class SoundPlayer {
     private Sound convert;
     private Sound abilityAttack;
     private Sound fireball_start;
+    private Sound abilityPoison;
 
     private Music mapMusic;
     private float mapMusicVolume;
@@ -53,8 +54,9 @@ public class SoundPlayer {
         ding = myGame.assets.get("data/ding.ogg", Sound.class);
         victorySound = myGame.assets.get("data/victory.ogg", Sound.class);
         loseSound = myGame.assets.get("data/boo.ogg", Sound.class);
-        abilityAttack = myGame.assets.get("data/abilityattack.ogg", Sound.class);
-        fireball_start = myGame.assets.get("data/fireball_start.ogg", Sound.class);
+        abilityAttack = myGame.assets.get("data/abilityattack_fire.ogg", Sound.class);
+        fireball_start = myGame.assets.get("data/abilityfireball_fire.ogg", Sound.class);
+        abilityPoison = myGame.assets.get("data/abilitypoison_fire.ogg", Sound.class);
 
         error = myGame.assets.get("data/error.ogg", Sound.class);
 
@@ -124,5 +126,9 @@ public class SoundPlayer {
 
     public void playAbilityAttack() {
         abilityAttack.play();
+    }
+
+    public void playPoisonSound() {
+        abilityPoison.play();
     }
 }
