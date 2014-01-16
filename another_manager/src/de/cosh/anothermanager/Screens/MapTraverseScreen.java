@@ -91,15 +91,15 @@ public class MapTraverseScreen implements Screen {
 
         Enemy enemy2 = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
         enemy2.setDefeated(myGame.player.levelDone[1]);
-        enemy2.addPositionalButtonToMap(350, 110, enemy.getImage(), 60, stage);
+        enemy2.addPositionalButtonToMap(350, 110, enemy2.getImage(), 60, stage);
 
-        Enemy enemy3 = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
+        Enemy enemy3 = new Enemy(myGame, myGame.assets.get("data/enemysnake.png", Texture.class));
         enemy3.setDefeated(myGame.player.levelDone[2]);
-        enemy3.addPositionalButtonToMap(450, 110, enemy.getImage(), 90, stage);
+        enemy3.addPositionalButtonToMap(450, 110, enemy3.getImage(), 90, stage);
 
-        Enemy enemy4 = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
+        Enemy enemy4 = new Enemy(myGame, myGame.assets.get("data/enemyrat.png", Texture.class));
         enemy4.setDefeated(myGame.player.levelDone[3]);
-        enemy4.addPositionalButtonToMap(550, 110, enemy.getImage(), 150, stage);
+        enemy4.addPositionalButtonToMap(550, 110, enemy4.getImage(), 150, stage);
 
     }
 

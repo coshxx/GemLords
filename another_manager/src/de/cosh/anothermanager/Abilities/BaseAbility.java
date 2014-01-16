@@ -15,17 +15,17 @@ public abstract class BaseAbility implements Ability {
     private int currentCooldown;
     private int cooldown;
     private int damage;
+
+    private transient BitmapFont bmf;
     protected transient AnotherManager myGame;
-    private BitmapFont bmf;
+    protected transient Image abilityImage;
 
-    protected Image abilityImage;
-
-    public BaseAbility(AnotherManager myGame, int damage, int cooldown){
+    public BaseAbility(AnotherManager myGame, int damage, int cooldown, boolean abilityReady){
         this.damage = damage;
         this.cooldown = cooldown;
         this.currentCooldown = cooldown;
         this.myGame = myGame;
-        this.abilityReady = false;
+        this.abilityReady = abilityReady;
         this.bmf = new BitmapFont();
     }
     @Override
@@ -34,8 +34,6 @@ public abstract class BaseAbility implements Ability {
             target.damage(damage);
             abilityReady = false;
             currentCooldown = cooldown;
-
-
             return true;
         }
         return false;

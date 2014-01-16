@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import de.cosh.anothermanager.Abilities.Ability;
 import de.cosh.anothermanager.Abilities.AbilityAttack;
 import de.cosh.anothermanager.Abilities.AbilityFireball;
+import de.cosh.anothermanager.Abilities.AbilityPoison;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.GUI.GUIWindow;
 
@@ -55,11 +56,13 @@ public class Enemy extends BaseCharacter {
 
         abilities = new Array<Ability>();
 
-        AbilityAttack abilityAttack = new AbilityAttack(myGame, 10, 2);
-        AbilityFireball abilityFireball = new AbilityFireball(myGame, 12, 4);
+        AbilityAttack abilityAttack = new AbilityAttack(myGame, 10, 2, false);
+        AbilityFireball abilityFireball = new AbilityFireball(myGame, 12, 4, false);
+        AbilityPoison abilityPoison = new AbilityPoison(myGame, 0, 5, true);
 
         abilities.add(abilityAttack);
         abilities.add(abilityFireball);
+        abilities.add(abilityPoison);
     }
 
     public void setPosition(float x, float y) {
@@ -94,7 +97,7 @@ public class Enemy extends BaseCharacter {
         isDefeated = defeated;
     }
 
-    public void addPositionalButtonToMap(float x, float y, Image enemyImage, final int enemyHP, final Stage stage) {
+    public void addPositionalButtonToMap(float x, float y, final Image enemyImage, final int enemyHP, final Stage stage) {
         this.enemyImage = enemyImage;
         final Enemy e = this;
         pointButton.setPosition(x, y);
@@ -105,7 +108,7 @@ public class Enemy extends BaseCharacter {
             public void clicked(InputEvent event, float x, float y) {
                 myGame.soundPlayer.PlayBlub1();
                 GUIWindow guiWindow = new GUIWindow(myGame, stage);
-                guiWindow.showMapEnemyWindow(enemyHP);
+                guiWindow.showMapEnemyWindow(enemyHP, enemyImage);
                 myGame.enemyManager.setSelectedEnemy(e);
             }
         });

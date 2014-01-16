@@ -127,6 +127,7 @@ public class SplashScreen implements Screen {
 
         myGame.assets.load("data/abilityattack.png", Texture.class);
         myGame.assets.load("data/abilityfireball.png", Texture.class);
+        myGame.assets.load("data/abilitypoison.png", Texture.class);
 
         myGame.assets.load("data/debuff_border.png", Texture.class);
 
@@ -140,6 +141,8 @@ public class SplashScreen implements Screen {
         myGame.assets.load("data/splash.jpg", Texture.class);
         myGame.assets.load("data/cell_back.png", Texture.class);
         myGame.assets.load("data/enemy.png", Texture.class);
+        myGame.assets.load("data/enemysnake.png", Texture.class);
+        myGame.assets.load("data/enemyrat.png", Texture.class);
         myGame.assets.load("data/star.png", Texture.class);
         myGame.assets.load("data/treasure.jpg", Texture.class);
         myGame.assets.load("data/heart.png", Texture.class);

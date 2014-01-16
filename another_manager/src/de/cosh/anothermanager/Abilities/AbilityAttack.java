@@ -12,8 +12,8 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
  * Created by cosh on 14.01.14.
  */
 public class AbilityAttack extends BaseAbility {
-    public AbilityAttack(AnotherManager myGame, int damage, int cooldown) {
-        super(myGame, damage, cooldown);
+    public AbilityAttack(AnotherManager myGame, int damage, int cooldown, boolean abilityReady) {
+        super(myGame, damage, cooldown, abilityReady);
         abilityImage = new Image(myGame.assets.get("data/abilityattack.png", Texture.class));
     }
 

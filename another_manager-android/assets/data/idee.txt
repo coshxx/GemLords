@@ -1,0 +1,31 @@
+common rat
+Abilities:
+bite
+
+common snake
+Abilities:
+bite, poison
+
+uncommon rat
+Abilities:
+bite, claw;
+
+uncommon snake
+bite, bite, poison
+
+items
+=====
+minor/common/major
+health potion
+armor
+
+broken bow (deal x damage - cooldown)
+broken sword ( deal x damage - cooldown)
+
+simaohs shield of the defender (block next attack)
+icys old watch (undo last damage)
+dashox mirror (reflect next attack)
+valors totem (heal x hp each turn)
+staff of the alien (increase next damage by ... )
+ice block amulet (prevent next fatal damage)
+amulet of cleansing (remove debuffs)

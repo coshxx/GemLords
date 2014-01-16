@@ -60,8 +60,8 @@ public class BaseCharacter {
 
     public void addDebuff(Debuff debuff) {
         debuffs.add(debuff);
-        debuff.setPosition( healthBar.getWidth()-45, healthBar.getY() + healthBar.getHeight() + 30 );
-        debuff.addDebuff(getCharacterGroup());
+        debuff.setPosition( healthBar.getWidth()-(45*debuffs.size), healthBar.getY() + healthBar.getHeight() + 30 );
+        debuff.addDebuffToGroup(getCharacterGroup());
     }
 
     public Array<Debuff> getDebuffs() {

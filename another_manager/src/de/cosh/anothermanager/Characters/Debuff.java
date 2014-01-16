@@ -68,8 +68,13 @@ public class Debuff {
         debuffImage.setBounds(x+2.5f, y+2.5f, width-5, height-5);
     }
 
-    public void addDebuff(Group group) {
+    public void addDebuffToGroup(Group group) {
         group.addActor(debuffBorderImage);
         group.addActor(debuffImage);
+    }
+
+    public void moveRight() {
+        debuffBorderImage.addAction(Actions.moveBy(debuffBorderImage.getWidth(), 0));
+        debuffImage.addAction(Actions.moveBy(debuffBorderImage.getWidth(), 0));
     }
 }

@@ -123,7 +123,7 @@ public class GUIWindow {
         windowGroup.addActor(window);
     }
 
-    public void showMapEnemyWindow(int enemyHP) {
+    public void showMapEnemyWindow(int enemyHP, Image enemyImage) {
         if (!myGame.mapTraverseScreen.enemyWindowOpen) {
             myGame.mapTraverseScreen.enemyWindowOpen = true;
             Window window = new Window("Challenge:", windowStyle);
@@ -140,10 +140,9 @@ public class GUIWindow {
             t.setLayoutEnabled(true);
             window.add(t);
 
-            Image enemy = new Image(myGame.assets.get("data/enemy.png", Texture.class));
-            enemy.setPosition(0, 0);
-            enemy.setAlign(Align.center);
-            t.add(enemy);
+            enemyImage.setPosition(0, 0);
+            enemyImage.setAlign(Align.center);
+            t.add(enemyImage);
             t.row();
 
             Label enemyInfoLabel = new Label(enemyHP + " HP", labelStyle);
