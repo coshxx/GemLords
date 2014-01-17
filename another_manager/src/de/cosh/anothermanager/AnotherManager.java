@@ -1,5 +1,6 @@
 package de.cosh.anothermanager;
 
+import Items.ItemFactory;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -17,6 +18,8 @@ import de.cosh.anothermanager.Screens.MenuScreen;
 import de.cosh.anothermanager.Screens.SplashScreen;
 import de.cosh.anothermanager.SwapGame.GemFactory;
 
+import java.util.concurrent.Callable;
+
 public class AnotherManager extends Game {
 	private static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 	public AssetManager assets;
@@ -28,6 +31,7 @@ public class AnotherManager extends Game {
 	public GameScreen gameScreen;
 	public GemFactory gemFactory;
 	public LootScreen lootScreen;
+    public ItemFactory itemFactory;
 
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
@@ -54,7 +58,8 @@ public class AnotherManager extends Game {
 		lootScreen = new LootScreen(this);
 		mapTraverseScreen = new MapTraverseScreen(this);
 		gemFactory = new GemFactory(this);
-		enemyManager = new EnemyManager();
+        itemFactory = new ItemFactory(this);
+        enemyManager = new EnemyManager();
 		bitmapFont = new BitmapFont();
 		setScreen(splashScreen);
 	}
@@ -75,8 +80,7 @@ public class AnotherManager extends Game {
 		bitmapFont.draw(batch, "TW:" + Gdx.graphics.getWidth(), 10, 20);
 		bitmapFont.draw(batch, "TH:" + Gdx.graphics.getHeight(), 10, 50);
 		batch.end();
-
-	}
+    }
 
 	@Override
 	public void resize(final int width, final int height) {
