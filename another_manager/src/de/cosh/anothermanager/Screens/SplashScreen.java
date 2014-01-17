@@ -13,166 +13,168 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
 import de.cosh.anothermanager.AnotherManager;
 
 public class SplashScreen implements Screen {
-    private final AnotherManager myGame;
-    private Texture splashTexture;
-    private Stage stage;
-    private Image splashImage;
+	private BitmapFont bmf;
+	private NinePatch empty;
+	private Texture emptyT;
+	private NinePatch full;
 
-    private Texture emptyT;
-    private Texture fullT;
-    private NinePatch empty;
-    private NinePatch full;
+	private Texture fullT;
+	private final AnotherManager myGame;
+	private Image splashImage;
+	private Texture splashTexture;
 
-    private BitmapFont bmf;
+	private Stage stage;
 
-    public SplashScreen(final AnotherManager myGame) {
-        this.myGame = myGame;
-    }
+	public SplashScreen(final AnotherManager myGame) {
+		this.myGame = myGame;
+	}
 
-    @Override
-    public void dispose() {
+	@Override
+	public void dispose() {
 
-    }
+	}
 
-    @Override
-    public void hide() {
+	@Override
+	public void hide() {
 
-    }
+	}
 
-    @Override
-    public void pause() {
+	private void loadAllAssets() {
+		myGame.assets.load("data/background.png", Texture.class);
 
-    }
+		myGame.assets.load("data/ball_blue.png", Texture.class);
+		myGame.assets.load("data/ball_green.png", Texture.class);
+		myGame.assets.load("data/ball_purple.png", Texture.class);
+		myGame.assets.load("data/ball_red.png", Texture.class);
+		myGame.assets.load("data/ball_white.png", Texture.class);
+		myGame.assets.load("data/ball_yellow.png", Texture.class);
 
-    @Override
-    public void render(final float delta) {
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        stage.act(delta);
-        stage.draw();
+		myGame.assets.load("data/special_blue.png", Texture.class);
+		myGame.assets.load("data/special_green.png", Texture.class);
+		myGame.assets.load("data/special_purple.png", Texture.class);
+		myGame.assets.load("data/special_red.png", Texture.class);
+		myGame.assets.load("data/special_white.png", Texture.class);
+		myGame.assets.load("data/special_yellow.png", Texture.class);
 
-        if (myGame.assets.update()) {
-            myGame.soundPlayer.touchSounds();
-            myGame.soundPlayer.PlayBlub2();
-            myGame.setScreen(myGame.mapTraverseScreen);
-        }
-        float left = Gdx.graphics.getWidth() * 0.1f;
-        float bot = Gdx.graphics.getHeight() * 0.5f;
-        float width = Gdx.graphics.getWidth() - (2*left);
-        float done = myGame.assets.getProgress()*width;
+		myGame.assets.load("data/abilityattack.png", Texture.class);
+		myGame.assets.load("data/abilityfireball.png", Texture.class);
+		myGame.assets.load("data/abilitypoison.png", Texture.class);
+		myGame.assets.load("data/abilityattack_fire.ogg", Sound.class);
+		myGame.assets.load("data/abilityfireball_fire.ogg", Sound.class);
+		myGame.assets.load("data/abilitypoison_fire.ogg", Sound.class);
 
-        SpriteBatch sb = stage.getSpriteBatch();
-        sb.begin();
-        empty.draw(sb, left, bot, Gdx.graphics.getWidth()-(2*left), 30);
-        full.draw(sb, left, bot, done, 30);
-        bmf.drawMultiLine(sb, (int) (myGame.assets.getProgress() * 100) + "% loaded", width/2+60, bot+20, 0, BitmapFont.HAlignment.CENTER);
-        sb.end();
+		myGame.assets.load("data/debuff_border.png", Texture.class);
 
-    }
+		myGame.assets.load("data/empty.png", Texture.class);
+		myGame.assets.load("data/full.png", Texture.class);
+		myGame.assets.load("data/logo.png", Texture.class);
+		myGame.assets.load("data/map.png", Texture.class);
+		myGame.assets.load("data/point.png", Texture.class);
+		myGame.assets.load("data/pointdone.png", Texture.class);
+		myGame.assets.load("data/button.png", Texture.class);
+		myGame.assets.load("data/splash.jpg", Texture.class);
+		myGame.assets.load("data/cell_back.png", Texture.class);
+		myGame.assets.load("data/enemy.png", Texture.class);
+		myGame.assets.load("data/enemysnake.png", Texture.class);
+		myGame.assets.load("data/enemyrat.png", Texture.class);
+		myGame.assets.load("data/star.png", Texture.class);
+		myGame.assets.load("data/treasure.jpg", Texture.class);
+		myGame.assets.load("data/heart.png", Texture.class);
+		myGame.assets.load("data/heartempty.png", Texture.class);
+		myGame.assets.load("data/robe.png", Texture.class);
 
-    @Override
-    public void resize(final int width, final int height) {
-    }
+		myGame.assets.load("data/blub1.ogg", Sound.class);
+		myGame.assets.load("data/blub2.ogg", Sound.class);
+		myGame.assets.load("data/blub3.ogg", Sound.class);
 
-    @Override
-    public void resume() {
+		myGame.assets.load("data/bang.ogg", Sound.class);
+		myGame.assets.load("data/music.ogg", Music.class);
+		myGame.assets.load("data/loot.ogg", Sound.class);
+		myGame.assets.load("data/victory.ogg", Sound.class);
+		myGame.assets.load("data/boo.ogg", Sound.class);
+		myGame.assets.load("data/woosh.ogg", Sound.class);
+		myGame.assets.load("data/convert.ogg", Sound.class);
+		myGame.assets.load("data/ding.ogg", Sound.class);
 
-    }
+		myGame.assets.load("data/awesome.ogg", Sound.class);
+		myGame.assets.load("data/awesome.png", Texture.class);
 
-    @Override
-    public void show() {
-        splashTexture = new Texture("data/splash.jpg");
-        stage = new Stage();
-        stage.setCamera(myGame.camera);
-        splashImage = new Image(splashTexture);
-        splashImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
-        splashImage.addAction(Actions.alpha(0));
-        splashImage.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.delay(2), Actions.fadeOut(.5f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                myGame.setScreen(myGame.menuScreen);
-            }
-        })));
-        stage.addActor(splashImage);
+		myGame.assets.load("data/error.ogg", Sound.class);
 
-        emptyT = new Texture(Gdx.files.internal("data/empty.png"));
-        fullT = new Texture(Gdx.files.internal("data/full.png"));
-        empty = new NinePatch(new TextureRegion(emptyT, 24, 24), 8, 8, 8, 8);
-        full = new NinePatch(new TextureRegion(fullT, 24, 24), 8, 8, 8, 8);
+		myGame.assets.load("data/font.fnt", BitmapFont.class);
+		myGame.assets.load("data/font2.fnt", BitmapFont.class);
+	}
 
-        bmf = new BitmapFont();
+	@Override
+	public void pause() {
 
-        loadAllAssets();
-    }
+	}
 
-    private void loadAllAssets() {
-        myGame.assets.load("data/background.png", Texture.class);
+	@Override
+	public void render(final float delta) {
+		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		stage.act(delta);
+		stage.draw();
 
-        myGame.assets.load("data/ball_blue.png", Texture.class);
-        myGame.assets.load("data/ball_green.png", Texture.class);
-        myGame.assets.load("data/ball_purple.png", Texture.class);
-        myGame.assets.load("data/ball_red.png", Texture.class);
-        myGame.assets.load("data/ball_white.png", Texture.class);
-        myGame.assets.load("data/ball_yellow.png", Texture.class);
+		if (myGame.assets.update()) {
+			myGame.soundPlayer.touchSounds();
+			myGame.soundPlayer.PlayBlub2();
+			myGame.setScreen(myGame.mapTraverseScreen);
+		}
+		final float left = Gdx.graphics.getWidth() * 0.1f;
+		final float bot = Gdx.graphics.getHeight() * 0.5f;
+		final float width = Gdx.graphics.getWidth() - (2 * left);
+		final float done = myGame.assets.getProgress() * width;
 
-        myGame.assets.load("data/special_blue.png", Texture.class);
-        myGame.assets.load("data/special_green.png", Texture.class);
-        myGame.assets.load("data/special_purple.png", Texture.class);
-        myGame.assets.load("data/special_red.png", Texture.class);
-        myGame.assets.load("data/special_white.png", Texture.class);
-        myGame.assets.load("data/special_yellow.png", Texture.class);
+		final SpriteBatch sb = stage.getSpriteBatch();
+		sb.begin();
+		empty.draw(sb, left, bot, Gdx.graphics.getWidth() - (2 * left), 30);
+		full.draw(sb, left, bot, done, 30);
+		bmf.drawMultiLine(sb, (int) (myGame.assets.getProgress() * 100) + "% loaded", width / 2 + 60, bot + 20, 0,
+				BitmapFont.HAlignment.CENTER);
+		sb.end();
 
-        myGame.assets.load("data/abilityattack.png", Texture.class);
-        myGame.assets.load("data/abilityfireball.png", Texture.class);
-        myGame.assets.load("data/abilitypoison.png", Texture.class);
-        myGame.assets.load("data/abilityattack_fire.ogg", Sound.class);
-        myGame.assets.load("data/abilityfireball_fire.ogg", Sound.class);
-        myGame.assets.load("data/abilitypoison_fire.ogg", Sound.class);
+	}
 
+	@Override
+	public void resize(final int width, final int height) {
+	}
 
-        myGame.assets.load("data/debuff_border.png", Texture.class);
+	@Override
+	public void resume() {
 
-        myGame.assets.load("data/empty.png", Texture.class);
-        myGame.assets.load("data/full.png", Texture.class);
-        myGame.assets.load("data/logo.png", Texture.class);
-        myGame.assets.load("data/map.png", Texture.class);
-        myGame.assets.load("data/point.png", Texture.class);
-        myGame.assets.load("data/pointdone.png", Texture.class);
-        myGame.assets.load("data/button.png", Texture.class);
-        myGame.assets.load("data/splash.jpg", Texture.class);
-        myGame.assets.load("data/cell_back.png", Texture.class);
-        myGame.assets.load("data/enemy.png", Texture.class);
-        myGame.assets.load("data/enemysnake.png", Texture.class);
-        myGame.assets.load("data/enemyrat.png", Texture.class);
-        myGame.assets.load("data/star.png", Texture.class);
-        myGame.assets.load("data/treasure.jpg", Texture.class);
-        myGame.assets.load("data/heart.png", Texture.class);
-        myGame.assets.load("data/heartempty.png", Texture.class);
+	}
 
-        myGame.assets.load("data/blub1.ogg", Sound.class);
-        myGame.assets.load("data/blub2.ogg", Sound.class);
-        myGame.assets.load("data/blub3.ogg", Sound.class);
+	@Override
+	public void show() {
+		splashTexture = new Texture("data/splash.jpg");
+		stage = new Stage();
+		stage.setCamera(myGame.camera);
+		splashImage = new Image(splashTexture);
+		splashImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+		splashImage.addAction(Actions.alpha(0));
+		splashImage.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.delay(2), Actions.fadeOut(.5f),
+				Actions.run(new Runnable() {
+					@Override
+					public void run() {
+						myGame.setScreen(myGame.menuScreen);
+					}
+				})));
+		stage.addActor(splashImage);
 
-        myGame.assets.load("data/bang.ogg", Sound.class);
-        myGame.assets.load("data/music.ogg", Music.class);
-        myGame.assets.load("data/loot.ogg", Sound.class);
-        myGame.assets.load("data/victory.ogg", Sound.class);
-        myGame.assets.load("data/boo.ogg", Sound.class);
-        myGame.assets.load("data/woosh.ogg", Sound.class);
-        myGame.assets.load("data/convert.ogg", Sound.class);
-        myGame.assets.load("data/ding.ogg", Sound.class);
+		emptyT = new Texture(Gdx.files.internal("data/empty.png"));
+		fullT = new Texture(Gdx.files.internal("data/full.png"));
+		empty = new NinePatch(new TextureRegion(emptyT, 24, 24), 8, 8, 8, 8);
+		full = new NinePatch(new TextureRegion(fullT, 24, 24), 8, 8, 8, 8);
 
+		bmf = new BitmapFont();
 
-        myGame.assets.load("data/awesome.ogg", Sound.class);
-        myGame.assets.load("data/awesome.png", Texture.class);
-
-        myGame.assets.load("data/error.ogg", Sound.class);
-
-        myGame.assets.load("data/font.fnt", BitmapFont.class);
-        myGame.assets.load("data/font2.fnt", BitmapFont.class);
-    }
+		loadAllAssets();
+	}
 
 }
