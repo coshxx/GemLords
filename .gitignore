@@ -1,0 +1,8 @@
+/another_manager-desktop/bin/
+/another_manager/bin
+/another_manager-android/bin
+/another_manager-android/proguard_logs
+out/
+.idea/
+*.iml
+*.apk
