@@ -18,9 +18,10 @@ import de.cosh.anothermanager.AnotherManager;
  */
 public class Gem extends Image {
 	public enum GemType {
-		TYPE_BLUE("data/ball_blue.png"), TYPE_GREEN("data/ball_green.png"), TYPE_NONE(""), TYPE_PURPLE(
-				"data/ball_purple.png"), TYPE_RED("data/ball_red.png"), TYPE_WHITE("data/ball_white.png"), TYPE_YELLOW(
-				"data/ball_yellow.png");
+		TYPE_BLUE("data/ball_blue.png"), TYPE_GREEN("data/ball_green.png"), TYPE_PURPLE("data/ball_purple.png"), TYPE_RED(
+				"data/ball_red.png"), TYPE_WHITE("data/ball_white.png"), TYPE_YELLOW("data/ball_yellow.png"), TYPE_NONE(
+				"");
+
 		private String texturePath;
 
 		GemType(final String texturePath) {
@@ -33,9 +34,9 @@ public class Gem extends Image {
 	}
 
 	public enum SpecialType {
-		TYPE_BLUE("data/special_blue.png"), TYPE_GREEN("data/special_green.png"), TYPE_NONE(""), TYPE_PURPLE(
+		TYPE_BLUE("data/special_blue.png"), TYPE_GREEN("data/special_green.png"), TYPE_PURPLE(
 				"data/special_purple.png"), TYPE_RED("data/special_red.png"), TYPE_WHITE("data/special_white.png"), TYPE_YELLOW(
-				"data/special_yellow.png");
+				"data/special_yellow.png"), TYPE_NONE("");
 		private String texturePath;
 
 		SpecialType(final String texturePath) {
@@ -98,7 +99,7 @@ public class Gem extends Image {
 	}
 
 	public void fallBy(final int x, final int y) {
-		final float fallTo = getY() + (y * Board.CELL_SIZE);
+		final float fallTo = getY() + y * Board.CELL_SIZE;
 		addAction(new AccelAction(fallTo, GEM_SPEED));
 	}
 

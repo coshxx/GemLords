@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class SwapController {
 	private final Cell[][] cells;
-	private Vector2 lastFlingPosition;
 
 	public SwapController(final Cell[][] cells) {
 		this.cells = cells;
