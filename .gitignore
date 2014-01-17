@@ -1,0 +1,4 @@
+*.apk
+*.class
+another_manager-android/bin/
+another_manager-android/proguard/*
