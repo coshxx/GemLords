@@ -9,195 +9,204 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 import de.cosh.anothermanager.AnotherManager;
 
 /**
  * Created by cosh on 10.01.14.
  */
 public class GUIWindow {
-    private AnotherManager myGame;
-    private Stage stage;
-    private Window.WindowStyle windowStyle;
-    private TextButton.TextButtonStyle textButtonStyle;
-    private Label.LabelStyle labelStyle;
-    private Table root;
-    private boolean showingMapEnemyWindow;
+	private final Label.LabelStyle labelStyle;
+	private final AnotherManager myGame;
+	private Table root;
+	private final boolean showingMapEnemyWindow;
+	private final Stage stage;
+	private final TextButton.TextButtonStyle textButtonStyle;
+	private final Window.WindowStyle windowStyle;
 
-    public GUIWindow(AnotherManager myGame, Stage stage) {
-        this.myGame = myGame;
-        this.stage = stage;
-        showingMapEnemyWindow = false;
+	public GUIWindow(final AnotherManager myGame, final Stage stage) {
+		this.myGame = myGame;
+		this.stage = stage;
+		showingMapEnemyWindow = false;
 
-        windowStyle = new Window.WindowStyle();
-        windowStyle.titleFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
-        windowStyle.titleFont.setScale(1f);
-        Texture nTexture = new Texture("data/menuskin.png");
-        NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
-        windowStyle.background = new NinePatchDrawable(nPatch);
+		windowStyle = new Window.WindowStyle();
+		windowStyle.titleFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
+		windowStyle.titleFont.setScale(1f);
+		final Texture nTexture = new Texture("data/menuskin.png");
+		final NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
+		windowStyle.background = new NinePatchDrawable(nPatch);
 
-        textButtonStyle = new TextButton.TextButtonStyle();
-        Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
-        BitmapFont buttonFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
-        textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-        textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-        textButtonStyle.font = buttonFont;
+		textButtonStyle = new TextButton.TextButtonStyle();
+		final Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
+		final BitmapFont buttonFont = myGame.assets.get("data/font.fnt", BitmapFont.class);
+		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+		textButtonStyle.font = buttonFont;
 
-        labelStyle = new Label.LabelStyle();
-        labelStyle.font = myGame.assets.get("data/font.fnt", BitmapFont.class);
-    }
+		labelStyle = new Label.LabelStyle();
+		labelStyle.font = myGame.assets.get("data/font.fnt", BitmapFont.class);
+	}
 
-    public void createVictoryWindow(Group foreGround, Group backGround, Group windowGroup) {
-        Window window = new Window("You win!", windowStyle);
-        window.setPosition(200, 200);
-        window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
-        window.setMovable(true);
-        window.pad(20, 0, 0, 0);
-        window.setModal(false);
-        window.align(Align.center);
-        window.setTitleAlignment(Align.center);
-        window.setSize(200, 200);
+	public void createDefeatWindow(final Group foreGround, final Group backGround, final Group windowGroup) {
+		final Window window = new Window("You lose", windowStyle);
+		window.setPosition(200, 200);
+		window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
+		window.setMovable(true);
+		window.pad(20, 0, 0, 0);
+		window.setModal(false);
+		window.align(Align.center);
+		window.setTitleAlignment(Align.center);
+		window.setSize(200, 200);
 
-        TextButton button;
-        button = new TextButton("Loot", textButtonStyle);
-        button.setPosition(50, 50);
-        button.setSize(100, 100);
-        Gdx.input.setInputProcessor(stage);
-        button.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                fadeToLootScreen();
-            }
-        });
-        window.addActor(button);
-        backGround.addAction(Actions.alpha(0.5f, 1.0f));
-        foreGround.addAction(Actions.alpha(0.5f, 1.0f));
-        windowGroup.addActor(window);
-    }
+		TextButton button;
+		button = new TextButton("Map", textButtonStyle);
+		button.setPosition(50, 50);
+		button.setSize(100, 100);
+		Gdx.input.setInputProcessor(stage);
+		button.addListener(new ClickListener() {
+			@Override
+			public void clicked(final InputEvent event, final float x, final float y) {
+				fadeToMapScreen();
+			}
+		});
+		window.addActor(button);
+		backGround.addAction(Actions.alpha(0.5f, 1.0f));
+		foreGround.addAction(Actions.alpha(0.5f, 1.0f));
+		windowGroup.addActor(window);
+	}
 
-    private void fadeToLootScreen() {
-        stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                myGame.setScreen(myGame.lootScreen);
-            }
-        })));
-    }
+	public void createVictoryWindow(final Group foreGround, final Group backGround, final Group windowGroup) {
+		final Window window = new Window("You win!", windowStyle);
+		window.setPosition(200, 200);
+		window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
+		window.setMovable(true);
+		window.pad(20, 0, 0, 0);
+		window.setModal(false);
+		window.align(Align.center);
+		window.setTitleAlignment(Align.center);
+		window.setSize(200, 200);
 
-    private void fadeToMapScreen() {
-        stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                myGame.setScreen(myGame.mapTraverseScreen);
-            }
-        })));
-    }
+		TextButton button;
+		button = new TextButton("Loot", textButtonStyle);
+		button.setPosition(50, 50);
+		button.setSize(100, 100);
+		Gdx.input.setInputProcessor(stage);
+		button.addListener(new ClickListener() {
+			@Override
+			public void clicked(final InputEvent event, final float x, final float y) {
+				fadeToLootScreen();
+			}
+		});
+		window.addActor(button);
+		backGround.addAction(Actions.alpha(0.5f, 1.0f));
+		foreGround.addAction(Actions.alpha(0.5f, 1.0f));
+		windowGroup.addActor(window);
+	}
 
-    public void createDefeatWindow(Group foreGround, Group backGround, Group windowGroup) {
-        Window window = new Window("You lose", windowStyle);
-        window.setPosition(200, 200);
-        window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
-        window.setMovable(true);
-        window.pad(20, 0, 0, 0);
-        window.setModal(false);
-        window.align(Align.center);
-        window.setTitleAlignment(Align.center);
-        window.setSize(200, 200);
+	private void fadeToGameScreen() {
+		myGame.mapTraverseScreen.enemyWindowOpen = false;
+		myGame.mapTraverseScreen.fadeMusic();
+		root.addAction(Actions.moveBy(600, 0, 0.25f));
+		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
+			@Override
+			public void run() {
+				myGame.setScreen(myGame.gameScreen);
+			}
+		})));
+	}
 
-        TextButton button;
-        button = new TextButton("Map", textButtonStyle);
-        button.setPosition(50, 50);
-        button.setSize(100, 100);
-        Gdx.input.setInputProcessor(stage);
-        button.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                fadeToMapScreen();
-            }
-        });
-        window.addActor(button);
-        backGround.addAction(Actions.alpha(0.5f, 1.0f));
-        foreGround.addAction(Actions.alpha(0.5f, 1.0f));
-        windowGroup.addActor(window);
-    }
+	private void fadeToLootScreen() {
+		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
+			@Override
+			public void run() {
+				myGame.setScreen(myGame.lootScreen);
+			}
+		})));
+	}
 
-    public void showMapEnemyWindow(int enemyHP, Image enemyImage) {
-        if (!myGame.mapTraverseScreen.enemyWindowOpen) {
-            myGame.mapTraverseScreen.enemyWindowOpen = true;
-            Window window = new Window("Challenge:", windowStyle);
-            window.setPosition(0, 0);
-            window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
-            window.pad(20, 0, 0, 0);
-            window.align(Align.center);
-            window.setMovable(false);
-            window.setTitleAlignment(Align.center | Align.top);
-            window.setSize(250, 250);
+	private void fadeToMapScreen() {
+		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
+			@Override
+			public void run() {
+				myGame.setScreen(myGame.mapTraverseScreen);
+			}
+		})));
+	}
 
-            Table t = new Table();
-            t.setBounds(0, 0, 250, 250);
-            t.setLayoutEnabled(true);
-            window.add(t);
+	private void hideEnemyWindow() {
+		root.addAction(Actions.moveBy(600, 0, 0.25f));
+		myGame.mapTraverseScreen.enemyWindowOpen = false;
+	}
 
-            enemyImage.setPosition(0, 0);
-            enemyImage.setAlign(Align.center);
-            t.add(enemyImage);
-            t.row();
+	public void showMapEnemyWindow(final int enemyHP, final Image enemyImage) {
+		if (!myGame.mapTraverseScreen.enemyWindowOpen) {
+			myGame.mapTraverseScreen.enemyWindowOpen = true;
+			final Window window = new Window("Challenge:", windowStyle);
+			window.setPosition(0, 0);
+			window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
+			window.pad(20, 0, 0, 0);
+			window.align(Align.center);
+			window.setMovable(false);
+			window.setTitleAlignment(Align.center | Align.top);
+			window.setSize(250, 250);
 
-            Label enemyInfoLabel = new Label(enemyHP + " HP", labelStyle);
-            t.add(enemyInfoLabel);
-            t.row();
+			final Table t = new Table();
+			t.setBounds(0, 0, 250, 250);
+			t.setLayoutEnabled(true);
+			window.add(t);
 
-            TextButton fightButton;
-            fightButton = new TextButton("Fight", textButtonStyle);
-            fightButton.setPosition(0, 0);
-            t.add(fightButton);
-            t.row();
-            Gdx.input.setInputProcessor(stage);
-            fightButton.addListener(new ClickListener() {
-                public void clicked(InputEvent event, float x, float y) {
-                    fadeToGameScreen();
-                }
-            });
+			enemyImage.setPosition(0, 0);
+			enemyImage.setAlign(Align.center);
+			t.add(enemyImage);
+			t.row();
 
-            TextButton cancelButton;
-            cancelButton = new TextButton("Cancel", textButtonStyle);
-            cancelButton.setPosition(0, 0);
-            cancelButton.align(Align.bottom);
-            cancelButton.setSize(50, 50);
-            t.add(cancelButton);
-            t.row();
-            cancelButton.addListener(new ClickListener() {
-                public void clicked(InputEvent event, float x, float y) {
-                    hideEnemyWindow();
-                }
-            });
+			final Label enemyInfoLabel = new Label(enemyHP + " HP", labelStyle);
+			t.add(enemyInfoLabel);
+			t.row();
 
-            root = new Table();
-            root.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
-            root.align(Align.center);
-            root.add(window);
-            stage.addActor(root);
-            root.setPosition(-500, 0);
-            root.addAction(Actions.moveBy(500, 0, 0.25f));
-        }
-    }
+			TextButton fightButton;
+			fightButton = new TextButton("Fight", textButtonStyle);
+			fightButton.setPosition(0, 0);
+			t.add(fightButton);
+			t.row();
+			Gdx.input.setInputProcessor(stage);
+			fightButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(final InputEvent event, final float x, final float y) {
+					fadeToGameScreen();
+				}
+			});
 
-    private void hideEnemyWindow() {
-        root.addAction(Actions.moveBy(600, 0, 0.25f));
-        myGame.mapTraverseScreen.enemyWindowOpen = false;
-    }
+			TextButton cancelButton;
+			cancelButton = new TextButton("Cancel", textButtonStyle);
+			cancelButton.setPosition(0, 0);
+			cancelButton.align(Align.bottom);
+			cancelButton.setSize(50, 50);
+			t.add(cancelButton);
+			t.row();
+			cancelButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(final InputEvent event, final float x, final float y) {
+					hideEnemyWindow();
+				}
+			});
 
-    private void fadeToGameScreen() {
-        myGame.mapTraverseScreen.enemyWindowOpen = false;
-        myGame.mapTraverseScreen.fadeMusic();
-        root.addAction(Actions.moveBy(600, 0, 0.25f));
-        stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                myGame.setScreen(myGame.gameScreen);
-            }
-        })));
-    }
+			root = new Table();
+			root.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+			root.align(Align.center);
+			root.add(window);
+			stage.addActor(root);
+			root.setPosition(-500, 0);
+			root.addAction(Actions.moveBy(500, 0, 0.25f));
+		}
+	}
 }
