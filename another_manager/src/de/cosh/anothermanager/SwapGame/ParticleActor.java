@@ -11,38 +11,38 @@ import com.badlogic.gdx.utils.Array;
  * Created by cosh on 14.01.14.
  */
 public class ParticleActor extends Actor {
-    private ParticleEffectPool bombEffectPool;
-    private Array<ParticleEffectPool.PooledEffect> effects;
-    private ParticleEffect bombEffect;
+	private final ParticleEffect bombEffect;
+	private final ParticleEffectPool bombEffectPool;
+	private final Array<ParticleEffectPool.PooledEffect> effects;
 
-    public ParticleActor(float x, float y) {
-        effects = new Array<ParticleEffectPool.PooledEffect>();
-        bombEffect = new ParticleEffect();
-        bombEffect.load(Gdx.files.internal("data/test.p"), Gdx.files.internal("data"));
-        bombEffect.start();
-        bombEffectPool = new ParticleEffectPool(bombEffect, 1, 2);
-        ParticleEffectPool.PooledEffect effect = bombEffectPool.obtain();
-        effect.setPosition(x, y);
-        effects.add(effect);
-    }
+	public ParticleActor(final float x, final float y) {
+		effects = new Array<ParticleEffectPool.PooledEffect>();
+		bombEffect = new ParticleEffect();
+		bombEffect.load(Gdx.files.internal("data/test.p"), Gdx.files.internal("data"));
+		bombEffect.start();
+		bombEffectPool = new ParticleEffectPool(bombEffect, 1, 2);
+		final ParticleEffectPool.PooledEffect effect = bombEffectPool.obtain();
+		effect.setPosition(x, y);
+		effects.add(effect);
+	}
 
-    @Override
-    public void act(float delta) {
-        for (int i = effects.size - 1; i >= 0; i--) {
-            ParticleEffectPool.PooledEffect effect = effects.get(i);
-            effect.update(delta);
-            if (effect.isComplete()) {
-                effect.free();
-                effects.removeIndex(i);
-            }
-        }
-    }
+	@Override
+	public void act(final float delta) {
+		for (int i = effects.size - 1; i >= 0; i--) {
+			final ParticleEffectPool.PooledEffect effect = effects.get(i);
+			effect.update(delta);
+			if (effect.isComplete()) {
+				effect.free();
+				effects.removeIndex(i);
+			}
+		}
+	}
 
-    @Override
-    public void draw(SpriteBatch batch, float parentAlpha) {
-        for (int i = effects.size - 1; i >= 0; i--) {
-            ParticleEffectPool.PooledEffect effect = effects.get(i);
-            effect.draw(batch);
-        }
-    }
+	@Override
+	public void draw(final SpriteBatch batch, final float parentAlpha) {
+		for (int i = effects.size - 1; i >= 0; i--) {
+			final ParticleEffectPool.PooledEffect effect = effects.get(i);
+			effect.draw(batch);
+		}
+	}
 }

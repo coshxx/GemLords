@@ -7,123 +7,123 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.SwapGame.Board;
 
 public class GameScreen implements Screen, GestureListener {
-    private final AnotherManager myGame;
-    private Stage stage;
-    private Board swapGame;
-    private Vector2 flingStartPosition;
+	private Vector2 flingStartPosition;
+	private final AnotherManager myGame;
+	private Stage stage;
+	private Board swapGame;
 
-    public GameScreen(final AnotherManager myGame) {
-        this.myGame = myGame;
-        flingStartPosition = new Vector2();
-    }
+	public GameScreen(final AnotherManager myGame) {
+		this.myGame = myGame;
+		flingStartPosition = new Vector2();
+	}
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	@Override
+	public void dispose() {
+	}
 
-        swapGame.update(delta);
+	@Override
+	public boolean fling(final float velocityX, final float velocityY, final int button) {
+		if (Math.abs(velocityX) > Math.abs(velocityY)) {
+			if (velocityX > 0) {
+				swapGame.swapTo(flingStartPosition, 1, 0);
+			} else {
+				swapGame.swapTo(flingStartPosition, -1, 0);
+			}
+		} else {
+			if (velocityY > 0) {
+				swapGame.swapTo(flingStartPosition, 0, -1);
+			} else {
+				swapGame.swapTo(flingStartPosition, 0, 1);
+			}
+		}
+		return false;
+	}
 
-        stage.act(delta);
-        stage.draw();
-    }
+	@Override
+	public void hide() {
+		// swapGame.dispose();
+		stage.dispose();
+	}
 
-    @Override
-    public void resize(int width, int height) {
-        stage.setViewport(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
-    }
+	@Override
+	public boolean longPress(final float x, final float y) {
+		return false;
+	}
 
-    @Override
-    public void show() {
-        stage = new Stage(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
-        stage.setCamera(myGame.camera);
-        Gdx.input.setInputProcessor(new GestureDetector(this));
-        swapGame = new Board(myGame);
-        stage.addActor(swapGame);
-        /*
-        swapGame = myGame.swapGame;
-        swapGame.init();
-        swapGame.addAction(Actions.alpha(0.0f));
-        swapGame.addAction(Actions.fadeIn(0.5f));
-        stage.addActor(swapGame);
-        */
-    }
+	@Override
+	public boolean pan(final float x, final float y, final float deltaX, final float deltaY) {
+		return false;
+	}
 
-    @Override
-    public void hide() {
-        //swapGame.dispose();
-        stage.dispose();
-    }
+	@Override
+	public boolean panStop(final float x, final float y, final int pointer, final int button) {
+		return false;
+	}
 
-    @Override
-    public void pause() {
+	@Override
+	public void pause() {
 
-    }
+	}
 
-    @Override
-    public void resume() {
+	@Override
+	public boolean pinch(final Vector2 initialPointer1, final Vector2 initialPointer2, final Vector2 pointer1,
+			final Vector2 pointer2) {
+		return false;
+	}
 
-    }
+	@Override
+	public void render(final float delta) {
+		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-    @Override
-    public void dispose() {
-    }
+		swapGame.update(delta);
 
-    @Override
-    public boolean touchDown(float x, float y, int pointer, int button) {
-        flingStartPosition = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
-        return false;
-    }
+		stage.act(delta);
+		stage.draw();
+	}
 
-    @Override
-    public boolean tap(float x, float y, int count, int button) {
-        return false;
-    }
+	@Override
+	public void resize(final int width, final int height) {
+		stage.setViewport(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
+	}
 
-    @Override
-    public boolean longPress(float x, float y) {
-        return false;
-    }
+	@Override
+	public void resume() {
 
-    @Override
-    public boolean fling(float velocityX, float velocityY, int button) {
-        if (Math.abs(velocityX) > Math.abs(velocityY)) {
-            if (velocityX > 0) {
-                swapGame.swapTo(flingStartPosition, 1, 0);
-            } else {
-                swapGame.swapTo(flingStartPosition, -1, 0);
-            }
-        } else {
-            if (velocityY > 0) {
-                swapGame.swapTo(flingStartPosition, 0, -1);
-            } else {
-                swapGame.swapTo(flingStartPosition, 0, 1);
-            }
-        }
-        return false;
-    }
+	}
 
-    @Override
-    public boolean pan(float x, float y, float deltaX, float deltaY) {
-        return false;
-    }
+	@Override
+	public void show() {
+		stage = new Stage(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
+		stage.setCamera(myGame.camera);
+		Gdx.input.setInputProcessor(new GestureDetector(this));
+		swapGame = new Board(myGame);
+		stage.addActor(swapGame);
+		/*
+		 * swapGame = myGame.swapGame; swapGame.init();
+		 * swapGame.addAction(Actions.alpha(0.0f));
+		 * swapGame.addAction(Actions.fadeIn(0.5f)); stage.addActor(swapGame);
+		 */
+	}
 
-    @Override
-    public boolean panStop(float x, float y, int pointer, int button) {
-        return false;
-    }
+	@Override
+	public boolean tap(final float x, final float y, final int count, final int button) {
+		return false;
+	}
 
-    @Override
-    public boolean zoom(float initialDistance, float distance) {
-        return false;
-    }
+	@Override
+	public boolean touchDown(final float x, final float y, final int pointer, final int button) {
+		flingStartPosition = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+		return false;
+	}
 
-    @Override
-    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        return false;
-    }
+	@Override
+	public boolean zoom(final float initialDistance, final float distance) {
+		return false;
+	}
 }

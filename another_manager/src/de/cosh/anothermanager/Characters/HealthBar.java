@@ -1,80 +1,89 @@
 package de.cosh.anothermanager.Characters;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import de.cosh.anothermanager.AnotherManager;
 
 /**
  * Created by cosh on 27.12.13.
  */
 public class HealthBar extends Actor {
-    private int healthpoints, maxHP;
-    private AnotherManager myGame;
+	private BitmapFont bmf;
+	private float done;
 
-    private Texture emptyT, fullT;
-    private NinePatch empty, full;
+	private NinePatch empty, full;
+	private Texture emptyT, fullT;
 
-    private float left, bot, width, height;
-    private float done;
+	private int healthpoints, maxHP;
+	private float left, bot, width, height;
 
-    private BitmapFont bmf;
+	private AnotherManager myGame;
 
-    public void init(int hp, AnotherManager myGame) {
-        this.healthpoints = hp;
-        this.maxHP = hp;
-        this.myGame = myGame;
+	@Override
+	public void act(final float delta) {
+		done = (float) healthpoints / (float) maxHP;
+	}
 
-        emptyT = new Texture(Gdx.files.internal("data/empty.png"));
-        fullT = new Texture(Gdx.files.internal("data/full.png"));
+	@Override
+	public void draw(final SpriteBatch batch, final float parentAlpha) {
+		empty.draw(batch, left, bot, width, height);
+		if (healthpoints > 0) {
+			full.draw(batch, left, bot, done * width, height);
+		}
 
-        empty = new NinePatch(new TextureRegion(emptyT, 24, 24), 8, 8, 8, 8);
-        full = new NinePatch(new TextureRegion(fullT, 24, 24), 8, 8, 8, 8);
-        done = 1f;
+		final Integer health = healthpoints;
+		final Integer maxhealth = maxHP;
 
-        bmf = new BitmapFont();
-    }
+		bmf.setColor(1f, 1f, 1f, parentAlpha);
+		bmf.draw(batch, health.toString() + " / " + maxhealth.toString(), left + (width / 2), bot + 25);
+	}
 
-    public void setPosition(float left, float bot, float width, float height) {
-        this.left = left;
-        this.bot = bot;
-        this.width = width;
-        this.height = height;
-    }
+	public int getHealthpoints() {
+		return healthpoints;
+	}
 
-    @Override
-    public void draw(SpriteBatch batch, float parentAlpha) {
-        empty.draw(batch, left, bot, width, height);
-        if( healthpoints > 0 )
-            full.draw(batch, left, bot, done * width, height);
+	@Override
+	public float getHeight() {
+		return height;
+	}
 
-        Integer health = healthpoints;
-        Integer maxhealth = maxHP;
+	@Override
+	public float getWidth() {
+		return width;
+	}
 
-        bmf.setColor(1f, 1f, 1f, parentAlpha);
-        bmf.draw(batch, health.toString() + " / " + maxhealth.toString(), left + (width/2), bot+25);
-    }
+	public void hit(final int damage) {
+		healthpoints -= damage;
+		if (healthpoints <= 0) {
+			healthpoints = 0;
+		}
+	}
 
-    public void act(float delta) {
-        done = (float)healthpoints / (float)maxHP;
-    }
+	public void init(final int hp, final AnotherManager myGame) {
+		this.healthpoints = hp;
+		this.maxHP = hp;
+		this.myGame = myGame;
 
-    public void hit(int damage) {
-        healthpoints -= damage;
-        if( healthpoints <= 0 ) {
-            healthpoints = 0;
-        }
-    }
+		emptyT = new Texture(Gdx.files.internal("data/empty.png"));
+		fullT = new Texture(Gdx.files.internal("data/full.png"));
 
-    public int getHealthpoints() {
-        return healthpoints;
-    }
+		empty = new NinePatch(new TextureRegion(emptyT, 24, 24), 8, 8, 8, 8);
+		full = new NinePatch(new TextureRegion(fullT, 24, 24), 8, 8, 8, 8);
+		done = 1f;
 
-    public float getWidth() { return width; }
-    public float getHeight() { return height; }
+		bmf = new BitmapFont();
+	}
+
+	public void setPosition(final float left, final float bot, final float width, final float height) {
+		this.left = left;
+		this.bot = bot;
+		this.width = width;
+		this.height = height;
+	}
 }
