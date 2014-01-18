@@ -71,6 +71,7 @@ public class MatchFinder {
                     hasHits = true;
             }
         }
+        
         return hasHits;
     }
 
