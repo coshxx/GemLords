@@ -76,6 +76,7 @@ public class MapTraverseScreen implements Screen {
 	public void render(final float delta) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
 		stage.act(delta);
 		stage.draw();
 
