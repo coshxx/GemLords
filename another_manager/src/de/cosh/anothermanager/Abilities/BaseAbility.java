@@ -12,7 +12,6 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
 public abstract class BaseAbility implements Ability {
 	protected transient Image abilityImage;
     protected String abilityImageLocation;
-	private boolean abilityReady;
 	private transient BitmapFont bmf;
 	private int cooldown;
 	private int currentCooldown;
@@ -35,16 +34,11 @@ public abstract class BaseAbility implements Ability {
         currentCooldown = cd;
     }
 
-    public void setAbilityReady(boolean b) {
-        abilityReady = b;
-    }
-
-
 	@Override
 	public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
 		final Integer cooldown = getCooldown();
 		bmf.setColor(1f, 1f, 1f, parentAlpha);
-		if (!abilityReady) {
+		if (currentCooldown > 0) {
 			bmf.draw(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY());
 		} else {
 			bmf.draw(batch, "Ready", abilityImage.getX(), abilityImage.getY());
@@ -53,10 +47,10 @@ public abstract class BaseAbility implements Ability {
 
 	@Override
 	public boolean fire(final BaseCharacter target) {
-		if (abilityReady) {
+		if (currentCooldown == 0) {
 			target.damage(damage);
-			abilityReady = false;
 			currentCooldown = cooldown;
+            if( currentCooldown <= 0 )
 			return true;
 		}
 		return false;
@@ -74,12 +68,11 @@ public abstract class BaseAbility implements Ability {
 
 	@Override
 	public void turn() {
-		if (!abilityReady) {
+		if (currentCooldown > 0) {
 			currentCooldown--;
 		}
-		if (currentCooldown == 0) {
+        if (currentCooldown <= 0) {
 			currentCooldown = cooldown;
-			abilityReady = true;
 		}
 	}
 }

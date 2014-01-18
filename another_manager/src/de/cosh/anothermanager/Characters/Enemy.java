@@ -3,6 +3,8 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,14 +25,17 @@ import de.cosh.anothermanager.GUI.GUIWindow;
  * Created by cosh on 10.01.14.
  */
 public class Enemy extends BaseCharacter {
-    private final Array<Ability> abilities;
-    private transient Image enemyImage;
     private boolean isDefeated;
+    private transient Image enemyImage;
     private transient ImageButton pointButton, pointButtonDone;
     private transient TextureRegion pointTexture, pointDoneTexture;
     private transient ImageButton.ImageButtonStyle style, styleDone;
-    private int enemyNumber;
+
+
+    private Integer enemyNumber;
     private String enemyImageLocation;
+    private final Array<Ability> abilities;
+    private Vector2 locationOnMap;
 
     public Enemy() {
         super();
@@ -56,29 +61,28 @@ public class Enemy extends BaseCharacter {
         final AbilityAttack abilityAttack = new AbilityAttack();
         abilityAttack.setAbilityDamage(10);
         abilityAttack.setCooldown(2);
-        abilityAttack.setAbilityReady(false);
 
         final AbilityFireball abilityFireball = new AbilityFireball();
         abilityFireball.setAbilityDamage(12);
         abilityFireball.setCooldown(4);
-        abilityFireball.setAbilityReady(false);
 
         final AbilityPoison abilityPoison = new AbilityPoison();
         abilityPoison.setAbilityDamage(0);
         abilityPoison.setCooldown(5);
-        abilityPoison.setAbilityReady(true);
 
         abilities.add(abilityAttack);
         abilities.add(abilityFireball);
         abilities.add(abilityPoison);
+
+        locationOnMap = new Vector2(0, 0);
     }
 
-    public void addPositionalButtonToMap(final float x, final float y, final Image enemyImage, final int enemyHP,
+    public void addPositionalButtonToMap(final Vector2 mapPos, final Image enemyImage, final int enemyHP,
                                          final Stage stage, final EnemyManager enemyManager) {
         this.enemyImage = enemyImage;
         final Enemy e = this;
-        pointButton.setPosition(x, y);
-        pointButtonDone.setPosition(x, y);
+        pointButton.setPosition(mapPos.x, mapPos.y);
+        pointButtonDone.setPosition(mapPos.x, mapPos.y);
         setHealth(enemyHP);
         pointButton.addListener(new ClickListener() {
 
@@ -161,4 +165,10 @@ public class Enemy extends BaseCharacter {
     public void loadImage() {
         enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
     }
+
+    public void setLocationOnMap(float x, float y) {
+        locationOnMap.set(x, y);
+    }
+
+    public Vector2 getLocationOnMap() { return locationOnMap; }
 }

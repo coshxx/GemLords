@@ -14,7 +14,6 @@ public class BaseCharacter {
 	private final Array<Debuff> debuffs;
 	private transient HealthBar healthBar;
 	private int healthPoints;
-	private transient AnotherManager myGame;
 
 	public BaseCharacter() {
 		healthBar = new HealthBar();
@@ -32,6 +31,7 @@ public class BaseCharacter {
 	}
 
 	public void damage(final int damage) {
+        healthPoints -= damage;
 		healthBar.hit(damage);
 	}
 
@@ -44,7 +44,7 @@ public class BaseCharacter {
 	}
 
 	public int getHealth() {
-		return healthBar.getHealthpoints();
+		return healthPoints;
 	}
 
 	public Actor getHealthBar() {
@@ -52,6 +52,7 @@ public class BaseCharacter {
 	}
 
 	public void init(final int hp) {
+        healthPoints = hp;
 		healthBar = new HealthBar();
 		healthBar.init(hp);
 	}
