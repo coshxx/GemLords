@@ -9,12 +9,10 @@ public class AccelAction extends Action {
 	private final float ACCEL_FACTOR = 1000f;
 	private float speed;
 	private final float yGoal;
-	private final float yTranslated;
 
 	public AccelAction(final float yGoal, final float speed) {
 		this.yGoal = yGoal;
 		this.speed = speed;
-		yTranslated = 0f;
 	}
 
 	@Override

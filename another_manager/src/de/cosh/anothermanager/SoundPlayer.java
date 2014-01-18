@@ -6,7 +6,6 @@ import com.badlogic.gdx.audio.Sound;
 /**
  * Created by cosh on 11.12.13.
  */
-@SuppressWarnings("unused")
 public class SoundPlayer {
 	private Sound abilityAttack;
 	private Sound abilityPoison;
