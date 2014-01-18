@@ -1,6 +1,5 @@
 package de.cosh.anothermanager;
 
-import Items.ItemFactory;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -11,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.Characters.Player;
+import de.cosh.anothermanager.Items.ItemFactory;
 import de.cosh.anothermanager.Screens.GameScreen;
 import de.cosh.anothermanager.Screens.LootScreen;
 import de.cosh.anothermanager.Screens.MapTraverseScreen;
