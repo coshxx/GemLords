@@ -1,10 +1,9 @@
 package de.cosh.anothermanager.Abilities;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
-import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 
 /**
@@ -12,22 +11,34 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
  */
 public abstract class BaseAbility implements Ability {
 	protected transient Image abilityImage;
+    protected String abilityImageLocation;
 	private boolean abilityReady;
 	private transient BitmapFont bmf;
-	private final int cooldown;
-
+	private int cooldown;
 	private int currentCooldown;
-	private final int damage;
-	protected transient AnotherManager myGame;
+	private int damage;
 
-	public BaseAbility(final AnotherManager myGame, final int damage, final int cooldown, final boolean abilityReady) {
-		this.damage = damage;
-		this.cooldown = cooldown;
-		this.currentCooldown = cooldown;
-		this.myGame = myGame;
-		this.abilityReady = abilityReady;
-		this.bmf = new BitmapFont();
-	}
+    public BaseAbility() {
+        cooldown = 5;
+        damage = 10;
+        abilityImageLocation = "data/empty.png";
+        bmf = new BitmapFont();
+    }
+
+    public void setAbilityDamage(int damage) {
+        this.damage = damage;
+
+    }
+
+    public void setCooldown(int cd) {
+        cooldown = cd;
+        currentCooldown = cd;
+    }
+
+    public void setAbilityReady(boolean b) {
+        abilityReady = b;
+    }
+
 
 	@Override
 	public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {

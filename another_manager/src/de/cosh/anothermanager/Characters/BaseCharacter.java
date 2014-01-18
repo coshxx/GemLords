@@ -23,6 +23,10 @@ public class BaseCharacter {
 		healthBar.init(hp, myGame);
 		debuffs = new Array<Debuff>();
 	}
+	
+	public BaseCharacter() {
+		debuffs = new Array<Debuff>();		
+	}
 
 	public void addDebuff(final Debuff debuff) {
 		debuffs.add(debuff);

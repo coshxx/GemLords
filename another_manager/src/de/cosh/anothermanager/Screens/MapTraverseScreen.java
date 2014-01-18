@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import com.badlogic.gdx.utils.Json;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
 
@@ -47,24 +48,29 @@ public class MapTraverseScreen implements Screen {
 	private void initEnemyLocations() {
 		final Enemy enemy = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
 		enemy.setDefeated(myGame.player.levelDone[0]);
-		enemy.addPositionalButtonToMap(120, 110, enemy.getImage(), 30, stage);
+		//enemy.addPositionalButtonToMap(120, 110, enemy.getImage(), 30, stage);
 		enemy.setEnemyNumber(0);
 
 		final Enemy enemy2 = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
 		enemy2.setDefeated(myGame.player.levelDone[1]);
-		enemy2.addPositionalButtonToMap(350, 110, enemy2.getImage(), 60, stage);
+		enemy2.addPositionalButtonToMap(350, 110, enemy2.getImage(), 60, stage, myGame.enemyManager);
 		enemy2.setEnemyNumber(1);
 
 		final Enemy enemy3 = new Enemy(myGame, myGame.assets.get("data/enemysnake.png", Texture.class));
 		enemy3.setDefeated(myGame.player.levelDone[2]);
-		enemy3.addPositionalButtonToMap(450, 110, enemy3.getImage(), 90, stage);
+		enemy3.addPositionalButtonToMap(450, 110, enemy3.getImage(), 90, stage, myGame.enemyManager);
 		enemy3.setEnemyNumber(2);
 
 		final Enemy enemy4 = new Enemy(myGame, myGame.assets.get("data/enemyrat.png", Texture.class));
 		enemy4.setDefeated(myGame.player.levelDone[3]);
-		enemy4.addPositionalButtonToMap(550, 110, enemy4.getImage(), 150, stage);
+		enemy4.addPositionalButtonToMap(550, 110, enemy4.getImage(), 150, stage, myGame.enemyManager);
 		enemy4.setEnemyNumber(3);
-
+        /*
+        Json json = new Json();
+        String tester = json.toJson(enemy);
+        Enemy f = json.fromJson(Enemy.class, tester);
+        f.addPositionalButtonToMap(120,  110, f.getImage(), 30, stage, myGame.enemyManager);
+*/
 	}
 
 	@Override

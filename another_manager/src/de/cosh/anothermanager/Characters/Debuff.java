@@ -20,15 +20,13 @@ public class Debuff {
 	private Image debuffImage;
 	private final int height = 30;
 
-	private final AnotherManager myGame;
 	private BaseCharacter toChar;
 	private int turns;
 	private int turnsComplete;
 	private final int width = 30;
 
-	public Debuff(final AnotherManager myGame) {
-		this.myGame = myGame;
-		this.debuffBorderImage = new Image(myGame.assets.get("data/debuff_border.png", Texture.class));
+	public Debuff() {
+		this.debuffBorderImage = new Image(AnotherManager.assets.get("data/debuff_border.png", Texture.class));
 		this.bmf = new BitmapFont();
 	}
 
