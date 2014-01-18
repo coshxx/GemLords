@@ -18,10 +18,8 @@ import de.cosh.anothermanager.Screens.MenuScreen;
 import de.cosh.anothermanager.Screens.SplashScreen;
 import de.cosh.anothermanager.SwapGame.GemFactory;
 
-import java.util.concurrent.Callable;
 
 public class AnotherManager extends Game {
-	private static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 	public AssetManager assets;
 	private SpriteBatch batch;
 	private BitmapFont bitmapFont;

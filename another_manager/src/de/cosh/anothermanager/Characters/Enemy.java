@@ -30,6 +30,8 @@ public class Enemy extends BaseCharacter {
 	private transient ImageButton pointButton, pointButtonDone;
 	private transient TextureRegion pointTexture, pointDoneTexture;
 	private transient ImageButton.ImageButtonStyle style, styleDone;
+	
+	private int enemyNumber;
 
 	public Enemy(final AnotherManager myGame, final Texture texture) {
 		super(myGame, 20);
@@ -134,5 +136,12 @@ public class Enemy extends BaseCharacter {
 				current.turn();
 			}
 		}
+	}
+	
+	public void setEnemyNumber(int n) {
+		enemyNumber = n;
+	}
+	public int getEnemyNumber() {
+		return enemyNumber;
 	}
 }
