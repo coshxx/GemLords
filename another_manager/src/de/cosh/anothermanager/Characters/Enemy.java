@@ -29,17 +29,16 @@ public class Enemy extends BaseCharacter {
     private transient ImageButton pointButton, pointButtonDone;
     private transient TextureRegion pointTexture, pointDoneTexture;
     private transient ImageButton.ImageButtonStyle style, styleDone;
-
     private int enemyNumber;
+    private String enemyImageLocation;
 
-    public Enemy(final AnotherManager myGame, final Texture texture) {
-        super(myGame, 20);
-        this.enemyImage = new Image(texture);
+    public Enemy() {
+        super();
 
         this.isDefeated = false;
 
-        pointTexture = new TextureRegion(myGame.assets.get("data/point.png", Texture.class));
-        pointDoneTexture = new TextureRegion(myGame.assets.get("data/pointdone.png", Texture.class));
+        pointTexture = new TextureRegion(AnotherManager.assets.get("data/point.png", Texture.class));
+        pointDoneTexture = new TextureRegion(AnotherManager.assets.get("data/pointdone.png", Texture.class));
 
         style = new ImageButton.ImageButtonStyle();
         style.up = new TextureRegionDrawable(pointTexture);
@@ -72,10 +71,6 @@ public class Enemy extends BaseCharacter {
         abilities.add(abilityAttack);
         abilities.add(abilityFireball);
         abilities.add(abilityPoison);
-    }
-
-    public Enemy() {
-        abilities = new Array<Ability>();
     }
 
     public void addPositionalButtonToMap(final float x, final float y, final Image enemyImage, final int enemyHP,
@@ -155,5 +150,15 @@ public class Enemy extends BaseCharacter {
 
     public int getEnemyNumber() {
         return enemyNumber;
+    }
+
+    public void init(int hp, String textureLocation) {
+        super.init(hp);
+        enemyImageLocation = textureLocation;
+        enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
+    }
+
+    public void loadImage() {
+        enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
     }
 }

@@ -46,31 +46,36 @@ public class MapTraverseScreen implements Screen {
 	}
 
 	private void initEnemyLocations() {
-		final Enemy enemy = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
+        final Enemy enemy = new Enemy();
+        enemy.init(30, "data/enemy.png");
 		enemy.setDefeated(myGame.player.levelDone[0]);
 		//enemy.addPositionalButtonToMap(120, 110, enemy.getImage(), 30, stage);
 		enemy.setEnemyNumber(0);
 
-		final Enemy enemy2 = new Enemy(myGame, myGame.assets.get("data/enemy.png", Texture.class));
+		final Enemy enemy2 = new Enemy();
+        enemy2.init(60, "data/enemy.png");
 		enemy2.setDefeated(myGame.player.levelDone[1]);
 		enemy2.addPositionalButtonToMap(350, 110, enemy2.getImage(), 60, stage, myGame.enemyManager);
 		enemy2.setEnemyNumber(1);
 
-		final Enemy enemy3 = new Enemy(myGame, myGame.assets.get("data/enemysnake.png", Texture.class));
+		final Enemy enemy3 = new Enemy();
+        enemy3.init(90, "data/enemysnake.png");
 		enemy3.setDefeated(myGame.player.levelDone[2]);
 		enemy3.addPositionalButtonToMap(450, 110, enemy3.getImage(), 90, stage, myGame.enemyManager);
 		enemy3.setEnemyNumber(2);
 
-		final Enemy enemy4 = new Enemy(myGame, myGame.assets.get("data/enemyrat.png", Texture.class));
+		final Enemy enemy4 = new Enemy();
+        enemy4.init(150, "data/enemyrat.png");
 		enemy4.setDefeated(myGame.player.levelDone[3]);
 		enemy4.addPositionalButtonToMap(550, 110, enemy4.getImage(), 150, stage, myGame.enemyManager);
 		enemy4.setEnemyNumber(3);
-        /*
+
         Json json = new Json();
         String tester = json.toJson(enemy);
         Enemy f = json.fromJson(Enemy.class, tester);
+        f.loadImage();
         f.addPositionalButtonToMap(120,  110, f.getImage(), 30, stage, myGame.enemyManager);
-*/
+
 	}
 
 	@Override

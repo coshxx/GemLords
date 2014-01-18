@@ -65,10 +65,9 @@ public class HealthBar extends Actor {
 		}
 	}
 
-	public void init(final int hp, final AnotherManager myGame) {
+	public void init(final int hp) {
 		this.healthpoints = hp;
 		this.maxHP = hp;
-		this.myGame = myGame;
 
 		emptyT = new Texture(Gdx.files.internal("data/empty.png"));
 		fullT = new Texture(Gdx.files.internal("data/full.png"));
