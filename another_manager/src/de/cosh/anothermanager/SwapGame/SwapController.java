@@ -1,7 +1,6 @@
 package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by cosh on 13.01.14.
