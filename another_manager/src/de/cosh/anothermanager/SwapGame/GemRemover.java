@@ -73,6 +73,8 @@ public class GemRemover {
 	private void specialRowExplode(final int y, final Group effectGroup) {
 		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
 			final Gem rem = cells[x][y].getGem();
+            if( rem.isSpecialVerticalGem() )
+                specialColExplode(x, effectGroup);
 			rem.markGemForRemoval();
 			final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY()
 					+ rem.getHeight() / 2);
@@ -89,6 +91,8 @@ public class GemRemover {
     private void specialColExplode(final int x, Group effectGroup) {
         for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
             final Gem rem = cells[x][y].getGem();
+            if( rem.isSpecialHorizontalGem() )
+                specialRowExplode(y, effectGroup);
             rem.markGemForRemoval();
             final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY()
                     + rem.getHeight() / 2);
