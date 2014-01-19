@@ -33,13 +33,17 @@ public class Gem extends Image {
 		}
 	}
 
-	public enum SpecialType {
-		TYPE_BLUE("data/special_blue.png"), TYPE_GREEN("data/special_green.png"), TYPE_PURPLE(
-				"data/special_purple.png"), TYPE_RED("data/special_red.png"), TYPE_WHITE("data/special_white.png"), TYPE_YELLOW(
-				"data/special_yellow.png"), TYPE_NONE("");
+	public enum SpecialTypeHorizontal {
+		TYPE_BLUE("data/special_blueh.png"),
+        TYPE_GREEN("data/special_greenh.png"),
+        TYPE_PURPLE("data/special_purpleh.png"),
+        TYPE_RED("data/special_redh.png"),
+        TYPE_WHITE("data/special_whiteh.png"),
+        TYPE_YELLOW("data/special_yellowh.png"),
+        TYPE_NONE("");
 		private String texturePath;
 
-		SpecialType(final String texturePath) {
+		SpecialTypeHorizontal(final String texturePath) {
 			this.texturePath = texturePath;
 		}
 
@@ -69,8 +73,8 @@ public class Gem extends Image {
 		this.isSpecialGem = false;
 	}
 
-	public void convertToSpecialGem() {
-		final SpecialType t = SpecialType.values()[gemType.ordinal()];
+	public void convertToSpecialHorizontalGem() {
+		final SpecialTypeHorizontal t = SpecialTypeHorizontal.values()[gemType.ordinal()];
 		setDrawable(new TextureRegionDrawable(new TextureRegion(myGame.assets.get(t.getTexturePath(), Texture.class))));
 		isMarkedForSpecialConversion = false;
 		isSpecialGem = true;

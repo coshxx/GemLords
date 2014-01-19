@@ -26,7 +26,7 @@ public class GemRemover {
 			for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
 				final Gem rem = cells[x][y].getGem();
 				if (rem.isMarkedForSpecialConversion()) {
-					rem.convertToSpecialGem();
+					rem.convertToSpecialHorizontalGem();
 					final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY()
 							+ rem.getHeight() / 2);
 					effectGroup.addActor(effect);
