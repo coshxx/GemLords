@@ -52,7 +52,7 @@ public class MatchFinder {
                         result.howMany++;
                     }
                 }
-                cells[x][y].getGem().setMoving(false);
+                cells[x][y].getGem().setMoving(Gem.MoveDirection.DIRECTION_NONE);
             }
         }
         return result;

@@ -32,10 +32,15 @@ public class GemRemover {
 					effectGroup.addActor(effect);
 					rem.unmarkRemoval();
 				} else if (rem.isMarkedForRemoval()) {
-					if (rem.isSpecialGem()) {
+					if (rem.isSpecialHorizontalGem()) {
 						specialRowExplode(y, effectGroup);
 						result.specialExplo = true;
-					}
+					} else {
+                        if( rem.isSpecialVerticalGem()) {
+                            specialColExplode(x, effectGroup);
+                            result.specialExplo = true;
+                        }
+                    }
 					if (rem.getActions().size > 0) {
 						continue;
 					}
@@ -48,7 +53,9 @@ public class GemRemover {
 		return result;
 	}
 
-	public void removeFadedGems(final AnotherManager myGame, final Group effectGroup) {
+
+
+    public void removeFadedGems(final AnotherManager myGame, final Group effectGroup) {
 		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
 			for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
 				final Gem rem = cells[x][y].getGem();
@@ -78,4 +85,20 @@ public class GemRemover {
 					Actions.moveBy(rem.getWidth() / 2, rem.getHeight() / 2, FADE_TIME)));
 		}
 	}
+
+    private void specialColExplode(final int x, Group effectGroup) {
+        for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
+            final Gem rem = cells[x][y].getGem();
+            rem.markGemForRemoval();
+            final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY()
+                    + rem.getHeight() / 2);
+            effectGroup.addActor(effect);
+            if (rem.getActions().size > 0) {
+                continue;
+            }
+            result.howMany++;
+            rem.addAction(Actions.parallel(Actions.scaleTo(0.0f, 0.0f, FADE_TIME),
+                    Actions.moveBy(rem.getWidth() / 2, rem.getHeight() / 2, FADE_TIME)));
+        }
+    }
 }

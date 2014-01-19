@@ -21,7 +21,7 @@ public class GravityApplier {
 							continue;
 						}
 						fall.fallBy(0, -(d - y));
-						fall.setMoving(true);
+						fall.setMoving(Gem.MoveDirection.DIRECTION_VERTICAL);
 
 						final Gem temp = cells[x][y].getGem();
 						cells[x][y].setGem(fall);
