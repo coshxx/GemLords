@@ -15,7 +15,7 @@ public class Player extends BaseCharacter {
 	private final AnotherManager myGame;
 
 	public Player(final AnotherManager myGame) {
-		super(myGame, 500);
+		super();
 		this.myGame = myGame;
 		levelDone = new boolean[200];
 		for (int x = 0; x < 200; x++) {

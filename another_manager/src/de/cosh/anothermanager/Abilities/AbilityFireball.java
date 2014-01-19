@@ -12,10 +12,11 @@ import de.cosh.anothermanager.Characters.Debuff;
  * Created by cosh on 15.01.14.
  */
 public class AbilityFireball extends BaseAbility {
-	public AbilityFireball(final AnotherManager myGame, final int damage, final int cooldown, final boolean abilityReady) {
-		super(myGame, damage, cooldown, abilityReady);
-		abilityImage = new Image(myGame.assets.get("data/abilityfireball.png", Texture.class));
-	}
+
+    public AbilityFireball() {
+        abilityImageLocation = "data/abilityfireball.png";
+        abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
+    }
 
 	@Override
 	public boolean fire(final BaseCharacter target) {
@@ -24,14 +25,14 @@ public class AbilityFireball extends BaseAbility {
 			final Image projectile = new Image(abilityImage.getDrawable());
 			projectile.setPosition(abilityImage.getX(), abilityImage.getY());
 			abilityImage.getStage().addActor(projectile);
-			projectile.addAction(Actions.sequence(Actions.moveTo(myGame.VIRTUAL_WIDTH / 2, -50, 0.25f),
+			projectile.addAction(Actions.sequence(Actions.moveTo(AnotherManager.VIRTUAL_WIDTH / 2, -50, 0.25f),
 					Actions.removeActor(projectile)));
 
-			myGame.soundPlayer.playFireballStart();
+			AnotherManager.soundPlayer.playFireballStart();
 
-			final Debuff fireBallDebuff = new Debuff(myGame);
+			final Debuff fireBallDebuff = new Debuff();
 			fireBallDebuff.setup(10, 2, target);
-			fireBallDebuff.setDebuffImage(new Image(myGame.assets.get("data/abilityfireball.png", Texture.class)));
+			fireBallDebuff.setDebuffImage(new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class)));
 			target.addDebuff(fireBallDebuff);
 			return true;
 		}

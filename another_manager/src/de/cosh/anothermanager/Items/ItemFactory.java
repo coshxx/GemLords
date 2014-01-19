@@ -1,4 +1,4 @@
-package Items;
+package de.cosh.anothermanager.Items;
 
 import de.cosh.anothermanager.AnotherManager;
 

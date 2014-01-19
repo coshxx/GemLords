@@ -196,12 +196,12 @@ public class Board extends Table {
 		} else if (!stillMovement && boardState == BoardState.STATE_CHECK) {
 
 			if (enemy.getHealth() <= 0) {
-				final GUIWindow guiWindow = new GUIWindow(myGame, getStage());
+				final GUIWindow guiWindow = new GUIWindow(getStage());
 				guiWindow.createVictoryWindow(foreGround, backGround, effectGroup);
 				myGame.soundPlayer.playVictorySound();
 				boardState = BoardState.STATE_INACTIVE;
 			} else if (player.getHealth() <= 0) {
-				final GUIWindow guiWindow = new GUIWindow(myGame, getStage());
+				final GUIWindow guiWindow = new GUIWindow(getStage());
 				guiWindow.createDefeatWindow(foreGround, backGround, effectGroup);
 				myGame.soundPlayer.playLoseSound();
 				boardState = BoardState.STATE_INACTIVE;
@@ -210,7 +210,7 @@ public class Board extends Table {
 			if (justSwapped) {
 				justSwapped = false;
 				player.turn();
-				enemy.turn();
+				enemy.turn(player);
 			}
 			boardState = BoardState.STATE_IDLE;
 		} else if (!stillMovement && boardState == BoardState.STATE_MOVING) {

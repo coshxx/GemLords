@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import de.cosh.anothermanager.AnotherManager;
 
 /**
  * Created by cosh on 13.01.14.

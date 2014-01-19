@@ -1,6 +1,5 @@
 package de.cosh.anothermanager;
 
-import Items.ItemFactory;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -11,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.Characters.Player;
+import de.cosh.anothermanager.Items.ItemFactory;
 import de.cosh.anothermanager.Screens.GameScreen;
 import de.cosh.anothermanager.Screens.LootScreen;
 import de.cosh.anothermanager.Screens.MapTraverseScreen;
@@ -20,7 +20,11 @@ import de.cosh.anothermanager.SwapGame.GemFactory;
 
 
 public class AnotherManager extends Game {
-	public AssetManager assets;
+	public static AssetManager assets;
+    public static SoundPlayer soundPlayer;
+    public static final int VIRTUAL_HEIGHT = 1280;
+    public static final int VIRTUAL_WIDTH = 720;
+
 	private SpriteBatch batch;
 	private BitmapFont bitmapFont;
 	public OrthographicCamera camera;
@@ -34,14 +38,18 @@ public class AnotherManager extends Game {
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
 	public Player player;
-	public SoundPlayer soundPlayer;
 
 	public SplashScreen splashScreen;
-	public final int VIRTUAL_HEIGHT = 1280;
-	public final int VIRTUAL_WIDTH = 720;
+
+    private static AnotherManager instance;
+    public static AnotherManager getInstance() {
+        return instance;
+    }
 
 	@Override
 	public void create() {
+        instance = this;
+
 		assets = new AssetManager();
 		batch = new SpriteBatch();
 
