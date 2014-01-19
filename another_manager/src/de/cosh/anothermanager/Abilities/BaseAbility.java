@@ -50,7 +50,6 @@ public abstract class BaseAbility implements Ability {
 		if (currentCooldown == 0) {
 			target.damage(damage);
 			currentCooldown = cooldown;
-            if( currentCooldown <= 0 )
 			return true;
 		}
 		return false;
@@ -70,9 +69,6 @@ public abstract class BaseAbility implements Ability {
 	public void turn() {
 		if (currentCooldown > 0) {
 			currentCooldown--;
-		}
-        if (currentCooldown <= 0) {
-			currentCooldown = cooldown;
 		}
 	}
 }
