@@ -39,21 +39,21 @@ public class GUIWindow {
 		showingMapEnemyWindow = false;
 
 		windowStyle = new Window.WindowStyle();
-		windowStyle.titleFont = AnotherManager.assets.get("data/font.fnt", BitmapFont.class);
+		windowStyle.titleFont = AnotherManager.assets.get("data/fonts/font.fnt", BitmapFont.class);
 		windowStyle.titleFont.setScale(1f);
-		final Texture nTexture = new Texture("data/menuskin.png");
+		final Texture nTexture = new Texture("data/textures/menuskin.png");
 		final NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
 		windowStyle.background = new NinePatchDrawable(nPatch);
 
 		textButtonStyle = new TextButton.TextButtonStyle();
-		final Texture buttonTexture = AnotherManager.assets.get("data/button.png", Texture.class);
-		final BitmapFont buttonFont = AnotherManager.assets.get("data/font.fnt", BitmapFont.class);
+		final Texture buttonTexture = AnotherManager.assets.get("data/textures/button.png", Texture.class);
+		final BitmapFont buttonFont = AnotherManager.assets.get("data/fonts/font.fnt", BitmapFont.class);
 		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
 		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
 		textButtonStyle.font = buttonFont;
 
 		labelStyle = new Label.LabelStyle();
-		labelStyle.font = AnotherManager.assets.get("data/font.fnt", BitmapFont.class);
+		labelStyle.font = AnotherManager.assets.get("data/fonts/font.fnt", BitmapFont.class);
 	}
 
 	public void createDefeatWindow(final Group foreGround, final Group backGround, final Group windowGroup) {

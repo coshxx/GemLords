@@ -50,7 +50,7 @@ public class MapTraverseScreen implements Screen {
          Json json = new Json();
         int counter = 0;
         while( true ) {
-            FileHandle handle = Gdx.files.local("enemy" + counter + ".txt");
+            FileHandle handle = Gdx.files.internal("data/enemies/enemy" + counter + ".dat");
             if( !handle.exists() )
                 break;
 
@@ -94,7 +94,7 @@ public class MapTraverseScreen implements Screen {
 		skin = new Skin();
 		fadeMusic = false;
 		enemyWindowOpen = false;
-		mapTexture = myGame.assets.get("data/map.png", Texture.class);
+		mapTexture = myGame.assets.get("data/textures/map.png", Texture.class);
 
 		stage.setCamera(myGame.camera);
 
@@ -108,13 +108,13 @@ public class MapTraverseScreen implements Screen {
 		initEnemyLocations();
 
 		for (int x = 0; x < 5; x++) {
-			final Image heartEmpty = new Image(myGame.assets.get("data/heartempty.png", Texture.class));
+			final Image heartEmpty = new Image(myGame.assets.get("data/textures/heartempty.png", Texture.class));
 			heartEmpty.setPosition(32 + (32 * x), myGame.VIRTUAL_HEIGHT - 64);
 			stage.addActor(heartEmpty);
 		}
 
 		for (int x = 0; x < myGame.player.getLives(); x++) {
-			final Image heart = new Image(myGame.assets.get("data/heart.png", Texture.class));
+			final Image heart = new Image(myGame.assets.get("data/textures/heart.png", Texture.class));
 			heart.setPosition(32 + (32 * x), myGame.VIRTUAL_HEIGHT - 64);
 			stage.addActor(heart);
 		}

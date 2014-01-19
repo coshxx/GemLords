@@ -18,12 +18,12 @@ import de.cosh.anothermanager.AnotherManager;
  */
 public class Gem extends Image {
     public enum GemType {
-        TYPE_BLUE("data/ball_blue.png"),
-        TYPE_GREEN("data/ball_green.png"),
-        TYPE_PURPLE("data/ball_purple.png"),
-        TYPE_RED("data/ball_red.png"),
-        TYPE_WHITE("data/ball_white.png"),
-        TYPE_YELLOW("data/ball_yellow.png"),
+        TYPE_BLUE("data/textures/ball_blue.png"),
+        TYPE_GREEN("data/textures/ball_green.png"),
+        TYPE_PURPLE("data/textures/ball_purple.png"),
+        TYPE_RED("data/textures/ball_red.png"),
+        TYPE_WHITE("data/textures/ball_white.png"),
+        TYPE_YELLOW("data/textures/ball_yellow.png"),
         TYPE_NONE("");
 
         private String texturePath;
@@ -38,12 +38,12 @@ public class Gem extends Image {
     }
 
     public enum SpecialTypeHorizontal {
-        TYPE_BLUE("data/special_blueh.png"),
-        TYPE_GREEN("data/special_greenh.png"),
-        TYPE_PURPLE("data/special_purpleh.png"),
-        TYPE_RED("data/special_redh.png"),
-        TYPE_WHITE("data/special_whiteh.png"),
-        TYPE_YELLOW("data/special_yellowh.png"),
+        TYPE_BLUE("data/textures/special_blueh.png"),
+        TYPE_GREEN("data/textures/special_greenh.png"),
+        TYPE_PURPLE("data/textures/special_purpleh.png"),
+        TYPE_RED("data/textures/special_redh.png"),
+        TYPE_WHITE("data/textures/special_whiteh.png"),
+        TYPE_YELLOW("data/textures/special_yellowh.png"),
         TYPE_NONE("");
         private String texturePath;
 
@@ -57,12 +57,12 @@ public class Gem extends Image {
     }
 
     public enum SpecialTypeVertical {
-        TYPE_BLUE("data/special_bluev.png"),
-        TYPE_GREEN("data/special_greenv.png"),
-        TYPE_PURPLE("data/special_purplev.png"),
-        TYPE_RED("data/special_redv.png"),
-        TYPE_WHITE("data/special_whitev.png"),
-        TYPE_YELLOW("data/special_yellowv.png"),
+        TYPE_BLUE("data/textures/special_bluev.png"),
+        TYPE_GREEN("data/textures/special_greenv.png"),
+        TYPE_PURPLE("data/textures/special_purplev.png"),
+        TYPE_RED("data/textures/special_redv.png"),
+        TYPE_WHITE("data/textures/special_whitev.png"),
+        TYPE_YELLOW("data/textures/special_yellowv.png"),
         TYPE_NONE("");
         private String texturePath;
 

@@ -20,7 +20,7 @@ public abstract class BaseAbility implements Ability {
     public BaseAbility() {
         cooldown = 5;
         damage = 10;
-        abilityImageLocation = "data/empty.png";
+        abilityImageLocation = "data/textures/empty.png";
         bmf = new BitmapFont();
     }
 

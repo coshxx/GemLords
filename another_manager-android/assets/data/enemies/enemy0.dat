@@ -1,15 +1,15 @@
 {
-enemyImageLocation: data/enemy.png,
-enemyNumber: 1,
+enemyImageLocation: data/textures/enemy.png,
+enemyNumber: 0,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
-		currentCooldown: 1,
-		cooldown: 1
+		currentCooldown: 2,
+		cooldown: 2
 	},
 ],
 locationOnMap: {
-	x: 220,
+	x: 120,
 	y: 110
 },
 healthPoints: 50

@@ -18,7 +18,7 @@ public class ParticleActor extends Actor {
 	public ParticleActor(final float x, final float y) {
 		effects = new Array<ParticleEffectPool.PooledEffect>();
 		bombEffect = new ParticleEffect();
-		bombEffect.load(Gdx.files.internal("data/test.p"), Gdx.files.internal("data"));
+		bombEffect.load(Gdx.files.internal("data/particles/test.p"), Gdx.files.internal("data/particles"));
 		bombEffect.start();
 		bombEffectPool = new ParticleEffectPool(bombEffect, 1, 2);
 		final ParticleEffectPool.PooledEffect effect = bombEffectPool.obtain();

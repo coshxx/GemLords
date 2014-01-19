@@ -64,7 +64,7 @@ public class Board extends Table {
 		foreGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
 		effectGroup = new Group();
 		effectGroup.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
-		final Image backImage = new Image(myGame.assets.get("data/background.png", Texture.class));
+		final Image backImage = new Image(myGame.assets.get("data/textures/background.png", Texture.class));
 		backImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
 		backGround.addActor(backImage);
 		addActor(backGround);
@@ -141,7 +141,7 @@ public class Board extends Table {
 			while (matchFinder.hasMatches()) {
 				backGround.clear();
 				foreGround.clear();
-				final Image backImage = new Image(myGame.assets.get("data/background.png", Texture.class));
+				final Image backImage = new Image(myGame.assets.get("data/textures/background.png", Texture.class));
 				backGround.addActor(backImage);
 				fillWithRandomGems();
 			}

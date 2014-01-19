@@ -1,6 +1,6 @@
 {
-enemyImageLocation: data/enemysnake.png,
-enemyNumber: 2,
+enemyImageLocation: data/textures/enemysnake.png,
+enemyNumber: 3,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
@@ -14,8 +14,8 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 320,
+	x: 420,
 	y: 110
 },
-healthPoints: 75
+healthPoints: 125
 }

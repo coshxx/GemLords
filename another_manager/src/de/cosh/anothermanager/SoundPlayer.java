@@ -110,25 +110,25 @@ public class SoundPlayer {
 	}
 
 	public void touchSounds() {
-		blub1 = myGame.assets.get("data/blub1.ogg", Sound.class);
-		blub2 = myGame.assets.get("data/blub2.ogg", Sound.class);
+		blub1 = myGame.assets.get("data/sounds/blub1.ogg", Sound.class);
+		blub2 = myGame.assets.get("data/sounds/blub2.ogg", Sound.class);
 
-		bang = myGame.assets.get("data/bang.ogg", Sound.class);
+		bang = myGame.assets.get("data/sounds/bang.ogg", Sound.class);
 
-		mapMusic = myGame.assets.get("data/music.ogg", Music.class);
-		woosh = myGame.assets.get("data/woosh.ogg", Sound.class);
-		convert = myGame.assets.get("data/convert.ogg", Sound.class);
-		ding = myGame.assets.get("data/ding.ogg", Sound.class);
-		victorySound = myGame.assets.get("data/victory.ogg", Sound.class);
-		loseSound = myGame.assets.get("data/boo.ogg", Sound.class);
-		abilityAttack = myGame.assets.get("data/abilityattack_fire.ogg", Sound.class);
-		fireball_start = myGame.assets.get("data/abilityfireball_fire.ogg", Sound.class);
-		abilityPoison = myGame.assets.get("data/abilitypoison_fire.ogg", Sound.class);
+		mapMusic = myGame.assets.get("data/sounds/music.ogg", Music.class);
+		woosh = myGame.assets.get("data/sounds/woosh.ogg", Sound.class);
+		convert = myGame.assets.get("data/sounds/convert.ogg", Sound.class);
+		ding = myGame.assets.get("data/sounds/ding.ogg", Sound.class);
+		victorySound = myGame.assets.get("data/sounds/victory.ogg", Sound.class);
+		loseSound = myGame.assets.get("data/sounds/boo.ogg", Sound.class);
+		abilityAttack = myGame.assets.get("data/sounds/abilityattack_fire.ogg", Sound.class);
+		fireball_start = myGame.assets.get("data/sounds/abilityfireball_fire.ogg", Sound.class);
+		abilityPoison = myGame.assets.get("data/sounds/abilitypoison_fire.ogg", Sound.class);
 
-		error = myGame.assets.get("data/error.ogg", Sound.class);
+		error = myGame.assets.get("data/sounds/error.ogg", Sound.class);
 
-		loot = myGame.assets.get("data/loot.ogg", Sound.class);
+		loot = myGame.assets.get("data/sounds/loot.ogg", Sound.class);
 
-		awesome = myGame.assets.get("data/awesome.ogg", Sound.class);
+		awesome = myGame.assets.get("data/sounds/awesome.ogg", Sound.class);
 	}
 }

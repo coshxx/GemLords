@@ -44,76 +44,79 @@ public class SplashScreen implements Screen {
 	}
 
 	private void loadAllAssets() {
-		myGame.assets.load("data/background.png", Texture.class);
+		myGame.assets.load("data/textures/background.png", Texture.class);
 
-		myGame.assets.load("data/ball_blue.png", Texture.class);
-		myGame.assets.load("data/ball_green.png", Texture.class);
-		myGame.assets.load("data/ball_purple.png", Texture.class);
-		myGame.assets.load("data/ball_red.png", Texture.class);
-		myGame.assets.load("data/ball_white.png", Texture.class);
-		myGame.assets.load("data/ball_yellow.png", Texture.class);
+		myGame.assets.load("data/textures/ball_blue.png", Texture.class);
+		myGame.assets.load("data/textures/ball_green.png", Texture.class);
+		myGame.assets.load("data/textures/ball_purple.png", Texture.class);
+		myGame.assets.load("data/textures/ball_red.png", Texture.class);
+		myGame.assets.load("data/textures/ball_white.png", Texture.class);
+		myGame.assets.load("data/textures/ball_yellow.png", Texture.class);
 
-		myGame.assets.load("data/special_blueh.png", Texture.class);
-		myGame.assets.load("data/special_greenh.png", Texture.class);
-		myGame.assets.load("data/special_purpleh.png", Texture.class);
-		myGame.assets.load("data/special_redh.png", Texture.class);
-		myGame.assets.load("data/special_whiteh.png", Texture.class);
-		myGame.assets.load("data/special_yellowh.png", Texture.class);
+		myGame.assets.load("data/textures/special_blueh.png", Texture.class);
+		myGame.assets.load("data/textures/special_greenh.png", Texture.class);
+		myGame.assets.load("data/textures/special_purpleh.png", Texture.class);
+		myGame.assets.load("data/textures/special_redh.png", Texture.class);
+		myGame.assets.load("data/textures/special_whiteh.png", Texture.class);
+		myGame.assets.load("data/textures/special_yellowh.png", Texture.class);
 
-        myGame.assets.load("data/special_bluev.png", Texture.class);
-        myGame.assets.load("data/special_greenv.png", Texture.class);
-        myGame.assets.load("data/special_purplev.png", Texture.class);
-        myGame.assets.load("data/special_redv.png", Texture.class);
-        myGame.assets.load("data/special_whitev.png", Texture.class);
-        myGame.assets.load("data/special_yellowv.png", Texture.class);
+        myGame.assets.load("data/textures/special_bluev.png", Texture.class);
+        myGame.assets.load("data/textures/special_greenv.png", Texture.class);
+        myGame.assets.load("data/textures/special_purplev.png", Texture.class);
+        myGame.assets.load("data/textures/special_redv.png", Texture.class);
+        myGame.assets.load("data/textures/special_whitev.png", Texture.class);
+        myGame.assets.load("data/textures/special_yellowv.png", Texture.class);
 
-		myGame.assets.load("data/abilityattack.png", Texture.class);
-		myGame.assets.load("data/abilityfireball.png", Texture.class);
-		myGame.assets.load("data/abilitypoison.png", Texture.class);
-		myGame.assets.load("data/abilityattack_fire.ogg", Sound.class);
-		myGame.assets.load("data/abilityfireball_fire.ogg", Sound.class);
-		myGame.assets.load("data/abilitypoison_fire.ogg", Sound.class);
+		myGame.assets.load("data/textures/abilityattack.png", Texture.class);
+		myGame.assets.load("data/textures/abilityfireball.png", Texture.class);
+		myGame.assets.load("data/textures/abilitypoison.png", Texture.class);
 
-		myGame.assets.load("data/debuff_border.png", Texture.class);
 
-		myGame.assets.load("data/empty.png", Texture.class);
-		myGame.assets.load("data/full.png", Texture.class);
-		myGame.assets.load("data/logo.png", Texture.class);
-		myGame.assets.load("data/map.png", Texture.class);
-		myGame.assets.load("data/point.png", Texture.class);
-		myGame.assets.load("data/pointdone.png", Texture.class);
-		myGame.assets.load("data/button.png", Texture.class);
-		myGame.assets.load("data/splash.jpg", Texture.class);
-		myGame.assets.load("data/cell_back.png", Texture.class);
-		myGame.assets.load("data/enemy.png", Texture.class);
-		myGame.assets.load("data/enemysnake.png", Texture.class);
-		myGame.assets.load("data/enemyrat.png", Texture.class);
-		myGame.assets.load("data/star.png", Texture.class);
-		myGame.assets.load("data/treasure.jpg", Texture.class);
-		myGame.assets.load("data/heart.png", Texture.class);
-		myGame.assets.load("data/heartempty.png", Texture.class);
-		myGame.assets.load("data/robe.png", Texture.class);
+		myGame.assets.load("data/textures/debuff_border.png", Texture.class);
 
-		myGame.assets.load("data/blub1.ogg", Sound.class);
-		myGame.assets.load("data/blub2.ogg", Sound.class);
-		myGame.assets.load("data/blub3.ogg", Sound.class);
+		myGame.assets.load("data/textures/empty.png", Texture.class);
+		myGame.assets.load("data/textures/full.png", Texture.class);
+		myGame.assets.load("data/textures/logo.png", Texture.class);
+		myGame.assets.load("data/textures/map.png", Texture.class);
+		myGame.assets.load("data/textures/point.png", Texture.class);
+		myGame.assets.load("data/textures/pointdone.png", Texture.class);
+		myGame.assets.load("data/textures/button.png", Texture.class);
+		myGame.assets.load("data/textures/splash.jpg", Texture.class);
+		myGame.assets.load("data/textures/cell_back.png", Texture.class);
+		myGame.assets.load("data/textures/enemy.png", Texture.class);
+		myGame.assets.load("data/textures/enemysnake.png", Texture.class);
+		myGame.assets.load("data/textures/enemyrat.png", Texture.class);
+		myGame.assets.load("data/textures/star.png", Texture.class);
+		myGame.assets.load("data/textures/treasure.jpg", Texture.class);
+		myGame.assets.load("data/textures/heart.png", Texture.class);
+		myGame.assets.load("data/textures/heartempty.png", Texture.class);
+		myGame.assets.load("data/textures/robe.png", Texture.class);
+        myGame.assets.load("data/textures/awesome.png", Texture.class);
 
-		myGame.assets.load("data/bang.ogg", Sound.class);
-		myGame.assets.load("data/music.ogg", Music.class);
-		myGame.assets.load("data/loot.ogg", Sound.class);
-		myGame.assets.load("data/victory.ogg", Sound.class);
-		myGame.assets.load("data/boo.ogg", Sound.class);
-		myGame.assets.load("data/woosh.ogg", Sound.class);
-		myGame.assets.load("data/convert.ogg", Sound.class);
-		myGame.assets.load("data/ding.ogg", Sound.class);
+		myGame.assets.load("data/sounds/blub1.ogg", Sound.class);
+		myGame.assets.load("data/sounds/blub2.ogg", Sound.class);
+		myGame.assets.load("data/sounds/blub3.ogg", Sound.class);
 
-		myGame.assets.load("data/awesome.ogg", Sound.class);
-		myGame.assets.load("data/awesome.png", Texture.class);
+		myGame.assets.load("data/sounds/bang.ogg", Sound.class);
+		myGame.assets.load("data/sounds/music.ogg", Music.class);
+		myGame.assets.load("data/sounds/loot.ogg", Sound.class);
+		myGame.assets.load("data/sounds/victory.ogg", Sound.class);
+		myGame.assets.load("data/sounds/boo.ogg", Sound.class);
+		myGame.assets.load("data/sounds/woosh.ogg", Sound.class);
+		myGame.assets.load("data/sounds/convert.ogg", Sound.class);
+		myGame.assets.load("data/sounds/ding.ogg", Sound.class);
 
-		myGame.assets.load("data/error.ogg", Sound.class);
+        myGame.assets.load("data/sounds/abilityattack_fire.ogg", Sound.class);
+        myGame.assets.load("data/sounds/abilityfireball_fire.ogg", Sound.class);
+        myGame.assets.load("data/sounds/abilitypoison_fire.ogg", Sound.class);
 
-		myGame.assets.load("data/font.fnt", BitmapFont.class);
-		myGame.assets.load("data/font2.fnt", BitmapFont.class);
+		myGame.assets.load("data/sounds/awesome.ogg", Sound.class);
+
+
+		myGame.assets.load("data/sounds/error.ogg", Sound.class);
+
+		myGame.assets.load("data/fonts/font.fnt", BitmapFont.class);
+		myGame.assets.load("data/fonts/font2.fnt", BitmapFont.class);
 	}
 
 	@Override
@@ -159,23 +162,18 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void show() {
-		splashTexture = new Texture("data/splash.jpg");
+		splashTexture = new Texture("data/textures/splash.jpg");
 		stage = new Stage();
 		stage.setCamera(myGame.camera);
 		splashImage = new Image(splashTexture);
+
 		splashImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
 		splashImage.addAction(Actions.alpha(0));
-		splashImage.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.delay(2), Actions.fadeOut(.5f),
-				Actions.run(new Runnable() {
-					@Override
-					public void run() {
-						myGame.setScreen(myGame.menuScreen);
-					}
-				})));
+		splashImage.addAction(Actions.fadeIn(0.5f));
 		stage.addActor(splashImage);
 
-		emptyT = new Texture(Gdx.files.internal("data/empty.png"));
-		fullT = new Texture(Gdx.files.internal("data/full.png"));
+		emptyT = new Texture(Gdx.files.internal("data/textures/empty.png"));
+		fullT = new Texture(Gdx.files.internal("data/textures/full.png"));
 		empty = new NinePatch(new TextureRegion(emptyT, 24, 24), 8, 8, 8, 8);
 		full = new NinePatch(new TextureRegion(fullT, 24, 24), 8, 8, 8, 8);
 

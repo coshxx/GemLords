@@ -42,8 +42,8 @@ public class Enemy extends BaseCharacter {
 
         this.isDefeated = false;
 
-        pointTexture = new TextureRegion(AnotherManager.assets.get("data/point.png", Texture.class));
-        pointDoneTexture = new TextureRegion(AnotherManager.assets.get("data/pointdone.png", Texture.class));
+        pointTexture = new TextureRegion(AnotherManager.assets.get("data/textures/point.png", Texture.class));
+        pointDoneTexture = new TextureRegion(AnotherManager.assets.get("data/textures/pointdone.png", Texture.class));
 
         style = new ImageButton.ImageButtonStyle();
         style.up = new TextureRegionDrawable(pointTexture);

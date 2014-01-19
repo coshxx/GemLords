@@ -1,11 +1,16 @@
 {
-enemyImageLocation: data/enemysnake.png,
-enemyNumber: 3,
+enemyImageLocation: data/textures/enemysnake.png,
+enemyNumber: 5,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
 		currentCooldown: 1,
 		cooldown: 1
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityFireball,
+		currentCooldown: 4,
+		cooldown: 4
 	},
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityPoison,
@@ -14,8 +19,8 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 420,
-	y: 110
+	x: 220,
+	y: 210
 },
-healthPoints: 125
+healthPoints: 160
 }

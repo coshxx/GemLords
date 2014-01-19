@@ -66,7 +66,7 @@ public class LootScreen implements Screen {
 		stage = new Stage();
 		stage.setCamera(myGame.camera);
 
-		chestImage = new Image(myGame.assets.get("data/treasure.jpg", Texture.class));
+		chestImage = new Image(myGame.assets.get("data/textures/treasure.jpg", Texture.class));
 		chestImage.setPosition(myGame.VIRTUAL_WIDTH / 2 - 200, myGame.VIRTUAL_HEIGHT / 2);
 		stage.addActor(chestImage);
 
@@ -78,7 +78,7 @@ public class LootScreen implements Screen {
 		TextButton button;
 		TextButton.TextButtonStyle tStyle;
 		tStyle = new TextButton.TextButtonStyle();
-		final Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
+		final Texture buttonTexture = myGame.assets.get("data/textures/button.png", Texture.class);
 		final BitmapFont buttonFont = new BitmapFont();
 		tStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
 		tStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
