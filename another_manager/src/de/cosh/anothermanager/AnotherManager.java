@@ -20,7 +20,11 @@ import de.cosh.anothermanager.SwapGame.GemFactory;
 
 
 public class AnotherManager extends Game {
-	public AssetManager assets;
+	public static AssetManager assets;
+    public static SoundPlayer soundPlayer;
+    public static final int VIRTUAL_HEIGHT = 1280;
+    public static final int VIRTUAL_WIDTH = 720;
+
 	private SpriteBatch batch;
 	private BitmapFont bitmapFont;
 	public OrthographicCamera camera;
@@ -34,14 +38,18 @@ public class AnotherManager extends Game {
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
 	public Player player;
-	public SoundPlayer soundPlayer;
 
 	public SplashScreen splashScreen;
-	public final int VIRTUAL_HEIGHT = 1280;
-	public final int VIRTUAL_WIDTH = 720;
+
+    private static AnotherManager instance;
+    public static AnotherManager getInstance() {
+        return instance;
+    }
 
 	@Override
 	public void create() {
+        instance = this;
+
 		assets = new AssetManager();
 		batch = new SpriteBatch();
 
