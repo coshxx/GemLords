@@ -47,24 +47,18 @@ public class MapTraverseScreen implements Screen {
 	}
 
 	private void initEnemyLocations() {
-        /*
-        final Enemy enemy = new Enemy();
-        enemy.init(30, "data/enemy.png");
-		enemy.setDefeated(myGame.player.levelDone[0]);
-        enemy.setLocationOnMap(120, 110);
-        enemy.setEnemyNumber(0);
-        enemy.addPositionalButtonToMap(enemy.getLocationOnMap(), enemy.getImage(), 30, stage, myGame.enemyManager);
+         Json json = new Json();
+        int counter = 0;
+        while( true ) {
+            FileHandle handle = Gdx.files.local("enemy" + counter + ".txt");
+            if( !handle.exists() )
+                break;
 
-        Json json = new Json();
-        FileHandle handle = Gdx.files.local("enemy.txt");
-        handle.writeString(json.prettyPrint(enemy), false);
-        */
-
-        Json json = new Json();
-        FileHandle f = Gdx.files.local("enemy.txt");
-        Enemy e = json.fromJson(Enemy.class, f.readString());
-        e.loadImage();
-        e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+            Enemy e = json.fromJson(Enemy.class, handle.readString());
+            e.loadImage();
+            e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+            counter++;
+        }
 	}
 
 	@Override

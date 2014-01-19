@@ -1,0 +1,21 @@
+{
+enemyImageLocation: data/enemysnake.png,
+enemyNumber: 3,
+abilities: [
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		currentCooldown: 1,
+		cooldown: 1
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityPoison,
+		currentCooldown: 0,
+		cooldown: 5
+	},
+],
+locationOnMap: {
+	x: 420,
+	y: 110
+},
+healthPoints: 125
+}
