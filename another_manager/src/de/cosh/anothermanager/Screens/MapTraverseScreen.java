@@ -14,6 +14,8 @@ import com.badlogic.gdx.utils.Json;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.GUI.GUIButton;
+import de.cosh.anothermanager.Items.ItemApprenticeRobe;
+import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
 
 /**
  * Created by cosh on 10.12.13.
@@ -129,5 +131,10 @@ public class MapTraverseScreen implements Screen {
 		}
 		myGame.soundPlayer.playMapMusic();
 		Gdx.input.setInputProcessor(stage);
+
+        if( AnotherManager.DEBUGMODE ) {
+            myGame.player.addItem(new ItemMinorHealthPotion());
+            myGame.player.addItem(new ItemApprenticeRobe());
+        }
 	}
 }

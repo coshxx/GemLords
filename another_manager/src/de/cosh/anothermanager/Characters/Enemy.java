@@ -177,13 +177,13 @@ public class Enemy extends BaseCharacter {
     public BaseItem getDroppedItem() {
         switch (dropItemID) {
             case -1:
-                return new ItemApprenticeRobe();
+                return null;
             case 0:
                 return new ItemApprenticeRobe();
             case 1:
                 return new ItemMinorHealthPotion();
             default:
-                return new ItemMinorHealthPotion();
+                return null;
         }
     }
 }

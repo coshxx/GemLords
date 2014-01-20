@@ -17,5 +17,6 @@ locationOnMap: {
 	x: 420,
 	y: 110
 },
-healthPoints: 125
+healthPoints: 125,
+dropItemID: -1
 }

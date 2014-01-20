@@ -25,6 +25,8 @@ public class AnotherManager extends Game {
     public static final int VIRTUAL_HEIGHT = 1280;
     public static final int VIRTUAL_WIDTH = 720;
 
+    public static boolean DEBUGMODE = false;
+
 	private SpriteBatch batch;
 	private BitmapFont bitmapFont;
 	public OrthographicCamera camera;

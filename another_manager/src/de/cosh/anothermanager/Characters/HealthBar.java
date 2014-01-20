@@ -85,4 +85,8 @@ public class HealthBar extends Actor {
 		this.width = width;
 		this.height = height;
 	}
+
+    public void increaseHealth(int hp) {
+        this.healthpoints += hp;
+    }
 }

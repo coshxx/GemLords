@@ -3,9 +3,11 @@ package de.cosh.anothermanager.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
@@ -60,8 +62,14 @@ public class LoadoutScreen implements Screen {
         stage = new Stage();
         stage.setCamera(AnotherManager.getInstance().camera);
 
+        Image background = new Image(AnotherManager.assets.get("data/textures/loadout.jpg", Texture.class));
+        background.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+        stage.addActor(background);
+
         stage.addAction(Actions.alpha(0.0f));
         stage.addAction(Actions.fadeIn(1.0f));
+
+        AnotherManager.getInstance().soundPlayer.playLoadoutMusic();
 
         GUIButton backtomap = new GUIButton();
         backtomap.createBacktoMapButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);

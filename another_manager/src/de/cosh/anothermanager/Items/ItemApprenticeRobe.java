@@ -13,5 +13,6 @@ public class ItemApprenticeRobe extends BaseItem {
         itemNumber = 0;
         setItemName("Apprentice Robe");
         setItemText("Grants an additional\n 25 hp");
+        setItemSlotType(ItemSlotType.ARMOR);
 	}
 }

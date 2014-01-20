@@ -45,7 +45,27 @@ public class Player extends BaseCharacter {
 		for (int i = 0; i < getDebuffs().size; i++) {
 			getDebuffs().get(i).drawCooldown(batch, parentAlpha);
 		}
+        for (int i = 0; i < inventoryItems.size; i++ ) {
+            BaseItem item = inventoryItems.get(i);
+            if( item.isAddedToActionBar() ) {
+                if( item.getItemSlotType() == BaseItem.ItemSlotType.POTION )
+                    item.drawCooldown(batch, parentAlpha);
+            }
+        }
 	}
+
+    @Override
+    public void turn() {
+        super.turn();
+        for( int i = 0; i < inventoryItems.size; i++ ) {
+            BaseItem currentItem = inventoryItems.get(i);
+            if( currentItem.isAddedToActionBar() ) {
+                if( currentItem.getItemSlotType() == BaseItem.ItemSlotType.POTION ) {
+                    currentItem.turn();
+                }
+            }
+        }
+    }
 
 	public Enemy getLastEnemy() {
 		return lastEnemey;
@@ -82,4 +102,6 @@ public class Player extends BaseCharacter {
         }
         return count;
     }
+
+
 }

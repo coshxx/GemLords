@@ -75,6 +75,7 @@ public class GUIButton {
                         Actions.run(new Runnable() {
                             @Override
                             public void run() {
+                                AnotherManager.getInstance().soundPlayer.stopLoadoutMusic();
                                 AnotherManager.getInstance().setScreen(new MapTraverseScreen(AnotherManager.getInstance()));
                             }
                         })));

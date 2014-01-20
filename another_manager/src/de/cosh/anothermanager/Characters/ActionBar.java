@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
@@ -34,8 +35,6 @@ public class ActionBar extends Actor {
         if (barMode == ActionBarMode.LOADOUT)
             addLoadOutListeners();
         else addActionListeners();
-
-
     }
 
     public void addToBoard(Group foreGround) {
@@ -46,11 +45,20 @@ public class ActionBar extends Actor {
 
         Array<BaseItem> items = AnotherManager.getInstance().player.getInventoryItems();
         for (int i = 0; i < items.size; i++) {
-            BaseItem item = items.get(i);
+            final BaseItem item = items.get(i);
             if (item.isAddedToActionBar()) {
                 item.setPosition(defaultBorders[item.getActionBarSlot()].getX(), defaultBorders[item.getActionBarSlot()].getY());
-                foreGround.addActor(item);
+                if( item.getItemSlotType() == BaseItem.ItemSlotType.POTION ) {
+                    item.clearListeners();
+                    item.addListener(new ClickListener() {
+                        public void clicked(InputEvent event, float x, float y) {
+                            item.onUse();
+                        }
+                    });
+                }
+                foreGround.getParent().addActor(item);
             }
+
         }
     }
 
@@ -63,6 +71,15 @@ public class ActionBar extends Actor {
         for (int i = 0; i < 4; i++) {
             actionBorders[i] = new Image(AnotherManager.assets.get("data/textures/item_border.png", Texture.class));
             actionBorders[i].setPosition((ACTION_PAD_X + ((i + 4) * actionBorders[i].getWidth())) + ((i + 4) * ACTION_SPACEING_X), 100);
+        }
+
+        Array<BaseItem> items = AnotherManager.getInstance().player.getInventoryItems();
+        for (int i = 0; i < items.size; i++) {
+            BaseItem item = items.get(i);
+            if (item.isAddedToActionBar()) {
+                defaultSlots[item.getActionBarSlot()] = item;
+                item.setPosition(defaultBorders[item.getActionBarSlot()].getX(), defaultBorders[item.getActionBarSlot()].getY());
+            }
         }
     }
 
@@ -80,11 +97,13 @@ public class ActionBar extends Actor {
                             i.setDrawText(false);
                             Actor test = event.getListenerActor();
 
-                            defaultSlots[index] = i;
-                            defaultSlots[index].setPosition(test.getX(), test.getY());
-                            test.getStage().addActor(defaultSlots[index]);
-                            i.addedToActionBar(true);
-                            i.setActionBarSlot(index);
+                            if (defaultSlots[index] == null) {
+                                defaultSlots[index] = i;
+                                defaultSlots[index].setPosition(test.getX(), test.getY());
+                                test.getStage().addActor(defaultSlots[index]);
+                                i.addedToActionBar(true);
+                                i.setActionBarSlot(index);
+                            }
                         }
                     }
                 }

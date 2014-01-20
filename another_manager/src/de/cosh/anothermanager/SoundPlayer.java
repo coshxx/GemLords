@@ -17,7 +17,9 @@ public class SoundPlayer {
 	private Sound error;
 	private Sound fireball_start;
 	private Sound loot;
+    private Sound gulp;
 	private Music mapMusic;
+    private Music loadoutMusic;
 	private float mapMusicVolume;
 	private final AnotherManager myGame;
 
@@ -109,6 +111,10 @@ public class SoundPlayer {
 		mapMusic.stop();
 	}
 
+    public void playLoadoutMusic() {
+        loadoutMusic.play();
+    }
+
 	public void touchSounds() {
 		blub1 = myGame.assets.get("data/sounds/blub1.ogg", Sound.class);
 		blub2 = myGame.assets.get("data/sounds/blub2.ogg", Sound.class);
@@ -124,11 +130,19 @@ public class SoundPlayer {
 		abilityAttack = myGame.assets.get("data/sounds/abilityattack_fire.ogg", Sound.class);
 		fireball_start = myGame.assets.get("data/sounds/abilityfireball_fire.ogg", Sound.class);
 		abilityPoison = myGame.assets.get("data/sounds/abilitypoison_fire.ogg", Sound.class);
-
+        loadoutMusic = myGame.assets.get("data/sounds/loadoutmusic.ogg", Music.class);
 		error = myGame.assets.get("data/sounds/error.ogg", Sound.class);
-
+        gulp = myGame.assets.get("data/sounds/gulp.ogg", Sound.class);
 		loot = myGame.assets.get("data/sounds/loot.ogg", Sound.class);
 
 		awesome = myGame.assets.get("data/sounds/awesome.ogg", Sound.class);
 	}
+
+    public void stopLoadoutMusic() {
+        loadoutMusic.stop();
+    }
+
+    public void playGulp() {
+        gulp.play();
+    }
 }

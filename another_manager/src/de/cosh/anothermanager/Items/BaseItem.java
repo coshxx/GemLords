@@ -9,7 +9,7 @@ import de.cosh.anothermanager.AnotherManager;
 /**
  * Created by cosh on 20.01.14.
  */
-public class BaseItem extends Image {
+public class BaseItem extends Image implements UseItem {
     private transient String itemName;
     private transient String itemText;
     private transient BitmapFont bmf;
@@ -21,6 +21,33 @@ public class BaseItem extends Image {
 
     protected int itemNumber = -1;
 
+    public ItemSlotType getItemSlotType() {
+        return itemSlotType;
+    }
+
+    @Override
+    public void onUse() {
+
+    }
+
+    @Override
+    public void drawCooldown(SpriteBatch batch, float parentAlpha) {
+
+    }
+
+    @Override
+    public void turn() {
+
+    }
+
+    public enum ItemSlotType {
+        ARMOR,
+        POTION,
+        ACTIVE
+    }
+
+    private ItemSlotType itemSlotType;
+
     public BaseItem(Texture t) {
         super(t);
         itemBorder = new Image(AnotherManager.assets.get("data/textures/item_border.png", Texture.class));
@@ -29,6 +56,10 @@ public class BaseItem extends Image {
         drawText = true;
         addedToActionBar = false;
         actionBarSlot = -1;
+    }
+
+    public void setItemSlotType(ItemSlotType type) {
+        itemSlotType = type;
     }
 
     public void setItemName(String name) {

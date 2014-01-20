@@ -92,23 +92,28 @@ public class LootScreen implements Screen {
 
         final BaseItem i = enemyManager.getSelectedEnemy().getDroppedItem();
 
-        i.setPosition(AnotherManager.VIRTUAL_WIDTH + i.getWidth(), (AnotherManager.VIRTUAL_HEIGHT / 2) - 200);
-        i.addAction(Actions.sequence(
-                Actions.delay(0.5f),
-                Actions.moveBy(-((AnotherManager.VIRTUAL_WIDTH / 2) + i.getWidth()*1.5f), 0, 0.25f)
-        ));
-        stage.addActor(i);
+        if (i != null) {
+
+            i.setPosition(AnotherManager.VIRTUAL_WIDTH + i.getWidth(), (AnotherManager.VIRTUAL_HEIGHT / 2) - 200);
+            i.addAction(Actions.sequence(
+                    Actions.delay(0.5f),
+                    Actions.moveBy(-((AnotherManager.VIRTUAL_WIDTH / 2) + i.getWidth() * 1.5f), 0, 0.25f)
+            ));
+            stage.addActor(i);
+        }
 
         button.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
-                i.addAction(Actions.moveBy(-AnotherManager.VIRTUAL_WIDTH, 0, 0.25f));
+                if (i != null)
+                    i.addAction(Actions.moveBy(-AnotherManager.VIRTUAL_WIDTH, 0, 0.25f));
                 stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
                         myGame.soundPlayer.stopLootMusic();
                         myGame.player.levelDone(myGame.enemyManager.getSelectedEnemy().getEnemyNumber());
-                        myGame.player.addItem(i);
+                        if( i != null )
+                            myGame.player.addItem(i);
                         myGame.setScreen(myGame.mapTraverseScreen);
                     }
                 })));

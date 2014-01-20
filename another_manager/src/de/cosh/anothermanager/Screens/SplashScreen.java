@@ -94,6 +94,7 @@ public class SplashScreen implements Screen {
 		myGame.assets.load("data/textures/heartempty.png", Texture.class);
 		myGame.assets.load("data/textures/robe.png", Texture.class);
         myGame.assets.load("data/textures/awesome.png", Texture.class);
+        myGame.assets.load("data/textures/loadout.jpg", Texture.class);
 
 		myGame.assets.load("data/sounds/blub1.ogg", Sound.class);
 		myGame.assets.load("data/sounds/blub2.ogg", Sound.class);
@@ -107,6 +108,8 @@ public class SplashScreen implements Screen {
 		myGame.assets.load("data/sounds/woosh.ogg", Sound.class);
 		myGame.assets.load("data/sounds/convert.ogg", Sound.class);
 		myGame.assets.load("data/sounds/ding.ogg", Sound.class);
+		myGame.assets.load("data/sounds/gulp.ogg", Sound.class);
+        myGame.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
 
         myGame.assets.load("data/sounds/abilityattack_fire.ogg", Sound.class);
         myGame.assets.load("data/sounds/abilityfireball_fire.ogg", Sound.class);
@@ -119,6 +122,7 @@ public class SplashScreen implements Screen {
 
 		myGame.assets.load("data/fonts/font.fnt", BitmapFont.class);
 		myGame.assets.load("data/fonts/font2.fnt", BitmapFont.class);
+
 	}
 
 	@Override
