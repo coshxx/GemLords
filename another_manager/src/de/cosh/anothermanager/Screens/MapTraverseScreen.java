@@ -60,9 +60,10 @@ public class MapTraverseScreen implements Screen {
             e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
             counter++;
         }
-
         FileHandle newHandle = Gdx.files.local("data/enemydump.txt");
         Enemy ex = new Enemy();
+        ex.setDropItemID(0);
+        ex.setLocationOnMap(100, 100);
         newHandle.writeString(json.prettyPrint(ex), false);
 	}
 

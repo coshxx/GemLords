@@ -16,5 +16,10 @@ abilities: [
 		currentCooldown: 5,
 		damage: 0
 	}
-]
+],
+locationOnMap: {
+	x: 100,
+	y: 100
+},
+dropItemID: 0
 }

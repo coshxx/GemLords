@@ -43,11 +43,14 @@ public class Enemy extends BaseCharacter {
 
     private Integer dropItemID;
 
+    public void setDropItemID(int id) {
+        dropItemID = id;
+    }
+
     public Enemy() {
         super();
-
-        this.isDefeated = false;
         dropItemID = -1;
+        this.isDefeated = false;
         pointTexture = new TextureRegion(AnotherManager.assets.get("data/textures/point.png", Texture.class));
         pointDoneTexture = new TextureRegion(AnotherManager.assets.get("data/textures/pointdone.png", Texture.class));
 
