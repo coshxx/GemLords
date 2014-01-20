@@ -3,12 +3,15 @@ package de.cosh.anothermanager.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.ActionBar;
 import de.cosh.anothermanager.GUI.GUIButton;
-import de.cosh.anothermanager.Items.ItemApprenticeRobe;
+import de.cosh.anothermanager.Items.BaseItem;
 
 /**
  * Created by cosh on 07.01.14.
@@ -38,6 +41,7 @@ public class LoadoutScreen implements Screen {
     public void render(final float delta) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
         stage.act(delta);
         stage.draw();
     }
@@ -61,22 +65,32 @@ public class LoadoutScreen implements Screen {
 
         GUIButton backtomap = new GUIButton();
         backtomap.createBacktoMapButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
-        /*
-        for( BaseItem i : AnotherManager.getInstance().player.getInventoryItems() ) {
-            i.setPosition(AnotherManager.VIRTUAL_WIDTH-200, 400 );
-            stage.addActor(i);
-        }
-        */
 
+        final ActionBar actionBar = new ActionBar(ActionBar.ActionBarMode.LOADOUT);
+        actionBar.addToStage(stage);
+
+        int counter = 0;
+        Array<BaseItem> items = AnotherManager.getInstance().player.getInventoryItems();
+        if( items.size > 0 ) {
         for( int x = 0; x < 4; x++ ) {
             for( int y = 0; y < 6; y++ ) {
-                ItemApprenticeRobe i = new ItemApprenticeRobe();
+                if( counter >= items.size )
+                    break;
+                final BaseItem i = items.get(counter);
+                if( i.isAddedToActionBar() )
+                    continue;
                 i.setPosition( 70 + ( (x * i.getWidth() ) + ( x * 100 )), (AnotherManager.VIRTUAL_HEIGHT-80) - ( y * 140 ) );
+                i.addListener(new ClickListener() {
+                    public void clicked(InputEvent e, float x, float y) {
+                        i.selected();
+                    }
+                });
                 stage.addActor(i);
+                counter++;
             }
         }
-        ActionBar actionBar = new ActionBar();
-        stage.addActor(actionBar);
+        }
+
         Gdx.input.setInputProcessor(stage);
     }
 }

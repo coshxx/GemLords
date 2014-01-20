@@ -182,6 +182,7 @@ public class SplashScreen implements Screen {
 		bmf = new BitmapFont();
 
 		loadAllAssets();
+        myGame.assets.finishLoading();
 	}
 
 }

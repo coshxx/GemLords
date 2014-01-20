@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Items.BaseItem;
+import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 
 /**
  * Created by cosh on 10.12.13.
@@ -32,7 +33,6 @@ public class Player extends BaseCharacter {
 	@Override
 	public void addToBoard(final Group foreGround) {
 		super.addToBoard(foreGround);
-		init(500);
 		setHealthBarPosition(0, 25, myGame.VIRTUAL_WIDTH, 50);
 		foreGround.addActor(getHealthBar());
 	}
@@ -64,10 +64,22 @@ public class Player extends BaseCharacter {
 	}
 
     public void addItem(BaseItem item) {
-        inventoryItems.add(item);
+        inventoryItems.insert(0, item);
     }
 
     public Array<BaseItem> getInventoryItems() {
         return inventoryItems;
+    }
+
+    public int getItemBuffsHP() {
+        int count = 0;
+        for (BaseItem i : inventoryItems ) {
+            if( i.isAddedToActionBar() ) {
+                if( i instanceof ItemApprenticeRobe ) {
+                    count += 25;
+                }
+            }
+        }
+        return count;
     }
 }

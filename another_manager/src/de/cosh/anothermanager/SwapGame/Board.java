@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Characters.ActionBar;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIWindow;
@@ -46,7 +47,7 @@ public class Board extends Table {
 	private final AnotherManager myGame;
 	private Player player;
 	private final Random random;
-
+    private ActionBar actionBar;
 	private final SwapController swapController;
 
 	public Board(final AnotherManager myGame) {
@@ -117,7 +118,11 @@ public class Board extends Table {
 	}
 
 	private void preparePlayer() {
+        actionBar = new ActionBar(ActionBar.ActionBarMode.ACTION);
+        actionBar.addToBoard(foreGround);
+
 		player = myGame.player;
+        player.init( 100 + player.getItemBuffsHP() );
 		player.addToBoard(foreGround);
 	}
 

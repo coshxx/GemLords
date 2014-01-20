@@ -62,8 +62,8 @@ public class MapTraverseScreen implements Screen {
         }
 
         FileHandle newHandle = Gdx.files.local("data/enemydump.txt");
-        Enemy e = new Enemy();
-        newHandle.writeString(json.prettyPrint(e), false);
+        Enemy ex = new Enemy();
+        newHandle.writeString(json.prettyPrint(ex), false);
 	}
 
 	@Override

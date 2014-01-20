@@ -19,7 +19,11 @@ import de.cosh.anothermanager.Abilities.AbilityAttack;
 import de.cosh.anothermanager.Abilities.AbilityFireball;
 import de.cosh.anothermanager.Abilities.AbilityPoison;
 import de.cosh.anothermanager.GUI.GUIWindow;
+import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.Items.ItemApprenticeRobe;
+import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
+
+import java.util.Enumeration;
 
 /**
  * Created by cosh on 10.01.14.
@@ -36,13 +40,14 @@ public class Enemy extends BaseCharacter {
     private String enemyImageLocation;
     private final Array<Ability> abilities;
     private Vector2 locationOnMap;
-    private ItemApprenticeRobe robe;
+
+    private Integer dropItemID;
 
     public Enemy() {
         super();
 
         this.isDefeated = false;
-
+        dropItemID = -1;
         pointTexture = new TextureRegion(AnotherManager.assets.get("data/textures/point.png", Texture.class));
         pointDoneTexture = new TextureRegion(AnotherManager.assets.get("data/textures/pointdone.png", Texture.class));
 
@@ -76,8 +81,6 @@ public class Enemy extends BaseCharacter {
         abilities.add(abilityPoison);
 
         locationOnMap = new Vector2(0, 0);
-
-        robe = new ItemApprenticeRobe();
     }
 
     public void addPositionalButtonToMap(final Vector2 mapPos, final Image enemyImage, final int enemyHP,
@@ -97,7 +100,6 @@ public class Enemy extends BaseCharacter {
                 enemyManager.setSelectedEnemy(e);
             }
         });
-
         stage.addActor(isDefeated ? pointButtonDone : pointButton);
     }
 
@@ -169,7 +171,16 @@ public class Enemy extends BaseCharacter {
 
     public Vector2 getLocationOnMap() { return locationOnMap; }
 
-    public ItemApprenticeRobe getDroppedItem() {
-        return robe;
+    public BaseItem getDroppedItem() {
+        switch (dropItemID) {
+            case -1:
+                return new ItemApprenticeRobe();
+            case 0:
+                return new ItemApprenticeRobe();
+            case 1:
+                return new ItemMinorHealthPotion();
+            default:
+                return new ItemMinorHealthPotion();
+        }
     }
 }
