@@ -73,6 +73,8 @@ public class SplashScreen implements Screen {
 
 
 		myGame.assets.load("data/textures/debuff_border.png", Texture.class);
+		myGame.assets.load("data/textures/item_border.png", Texture.class);
+		myGame.assets.load("data/textures/minorhealthpotion.png", Texture.class);
 
 		myGame.assets.load("data/textures/empty.png", Texture.class);
 		myGame.assets.load("data/textures/full.png", Texture.class);

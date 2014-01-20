@@ -1,0 +1,57 @@
+{
+robe: {
+	drawable: {
+		class: com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable,
+		region: {
+			regionHeight: 70,
+			regionWidth: 70,
+			texture: {
+				vWrap: ClampToEdge,
+				data: {
+					class: com.badlogic.gdx.graphics.glutils.FileTextureData,
+					useMipMaps: false,
+					width: 70,
+					height: 70,
+					isPrepared: false,
+					format: RGBA8888,
+					file: {
+						class: com.badlogic.gdx.backends.lwjgl.LwjglFileHandle,
+						type: Internal,
+						file: {
+							path: data\\\\textures\\\\robe.png
+						}
+					},
+					pixmap: null
+				},
+				magFilter: Nearest,
+				glHandle: 46,
+				minFilter: Nearest,
+				glTarget: 3553,
+				uWrap: ClampToEdge
+			},
+			v2: 1,
+			u2: 1
+		},
+		minWidth: 70,
+		minHeight: 70
+	}
+},
+abilities: [
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		currentCooldown: 2,
+		cooldown: 2
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityFireball,
+		currentCooldown: 4,
+		cooldown: 4,
+		damage: 12
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityPoison,
+		currentCooldown: 5,
+		damage: 0
+	}
+]
+}

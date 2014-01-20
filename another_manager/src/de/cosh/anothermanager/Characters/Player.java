@@ -3,7 +3,9 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
+import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Items.BaseItem;
 
 /**
  * Created by cosh on 10.12.13.
@@ -14,6 +16,8 @@ public class Player extends BaseCharacter {
 	private int lives;
 	private final AnotherManager myGame;
 
+    private Array<BaseItem> inventoryItems;
+
 	public Player(final AnotherManager myGame) {
 		super();
 		this.myGame = myGame;
@@ -22,6 +26,7 @@ public class Player extends BaseCharacter {
 			levelDone[x] = false;
 		}
 		lives = 5;
+        inventoryItems = new Array<BaseItem>();
 	}
 
 	@Override
@@ -58,4 +63,11 @@ public class Player extends BaseCharacter {
 		lastEnemey = e;
 	}
 
+    public void addItem(BaseItem item) {
+        inventoryItems.add(item);
+    }
+
+    public Array<BaseItem> getInventoryItems() {
+        return inventoryItems;
+    }
 }

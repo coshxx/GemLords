@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
+import de.cosh.anothermanager.GUI.GUIButton;
 
 /**
  * Created by cosh on 10.12.13.
@@ -59,6 +60,10 @@ public class MapTraverseScreen implements Screen {
             e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
             counter++;
         }
+
+        FileHandle newHandle = Gdx.files.local("data/enemydump.txt");
+        Enemy e = new Enemy();
+        newHandle.writeString(json.prettyPrint(e), false);
 	}
 
 	@Override
@@ -106,6 +111,9 @@ public class MapTraverseScreen implements Screen {
 		stage.addAction(Actions.fadeIn(1));
 
 		initEnemyLocations();
+
+        GUIButton loadout = new GUIButton();
+        loadout.createLoadoutButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
 
 		for (int x = 0; x < 5; x++) {
 			final Image heartEmpty = new Image(myGame.assets.get("data/textures/heartempty.png", Texture.class));

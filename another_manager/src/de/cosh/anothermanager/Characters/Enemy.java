@@ -3,7 +3,6 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,6 +19,7 @@ import de.cosh.anothermanager.Abilities.AbilityAttack;
 import de.cosh.anothermanager.Abilities.AbilityFireball;
 import de.cosh.anothermanager.Abilities.AbilityPoison;
 import de.cosh.anothermanager.GUI.GUIWindow;
+import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 
 /**
  * Created by cosh on 10.01.14.
@@ -36,6 +36,7 @@ public class Enemy extends BaseCharacter {
     private String enemyImageLocation;
     private final Array<Ability> abilities;
     private Vector2 locationOnMap;
+    private ItemApprenticeRobe robe;
 
     public Enemy() {
         super();
@@ -75,6 +76,8 @@ public class Enemy extends BaseCharacter {
         abilities.add(abilityPoison);
 
         locationOnMap = new Vector2(0, 0);
+
+        robe = new ItemApprenticeRobe();
     }
 
     public void addPositionalButtonToMap(final Vector2 mapPos, final Image enemyImage, final int enemyHP,
@@ -156,12 +159,6 @@ public class Enemy extends BaseCharacter {
         return enemyNumber;
     }
 
-    public void init(int hp, String textureLocation) {
-        super.init(hp);
-        enemyImageLocation = textureLocation;
-        enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
-    }
-
     public void loadImage() {
         enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
     }
@@ -171,4 +168,8 @@ public class Enemy extends BaseCharacter {
     }
 
     public Vector2 getLocationOnMap() { return locationOnMap; }
+
+    public ItemApprenticeRobe getDroppedItem() {
+        return robe;
+    }
 }
