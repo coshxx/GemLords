@@ -12,10 +12,10 @@ import de.cosh.anothermanager.Characters.Debuff;
  * Created by cosh on 16.01.14.
  */
 public class AbilityPoison extends BaseAbility {
-	public AbilityPoison(final AnotherManager myGame, final int damage, final int cooldown, final boolean abilityReady) {
-		super(myGame, damage, cooldown, abilityReady);
-		abilityImage = new Image(myGame.assets.get("data/abilitypoison.png", Texture.class));
-	}
+    public AbilityPoison() {
+        abilityImageLocation = "data/abilitypoison.png";
+        abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
+    }
 
 	@Override
 	public boolean fire(final BaseCharacter target) {
@@ -24,13 +24,13 @@ public class AbilityPoison extends BaseAbility {
 			final Image projectile = new Image(abilityImage.getDrawable());
 			projectile.setPosition(abilityImage.getX(), abilityImage.getY());
 			abilityImage.getStage().addActor(projectile);
-			projectile.addAction(Actions.sequence(Actions.moveTo(myGame.VIRTUAL_WIDTH / 2, -50, 0.25f),
+			projectile.addAction(Actions.sequence(Actions.moveTo(AnotherManager.VIRTUAL_WIDTH / 2, -50, 0.25f),
 					Actions.removeActor(projectile)));
-			myGame.soundPlayer.playPoisonSound();
+			AnotherManager.soundPlayer.playPoisonSound();
 
-			final Debuff poisonDebuff = new Debuff(myGame);
+			final Debuff poisonDebuff = new Debuff();
 			poisonDebuff.setup(5, 5, target);
-			poisonDebuff.setDebuffImage(new Image(myGame.assets.get("data/abilitypoison.png", Texture.class)));
+			poisonDebuff.setDebuffImage(new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class)));
 			target.addDebuff(poisonDebuff);
 			return true;
 		}

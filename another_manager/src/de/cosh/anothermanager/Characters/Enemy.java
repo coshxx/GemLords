@@ -3,6 +3,8 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,116 +25,150 @@ import de.cosh.anothermanager.GUI.GUIWindow;
  * Created by cosh on 10.01.14.
  */
 public class Enemy extends BaseCharacter {
-	private final Array<Ability> abilities;
-	private transient Image enemyImage;
-	private boolean isDefeated;
-	private transient AnotherManager myGame;
-	private transient ImageButton pointButton, pointButtonDone;
-	private transient TextureRegion pointTexture, pointDoneTexture;
-	private transient ImageButton.ImageButtonStyle style, styleDone;
+    private boolean isDefeated;
+    private transient Image enemyImage;
+    private transient ImageButton pointButton, pointButtonDone;
+    private transient TextureRegion pointTexture, pointDoneTexture;
+    private transient ImageButton.ImageButtonStyle style, styleDone;
 
-	public Enemy(final AnotherManager myGame, final Texture texture) {
-		super(myGame, 20);
-		this.myGame = myGame;
-		this.enemyImage = new Image(texture);
 
-		this.isDefeated = false;
-		this.myGame = myGame;
+    private Integer enemyNumber;
+    private String enemyImageLocation;
+    private final Array<Ability> abilities;
+    private Vector2 locationOnMap;
 
-		pointTexture = new TextureRegion(myGame.assets.get("data/point.png", Texture.class));
-		pointDoneTexture = new TextureRegion(myGame.assets.get("data/pointdone.png", Texture.class));
+    public Enemy() {
+        super();
 
-		style = new ImageButton.ImageButtonStyle();
-		style.up = new TextureRegionDrawable(pointTexture);
-		style.down = new TextureRegionDrawable(pointTexture);
+        this.isDefeated = false;
 
-		styleDone = new ImageButton.ImageButtonStyle();
-		styleDone.up = new TextureRegionDrawable(pointDoneTexture);
-		styleDone.down = new TextureRegionDrawable(pointDoneTexture);
+        pointTexture = new TextureRegion(AnotherManager.assets.get("data/point.png", Texture.class));
+        pointDoneTexture = new TextureRegion(AnotherManager.assets.get("data/pointdone.png", Texture.class));
 
-		pointButton = new ImageButton(style.up, style.down);
-		pointButtonDone = new ImageButton(styleDone.up, styleDone.down);
+        style = new ImageButton.ImageButtonStyle();
+        style.up = new TextureRegionDrawable(pointTexture);
+        style.down = new TextureRegionDrawable(pointTexture);
 
-		abilities = new Array<Ability>();
+        styleDone = new ImageButton.ImageButtonStyle();
+        styleDone.up = new TextureRegionDrawable(pointDoneTexture);
+        styleDone.down = new TextureRegionDrawable(pointDoneTexture);
 
-		final AbilityAttack abilityAttack = new AbilityAttack(myGame, 10, 2, false);
-		final AbilityFireball abilityFireball = new AbilityFireball(myGame, 12, 4, false);
-		final AbilityPoison abilityPoison = new AbilityPoison(myGame, 0, 5, true);
+        pointButton = new ImageButton(style.up, style.down);
+        pointButtonDone = new ImageButton(styleDone.up, styleDone.down);
 
-		abilities.add(abilityAttack);
-		abilities.add(abilityFireball);
-		abilities.add(abilityPoison);
-	}
+        abilities = new Array<Ability>();
 
-	public void addPositionalButtonToMap(final float x, final float y, final Image enemyImage, final int enemyHP,
-			final Stage stage) {
-		this.enemyImage = enemyImage;
-		final Enemy e = this;
-		pointButton.setPosition(x, y);
-		pointButtonDone.setPosition(x, y);
-		setHealth(enemyHP);
-		pointButton.addListener(new ClickListener() {
+        final AbilityAttack abilityAttack = new AbilityAttack();
+        abilityAttack.setAbilityDamage(10);
+        abilityAttack.setCooldown(2);
 
-			@Override
-			public void clicked(final InputEvent event, final float x, final float y) {
-				myGame.soundPlayer.PlayBlub1();
-				final GUIWindow guiWindow = new GUIWindow(myGame, stage);
-				guiWindow.showMapEnemyWindow(enemyHP, enemyImage);
-				myGame.enemyManager.setSelectedEnemy(e);
-			}
-		});
+        final AbilityFireball abilityFireball = new AbilityFireball();
+        abilityFireball.setAbilityDamage(12);
+        abilityFireball.setCooldown(4);
 
-		stage.addActor(isDefeated ? pointButtonDone : pointButton);
-	}
+        final AbilityPoison abilityPoison = new AbilityPoison();
+        abilityPoison.setAbilityDamage(0);
+        abilityPoison.setCooldown(5);
 
-	@Override
-	public void addToBoard(final Group foreGround) {
-		super.addToBoard(foreGround);
-		init(getHealth());
-		enemyImage.setPosition(myGame.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), myGame.VIRTUAL_HEIGHT - 150);
-		setHealthBarPosition(0, myGame.VIRTUAL_HEIGHT - (250 + 50), myGame.VIRTUAL_WIDTH, 50);
+        abilities.add(abilityAttack);
+        abilities.add(abilityFireball);
+        abilities.add(abilityPoison);
 
-		foreGround.addActor(enemyImage);
-		foreGround.addActor(getHealthBar());
+        locationOnMap = new Vector2(0, 0);
+    }
 
-		for (int i = 0; i < abilities.size; i++) {
-			final Ability current = abilities.get(i);
-			current.getImage().setPosition(enemyImage.getX() + (i * 55), myGame.VIRTUAL_HEIGHT - 200);
-			foreGround.addActor(current.getImage());
-		}
-	}
+    public void addPositionalButtonToMap(final Vector2 mapPos, final Image enemyImage, final int enemyHP,
+                                         final Stage stage, final EnemyManager enemyManager) {
+        this.enemyImage = enemyImage;
+        final Enemy e = this;
+        pointButton.setPosition(mapPos.x, mapPos.y);
+        pointButtonDone.setPosition(mapPos.x, mapPos.y);
+        setHealth(enemyHP);
+        pointButton.addListener(new ClickListener() {
 
-	public void draw(final SpriteBatch batch, final float parentAlpha) {
-		for (int i = 0; i < abilities.size; i++) {
-			final Ability current = abilities.get(i);
-			current.drawCooldown(batch, parentAlpha);
-		}
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                AnotherManager.soundPlayer.PlayBlub1();
+                final GUIWindow guiWindow = new GUIWindow(stage);
+                guiWindow.showMapEnemyWindow(enemyHP, enemyImage);
+                enemyManager.setSelectedEnemy(e);
+            }
+        });
 
-	}
+        stage.addActor(isDefeated ? pointButtonDone : pointButton);
+    }
 
-	public Image getImage() {
-		return enemyImage;
-	}
+    @Override
+    public void addToBoard(final Group foreGround) {
+        super.addToBoard(foreGround);
+        init(getHealth());
+        enemyImage.setPosition(AnotherManager.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), AnotherManager.VIRTUAL_HEIGHT - 150);
+        setHealthBarPosition(0, AnotherManager.VIRTUAL_HEIGHT - (250 + 50), AnotherManager.VIRTUAL_WIDTH, 50);
 
-	public boolean isDefeated() {
-		return isDefeated;
-	}
+        foreGround.addActor(enemyImage);
+        foreGround.addActor(getHealthBar());
 
-	public void setDefeated(final boolean defeated) {
-		isDefeated = defeated;
-	}
+        for (int i = 0; i < abilities.size; i++) {
+            final Ability current = abilities.get(i);
+            current.getImage().setPosition(enemyImage.getX() + (i * 55), AnotherManager.VIRTUAL_HEIGHT - 200);
+            foreGround.addActor(current.getImage());
+        }
+    }
 
-	public void setPosition(final float x, final float y) {
-		enemyImage.setPosition(x, y);
-	}
+    public void draw(final SpriteBatch batch, final float parentAlpha) {
+        for (int i = 0; i < abilities.size; i++) {
+            final Ability current = abilities.get(i);
+            current.drawCooldown(batch, parentAlpha);
+        }
 
-	@Override
-	public void turn() {
-		for (int i = 0; i < abilities.size; i++) {
-			final Ability current = abilities.get(i);
-			if (!current.fire(myGame.player)) {
-				current.turn();
-			}
-		}
-	}
+    }
+
+    public Image getImage() {
+        return enemyImage;
+    }
+
+    public boolean isDefeated() {
+        return isDefeated;
+    }
+
+    public void setDefeated(final boolean defeated) {
+        isDefeated = defeated;
+    }
+
+    public void setPosition(final float x, final float y) {
+        enemyImage.setPosition(x, y);
+    }
+
+    public void turn(Player player) {
+        for (int i = 0; i < abilities.size; i++) {
+            final Ability current = abilities.get(i);
+            if (!current.fire(player)) {
+                current.turn();
+            }
+        }
+    }
+
+    public void setEnemyNumber(int n) {
+        enemyNumber = n;
+    }
+
+    public int getEnemyNumber() {
+        return enemyNumber;
+    }
+
+    public void init(int hp, String textureLocation) {
+        super.init(hp);
+        enemyImageLocation = textureLocation;
+        enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
+    }
+
+    public void loadImage() {
+        enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
+    }
+
+    public void setLocationOnMap(float x, float y) {
+        locationOnMap.set(x, y);
+    }
+
+    public Vector2 getLocationOnMap() { return locationOnMap; }
 }

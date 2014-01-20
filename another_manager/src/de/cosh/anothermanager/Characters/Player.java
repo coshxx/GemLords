@@ -9,16 +9,14 @@ import de.cosh.anothermanager.AnotherManager;
  * Created by cosh on 10.12.13.
  */
 public class Player extends BaseCharacter {
-	private int currentLevel;
 	private Enemy lastEnemey;
 	public boolean[] levelDone;
 	private int lives;
 	private final AnotherManager myGame;
 
 	public Player(final AnotherManager myGame) {
-		super(myGame, 500);
+		super();
 		this.myGame = myGame;
-		currentLevel = 0;
 		levelDone = new boolean[200];
 		for (int x = 0; x < 200; x++) {
 			levelDone[x] = false;
@@ -52,12 +50,12 @@ public class Player extends BaseCharacter {
 		return lives;
 	}
 
-	public void levelDone() {
-		levelDone[currentLevel] = true;
-		currentLevel++;
+	public void levelDone(int i) {
+		levelDone[i] = true;
 	}
 
 	public void setLastEnemy(final Enemy e) {
 		lastEnemey = e;
 	}
+
 }
