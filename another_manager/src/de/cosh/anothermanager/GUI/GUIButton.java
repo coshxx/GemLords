@@ -114,6 +114,7 @@ public class GUIButton {
                             item.removeFromActionBar();
                             item.unselect();
                             item.setDrawText(true);
+                            AnotherManager.getInstance().player.getInventory().resortItems();
                         }
                     }
                 }

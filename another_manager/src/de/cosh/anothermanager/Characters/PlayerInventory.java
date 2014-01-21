@@ -27,32 +27,47 @@ public class PlayerInventory {
     }
 
     public void addToLoadoutScreen(Stage stage) {
-        int counter = 0;
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 6; y++) {
-                if (counter >= itemsInInventory.size)
-                    break;
-                final BaseItem i = itemsInInventory.get(counter);
-                if (i.isAddedToActionBar()) {
-                    counter++;
-                    continue;
-                }
-                i.setPosition(70 + ((x * i.getWidth()) + (x * 100)), (AnotherManager.VIRTUAL_HEIGHT - 80) - (y * 140));
-                i.clearListeners();
-                i.addListener(new ClickListener() {
-                    public void clicked(InputEvent e, float x, float y) {
-                        if (i.isSelected()) {
-                            i.unselect();
-                            return;
-                        }
-                        i.selected();
-                        for (BaseItem otherItem : itemsInInventory)
-                            if (otherItem != i)
-                                otherItem.unselect();
+        float x = 0;
+        float y = 0;
+        for( int i = 0; i < itemsInInventory.size; i++ ) {
+            final BaseItem item = itemsInInventory.get(i);
+            if( item.isAddedToActionBar() )
+                continue;
+            item.setPosition(70 + ((x * item.getWidth()) + (x * 100)), (AnotherManager.VIRTUAL_HEIGHT - 80) - (y * 140));
+            x++;
+            if( x >= 4 ) {
+                x = 0;
+                y++;
+            }
+            item.clearListeners();
+            item.addListener(new ClickListener() {
+                public void clicked(InputEvent e, float x, float y) {
+                    if (item.isSelected()) {
+                        item.unselect();
+                        return;
                     }
-                });
-                stage.addActor(i);
-                counter++;
+                    item.selected();
+                    for (BaseItem otherItem : itemsInInventory)
+                        if (otherItem != item)
+                            otherItem.unselect();
+                }
+            });
+            stage.addActor(item);
+        }
+    }
+
+    public void resortItems() {
+        float x = 0;
+        float y = 0;
+        for( int i = 0; i < itemsInInventory.size; i++ ) {
+            final BaseItem item = itemsInInventory.get(i);
+            if( item.isAddedToActionBar() )
+                continue;
+            item.setPosition(70 + ((x * item.getWidth()) + (x * 100)), (AnotherManager.VIRTUAL_HEIGHT - 80) - (y * 140));
+            x++;
+            if( x >= 4 ) {
+                x = 0;
+                y++;
             }
         }
     }

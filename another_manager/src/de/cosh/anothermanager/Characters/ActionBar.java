@@ -65,4 +65,21 @@ public class ActionBar {
             }
         }
     }
+
+    public void addToBoard(Group foreGround) {
+        for (int i = 0; i < 4; i++) {
+            final int index = i;
+            itemBorders[i].clearListeners();
+            foreGround.addActor(itemBorders[i]);
+            if( itemsInBar[i] != null ) {
+                itemsInBar[i].clearListeners();
+                itemsInBar[i].addListener(new ClickListener() {
+                    public void clicked(InputEvent event, float x, float y) {
+                        itemsInBar[index].onUse();
+                    }
+                });
+                foreGround.addActor(itemsInBar[i]);
+            }
+        }
+    }
 }

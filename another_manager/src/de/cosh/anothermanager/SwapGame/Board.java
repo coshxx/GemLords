@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -71,6 +72,7 @@ public class Board extends Table {
 		addActor(backGround);
 		addActor(foreGround);
 		addActor(effectGroup);
+        effectGroup.setTouchable(Touchable.disabled);
 		boardState = BoardState.STATE_EMPTY;
 		initialized = false;
 		justSwapped = false;
@@ -118,10 +120,6 @@ public class Board extends Table {
 	}
 
 	private void preparePlayer() {
-        /*
-        actionBar = new ActionBar(ActionBar.ActionBarMode.ACTION);
-        actionBar.addToBoard(foreGround);
-*/
 		player = myGame.player;
         player.init( 100 + player.getItemBuffsHP() );
 		player.addToBoard(foreGround);

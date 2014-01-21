@@ -104,11 +104,12 @@ public class GameScreen implements Screen, GestureListener {
 		stage = new Stage(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
 		stage.setCamera(myGame.camera);
         swapGame = new Board(myGame);
-        stage.addActor(swapGame);
         InputMultiplexer input = new InputMultiplexer();
         input.addProcessor(stage);
         input.addProcessor(new GestureDetector(this));
         Gdx.input.setInputProcessor(input);
+        stage.addActor(swapGame);
+
 
 		/*
 		 * swapGame = myGame.swapGame; swapGame.init();
