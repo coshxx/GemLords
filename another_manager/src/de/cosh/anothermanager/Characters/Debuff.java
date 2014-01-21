@@ -26,7 +26,7 @@ public class Debuff {
 	private final int width = 30;
 
 	public Debuff() {
-		this.debuffBorderImage = new Image(AnotherManager.assets.get("data/debuff_border.png", Texture.class));
+		this.debuffBorderImage = new Image(AnotherManager.assets.get("data/textures/debuff_border.png", Texture.class));
 		this.bmf = new BitmapFont();
 	}
 

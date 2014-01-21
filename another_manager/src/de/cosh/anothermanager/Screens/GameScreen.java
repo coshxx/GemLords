@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.input.GestureDetector;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.SwapGame.Board;
 
@@ -101,9 +103,14 @@ public class GameScreen implements Screen, GestureListener {
 	public void show() {
 		stage = new Stage(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
 		stage.setCamera(myGame.camera);
-		Gdx.input.setInputProcessor(new GestureDetector(this));
-		swapGame = new Board(myGame);
-		stage.addActor(swapGame);
+        swapGame = new Board(myGame);
+        InputMultiplexer input = new InputMultiplexer();
+        input.addProcessor(stage);
+        input.addProcessor(new GestureDetector(this));
+        Gdx.input.setInputProcessor(input);
+        stage.addActor(swapGame);
+
+
 		/*
 		 * swapGame = myGame.swapGame; swapGame.init();
 		 * swapGame.addAction(Actions.alpha(0.0f));

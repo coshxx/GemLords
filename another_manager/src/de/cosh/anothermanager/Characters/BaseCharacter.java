@@ -74,4 +74,9 @@ public class BaseCharacter {
 			}
 		}
 	}
+
+    public void increaseHealth(int hp) {
+        healthPoints += hp;
+        healthBar.increaseHealth(hp);
+    }
 }

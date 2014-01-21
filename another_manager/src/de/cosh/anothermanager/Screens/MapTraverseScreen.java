@@ -13,6 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
+import de.cosh.anothermanager.GUI.GUIButton;
+import de.cosh.anothermanager.Items.ItemApprenticeRobe;
+import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
 
 /**
  * Created by cosh on 10.12.13.
@@ -47,24 +50,23 @@ public class MapTraverseScreen implements Screen {
 	}
 
 	private void initEnemyLocations() {
-        /*
-        final Enemy enemy = new Enemy();
-        enemy.init(30, "data/enemy.png");
-		enemy.setDefeated(myGame.player.levelDone[0]);
-        enemy.setLocationOnMap(120, 110);
-        enemy.setEnemyNumber(0);
-        enemy.addPositionalButtonToMap(enemy.getLocationOnMap(), enemy.getImage(), 30, stage, myGame.enemyManager);
+         Json json = new Json();
+        int counter = 0;
+        while( true ) {
+            FileHandle handle = Gdx.files.internal("data/enemies/enemy" + counter + ".dat");
+            if( !handle.exists() )
+                break;
 
-        Json json = new Json();
-        FileHandle handle = Gdx.files.local("enemy.txt");
-        handle.writeString(json.prettyPrint(enemy), false);
-        */
-
-        Json json = new Json();
-        FileHandle f = Gdx.files.local("enemy.txt");
-        Enemy e = json.fromJson(Enemy.class, f.readString());
-        e.loadImage();
-        e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+            Enemy e = json.fromJson(Enemy.class, handle.readString());
+            e.loadImage();
+            e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+            counter++;
+        }
+        FileHandle newHandle = Gdx.files.local("data/enemydump.txt");
+        Enemy ex = new Enemy();
+        ex.setDropItemID(0);
+        ex.setLocationOnMap(100, 100);
+        newHandle.writeString(json.prettyPrint(ex), false);
 	}
 
 	@Override
@@ -100,7 +102,7 @@ public class MapTraverseScreen implements Screen {
 		skin = new Skin();
 		fadeMusic = false;
 		enemyWindowOpen = false;
-		mapTexture = myGame.assets.get("data/map.png", Texture.class);
+		mapTexture = myGame.assets.get("data/textures/map.png", Texture.class);
 
 		stage.setCamera(myGame.camera);
 
@@ -113,18 +115,26 @@ public class MapTraverseScreen implements Screen {
 
 		initEnemyLocations();
 
+        GUIButton loadout = new GUIButton();
+        loadout.createLoadoutButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
+
 		for (int x = 0; x < 5; x++) {
-			final Image heartEmpty = new Image(myGame.assets.get("data/heartempty.png", Texture.class));
+			final Image heartEmpty = new Image(myGame.assets.get("data/textures/heartempty.png", Texture.class));
 			heartEmpty.setPosition(32 + (32 * x), myGame.VIRTUAL_HEIGHT - 64);
 			stage.addActor(heartEmpty);
 		}
 
 		for (int x = 0; x < myGame.player.getLives(); x++) {
-			final Image heart = new Image(myGame.assets.get("data/heart.png", Texture.class));
+			final Image heart = new Image(myGame.assets.get("data/textures/heart.png", Texture.class));
 			heart.setPosition(32 + (32 * x), myGame.VIRTUAL_HEIGHT - 64);
 			stage.addActor(heart);
 		}
 		myGame.soundPlayer.playMapMusic();
 		Gdx.input.setInputProcessor(stage);
+
+        if( AnotherManager.DEBUGMODE ) {
+            myGame.player.getInventory().addItem(new ItemMinorHealthPotion());
+            myGame.player.getInventory().addItem(new ItemApprenticeRobe());
+        }
 	}
 }

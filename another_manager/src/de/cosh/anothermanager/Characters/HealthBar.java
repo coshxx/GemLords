@@ -69,8 +69,8 @@ public class HealthBar extends Actor {
 		this.healthpoints = hp;
 		this.maxHP = hp;
 
-		emptyT = new Texture(Gdx.files.internal("data/empty.png"));
-		fullT = new Texture(Gdx.files.internal("data/full.png"));
+		emptyT = new Texture(Gdx.files.internal("data/textures/empty.png"));
+		fullT = new Texture(Gdx.files.internal("data/textures/full.png"));
 
 		empty = new NinePatch(new TextureRegion(emptyT, 24, 24), 8, 8, 8, 8);
 		full = new NinePatch(new TextureRegion(fullT, 24, 24), 8, 8, 8, 8);
@@ -85,4 +85,8 @@ public class HealthBar extends Actor {
 		this.width = width;
 		this.height = height;
 	}
+
+    public void increaseHealth(int hp) {
+        this.healthpoints += hp;
+    }
 }

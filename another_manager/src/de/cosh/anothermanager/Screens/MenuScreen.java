@@ -68,8 +68,8 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void show() {
-		logoTexture = myGame.assets.get("data/logo.png", Texture.class);
-		final Texture buttonTexture = myGame.assets.get("data/button.png", Texture.class);
+		logoTexture = myGame.assets.get("data/textures/logo.png", Texture.class);
+		final Texture buttonTexture = myGame.assets.get("data/textures/button.png", Texture.class);
 
 		logoPosition = new Vector2();
 		logoPosition.x = (myGame.VIRTUAL_WIDTH / 2) - (logoTexture.getWidth() / 2);

@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.Characters.Player;
-import de.cosh.anothermanager.Items.ItemFactory;
 import de.cosh.anothermanager.Screens.GameScreen;
 import de.cosh.anothermanager.Screens.LootScreen;
 import de.cosh.anothermanager.Screens.MapTraverseScreen;
@@ -25,6 +24,8 @@ public class AnotherManager extends Game {
     public static final int VIRTUAL_HEIGHT = 1280;
     public static final int VIRTUAL_WIDTH = 720;
 
+    public static boolean DEBUGMODE = true;
+
 	private SpriteBatch batch;
 	private BitmapFont bitmapFont;
 	public OrthographicCamera camera;
@@ -33,8 +34,6 @@ public class AnotherManager extends Game {
 	public GameScreen gameScreen;
 	public GemFactory gemFactory;
 	public LootScreen lootScreen;
-    public ItemFactory itemFactory;
-
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
 	public Player player;
@@ -56,16 +55,15 @@ public class AnotherManager extends Game {
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.update();
-		player = new Player(this);
+        player = new Player(this);
+        enemyManager = new EnemyManager();
 		splashScreen = new SplashScreen(this);
 		soundPlayer = new SoundPlayer(this);
 		menuScreen = new MenuScreen(this);
 		gameScreen = new GameScreen(this);
-		lootScreen = new LootScreen(this);
+		lootScreen = new LootScreen(this, enemyManager);
 		mapTraverseScreen = new MapTraverseScreen(this);
 		gemFactory = new GemFactory(this);
-        itemFactory = new ItemFactory(this);
-        enemyManager = new EnemyManager();
 		bitmapFont = new BitmapFont();
 		setScreen(splashScreen);
 	}

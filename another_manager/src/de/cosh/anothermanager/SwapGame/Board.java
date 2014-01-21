@@ -7,10 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Characters.ActionBar;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIWindow;
@@ -24,7 +26,7 @@ public class Board extends Table {
 	}
 
 	public static final int CELL_PAD_X = 45;
-	public static final int CELL_PAD_Y = 145;
+	public static final int CELL_PAD_Y = 200;
 	public static final int CELL_SIZE = 70;
 	public static final int MAX_SIZE_X = 9;
 	public static final int MAX_SIZE_Y = 9;
@@ -46,7 +48,7 @@ public class Board extends Table {
 	private final AnotherManager myGame;
 	private Player player;
 	private final Random random;
-
+    private ActionBar actionBar;
 	private final SwapController swapController;
 
 	public Board(final AnotherManager myGame) {
@@ -64,12 +66,13 @@ public class Board extends Table {
 		foreGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
 		effectGroup = new Group();
 		effectGroup.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
-		final Image backImage = new Image(myGame.assets.get("data/background.png", Texture.class));
+		final Image backImage = new Image(myGame.assets.get("data/textures/background.png", Texture.class));
 		backImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
 		backGround.addActor(backImage);
 		addActor(backGround);
 		addActor(foreGround);
 		addActor(effectGroup);
+        effectGroup.setTouchable(Touchable.disabled);
 		boardState = BoardState.STATE_EMPTY;
 		initialized = false;
 		justSwapped = false;
@@ -118,6 +121,7 @@ public class Board extends Table {
 
 	private void preparePlayer() {
 		player = myGame.player;
+        player.init( 100 + player.getItemBuffsHP() );
 		player.addToBoard(foreGround);
 	}
 
@@ -141,7 +145,7 @@ public class Board extends Table {
 			while (matchFinder.hasMatches()) {
 				backGround.clear();
 				foreGround.clear();
-				final Image backImage = new Image(myGame.assets.get("data/background.png", Texture.class));
+				final Image backImage = new Image(myGame.assets.get("data/textures/background.png", Texture.class));
 				backGround.addActor(backImage);
 				fillWithRandomGems();
 			}

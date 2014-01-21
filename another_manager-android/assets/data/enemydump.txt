@@ -1,0 +1,25 @@
+{
+abilities: [
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		currentCooldown: 2,
+		cooldown: 2
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityFireball,
+		currentCooldown: 4,
+		cooldown: 4,
+		damage: 12
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityPoison,
+		currentCooldown: 5,
+		damage: 0
+	}
+],
+locationOnMap: {
+	x: 100,
+	y: 100
+},
+dropItemID: 0
+}

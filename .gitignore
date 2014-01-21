@@ -1,9 +1,8 @@
-*.apk
-*.class
-another_manager-android/bin/
-another_manager-android/proguard/*
-another_manager-desktop/bin/
-.idea/
-another_manager-android/proguard_logs/
+/another_manager-desktop/bin/
+/another_manager/bin
+/another_manager-android/bin
+/another_manager-android/proguard_logs
 out/
+.idea/
 *.iml
+*.apk

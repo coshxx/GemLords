@@ -3,7 +3,10 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
+import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Items.BaseItem;
+import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 
 /**
  * Created by cosh on 10.12.13.
@@ -14,6 +17,13 @@ public class Player extends BaseCharacter {
 	private int lives;
 	private final AnotherManager myGame;
 
+    private PlayerInventory playerInventory;
+    private ActionBar actionBar;
+
+    public PlayerInventory getInventory() {
+        return playerInventory;
+    }
+
 	public Player(final AnotherManager myGame) {
 		super();
 		this.myGame = myGame;
@@ -22,14 +32,17 @@ public class Player extends BaseCharacter {
 			levelDone[x] = false;
 		}
 		lives = 5;
+
+        playerInventory = new PlayerInventory();
+        actionBar = new ActionBar();
 	}
 
 	@Override
 	public void addToBoard(final Group foreGround) {
 		super.addToBoard(foreGround);
-		init(500);
 		setHealthBarPosition(0, 25, myGame.VIRTUAL_WIDTH, 50);
 		foreGround.addActor(getHealthBar());
+        actionBar.addToBoard(foreGround);
 	}
 
 	public void decreaseLife() {
@@ -40,7 +53,27 @@ public class Player extends BaseCharacter {
 		for (int i = 0; i < getDebuffs().size; i++) {
 			getDebuffs().get(i).drawCooldown(batch, parentAlpha);
 		}
+        for (int i = 0; i < playerInventory.getAllItems().size; i++ ) {
+            BaseItem item = playerInventory.getAllItems().get(i);
+            if( item.isAddedToActionBar() ) {
+                if( item.getItemSlotType() == BaseItem.ItemSlotType.POTION )
+                    item.drawCooldown(batch, parentAlpha);
+            }
+        }
 	}
+
+    @Override
+    public void turn() {
+        super.turn();
+        for( int i = 0; i < playerInventory.getAllItems().size; i++ ) {
+            BaseItem currentItem = playerInventory.getAllItems().get(i);
+            if( currentItem.isAddedToActionBar() ) {
+                if( currentItem.getItemSlotType() == BaseItem.ItemSlotType.POTION ) {
+                    currentItem.turn();
+                }
+            }
+        }
+    }
 
 	public Enemy getLastEnemy() {
 		return lastEnemey;
@@ -58,4 +91,20 @@ public class Player extends BaseCharacter {
 		lastEnemey = e;
 	}
 
+    public int getItemBuffsHP() {
+        int count = 0;
+        for (BaseItem i : playerInventory.getAllItems() ) {
+            if( i.isAddedToActionBar() ) {
+                if( i instanceof ItemApprenticeRobe ) {
+                    count += 25;
+                }
+            }
+        }
+        return count;
+    }
+
+
+    public ActionBar getActionBar() {
+        return actionBar;
+    }
 }
