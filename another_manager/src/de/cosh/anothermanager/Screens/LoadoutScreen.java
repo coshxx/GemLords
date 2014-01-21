@@ -71,8 +71,9 @@ public class LoadoutScreen implements Screen {
 
         AnotherManager.getInstance().soundPlayer.playLoadoutMusic();
 
-        GUIButton backtomap = new GUIButton();
-        backtomap.createBacktoMapButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
+        GUIButton guiButton = new GUIButton();
+        guiButton.createBacktoMapButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
+        guiButton.createRemoveFromBarButton(stage, 0, 0);
 
         final ActionBar actionBar = new ActionBar(ActionBar.ActionBarMode.LOADOUT);
         actionBar.addToStage(stage);
@@ -90,7 +91,15 @@ public class LoadoutScreen implements Screen {
                 i.setPosition( 70 + ( (x * i.getWidth() ) + ( x * 100 )), (AnotherManager.VIRTUAL_HEIGHT-80) - ( y * 140 ) );
                 i.addListener(new ClickListener() {
                     public void clicked(InputEvent e, float x, float y) {
+                        if (i.isSelected() ) {
+                            i.unselect();
+                            return;
+                        }
                         i.selected();
+                        Array<BaseItem> items = AnotherManager.getInstance().player.getInventoryItems();
+                        for( BaseItem otherItem : items )
+                            if( otherItem != i )
+                                otherItem.unselect();
                     }
                 });
                 stage.addActor(i);

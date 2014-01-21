@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Characters.ActionBar;
 import de.cosh.anothermanager.Screens.LoadoutScreen;
 import de.cosh.anothermanager.Screens.MapTraverseScreen;
 
@@ -79,6 +80,32 @@ public class GUIButton {
                                 AnotherManager.getInstance().setScreen(new MapTraverseScreen(AnotherManager.getInstance()));
                             }
                         })));
+            }
+        });
+
+        stage.addActor(button);
+    }
+
+    public void createRemoveFromBarButton(final Stage stage, float x, float y ) {
+        final TextureRegion upRegion = new TextureRegion(buttonTexture);
+        final TextureRegion downRegion = new TextureRegion(buttonTexture);
+        final BitmapFont buttonFont = new BitmapFont();
+
+        final TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.up = new TextureRegionDrawable(upRegion);
+        style.down = new TextureRegionDrawable(downRegion);
+        style.font = buttonFont;
+
+
+        button = new TextButton("Remove", style);
+        button.setPosition(x, y);
+        button.setLayoutEnabled(true);
+        button.setBounds(x, y, 100, 100);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
+                AnotherManager myGame = AnotherManager.getInstance();
+                ActionBar actionBar = myGame.actionBar;
             }
         });
 

@@ -93,6 +93,9 @@ public class ActionBar extends Actor {
                     Array<BaseItem> items = AnotherManager.getInstance().player.getInventoryItems();
                     for (BaseItem i : items) {
                         if (i.isSelected()) {
+                            if( i.isAddedToActionBar() ) {
+                                defaultSlots[i.getActionBarSlot()] = null;
+                            }
                             i.unselect();
                             i.setDrawText(false);
                             Actor test = event.getListenerActor();
