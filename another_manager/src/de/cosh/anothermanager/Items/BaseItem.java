@@ -9,7 +9,7 @@ import de.cosh.anothermanager.AnotherManager;
 /**
  * Created by cosh on 20.01.14.
  */
-public class BaseItem extends Image implements UseItem {
+public abstract class BaseItem extends Image implements UseItem {
     private transient String itemName;
     private transient String itemText;
     private transient BitmapFont bmf;
@@ -38,6 +38,11 @@ public class BaseItem extends Image implements UseItem {
     @Override
     public void turn() {
 
+    }
+
+    public void removeFromActionBar() {
+        addedToActionBar = false;
+        AnotherManager.getInstance().player.getActionBar().removeFromBar(this);
     }
 
     public enum ItemSlotType {

@@ -113,7 +113,7 @@ public class LootScreen implements Screen {
                         myGame.soundPlayer.stopLootMusic();
                         myGame.player.levelDone(myGame.enemyManager.getSelectedEnemy().getEnemyNumber());
                         if( i != null )
-                            myGame.player.addItem(i);
+                            myGame.player.getInventory().addItem(i);
                         myGame.setScreen(myGame.mapTraverseScreen);
                     }
                 })));

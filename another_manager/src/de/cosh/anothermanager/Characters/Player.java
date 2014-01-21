@@ -17,7 +17,12 @@ public class Player extends BaseCharacter {
 	private int lives;
 	private final AnotherManager myGame;
 
-    private Array<BaseItem> inventoryItems;
+    private PlayerInventory playerInventory;
+    private ActionBar actionBar;
+
+    public PlayerInventory getInventory() {
+        return playerInventory;
+    }
 
 	public Player(final AnotherManager myGame) {
 		super();
@@ -27,7 +32,9 @@ public class Player extends BaseCharacter {
 			levelDone[x] = false;
 		}
 		lives = 5;
-        inventoryItems = new Array<BaseItem>();
+
+        playerInventory = new PlayerInventory();
+        actionBar = new ActionBar();
 	}
 
 	@Override
@@ -35,6 +42,7 @@ public class Player extends BaseCharacter {
 		super.addToBoard(foreGround);
 		setHealthBarPosition(0, 25, myGame.VIRTUAL_WIDTH, 50);
 		foreGround.addActor(getHealthBar());
+        actionBar.addToBoard(foreGround);
 	}
 
 	public void decreaseLife() {
@@ -45,8 +53,8 @@ public class Player extends BaseCharacter {
 		for (int i = 0; i < getDebuffs().size; i++) {
 			getDebuffs().get(i).drawCooldown(batch, parentAlpha);
 		}
-        for (int i = 0; i < inventoryItems.size; i++ ) {
-            BaseItem item = inventoryItems.get(i);
+        for (int i = 0; i < playerInventory.getAllItems().size; i++ ) {
+            BaseItem item = playerInventory.getAllItems().get(i);
             if( item.isAddedToActionBar() ) {
                 if( item.getItemSlotType() == BaseItem.ItemSlotType.POTION )
                     item.drawCooldown(batch, parentAlpha);
@@ -57,8 +65,8 @@ public class Player extends BaseCharacter {
     @Override
     public void turn() {
         super.turn();
-        for( int i = 0; i < inventoryItems.size; i++ ) {
-            BaseItem currentItem = inventoryItems.get(i);
+        for( int i = 0; i < playerInventory.getAllItems().size; i++ ) {
+            BaseItem currentItem = playerInventory.getAllItems().get(i);
             if( currentItem.isAddedToActionBar() ) {
                 if( currentItem.getItemSlotType() == BaseItem.ItemSlotType.POTION ) {
                     currentItem.turn();
@@ -83,17 +91,9 @@ public class Player extends BaseCharacter {
 		lastEnemey = e;
 	}
 
-    public void addItem(BaseItem item) {
-        inventoryItems.insert(0, item);
-    }
-
-    public Array<BaseItem> getInventoryItems() {
-        return inventoryItems;
-    }
-
     public int getItemBuffsHP() {
         int count = 0;
-        for (BaseItem i : inventoryItems ) {
+        for (BaseItem i : playerInventory.getAllItems() ) {
             if( i.isAddedToActionBar() ) {
                 if( i instanceof ItemApprenticeRobe ) {
                     count += 25;
@@ -104,4 +104,7 @@ public class Player extends BaseCharacter {
     }
 
 
+    public ActionBar getActionBar() {
+        return actionBar;
+    }
 }
