@@ -12,4 +12,6 @@ public abstract interface UseItem {
     public abstract void drawCooldown(SpriteBatch batch, float parentAlpha);
 
     public abstract void turn();
+
+    public abstract void resetCooldown();
 }

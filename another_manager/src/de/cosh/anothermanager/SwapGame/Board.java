@@ -133,6 +133,17 @@ public class Board extends Table {
 			matchesDuringCurrentMove = 0;
 			final GridPoint2 start = convertToBoardIndex(flingStartPosition);
 			lastSwap = start;
+
+            GridPoint2 end = new GridPoint2(start);
+            end.x += x;
+            end.y += y;
+
+            if( start.x < 0 || start.x >= MAX_SIZE_X || start.y < 0 || start.y >= MAX_SIZE_Y )
+                return;
+
+            if( end.x < 0 || end.x >= MAX_SIZE_X || end.y < 0 || end.y >= MAX_SIZE_Y )
+                return;
+
 			swapController.swap(start, x, y);
 			boardState = BoardState.STATE_SWAPPING;
 		}
@@ -200,11 +211,13 @@ public class Board extends Table {
 		} else if (!stillMovement && boardState == BoardState.STATE_CHECK) {
 
 			if (enemy.getHealth() <= 0) {
+                effectGroup.setTouchable(Touchable.enabled);
 				final GUIWindow guiWindow = new GUIWindow(getStage());
 				guiWindow.createVictoryWindow(foreGround, backGround, effectGroup);
 				myGame.soundPlayer.playVictorySound();
 				boardState = BoardState.STATE_INACTIVE;
 			} else if (player.getHealth() <= 0) {
+                effectGroup.setTouchable(Touchable.enabled);
 				final GUIWindow guiWindow = new GUIWindow(getStage());
 				guiWindow.createDefeatWindow(foreGround, backGround, effectGroup);
 				myGame.soundPlayer.playLoseSound();

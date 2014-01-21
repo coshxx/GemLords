@@ -15,4 +15,9 @@ public class ItemApprenticeRobe extends BaseItem {
         setItemText("Grants an additional\n 25 hp");
         setItemSlotType(ItemSlotType.ARMOR);
 	}
+
+    @Override
+    public void resetCooldown() {
+
+    }
 }
