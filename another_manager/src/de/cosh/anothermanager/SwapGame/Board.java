@@ -118,9 +118,10 @@ public class Board extends Table {
 	}
 
 	private void preparePlayer() {
+        /*
         actionBar = new ActionBar(ActionBar.ActionBarMode.ACTION);
         actionBar.addToBoard(foreGround);
-
+*/
 		player = myGame.player;
         player.init( 100 + player.getItemBuffsHP() );
 		player.addToBoard(foreGround);

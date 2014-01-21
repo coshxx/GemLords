@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -75,6 +76,11 @@ public class LoadoutScreen implements Screen {
         guiButton.createBacktoMapButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
         guiButton.createRemoveFromBarButton(stage, 0, 0);
 
+        ActionBar actionBar = AnotherManager.getInstance().player.getActionBar();
+        actionBar.addToLoadoutScreen(stage);
+        AnotherManager.getInstance().player.getInventory().addToLoadoutScreen(stage);
+
+        /*
         final ActionBar actionBar = new ActionBar(ActionBar.ActionBarMode.LOADOUT);
         actionBar.addToStage(stage);
 
@@ -107,7 +113,7 @@ public class LoadoutScreen implements Screen {
             }
         }
         }
-
+        */
         Gdx.input.setInputProcessor(stage);
     }
 }

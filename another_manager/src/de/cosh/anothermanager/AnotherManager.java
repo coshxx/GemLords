@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import de.cosh.anothermanager.Characters.ActionBar;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.Characters.Player;
@@ -35,7 +34,6 @@ public class AnotherManager extends Game {
 	public GameScreen gameScreen;
 	public GemFactory gemFactory;
 	public LootScreen lootScreen;
-    public ActionBar actionBar;
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
 	public Player player;
@@ -57,7 +55,7 @@ public class AnotherManager extends Game {
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.update();
-		player = new Player(this);
+        player = new Player(this);
         enemyManager = new EnemyManager();
 		splashScreen = new SplashScreen(this);
 		soundPlayer = new SoundPlayer(this);

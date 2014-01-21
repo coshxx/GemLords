@@ -3,13 +3,15 @@ package de.cosh.anothermanager.GUI;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
-import de.cosh.anothermanager.Characters.ActionBar;
+import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.Screens.LoadoutScreen;
 import de.cosh.anothermanager.Screens.MapTraverseScreen;
 
@@ -23,6 +25,7 @@ public class GUIButton {
     public GUIButton() {
         buttonTexture = AnotherManager.assets.get("data/textures/button.png", Texture.class);
     }
+
     public void createLoadoutButton(final Stage stage, float x, float y) {
         final TextureRegion upRegion = new TextureRegion(buttonTexture);
         final TextureRegion downRegion = new TextureRegion(buttonTexture);
@@ -47,7 +50,7 @@ public class GUIButton {
                             public void run() {
                                 AnotherManager.getInstance().setScreen(new LoadoutScreen());
                             }
-                       })));
+                        })));
             }
         });
 
@@ -86,7 +89,7 @@ public class GUIButton {
         stage.addActor(button);
     }
 
-    public void createRemoveFromBarButton(final Stage stage, float x, float y ) {
+    public void createRemoveFromBarButton(final Stage stage, float x, float y) {
         final TextureRegion upRegion = new TextureRegion(buttonTexture);
         final TextureRegion downRegion = new TextureRegion(buttonTexture);
         final BitmapFont buttonFont = new BitmapFont();
@@ -104,8 +107,16 @@ public class GUIButton {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
-                AnotherManager myGame = AnotherManager.getInstance();
-                ActionBar actionBar = myGame.actionBar;
+                Array<BaseItem> items = AnotherManager.getInstance().player.getInventory().getAllItems();
+                for (BaseItem item : items) {
+                    if (item.isAddedToActionBar()) {
+                        if (item.isSelected()) {
+                            item.removeFromActionBar();
+                            item.unselect();
+                            item.setDrawText(true);
+                        }
+                    }
+                }
             }
         });
 

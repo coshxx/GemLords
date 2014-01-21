@@ -133,8 +133,8 @@ public class MapTraverseScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 
         if( AnotherManager.DEBUGMODE ) {
-            myGame.player.addItem(new ItemMinorHealthPotion());
-            myGame.player.addItem(new ItemApprenticeRobe());
+            myGame.player.getInventory().addItem(new ItemMinorHealthPotion());
+            myGame.player.getInventory().addItem(new ItemApprenticeRobe());
         }
 	}
 }
