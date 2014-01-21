@@ -13,15 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
+import de.cosh.anothermanager.Abilities.*;
 import de.cosh.anothermanager.AnotherManager;
-import de.cosh.anothermanager.Abilities.Ability;
-import de.cosh.anothermanager.Abilities.AbilityAttack;
-import de.cosh.anothermanager.Abilities.AbilityFireball;
-import de.cosh.anothermanager.Abilities.AbilityPoison;
 import de.cosh.anothermanager.GUI.GUIWindow;
 import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
+import de.cosh.anothermanager.Items.ItemScholarRobe;
 
 import java.util.Enumeration;
 
@@ -38,7 +36,7 @@ public class Enemy extends BaseCharacter {
 
     private Integer enemyNumber;
     private String enemyImageLocation;
-    private final Array<Ability> abilities;
+    private final Array<BaseAbility> abilities;
     private Vector2 locationOnMap;
 
     private Integer dropItemID;
@@ -65,7 +63,7 @@ public class Enemy extends BaseCharacter {
         pointButton = new ImageButton(style.up, style.down);
         pointButtonDone = new ImageButton(styleDone.up, styleDone.down);
 
-        abilities = new Array<Ability>();
+        abilities = new Array<BaseAbility>();
 
         final AbilityAttack abilityAttack = new AbilityAttack();
         abilityAttack.setAbilityDamage(10);
@@ -110,7 +108,8 @@ public class Enemy extends BaseCharacter {
     public void addToBoard(final Group foreGround) {
         super.addToBoard(foreGround);
         init(getHealth());
-        enemyImage.setPosition(AnotherManager.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), AnotherManager.VIRTUAL_HEIGHT - 150);
+        //enemyImage.setPosition(AnotherManager.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), AnotherManager.VIRTUAL_HEIGHT - 150);
+        enemyImage.setBounds(AnotherManager.VIRTUAL_WIDTH / 2 - (75), AnotherManager.VIRTUAL_HEIGHT - 150, 150, 150);
         setHealthBarPosition(0, AnotherManager.VIRTUAL_HEIGHT - (250 + 50), AnotherManager.VIRTUAL_WIDTH, 50);
 
         foreGround.addActor(enemyImage);
@@ -118,7 +117,7 @@ public class Enemy extends BaseCharacter {
 
         for (int i = 0; i < abilities.size; i++) {
             final Ability current = abilities.get(i);
-            current.getImage().setPosition(enemyImage.getX() + (i * 55), AnotherManager.VIRTUAL_HEIGHT - 200);
+            current.getImage().setBounds(enemyImage.getX() + (i * 55), AnotherManager.VIRTUAL_HEIGHT - 230, 70, 70);
             foreGround.addActor(current.getImage());
         }
     }
@@ -144,7 +143,8 @@ public class Enemy extends BaseCharacter {
     }
 
     public void setPosition(final float x, final float y) {
-        enemyImage.setPosition(x, y);
+        //enemyImage.setPosition(x, y);
+        enemyImage.setBounds(x, y, 140, 140);
     }
 
     public void turn(Player player) {
@@ -182,6 +182,8 @@ public class Enemy extends BaseCharacter {
                 return new ItemApprenticeRobe();
             case 1:
                 return new ItemMinorHealthPotion();
+            case 2:
+                return new ItemScholarRobe();
             default:
                 return null;
         }

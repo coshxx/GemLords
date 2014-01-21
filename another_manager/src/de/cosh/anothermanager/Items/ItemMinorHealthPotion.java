@@ -3,6 +3,7 @@ package de.cosh.anothermanager.Items;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.anothermanager.Abilities.Ability;
 import de.cosh.anothermanager.AnotherManager;
@@ -33,6 +34,7 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
         if (currentCooldown <= 0) {
             AnotherManager.getInstance().soundPlayer.playGulp();
             AnotherManager.getInstance().player.increaseHealth(10);
+            addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             currentCooldown = cooldown;
         }
     }
@@ -47,5 +49,15 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
     @Override
     public void turn() {
         currentCooldown--;
+    }
+
+    @Override
+    public void resetCooldown() {
+        currentCooldown = cooldown;
+    }
+
+    @Override
+    public int preFirstTurnBuff(BaseCharacter wearer) {
+        return 0;
     }
 }

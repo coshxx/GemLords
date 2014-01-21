@@ -8,14 +8,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import com.badlogic.gdx.utils.Json;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
+import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIButton;
 import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
+import de.cosh.anothermanager.Items.ItemScholarRobe;
 
 /**
  * Created by cosh on 10.12.13.
@@ -24,14 +25,14 @@ public class MapTraverseScreen implements Screen {
 	public boolean enemyWindowOpen;
 	private boolean fadeMusic;
 	private Image mapImage;
-	private Texture mapTexture;
 	private final AnotherManager myGame;
-	private Skin skin;
-
+    private Json json;
 	private Stage stage;
 
 	public MapTraverseScreen(final AnotherManager anotherManager) {
 		myGame = anotherManager;
+        json = new Json();
+        stage = new Stage();
 	}
 
 	@Override
@@ -45,28 +46,31 @@ public class MapTraverseScreen implements Screen {
 
 	@Override
 	public void hide() {
-		stage.dispose();
 		myGame.soundPlayer.stopMapMusic();
 	}
 
 	private void initEnemyLocations() {
-         Json json = new Json();
+        Player player = AnotherManager.getInstance().player;
         int counter = 0;
         while( true ) {
             FileHandle handle = Gdx.files.internal("data/enemies/enemy" + counter + ".dat");
             if( !handle.exists() )
                 break;
-
             Enemy e = json.fromJson(Enemy.class, handle.readString());
+            e.setDefeated(player.levelDone[e.getEnemyNumber()]);
             e.loadImage();
+            if( e.getEnemyNumber() == 0 ) {
             e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+            } else {
+                int previous = e.getEnemyNumber() - 1;
+                if( previous < 0 )
+                    break;
+                if( player.levelDone[previous] ) {
+                    e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+                }
+            }
             counter++;
         }
-        FileHandle newHandle = Gdx.files.local("data/enemydump.txt");
-        Enemy ex = new Enemy();
-        ex.setDropItemID(0);
-        ex.setLocationOnMap(100, 100);
-        newHandle.writeString(json.prettyPrint(ex), false);
 	}
 
 	@Override
@@ -98,15 +102,13 @@ public class MapTraverseScreen implements Screen {
 
 	@Override
 	public void show() {
-		stage = new Stage();
-		skin = new Skin();
+        stage.clear();
 		fadeMusic = false;
 		enemyWindowOpen = false;
-		mapTexture = myGame.assets.get("data/textures/map.png", Texture.class);
 
 		stage.setCamera(myGame.camera);
 
-		mapImage = new Image(mapTexture);
+		mapImage = new Image(myGame.assets.get("data/textures/map.png", Texture.class));
 		mapImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
 
 		stage.addActor(mapImage);
@@ -114,9 +116,8 @@ public class MapTraverseScreen implements Screen {
 		stage.addAction(Actions.fadeIn(1));
 
 		initEnemyLocations();
-
-        GUIButton loadout = new GUIButton();
-        loadout.createLoadoutButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
+        GUIButton guiButton = new GUIButton();
+        guiButton.createLoadoutButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
 
 		for (int x = 0; x < 5; x++) {
 			final Image heartEmpty = new Image(myGame.assets.get("data/textures/heartempty.png", Texture.class));
@@ -135,6 +136,7 @@ public class MapTraverseScreen implements Screen {
         if( AnotherManager.DEBUGMODE ) {
             myGame.player.getInventory().addItem(new ItemMinorHealthPotion());
             myGame.player.getInventory().addItem(new ItemApprenticeRobe());
+            myGame.player.getInventory().addItem(new ItemScholarRobe());
         }
 	}
 }

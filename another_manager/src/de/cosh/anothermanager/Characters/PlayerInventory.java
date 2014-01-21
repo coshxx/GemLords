@@ -31,9 +31,8 @@ public class PlayerInventory {
         float y = 0;
         for( int i = 0; i < itemsInInventory.size; i++ ) {
             final BaseItem item = itemsInInventory.get(i);
-            if( item.isAddedToActionBar() )
-                continue;
-            item.setPosition(70 + ((x * item.getWidth()) + (x * 100)), (AnotherManager.VIRTUAL_HEIGHT - 80) - (y * 140));
+            if( !item.isAddedToActionBar() )
+                item.setPosition(70 + ((x * item.getWidth()) + (x * 100)), (AnotherManager.VIRTUAL_HEIGHT - 80) - (y * 140));
             x++;
             if( x >= 4 ) {
                 x = 0;
