@@ -109,7 +109,7 @@ public class GameScreen implements Screen, GestureListener {
         input.addProcessor(new GestureDetector(this));
         Gdx.input.setInputProcessor(input);
         stage.addActor(swapGame);
-
+        AnotherManager.getInstance().soundPlayer.playGameMusic();
 
 		/*
 		 * swapGame = myGame.swapGame; swapGame.init();

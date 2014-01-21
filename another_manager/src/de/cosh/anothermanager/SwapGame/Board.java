@@ -214,12 +214,14 @@ public class Board extends Table {
                 effectGroup.setTouchable(Touchable.enabled);
 				final GUIWindow guiWindow = new GUIWindow(getStage());
 				guiWindow.createVictoryWindow(foreGround, backGround, effectGroup);
+				myGame.soundPlayer.stopGameMusic();
 				myGame.soundPlayer.playVictorySound();
 				boardState = BoardState.STATE_INACTIVE;
 			} else if (player.getHealth() <= 0) {
                 effectGroup.setTouchable(Touchable.enabled);
 				final GUIWindow guiWindow = new GUIWindow(getStage());
 				guiWindow.createDefeatWindow(foreGround, backGround, effectGroup);
+				myGame.soundPlayer.stopGameMusic();
 				myGame.soundPlayer.playLoseSound();
 				boardState = BoardState.STATE_INACTIVE;
 			}

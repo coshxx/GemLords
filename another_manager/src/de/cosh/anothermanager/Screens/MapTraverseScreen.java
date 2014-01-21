@@ -59,7 +59,7 @@ public class MapTraverseScreen implements Screen {
             Enemy e = json.fromJson(Enemy.class, handle.readString());
             e.setDefeated(player.levelDone[e.getEnemyNumber()]);
             e.loadImage();
-            if( e.getEnemyNumber() == 0 ) {
+            if( e.getEnemyNumber() == 0 || AnotherManager.DEBUGMODE) {
             e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
             } else {
                 int previous = e.getEnemyNumber() - 1;

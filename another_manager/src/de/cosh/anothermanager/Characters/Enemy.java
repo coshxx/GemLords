@@ -95,7 +95,7 @@ public class Enemy extends BaseCharacter {
 
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
-                AnotherManager.soundPlayer.PlayBlub1();
+                AnotherManager.soundPlayer.playChallenge();
                 final GUIWindow guiWindow = new GUIWindow(stage);
                 guiWindow.showMapEnemyWindow(enemyHP, enemyImage);
                 enemyManager.setSelectedEnemy(e);

@@ -18,8 +18,10 @@ public class SoundPlayer {
 	private Sound fireball_start;
 	private Sound loot;
     private Sound gulp;
+    private Sound challenge;
 	private Music mapMusic;
     private Music loadoutMusic;
+    private Music gameMusic0;
 	private float mapMusicVolume;
 	private final AnotherManager myGame;
 
@@ -114,6 +116,14 @@ public class SoundPlayer {
     public void playLoadoutMusic() {
         loadoutMusic.play();
     }
+    
+    public void playGameMusic() {
+    	gameMusic0.play();
+    }
+    
+    public void stopGameMusic() {
+    	gameMusic0.stop();
+    }
 
 	public void touchSounds() {
 		blub1 = myGame.assets.get("data/sounds/blub1.ogg", Sound.class);
@@ -130,11 +140,13 @@ public class SoundPlayer {
 		abilityAttack = myGame.assets.get("data/sounds/abilityattack_fire.ogg", Sound.class);
 		fireball_start = myGame.assets.get("data/sounds/abilityfireball_fire.ogg", Sound.class);
 		abilityPoison = myGame.assets.get("data/sounds/abilitypoison_fire.ogg", Sound.class);
+		abilityPoison.setVolume(1, 0.5f);
         loadoutMusic = myGame.assets.get("data/sounds/loadoutmusic.ogg", Music.class);
 		error = myGame.assets.get("data/sounds/error.ogg", Sound.class);
         gulp = myGame.assets.get("data/sounds/gulp.ogg", Sound.class);
 		loot = myGame.assets.get("data/sounds/loot.ogg", Sound.class);
-
+		challenge = myGame.assets.get("data/sounds/challenge.ogg", Sound.class);
+		gameMusic0 = myGame.assets.get("data/sounds/music0.ogg", Music.class);
 		awesome = myGame.assets.get("data/sounds/awesome.ogg", Sound.class);
 	}
 
@@ -144,5 +156,9 @@ public class SoundPlayer {
 
     public void playGulp() {
         gulp.play();
+    }
+    
+    public void playChallenge() {
+    	challenge.play();
     }
 }
