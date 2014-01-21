@@ -9,6 +9,7 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
  * Created by cosh on 14.01.14.
  */
 public abstract interface Ability {
+
 	public abstract void drawCooldown(SpriteBatch batch, float parentAlpha);
 
 	// use ability

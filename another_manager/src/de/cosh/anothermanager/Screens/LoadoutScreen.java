@@ -79,6 +79,7 @@ public class LoadoutScreen implements Screen {
         ActionBar actionBar = AnotherManager.getInstance().player.getActionBar();
         actionBar.addToLoadoutScreen(stage);
         AnotherManager.getInstance().player.getInventory().addToLoadoutScreen(stage);
+        AnotherManager.getInstance().player.getInventory().resortItems();
 
         /*
         final ActionBar actionBar = new ActionBar(ActionBar.ActionBarMode.LOADOUT);
