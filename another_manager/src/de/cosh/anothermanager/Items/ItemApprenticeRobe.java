@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Characters.BaseCharacter;
 
 
 public class ItemApprenticeRobe extends BaseItem {
@@ -19,5 +20,11 @@ public class ItemApprenticeRobe extends BaseItem {
     @Override
     public void resetCooldown() {
 
+    }
+
+    @Override
+    public int preFirstTurnBuff(BaseCharacter wearer) {
+        wearer.increaseHealth(25);
+        return 25;
     }
 }

@@ -95,8 +95,8 @@ public class Player extends BaseCharacter {
         int count = 0;
         for (BaseItem i : playerInventory.getAllItems() ) {
             if( i.isAddedToActionBar() ) {
-                if( i instanceof ItemApprenticeRobe ) {
-                    count += 25;
+                if( i.getItemSlotType() == BaseItem.ItemSlotType.ARMOR ) {
+                    count += i.preFirstTurnBuff(this);
                 }
             }
         }

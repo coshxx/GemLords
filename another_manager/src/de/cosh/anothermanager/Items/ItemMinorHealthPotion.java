@@ -55,4 +55,9 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
     public void resetCooldown() {
         currentCooldown = cooldown;
     }
+
+    @Override
+    public int preFirstTurnBuff(BaseCharacter wearer) {
+        return 0;
+    }
 }

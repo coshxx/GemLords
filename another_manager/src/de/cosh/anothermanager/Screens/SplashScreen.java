@@ -93,6 +93,7 @@ public class SplashScreen implements Screen {
 		myGame.assets.load("data/textures/heart.png", Texture.class);
 		myGame.assets.load("data/textures/heartempty.png", Texture.class);
 		myGame.assets.load("data/textures/robe.png", Texture.class);
+		myGame.assets.load("data/textures/robe_scholar.png", Texture.class);
         myGame.assets.load("data/textures/awesome.png", Texture.class);
         myGame.assets.load("data/textures/loadout.jpg", Texture.class);
 

@@ -16,6 +16,7 @@ import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.GUI.GUIButton;
 import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
+import de.cosh.anothermanager.Items.ItemScholarRobe;
 
 /**
  * Created by cosh on 10.12.13.
@@ -131,10 +132,10 @@ public class MapTraverseScreen implements Screen {
 		}
 		myGame.soundPlayer.playMapMusic();
 		Gdx.input.setInputProcessor(stage);
-
         if( AnotherManager.DEBUGMODE ) {
             myGame.player.getInventory().addItem(new ItemMinorHealthPotion());
             myGame.player.getInventory().addItem(new ItemApprenticeRobe());
+            myGame.player.getInventory().addItem(new ItemScholarRobe());
         }
 	}
 }
