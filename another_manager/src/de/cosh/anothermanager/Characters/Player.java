@@ -3,7 +3,10 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
+import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Items.BaseItem;
+import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 
 /**
  * Created by cosh on 10.12.13.
@@ -14,6 +17,8 @@ public class Player extends BaseCharacter {
 	private int lives;
 	private final AnotherManager myGame;
 
+    private Array<BaseItem> inventoryItems;
+
 	public Player(final AnotherManager myGame) {
 		super();
 		this.myGame = myGame;
@@ -22,12 +27,12 @@ public class Player extends BaseCharacter {
 			levelDone[x] = false;
 		}
 		lives = 5;
+        inventoryItems = new Array<BaseItem>();
 	}
 
 	@Override
 	public void addToBoard(final Group foreGround) {
 		super.addToBoard(foreGround);
-		init(500);
 		setHealthBarPosition(0, 25, myGame.VIRTUAL_WIDTH, 50);
 		foreGround.addActor(getHealthBar());
 	}
@@ -40,7 +45,27 @@ public class Player extends BaseCharacter {
 		for (int i = 0; i < getDebuffs().size; i++) {
 			getDebuffs().get(i).drawCooldown(batch, parentAlpha);
 		}
+        for (int i = 0; i < inventoryItems.size; i++ ) {
+            BaseItem item = inventoryItems.get(i);
+            if( item.isAddedToActionBar() ) {
+                if( item.getItemSlotType() == BaseItem.ItemSlotType.POTION )
+                    item.drawCooldown(batch, parentAlpha);
+            }
+        }
 	}
+
+    @Override
+    public void turn() {
+        super.turn();
+        for( int i = 0; i < inventoryItems.size; i++ ) {
+            BaseItem currentItem = inventoryItems.get(i);
+            if( currentItem.isAddedToActionBar() ) {
+                if( currentItem.getItemSlotType() == BaseItem.ItemSlotType.POTION ) {
+                    currentItem.turn();
+                }
+            }
+        }
+    }
 
 	public Enemy getLastEnemy() {
 		return lastEnemey;
@@ -57,5 +82,26 @@ public class Player extends BaseCharacter {
 	public void setLastEnemy(final Enemy e) {
 		lastEnemey = e;
 	}
+
+    public void addItem(BaseItem item) {
+        inventoryItems.insert(0, item);
+    }
+
+    public Array<BaseItem> getInventoryItems() {
+        return inventoryItems;
+    }
+
+    public int getItemBuffsHP() {
+        int count = 0;
+        for (BaseItem i : inventoryItems ) {
+            if( i.isAddedToActionBar() ) {
+                if( i instanceof ItemApprenticeRobe ) {
+                    count += 25;
+                }
+            }
+        }
+        return count;
+    }
+
 
 }

@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: gdx-backend-lwjgl-natives.jar gdx-natives.jar gdx-backend-
+ lwjgl.jar gdx.jar
+Main-Class: de.cosh.anothermanager.Main
+

@@ -1,6 +1,5 @@
 package de.cosh.anothermanager.Abilities;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -20,7 +19,7 @@ public abstract class BaseAbility implements Ability {
     public BaseAbility() {
         cooldown = 5;
         damage = 10;
-        abilityImageLocation = "data/empty.png";
+        abilityImageLocation = "data/textures/empty.png";
         bmf = new BitmapFont();
     }
 

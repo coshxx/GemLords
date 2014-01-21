@@ -3,7 +3,6 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,6 +19,11 @@ import de.cosh.anothermanager.Abilities.AbilityAttack;
 import de.cosh.anothermanager.Abilities.AbilityFireball;
 import de.cosh.anothermanager.Abilities.AbilityPoison;
 import de.cosh.anothermanager.GUI.GUIWindow;
+import de.cosh.anothermanager.Items.BaseItem;
+import de.cosh.anothermanager.Items.ItemApprenticeRobe;
+import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
+
+import java.util.Enumeration;
 
 /**
  * Created by cosh on 10.01.14.
@@ -37,13 +41,18 @@ public class Enemy extends BaseCharacter {
     private final Array<Ability> abilities;
     private Vector2 locationOnMap;
 
+    private Integer dropItemID;
+
+    public void setDropItemID(int id) {
+        dropItemID = id;
+    }
+
     public Enemy() {
         super();
-
+        dropItemID = -1;
         this.isDefeated = false;
-
-        pointTexture = new TextureRegion(AnotherManager.assets.get("data/point.png", Texture.class));
-        pointDoneTexture = new TextureRegion(AnotherManager.assets.get("data/pointdone.png", Texture.class));
+        pointTexture = new TextureRegion(AnotherManager.assets.get("data/textures/point.png", Texture.class));
+        pointDoneTexture = new TextureRegion(AnotherManager.assets.get("data/textures/pointdone.png", Texture.class));
 
         style = new ImageButton.ImageButtonStyle();
         style.up = new TextureRegionDrawable(pointTexture);
@@ -94,7 +103,6 @@ public class Enemy extends BaseCharacter {
                 enemyManager.setSelectedEnemy(e);
             }
         });
-
         stage.addActor(isDefeated ? pointButtonDone : pointButton);
     }
 
@@ -156,12 +164,6 @@ public class Enemy extends BaseCharacter {
         return enemyNumber;
     }
 
-    public void init(int hp, String textureLocation) {
-        super.init(hp);
-        enemyImageLocation = textureLocation;
-        enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
-    }
-
     public void loadImage() {
         enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
     }
@@ -171,4 +173,17 @@ public class Enemy extends BaseCharacter {
     }
 
     public Vector2 getLocationOnMap() { return locationOnMap; }
+
+    public BaseItem getDroppedItem() {
+        switch (dropItemID) {
+            case -1:
+                return null;
+            case 0:
+                return new ItemApprenticeRobe();
+            case 1:
+                return new ItemMinorHealthPotion();
+            default:
+                return null;
+        }
+    }
 }
