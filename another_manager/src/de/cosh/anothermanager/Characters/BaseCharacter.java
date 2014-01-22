@@ -37,6 +37,8 @@ public class BaseCharacter {
 		buffs.add(buff);
 		buff.setPosition(0, healthBar.getY() + healthBar.getHeight() + 30);
 		buff.addBuffToGroup(getCharacterGroup());
+		
+		
 	}
 
 	public void addToBoard(final Group foreGround) {
@@ -72,6 +74,8 @@ public class BaseCharacter {
         healthPoints = hp;
 		healthBar = new HealthBar();
 		healthBar.init(hp);
+		debuffs.clear();
+		buffs.clear();
 	}
 
 	public void setHealth(final int hp) {

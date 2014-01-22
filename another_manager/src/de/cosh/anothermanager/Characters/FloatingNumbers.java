@@ -10,7 +10,6 @@ public class FloatingNumbers extends Actor {
 	private BitmapFont damageFont;
 
 	private Integer value;
-	private float x, y;
 
 	public FloatingNumbers() {
 		healFont = new BitmapFont(Gdx.files.internal("data/fonts/heal.fnt"));
@@ -19,21 +18,24 @@ public class FloatingNumbers extends Actor {
 
 	@Override
 	public void act(float delta) {
-
+		super.act(delta);
+		this.translate(0, delta * 100);
 	}
 
 	public void setup(int value, float x, float y) {
 		this.value = value;
-		this.x = x;
-		this.y = y;
+		setX(x);
+		setY(y);
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		healFont.setColor(getColor());
+		damageFont.setColor(getColor());
 		if (value > 0) {
-			healFont.draw(batch, value.toString(), x, y);
+			healFont.draw(batch, "+" + value.toString(), getX(), getY());
 		} else if (value < 0) {
-			damageFont.draw(batch, value.toString(), x, y);
+			damageFont.draw(batch, value.toString(), getX(), getY());
 		}
 	}
 }

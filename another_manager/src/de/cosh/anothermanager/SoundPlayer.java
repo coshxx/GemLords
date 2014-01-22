@@ -120,6 +120,7 @@ public class SoundPlayer {
 	}
 
     public void playLoadoutMusic() {
+    	loadoutMusic.setVolume(0.2f);
         loadoutMusic.play();
     }
     

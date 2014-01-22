@@ -26,7 +26,7 @@ public class ItemTotem extends BaseItem implements UseItem {
         setItemText("Recover 5 hp\neach turn\nOne use");
         setItemSlotType(ItemSlotType.POTION);
 
-        cooldown = 0;
+        cooldown = 99;
         currentCooldown = 0;
         bmf = new BitmapFont();
     }
@@ -58,7 +58,7 @@ public class ItemTotem extends BaseItem implements UseItem {
 
     @Override
     public void resetCooldown() {
-        currentCooldown = cooldown;
+        currentCooldown = 0;
     }
 
     @Override

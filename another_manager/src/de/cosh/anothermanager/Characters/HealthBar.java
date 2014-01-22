@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Array;
 
 import de.cosh.anothermanager.AnotherManager;
 
@@ -24,10 +26,14 @@ public class HealthBar extends Actor {
 	private float left, bot, width, height;
 
 	private AnotherManager myGame;
+	private Array<FloatingNumbers> floatingNumbers;
 
 	@Override
 	public void act(final float delta) {
 		done = (float) healthpoints / (float) maxHP;
+		for( FloatingNumbers f : floatingNumbers ) {
+			f.act(delta);
+		}
 	}
 
 	@Override
@@ -42,6 +48,11 @@ public class HealthBar extends Actor {
 
 		bmf.setColor(1f, 1f, 1f, parentAlpha);
 		bmf.draw(batch, health.toString() + " / " + maxhealth.toString(), left + (width / 2), bot + 25);
+		
+		for( int i = 0; i < floatingNumbers.size; i++ ) {
+			FloatingNumbers f = floatingNumbers.get(i);
+			f.draw(batch, parentAlpha);
+		}
 	}
 
 	public int getHealthpoints() {
@@ -63,6 +74,12 @@ public class HealthBar extends Actor {
 		if (healthpoints <= 0) {
 			healthpoints = 0;
 		}
+		
+        FloatingNumbers f = new FloatingNumbers();
+        f.setup(-damage, left + width/2 + width/4, bot + 70);
+        floatingNumbers.add(f);
+        f.addAction(Actions.fadeOut(3f));
+        getStage().addActor(f);
 	}
 
 	public void init(final int hp) {
@@ -77,6 +94,7 @@ public class HealthBar extends Actor {
 		done = 1f;
 
 		bmf = new BitmapFont();
+		floatingNumbers = new Array<FloatingNumbers>();
 	}
 
 	public void setPosition(final float left, final float bot, final float width, final float height) {
@@ -88,5 +106,13 @@ public class HealthBar extends Actor {
 
     public void increaseHealth(int hp) {
         this.healthpoints += hp;
+        FloatingNumbers f = new FloatingNumbers();
+        f.setup(hp, left + width/4, bot + 70);
+        if( floatingNumbers == null )
+        	floatingNumbers = new Array<FloatingNumbers>();
+        floatingNumbers.add(f);
+        f.addAction(Actions.fadeOut(3f));
+        if( getStage() != null )
+        	getStage().addActor(f);
     }
 }
