@@ -16,7 +16,7 @@ bite, bite, poison
 inventoy = 3 standard slots (healthpotion, armor, weapons)
 + bags ( 1 - x slots )
 
-items
+items / abilities
 =====
 minor/common/major
 health potion
