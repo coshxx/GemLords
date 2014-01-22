@@ -21,6 +21,10 @@ public class SoundPlayer {
     private Sound challenge;
     private Sound clawSound;
     private Sound totem;
+    private Sound slideIn;
+    
+    private Sound impressive, godlike, unstoppable;
+    
 	private Music mapMusic;
     private Music loadoutMusic;
     private Music gameMusic0;
@@ -44,11 +48,23 @@ public class SoundPlayer {
 	}
 
 	public void playAbilityAttack() {
-		abilityAttack.play();
+		abilityAttack.play(0.4f);
 	}
 	
 	public void playTotem() {
 		totem.play();
+	}
+	
+	public void playImpressive() {
+		impressive.play(0.3f);
+	}
+	
+	public void playUnstoppable() {
+		unstoppable.play(0.3f);
+	}
+	
+	public void playGodlike() {
+		godlike.play(0.3f);
 	}
 
 	public void playAwesome() {
@@ -69,6 +85,9 @@ public class SoundPlayer {
 
 	public void playConvert() {
 		convert.play();
+	}
+	public void playSlideIn() {
+		slideIn.play(0.05f);
 	}
 
 	public void playDing(final int hits_during_current_move) {
@@ -96,7 +115,7 @@ public class SoundPlayer {
 	}
 
 	public void playPoisonSound() {
-		abilityPoison.play();
+		abilityPoison.play(0.3f);
 	}
 
 	public void playSwapError() {
@@ -151,6 +170,13 @@ public class SoundPlayer {
 		clawSound = myGame.assets.get("data/sounds/abilityclaw.ogg", Sound.class);
         loadoutMusic = myGame.assets.get("data/sounds/loadoutmusic.ogg", Music.class);
 		error = myGame.assets.get("data/sounds/error.ogg", Sound.class);
+		slideIn = myGame.assets.get("data/sounds/slidein.ogg", Sound.class);
+		
+		impressive = myGame.assets.get("data/sounds/impressive.ogg", Sound.class);
+		godlike = myGame.assets.get("data/sounds/godlike.ogg", Sound.class);
+		unstoppable = myGame.assets.get("data/sounds/unstoppable.ogg", Sound.class);
+		
+		
         gulp = myGame.assets.get("data/sounds/gulp.ogg", Sound.class);
 		loot = myGame.assets.get("data/sounds/loot.ogg", Sound.class);
 		challenge = myGame.assets.get("data/sounds/challenge.ogg", Sound.class);

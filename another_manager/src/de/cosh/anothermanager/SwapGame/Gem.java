@@ -127,8 +127,8 @@ public class Gem extends Image {
     @Override
     public void draw(final SpriteBatch batch, final float parentAlpha) {
         final Stage stage = this.getStage();
-        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(45, myGame.VIRTUAL_HEIGHT - 250));
-        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(myGame.VIRTUAL_WIDTH - 90,
+        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, myGame.VIRTUAL_HEIGHT - 250));
+        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(myGame.VIRTUAL_WIDTH ,
                 myGame.VIRTUAL_HEIGHT - 630));
         final Rectangle scissor = new Rectangle();
         final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
@@ -148,7 +148,10 @@ public class Gem extends Image {
 
     public void fallBy(final int x, final int y) {
         final float fallTo = getY() + y * Board.CELL_SIZE;
-        addAction(new AccelAction(fallTo, GEM_SPEED));
+        addAction(Actions.sequence(
+        		new AccelAction(fallTo, GEM_SPEED),
+        		Actions.moveBy(0, 4f, 0.04f),
+        		Actions.moveBy(0, -4f, 0.04f)));
     }
 
     public boolean isMarkedForRemoval() {

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -105,8 +106,11 @@ public class Board extends Table {
 			for (int y = 0; y < MAX_SIZE_Y; y++) {
 				cells[x][y] = new Cell(myGame);
 				cells[x][y].setColor(1f, 1f, 1f, 0.35f);
-				cells[x][y].setPosition(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE));
+				cells[x][y].setPosition( CELL_PAD_X + ( x * CELL_SIZE) + myGame.VIRTUAL_WIDTH, CELL_PAD_Y + (y * CELL_SIZE));
+				cells[x][y].addAction(Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f));
 				cells[x][y].putGem(myGame.gemFactory.newRandomGem());
+				cells[x][y].getGem().addAction(Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f));
+				myGame.soundPlayer.playSlideIn();
 				backGround.addActor(cells[x][y]);
 				foreGround.addActor(cells[x][y].getGem());
 			}
@@ -181,6 +185,15 @@ public class Board extends Table {
 					myGame.soundPlayer.playWoosh();
 				}
 				boardState = BoardState.STATE_FADING;
+			} else {
+				if( matchesDuringCurrentMove >= 8 ) {
+					myGame.soundPlayer.playGodlike();
+				} else if (matchesDuringCurrentMove >= 6 ) {
+					myGame.soundPlayer.playUnstoppable();
+				} else if (matchesDuringCurrentMove >= 4 ) {
+					myGame.soundPlayer.playImpressive();
+				}
+					
 			}
 		}
 
