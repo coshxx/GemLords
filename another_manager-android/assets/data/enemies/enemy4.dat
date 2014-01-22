@@ -3,14 +3,9 @@ enemyImageLocation: data/textures/enemyrat.png,
 enemyNumber: 4,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityAttack,
-		currentCooldown: 1,
-		cooldown: 1
-	},
-	{
-		class: de.cosh.anothermanager.Abilities.AbilityFireball,
-		currentCooldown: 4,
-		cooldown: 4
+		class: de.cosh.anothermanager.Abilities.AbilityClaw,
+		currentCooldown: 0,
+		cooldown: 10
 	},
 ],
 locationOnMap: {
@@ -18,5 +13,5 @@ locationOnMap: {
 	y: 110
 },
 healthPoints: 125,
-dropItemID: -1
+dropItemID: 3
 }

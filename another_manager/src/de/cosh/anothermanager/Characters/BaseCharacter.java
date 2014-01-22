@@ -12,18 +12,26 @@ import de.cosh.anothermanager.AnotherManager;
 public class BaseCharacter {
 	private Group characterGroup;
 	private final Array<Debuff> debuffs;
+	private final Array<Buff> buffs;
 	private transient HealthBar healthBar;
 	private int healthPoints;
 
 	public BaseCharacter() {
 		healthBar = new HealthBar();
 		debuffs = new Array<Debuff>();
+		buffs = new Array<Buff>();
 	}
 
 	public void addDebuff(final Debuff debuff) {
 		debuffs.add(debuff);
 		debuff.setPosition(healthBar.getWidth() - (45 * debuffs.size), healthBar.getY() + healthBar.getHeight() + 30);
 		debuff.addDebuffToGroup(getCharacterGroup());
+	}
+	
+	public void addBuff(final Buff buff) {
+		buffs.add(buff);
+		buff.setPosition(0, healthBar.getY() + healthBar.getHeight() + 30);
+		buff.addBuffToGroup(getCharacterGroup());
 	}
 
 	public void addToBoard(final Group foreGround) {

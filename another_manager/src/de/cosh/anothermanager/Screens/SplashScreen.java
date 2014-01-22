@@ -73,6 +73,7 @@ public class SplashScreen implements Screen {
 
 
 		myGame.assets.load("data/textures/debuff_border.png", Texture.class);
+		myGame.assets.load("data/textures/buff_border.png", Texture.class);
 		myGame.assets.load("data/textures/item_border.png", Texture.class);
 		myGame.assets.load("data/textures/minorhealthpotion.png", Texture.class);
 
@@ -81,13 +82,16 @@ public class SplashScreen implements Screen {
 		myGame.assets.load("data/textures/logo.png", Texture.class);
 		myGame.assets.load("data/textures/map.png", Texture.class);
 		myGame.assets.load("data/textures/point.png", Texture.class);
+		myGame.assets.load("data/textures/abilityclaw.png", Texture.class);
 		myGame.assets.load("data/textures/pointdone.png", Texture.class);
 		myGame.assets.load("data/textures/button.png", Texture.class);
 		myGame.assets.load("data/textures/splash.jpg", Texture.class);
+		myGame.assets.load("data/textures/totem.png", Texture.class);
 		myGame.assets.load("data/textures/cell_back.png", Texture.class);
 		myGame.assets.load("data/textures/enemy.png", Texture.class);
 		myGame.assets.load("data/textures/enemyscarecrow.png", Texture.class);
 		myGame.assets.load("data/textures/enemysnake.png", Texture.class);
+		myGame.assets.load("data/textures/enemydummy.png", Texture.class);
 		myGame.assets.load("data/textures/enemyrat.png", Texture.class);
 		myGame.assets.load("data/textures/star.png", Texture.class);
 		myGame.assets.load("data/textures/treasure.jpg", Texture.class);
@@ -108,12 +112,15 @@ public class SplashScreen implements Screen {
 		myGame.assets.load("data/sounds/victory.ogg", Sound.class);
 		myGame.assets.load("data/sounds/boo.ogg", Sound.class);
 		myGame.assets.load("data/sounds/woosh.ogg", Sound.class);
+		myGame.assets.load("data/sounds/abilityclaw.ogg", Sound.class);
 		myGame.assets.load("data/sounds/convert.ogg", Sound.class);
 		myGame.assets.load("data/sounds/ding.ogg", Sound.class);
 		myGame.assets.load("data/sounds/challenge.ogg", Sound.class);
+		myGame.assets.load("data/sounds/totem.ogg", Sound.class);
 		myGame.assets.load("data/sounds/music0.ogg", Music.class);
 		myGame.assets.load("data/sounds/gulp.ogg", Sound.class);
         myGame.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
+        
 
         myGame.assets.load("data/sounds/abilityattack_fire.ogg", Sound.class);
         myGame.assets.load("data/sounds/abilityfireball_fire.ogg", Sound.class);

@@ -20,6 +20,7 @@ import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
 import de.cosh.anothermanager.Items.ItemScholarRobe;
+import de.cosh.anothermanager.Items.ItemTotem;
 
 import java.util.Enumeration;
 
@@ -184,6 +185,8 @@ public class Enemy extends BaseCharacter {
                 return new ItemMinorHealthPotion();
             case 2:
                 return new ItemScholarRobe();
+            case 3:
+            	return new ItemTotem();
             default:
                 return null;
         }
