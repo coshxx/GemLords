@@ -51,6 +51,7 @@ public class Board extends Table {
 	private final Random random;
     private ActionBar actionBar;
 	private final SwapController swapController;
+	private final SpecialEffects sfx;
 
 	public Board(final AnotherManager myGame) {
 		this.myGame = myGame;
@@ -77,6 +78,8 @@ public class Board extends Table {
 		boardState = BoardState.STATE_EMPTY;
 		initialized = false;
 		justSwapped = false;
+		sfx  = new SpecialEffects();		
+		
 	}
 
 	@Override
@@ -194,10 +197,13 @@ public class Board extends Table {
 			} else {
 				if( matchesDuringCurrentMove >= 8 ) {
 					myGame.soundPlayer.playGodlike();
+					sfx.playUnstoppable(effectGroup);
 				} else if (matchesDuringCurrentMove >= 6 ) {
 					myGame.soundPlayer.playUnstoppable();
+					sfx.playUnstoppable(effectGroup);
 				} else if (matchesDuringCurrentMove >= 4 ) {
 					myGame.soundPlayer.playImpressive();
+					sfx.playUnstoppable(effectGroup);
 				}
 					
 			}
