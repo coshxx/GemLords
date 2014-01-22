@@ -40,10 +40,8 @@ public class AnotherManager extends Game {
     @Override
     public void create() {
         instance = this;
-
         assets = new AssetManager();
         batch = new SpriteBatch();
-
         camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.update();

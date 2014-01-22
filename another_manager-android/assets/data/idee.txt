@@ -35,6 +35,7 @@ staff of the alien (increase next damage by ... )
 ice block amulet (prevent next fatal damage)
 amulet of cleansing (remove debuffs)
 amulet of warding (prevent x debuffs)
+item irgendwas verdoppeln
 
 
 a lot of one use damage items

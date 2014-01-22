@@ -108,9 +108,7 @@ public class SoundPlayer {
 	}
 
 	public void playMapMusic() {
-		mapMusic.setLooping(true);
-		mapMusicVolume = 1f;
-		mapMusic.setVolume(mapMusicVolume);
+		mapMusic.setVolume(0.2f);
 		mapMusic.play();
 	}
 
