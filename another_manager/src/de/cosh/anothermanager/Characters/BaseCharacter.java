@@ -1,5 +1,10 @@
 package de.cosh.anothermanager.Characters;
 
+import java.awt.Font;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
@@ -50,6 +55,10 @@ public class BaseCharacter {
 	public Array<Debuff> getDebuffs() {
 		return debuffs;
 	}
+	
+	public Array<Buff> getBuffs() {
+		return buffs;
+	}
 
 	public int getHealth() {
 		return healthPoints;
@@ -78,6 +87,12 @@ public class BaseCharacter {
 		for (int i = 0; i < getDebuffs().size; i++) {
 			if (getDebuffs().get(i).turn()) {
 				debuffs.removeIndex(i);
+				i--;
+			}
+		}
+		for (int i = 0; i < getBuffs().size; i++) {
+			if( getBuffs().get(i).turn() ) {
+				buffs.removeIndex(i);
 				i--;
 			}
 		}

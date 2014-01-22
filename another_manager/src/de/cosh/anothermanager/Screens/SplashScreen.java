@@ -133,6 +133,10 @@ public class SplashScreen implements Screen {
 
 		myGame.assets.load("data/fonts/font.fnt", BitmapFont.class);
 		myGame.assets.load("data/fonts/font2.fnt", BitmapFont.class);
+		myGame.assets.load("data/fonts/heal.fnt", BitmapFont.class);
+		myGame.assets.load("data/fonts/heal.png", Texture.class);
+		myGame.assets.load("data/fonts/damage.fnt", BitmapFont.class);
+		myGame.assets.load("data/fonts/damage.png", Texture.class);
 
 	}
 

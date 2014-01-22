@@ -53,6 +53,9 @@ public class Player extends BaseCharacter {
 		for (int i = 0; i < getDebuffs().size; i++) {
 			getDebuffs().get(i).drawCooldown(batch, parentAlpha);
 		}
+		for (int i = 0; i < getBuffs().size; i++) {
+			getBuffs().get(i).drawCooldown(batch, parentAlpha);
+		}
         for (int i = 0; i < playerInventory.getAllItems().size; i++ ) {
             BaseItem item = playerInventory.getAllItems().get(i);
             if( item.isAddedToActionBar() ) {
