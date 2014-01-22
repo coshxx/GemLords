@@ -50,3 +50,7 @@ highest damage in one turn
 damage dealt
 damage received
 "longest" combo
+
+board-slide-in
+gem-aufprall-"swing"
+5er gems
