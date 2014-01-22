@@ -127,7 +127,7 @@ public class Gem extends Image {
     @Override
     public void draw(final SpriteBatch batch, final float parentAlpha) {
         final Stage stage = this.getStage();
-        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(45, myGame.VIRTUAL_HEIGHT - 200));
+        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(45, myGame.VIRTUAL_HEIGHT - 250));
         final Vector2 end = stage.stageToScreenCoordinates(new Vector2(myGame.VIRTUAL_WIDTH - 90,
                 myGame.VIRTUAL_HEIGHT - 630));
         final Rectangle scissor = new Rectangle();

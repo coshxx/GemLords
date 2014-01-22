@@ -31,6 +31,15 @@ public class AbilityClaw extends BaseAbility {
 			final Debuff clawDebuff = new Debuff();
 			clawDebuff.setup(10, 10, target);
 			clawDebuff.setDebuffImage(new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class)));
+			
+			final Image fullscreenEffect = new Image(AnotherManager.assets.get("data/textures/clawfullscreen.png", Texture.class));
+			fullscreenEffect.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);;
+			fullscreenEffect.addAction(Actions.alpha(0f));
+			fullscreenEffect.addAction(Actions.sequence(
+					Actions.alpha(0.75f, 0.25f),
+					Actions.alpha(0.0f, 0.25f),
+					Actions.removeActor(fullscreenEffect)));
+			abilityImage.getStage().addActor(fullscreenEffect);
 			target.addDebuff(clawDebuff);
 			return true;
 		}

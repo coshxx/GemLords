@@ -1,5 +1,6 @@
 package de.cosh.anothermanager.GUI;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -89,7 +90,6 @@ public class GUIWindow {
 		window.setPosition(200, 200);
 		window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
 		window.setMovable(true);
-		window.pad(20, 0, 0, 0);
 		window.setModal(false);
 		window.align(Align.center);
 		window.setTitleAlignment(Align.center);

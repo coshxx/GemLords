@@ -26,7 +26,7 @@ public class Board extends Table {
 	}
 
 	public static final int CELL_PAD_X = 45;
-	public static final int CELL_PAD_Y = 200;
+	public static final int CELL_PAD_Y = 250;
 	public static final int CELL_SIZE = 70;
 	public static final int MAX_SIZE_X = 9;
 	public static final int MAX_SIZE_Y = 9;

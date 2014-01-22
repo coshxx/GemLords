@@ -83,6 +83,7 @@ public class SplashScreen implements Screen {
 		myGame.assets.load("data/textures/map.png", Texture.class);
 		myGame.assets.load("data/textures/point.png", Texture.class);
 		myGame.assets.load("data/textures/abilityclaw.png", Texture.class);
+		myGame.assets.load("data/textures/clawfullscreen.png", Texture.class);
 		myGame.assets.load("data/textures/pointdone.png", Texture.class);
 		myGame.assets.load("data/textures/button.png", Texture.class);
 		myGame.assets.load("data/textures/splash.jpg", Texture.class);

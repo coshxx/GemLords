@@ -9,7 +9,7 @@ public class MatchFinder {
     public MatchFinder(Cell[][] cells) {
         this.cells = cells;
     }
-
+    
     public MatchResult markAllMatchingGems() {
         MatchResult result = new MatchResult();
         for (int x = 0; x < Board.MAX_SIZE_X; x++) {
