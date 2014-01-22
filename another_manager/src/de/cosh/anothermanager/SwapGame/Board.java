@@ -107,9 +107,15 @@ public class Board extends Table {
 				cells[x][y] = new Cell(myGame);
 				cells[x][y].setColor(1f, 1f, 1f, 0.35f);
 				cells[x][y].setPosition( CELL_PAD_X + ( x * CELL_SIZE) + myGame.VIRTUAL_WIDTH, CELL_PAD_Y + (y * CELL_SIZE));
-				cells[x][y].addAction(Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f));
+				cells[x][y].addAction(Actions.sequence(
+						Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
+						Actions.moveBy(10f,  0f, 0.1f),
+						Actions.moveBy(-10f,  0f, 0.1f)));
 				cells[x][y].putGem(myGame.gemFactory.newRandomGem());
-				cells[x][y].getGem().addAction(Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f));
+				cells[x][y].getGem().addAction(Actions.sequence(
+						Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
+						Actions.moveBy(10f,  0f, 0.1f),
+						Actions.moveBy(-10f,  0f, 0.1f)));
 				myGame.soundPlayer.playSlideIn();
 				backGround.addActor(cells[x][y]);
 				foreGround.addActor(cells[x][y].getGem());
