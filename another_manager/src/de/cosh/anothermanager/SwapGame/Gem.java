@@ -276,4 +276,8 @@ public class Gem extends Image {
 	public void setChecked(boolean b) {
 		checked = b;
 	}
+
+	public GemType getGemType() {
+		return gemType;
+	}
 }
