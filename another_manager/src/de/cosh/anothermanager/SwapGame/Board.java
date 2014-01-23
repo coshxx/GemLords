@@ -25,7 +25,6 @@ public class Board extends Table {
 	private enum BoardState {
 		STATE_CHECK, STATE_EMPTY, STATE_FADING, STATE_IDLE, STATE_INACTIVE, STATE_MOVING, STATE_SWAPPING
 	}
-
 	public static final int CELL_PAD_X = 45;
 	public static final int CELL_PAD_Y = 250;
 	public static final int CELL_SIZE = 70;
