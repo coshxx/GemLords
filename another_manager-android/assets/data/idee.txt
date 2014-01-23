@@ -56,4 +56,6 @@ board-slide-in
 gem-aufprall-"swing"
 5er gems
 
+=== fixed
 addi bug -> anstatt cancel oder fight direkt loadout -> bugged to hell
+=== fixed

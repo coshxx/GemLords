@@ -74,6 +74,21 @@ public class Gem extends Image {
             return texturePath;
         }
     }
+    
+    public enum SpecialSuperSpecial {
+    	TYPE_SPECIAL_5("data/textures/special_5.png"),
+    	TYPE_NONE("");
+    	
+    	private String texturePath;
+    	
+    	SpecialSuperSpecial(final String texturePath) {
+            this.texturePath = texturePath;
+        }
+
+        public String getTexturePath() {
+            return texturePath;
+        }
+    }
 
     public enum MoveDirection {
         DIRECTION_HORIZONTAL,
@@ -85,12 +100,17 @@ public class Gem extends Image {
 
     private final float GEM_SPEED = 150f;
     private GemType gemType;
+    private SpecialTypeHorizontal specialTypeHorizontal;
+    private SpecialTypeVertical specialTypeVertical;
+    private SpecialSuperSpecial specialSuperSpecial;
 
     private boolean isMarkedForSpecialConversion;
+    private boolean isMarkedForSuperSpecialConversion;
     private boolean convertHorizontal;
     private boolean isSpecialHorizontalGem;
     private boolean isSpecialVerticalGem;
-
+    private boolean isSuperSpecialGem;
+    private boolean checked;
     private MoveDirection moveDirection;
 
     private boolean markedForRemoval;
@@ -98,27 +118,35 @@ public class Gem extends Image {
     private final AnotherManager myGame;
 
     private final float SWAP_SPEED = 0.20f;
+	
 
     public Gem(final AnotherManager myGame, final GemType g) {
         super(myGame.assets.get(g.getTexturePath(), Texture.class));
         this.gemType = g;
         this.myGame = myGame;
         this.isMarkedForSpecialConversion = false;
+        this.isMarkedForSuperSpecialConversion = false;
         this.markedForRemoval = false;
         this.moveDirection = MoveDirection.DIRECTION_NONE;
-
+        this.isSuperSpecialGem = false;
         this.isSpecialHorizontalGem = false;
+        this.checked = false;
+        specialTypeHorizontal = SpecialTypeHorizontal.TYPE_NONE;
+        specialTypeVertical = SpecialTypeVertical.TYPE_NONE;
+        specialSuperSpecial = SpecialSuperSpecial.TYPE_NONE;
     }
 
     public void convertToSpecialGem() {
+    	if( isSuperSpecialGem )
+    		return;
         if (convertHorizontal) {
-            final SpecialTypeHorizontal t = SpecialTypeHorizontal.values()[gemType.ordinal()];
-            setDrawable(new TextureRegionDrawable(new TextureRegion(myGame.assets.get(t.getTexturePath(), Texture.class))));
+            specialTypeHorizontal = SpecialTypeHorizontal.values()[gemType.ordinal()];
+            setDrawable(new TextureRegionDrawable(new TextureRegion(myGame.assets.get(specialTypeHorizontal.getTexturePath(), Texture.class))));
             isMarkedForSpecialConversion = false;
             isSpecialHorizontalGem = true;
         } else {
-            final SpecialTypeVertical t = SpecialTypeVertical.values()[gemType.ordinal()];
-            setDrawable(new TextureRegionDrawable(new TextureRegion(myGame.assets.get(t.getTexturePath(), Texture.class))));
+            specialTypeVertical = SpecialTypeVertical.values()[gemType.ordinal()];
+            setDrawable(new TextureRegionDrawable(new TextureRegion(myGame.assets.get(specialTypeVertical.getTexturePath(), Texture.class))));
             isMarkedForSpecialConversion = false;
             isSpecialVerticalGem = true;
         }
@@ -143,7 +171,13 @@ public class Gem extends Image {
     }
 
     public boolean equals(final Gem b) {
-        return gemType == b.gemType;
+    	if( isSuperSpecialGem() )
+    		return true;
+    	if( b.isSuperSpecialGem() )
+    		return true;
+    	if( gemType == b.gemType )
+    		return true;
+    	return false;
     }
 
     public void fallBy(final int x, final int y) {
@@ -175,7 +209,10 @@ public class Gem extends Image {
     }
 
     public boolean isTypeNone() {
-        return gemType == GemType.TYPE_NONE;
+        return (gemType == GemType.TYPE_NONE &&
+        		specialSuperSpecial == SpecialSuperSpecial.TYPE_NONE &&
+        		specialTypeHorizontal == SpecialTypeHorizontal.TYPE_NONE &&
+        		specialTypeVertical == SpecialTypeVertical.TYPE_NONE);
     }
 
     public void markForSpecialConversion() {
@@ -199,10 +236,44 @@ public class Gem extends Image {
 
     public void setToNone() {
         gemType = GemType.TYPE_NONE;
+        specialSuperSpecial = SpecialSuperSpecial.TYPE_NONE;
+        specialTypeHorizontal = SpecialTypeHorizontal.TYPE_NONE;
+        specialTypeVertical = SpecialTypeVertical.TYPE_NONE;
 
     }
 
     public void unmarkRemoval() {
         markedForRemoval = false;
     }
+
+	public void markForSuperSpecial() {
+		isMarkedForSuperSpecialConversion = true;
+	}
+
+	public boolean isMarkedForSuperSpecialConversion() {
+		return isMarkedForSuperSpecialConversion;
+	}
+
+	public void convertToSuperSpecial() {
+		specialSuperSpecial = SpecialSuperSpecial.TYPE_SPECIAL_5;
+		setDrawable(new TextureRegionDrawable(new TextureRegion(myGame.assets.get(specialSuperSpecial.getTexturePath(), Texture.class))));
+		isMarkedForSuperSpecialConversion = false;
+		isSuperSpecialGem = true;
+	}
+
+	public boolean isSuperSpecialGem() {
+		return isSuperSpecialGem;
+	}
+
+	public void checked() {
+		checked = true;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean b) {
+		checked = b;
+	}
 }

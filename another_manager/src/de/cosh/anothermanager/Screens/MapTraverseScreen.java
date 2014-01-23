@@ -48,6 +48,7 @@ public class MapTraverseScreen implements Screen {
 	@Override
 	public void hide() {
 		myGame.soundPlayer.stopMapMusic();
+		enemyWindowOpen = false;
 	}
 
 	private void initEnemyLocations() {
