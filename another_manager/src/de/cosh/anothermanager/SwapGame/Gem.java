@@ -216,6 +216,8 @@ public class Gem extends Image {
     }
 
     public void markForSpecialConversion() {
+    	if( isMarkedForSuperSpecialConversion || isMarkedForSpecialConversion || isSuperSpecialGem || isSpecialHorizontalGem() || isSpecialVerticalGem )
+    		return;
         isMarkedForSpecialConversion = true;
         if( moveDirection == MoveDirection.DIRECTION_HORIZONTAL )
             convertHorizontal = true;

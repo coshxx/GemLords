@@ -227,12 +227,10 @@ public class Board extends Table {
 			gemRespawner.respawn(foreGround);
 			boardState = BoardState.STATE_MOVING;
 		} else if (!stillMovement && boardState == BoardState.STATE_SWAPPING) {
-			/*
 			if (!matchFinder.hasMatches()) {
 				boardState = BoardState.STATE_MOVING;
 				swapController.swap(lastSwap, lastX, lastY);
 			}
-			*/
 			boardState = BoardState.STATE_CHECK;
 		} else if (!stillMovement && boardState == BoardState.STATE_CHECK) {
 

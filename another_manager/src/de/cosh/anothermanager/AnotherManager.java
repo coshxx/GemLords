@@ -18,7 +18,7 @@ public class AnotherManager extends Game {
     public static final int VIRTUAL_WIDTH = 720;
     public static AssetManager assets;
     public static SoundPlayer soundPlayer;
-    public static boolean DEBUGMODE = true;
+    public static boolean DEBUGMODE = false;
     private static AnotherManager instance;
     public OrthographicCamera camera;
     public Enemy enemy;
