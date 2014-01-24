@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Json;
 
 import de.cosh.anothermanager.AnotherManager;
@@ -48,7 +49,7 @@ public class MapTraverseScreen implements Screen {
 
 	@Override
 	public void hide() {
-		myGame.soundPlayer.stopMapMusic();
+		AnotherManager.soundPlayer.stopMapMusic();
 		enemyWindowOpen = false;
 	}
 
@@ -80,7 +81,7 @@ public class MapTraverseScreen implements Screen {
         	e.setLocationOnMap(250,  250);
         	e.setHealth(999);
         	e.setDropItemID(-1);
-        	e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(myGame.assets.get("data/textures/enemy.png", Texture.class)), 999, stage, myGame.enemyManager);
+        	e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(AnotherManager.assets.get("data/textures/enemy.png", Texture.class)), 999, stage, myGame.enemyManager);
         }
 	}
 
@@ -96,9 +97,9 @@ public class MapTraverseScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
-
+		
 		if (fadeMusic) {
-			myGame.soundPlayer.fadeOutMapMusic(delta);
+			AnotherManager.soundPlayer.fadeOutMapMusic(delta);
 		}
 	}
 
@@ -117,32 +118,25 @@ public class MapTraverseScreen implements Screen {
 		fadeMusic = false;
 		enemyWindowOpen = false;
 
-		stage.setCamera(myGame.camera);
+		Table table = new Table();
+		table.setFillParent(true);
 
-		mapImage = new Image(myGame.assets.get("data/textures/map.png", Texture.class));
-		mapImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+		mapImage = new Image(AnotherManager.assets.get("data/textures/map.png", Texture.class));
+		mapImage.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		stage.addActor(mapImage);
-		stage.addAction(Actions.alpha(0));
-		stage.addAction(Actions.fadeIn(1));
-
+		table.debug();
+		
 		initEnemyLocations();
         GUIButton guiButton = new GUIButton();
-        guiButton.createLoadoutButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
+        guiButton.createLoadoutButton(table, AnotherManager.VIRTUAL_WIDTH-100, 0);
+		
+		AnotherManager.soundPlayer.playMapMusic();
 
-		for (int x = 0; x < 5; x++) {
-			final Image heartEmpty = new Image(myGame.assets.get("data/textures/heartempty.png", Texture.class));
-			heartEmpty.setPosition(32 + (32 * x), myGame.VIRTUAL_HEIGHT - 64);
-			stage.addActor(heartEmpty);
-		}
-
-		for (int x = 0; x < myGame.player.getLives(); x++) {
-			final Image heart = new Image(myGame.assets.get("data/textures/heart.png", Texture.class));
-			heart.setPosition(32 + (32 * x), myGame.VIRTUAL_HEIGHT - 64);
-			stage.addActor(heart);
-		}
-		myGame.soundPlayer.playMapMusic();
 		Gdx.input.setInputProcessor(stage);
+		stage.addActor(table);
+		stage.addAction(Actions.alpha(0));
+		stage.addAction(Actions.fadeIn(1));
 
         if( AnotherManager.DEBUGMODE ) {
             myGame.player.getInventory().addItem(new ItemMinorHealthPotion());

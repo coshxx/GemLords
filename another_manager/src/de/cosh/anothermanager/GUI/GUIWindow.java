@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -26,39 +27,22 @@ import de.cosh.anothermanager.AnotherManager;
  * Created by cosh on 10.01.14.
  */
 public class GUIWindow {
-	private final Label.LabelStyle labelStyle;
-	private Table root;
+	private Table table;
+	private Skin skin;
 	private final boolean showingMapEnemyWindow;
 	private final Stage stage;
-	private final TextButton.TextButtonStyle textButtonStyle;
-	private final Window.WindowStyle windowStyle;
     private AnotherManager myGame;
 
 	public GUIWindow( final Stage stage) {
 		this.stage = stage;
         this.myGame = AnotherManager.getInstance();
 		showingMapEnemyWindow = false;
-
-		windowStyle = new Window.WindowStyle();
-		windowStyle.titleFont = AnotherManager.assets.get("data/fonts/font.fnt", BitmapFont.class);
-		windowStyle.titleFont.setScale(1f);
-		final Texture nTexture = new Texture("data/textures/menuskin.png");
-		final NinePatch nPatch = new NinePatch(new TextureRegion(nTexture, 24, 24), 8, 8, 8, 8);
-		windowStyle.background = new NinePatchDrawable(nPatch);
-
-		textButtonStyle = new TextButton.TextButtonStyle();
-		final Texture buttonTexture = AnotherManager.assets.get("data/textures/button.png", Texture.class);
-		final BitmapFont buttonFont = AnotherManager.assets.get("data/fonts/font.fnt", BitmapFont.class);
-		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-		textButtonStyle.font = buttonFont;
-
-		labelStyle = new Label.LabelStyle();
-		labelStyle.font = AnotherManager.assets.get("data/fonts/font.fnt", BitmapFont.class);
+		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
+		table = new Table();
 	}
 
 	public void createDefeatWindow(final Group foreGround, final Group backGround, final Group windowGroup) {
-		final Window window = new Window("You lose", windowStyle);
+		final Window window = new Window("You lose", skin);
 		window.setPosition(200, 200);
 		window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
 		window.setMovable(true);
@@ -69,7 +53,7 @@ public class GUIWindow {
 		window.setSize(200, 200);
 
 		TextButton button;
-		button = new TextButton("Map", textButtonStyle);
+		button = new TextButton("Map", skin);
 		button.setPosition(50, 50);
 		button.setSize(100, 100);
 		Gdx.input.setInputProcessor(stage);
@@ -86,7 +70,7 @@ public class GUIWindow {
 	}
 
 	public void createVictoryWindow(final Group foreGround, final Group backGround, final Group windowGroup) {
-		final Window window = new Window("You win!", windowStyle);
+		final Window window = new Window("You win!", skin);
 		window.setPosition(200, 200);
 		window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
 		window.setMovable(true);
@@ -96,7 +80,7 @@ public class GUIWindow {
 		window.setSize(200, 200);
 
 		TextButton button;
-		button = new TextButton("Loot", textButtonStyle);
+		button = new TextButton("Loot", skin);
 		button.setPosition(50, 50);
 		button.setSize(100, 100);
 		Gdx.input.setInputProcessor(stage);
@@ -115,7 +99,7 @@ public class GUIWindow {
 	private void fadeToGameScreen() {
 		myGame.mapTraverseScreen.enemyWindowOpen = false;
 		myGame.mapTraverseScreen.fadeMusic();
-		root.addAction(Actions.moveBy(600, 0, 0.25f));
+		table.addAction(Actions.moveBy(600, 0, 0.25f));
 		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
 			@Override
 			public void run() {
@@ -143,41 +127,36 @@ public class GUIWindow {
 	}
 
 	private void hideEnemyWindow() {
-		root.addAction(Actions.moveBy(600, 0, 0.25f));
+		table.addAction(Actions.moveBy(600, 0, 0.25f));
 		myGame.mapTraverseScreen.enemyWindowOpen = false;
 	}
 
 	public void showMapEnemyWindow(final int enemyHP, final Image enemyImage) {
 		if (!myGame.mapTraverseScreen.enemyWindowOpen) {
 			myGame.mapTraverseScreen.enemyWindowOpen = true;
-			final Window window = new Window("Challenge:", windowStyle);
-			window.setPosition(0, 0);
-			window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
-			window.pad(20, 0, 0, 0);
-			window.align(Align.center);
+			
+			final Window window = new Window("Challenge:", skin);
 			window.setMovable(false);
-			window.setTitleAlignment(Align.center | Align.top);
-			window.setSize(250, 250);
-
-			final Table t = new Table();
-			t.setBounds(0, 0, 250, 250);
-			t.setLayoutEnabled(true);
-			window.add(t);
-
-			enemyImage.setPosition(0, 0);
-			enemyImage.setAlign(Align.center);
-			t.add(enemyImage);
-			t.row();
-
-			final Label enemyInfoLabel = new Label(enemyHP + " HP", labelStyle);
-			t.add(enemyInfoLabel);
-			t.row();
-
-			TextButton fightButton;
-			fightButton = new TextButton("Fight", textButtonStyle);
-			fightButton.setPosition(0, 0);
-			t.add(fightButton);
-			t.row();
+			
+			table.setPosition(-500, 0);
+			table.setFillParent(true);
+			window.add(enemyImage).size(200, 250);
+			window.row();
+			
+			Label hpLabel = new Label(enemyHP + " HP", skin);
+			window.add(hpLabel);
+			window.row();
+			
+			TextButton fightButton = new TextButton("Fight", skin);
+			window.add(fightButton).size(100, 50);
+			window.row();
+			TextButton cancelButton = new TextButton("Cancel", skin);
+			window.add(cancelButton).size(100, 50);
+			
+			table.add(window);
+			table.addAction(Actions.moveBy(500, 0, 0.25f));
+			stage.addActor(table);
+			
 			Gdx.input.setInputProcessor(stage);
 			fightButton.addListener(new ClickListener() {
 				@Override
@@ -186,27 +165,12 @@ public class GUIWindow {
 				}
 			});
 
-			TextButton cancelButton;
-			cancelButton = new TextButton("Cancel", textButtonStyle);
-			cancelButton.setPosition(0, 0);
-			cancelButton.align(Align.bottom);
-			cancelButton.setSize(50, 50);
-			t.add(cancelButton);
-			t.row();
 			cancelButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(final InputEvent event, final float x, final float y) {
 					hideEnemyWindow();
 				}
 			});
-
-			root = new Table();
-			root.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
-			root.align(Align.center);
-			root.add(window);
-			stage.addActor(root);
-			root.setPosition(-500, 0);
-			root.addAction(Actions.moveBy(500, 0, 0.25f));
 		}
 	}
 }

@@ -70,7 +70,8 @@ public class LoadoutScreen implements Screen {
         stage.addAction(Actions.alpha(0.0f));
         stage.addAction(Actions.fadeIn(1.0f));
 
-        AnotherManager.getInstance().soundPlayer.playLoadoutMusic();
+        AnotherManager.getInstance();
+		AnotherManager.soundPlayer.playLoadoutMusic();
 
         GUIButton guiButton = new GUIButton();
         guiButton.createBacktoMapButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);

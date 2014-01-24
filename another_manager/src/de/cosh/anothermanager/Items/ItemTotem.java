@@ -34,7 +34,8 @@ public class ItemTotem extends BaseItem implements UseItem {
     @Override
     public void onUse() {
         if (currentCooldown <= 0) {
-            AnotherManager.getInstance().soundPlayer.playTotem();
+            AnotherManager.getInstance();
+			AnotherManager.soundPlayer.playTotem();
             Buff totemBuff = new Buff();
             totemBuff.setBuffImage(new Image(AnotherManager.assets.get("data/textures/totem.png", Texture.class)));
             totemBuff.setup(5, 99, AnotherManager.getInstance().player);

@@ -62,13 +62,13 @@ public class Board extends Table {
 		random = new Random();
 		gemRespawner = new GemRespawner(cells, random, myGame.gemFactory);
 		backGround = new Group();
-		backGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+		backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
 		foreGround = new Group();
-		foreGround.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+		foreGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
 		effectGroup = new Group();
-		effectGroup.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
-		final Image backImage = new Image(myGame.assets.get("data/textures/background.png", Texture.class));
-		backImage.setBounds(0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT);
+		effectGroup.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+		final Image backImage = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
+		backImage.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
 		backGround.addActor(backImage);
 		addActor(backGround);
 		addActor(foreGround);
@@ -108,7 +108,7 @@ public class Board extends Table {
 			for (int y = 0; y < MAX_SIZE_Y; y++) {
 				cells[x][y] = new Cell(myGame);
 				cells[x][y].setColor(1f, 1f, 1f, 0.35f);
-				cells[x][y].setPosition( CELL_PAD_X + ( x * CELL_SIZE) + myGame.VIRTUAL_WIDTH, CELL_PAD_Y + (y * CELL_SIZE));
+				cells[x][y].setPosition( CELL_PAD_X + ( x * CELL_SIZE) + AnotherManager.VIRTUAL_WIDTH, CELL_PAD_Y + (y * CELL_SIZE));
 				cells[x][y].addAction(Actions.sequence(
 						Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
 						Actions.moveBy(10f,  0f, 0.1f),
@@ -118,7 +118,7 @@ public class Board extends Table {
 						Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
 						Actions.moveBy(10f,  0f, 0.1f),
 						Actions.moveBy(-10f,  0f, 0.1f)));
-				myGame.soundPlayer.playSlideIn();
+				AnotherManager.soundPlayer.playSlideIn();
 				backGround.addActor(cells[x][y]);
 				foreGround.addActor(cells[x][y].getGem());
 			}
@@ -168,7 +168,7 @@ public class Board extends Table {
 			while (matchFinder.hasMatches()) {
 				backGround.clear();
 				foreGround.clear();
-				final Image backImage = new Image(myGame.assets.get("data/textures/background.png", Texture.class));
+				final Image backImage = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
 				backGround.addActor(backImage);
 				fillWithRandomGems();
 			}
@@ -182,26 +182,26 @@ public class Board extends Table {
 			MatchResult result = matchFinder.markAllMatchingGems();
 			if (result.howMany > 0) {
 				if (result.conversion) {
-					myGame.soundPlayer.playConvert();
+					AnotherManager.soundPlayer.playConvert();
 				}
-				myGame.soundPlayer.playDing(matchesDuringCurrentMove++);
+				AnotherManager.soundPlayer.playDing(matchesDuringCurrentMove++);
 				result.howMany = 0;
 				result = gemRemover.fadeMarkedGems(effectGroup);
 				enemy.damage(result.howMany);
 				System.out.println("Enemy damage: " + result.howMany);
 				if (result.specialExplo) {
-					myGame.soundPlayer.playWoosh();
+					AnotherManager.soundPlayer.playWoosh();
 				}
 				boardState = BoardState.STATE_FADING;
 			} else {
 				if( matchesDuringCurrentMove >= 8 ) {
-					myGame.soundPlayer.playGodlike();
+					AnotherManager.soundPlayer.playGodlike();
 					sfx.playUnstoppable(effectGroup);
 				} else if (matchesDuringCurrentMove >= 6 ) {
-					myGame.soundPlayer.playUnstoppable();
+					AnotherManager.soundPlayer.playUnstoppable();
 					sfx.playUnstoppable(effectGroup);
 				} else if (matchesDuringCurrentMove >= 4 ) {
-					myGame.soundPlayer.playImpressive();
+					AnotherManager.soundPlayer.playImpressive();
 					sfx.playUnstoppable(effectGroup);
 				}
 					
@@ -238,15 +238,15 @@ public class Board extends Table {
                 effectGroup.setTouchable(Touchable.enabled);
 				final GUIWindow guiWindow = new GUIWindow(getStage());
 				guiWindow.createVictoryWindow(foreGround, backGround, effectGroup);
-				myGame.soundPlayer.stopGameMusic();
-				myGame.soundPlayer.playVictorySound();
+				AnotherManager.soundPlayer.stopGameMusic();
+				AnotherManager.soundPlayer.playVictorySound();
 				boardState = BoardState.STATE_INACTIVE;
 			} else if (player.getHealth() <= 0) {
                 effectGroup.setTouchable(Touchable.enabled);
 				final GUIWindow guiWindow = new GUIWindow(getStage());
 				guiWindow.createDefeatWindow(foreGround, backGround, effectGroup);
-				myGame.soundPlayer.stopGameMusic();
-				myGame.soundPlayer.playLoseSound();
+				AnotherManager.soundPlayer.stopGameMusic();
+				AnotherManager.soundPlayer.playLoseSound();
 				boardState = BoardState.STATE_INACTIVE;
 			}
 

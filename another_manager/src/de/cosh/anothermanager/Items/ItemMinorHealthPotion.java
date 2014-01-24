@@ -32,7 +32,8 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
     @Override
     public void onUse() {
         if (currentCooldown <= 0) {
-            AnotherManager.getInstance().soundPlayer.playGulp();
+            AnotherManager.getInstance();
+			AnotherManager.soundPlayer.playGulp();
             AnotherManager.getInstance().player.increaseHealth(10);
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             currentCooldown = cooldown;

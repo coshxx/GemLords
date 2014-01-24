@@ -13,7 +13,7 @@ public class Cell extends Image {
 	private Gem occupant;
 
 	public Cell(final AnotherManager myGame) {
-		super(myGame.assets.get("data/textures/cell_back.png", Texture.class));
+		super(AnotherManager.assets.get("data/textures/cell_back.png", Texture.class));
 		this.myGame = myGame;
 	}
 

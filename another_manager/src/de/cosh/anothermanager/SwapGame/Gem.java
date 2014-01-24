@@ -121,7 +121,7 @@ public class Gem extends Image {
 	
 
     public Gem(final AnotherManager myGame, final GemType g) {
-        super(myGame.assets.get(g.getTexturePath(), Texture.class));
+        super(AnotherManager.assets.get(g.getTexturePath(), Texture.class));
         this.gemType = g;
         this.myGame = myGame;
         this.isMarkedForSpecialConversion = false;
@@ -141,12 +141,12 @@ public class Gem extends Image {
     		return;
         if (convertHorizontal) {
             specialTypeHorizontal = SpecialTypeHorizontal.values()[gemType.ordinal()];
-            setDrawable(new TextureRegionDrawable(new TextureRegion(myGame.assets.get(specialTypeHorizontal.getTexturePath(), Texture.class))));
+            setDrawable(new TextureRegionDrawable(new TextureRegion(AnotherManager.assets.get(specialTypeHorizontal.getTexturePath(), Texture.class))));
             isMarkedForSpecialConversion = false;
             isSpecialHorizontalGem = true;
         } else {
             specialTypeVertical = SpecialTypeVertical.values()[gemType.ordinal()];
-            setDrawable(new TextureRegionDrawable(new TextureRegion(myGame.assets.get(specialTypeVertical.getTexturePath(), Texture.class))));
+            setDrawable(new TextureRegionDrawable(new TextureRegion(AnotherManager.assets.get(specialTypeVertical.getTexturePath(), Texture.class))));
             isMarkedForSpecialConversion = false;
             isSpecialVerticalGem = true;
         }
@@ -155,12 +155,12 @@ public class Gem extends Image {
     @Override
     public void draw(final SpriteBatch batch, final float parentAlpha) {
         final Stage stage = this.getStage();
-        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, myGame.VIRTUAL_HEIGHT - 250));
-        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(myGame.VIRTUAL_WIDTH ,
-                myGame.VIRTUAL_HEIGHT - 630));
+        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 250));
+        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH ,
+                AnotherManager.VIRTUAL_HEIGHT - 630));
         final Rectangle scissor = new Rectangle();
         final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
-        ScissorStack.calculateScissors(myGame.camera, 0, 0, myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT,
+        ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
                 batch.getTransformMatrix(), clipBounds, scissor);
         batch.flush();
         ScissorStack.pushScissors(scissor);
@@ -258,7 +258,7 @@ public class Gem extends Image {
 
 	public void convertToSuperSpecial() {
 		specialSuperSpecial = SpecialSuperSpecial.TYPE_SPECIAL_5;
-		setDrawable(new TextureRegionDrawable(new TextureRegion(myGame.assets.get(specialSuperSpecial.getTexturePath(), Texture.class))));
+		setDrawable(new TextureRegionDrawable(new TextureRegion(AnotherManager.assets.get(specialSuperSpecial.getTexturePath(), Texture.class))));
 		isMarkedForSuperSpecialConversion = false;
 		isSuperSpecialGem = true;
 	}

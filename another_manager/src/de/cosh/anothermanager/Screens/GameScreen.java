@@ -91,7 +91,7 @@ public class GameScreen implements Screen, GestureListener {
 
 	@Override
 	public void resize(final int width, final int height) {
-		stage.setViewport(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
+		stage.setViewport(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, false);
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class GameScreen implements Screen, GestureListener {
 
 	@Override
 	public void show() {
-		stage = new Stage(myGame.VIRTUAL_WIDTH, myGame.VIRTUAL_HEIGHT, false);
+		stage = new Stage(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, false);
 		stage.setCamera(myGame.camera);
         swapGame = new Board(myGame);
         InputMultiplexer input = new InputMultiplexer();
@@ -109,7 +109,8 @@ public class GameScreen implements Screen, GestureListener {
         input.addProcessor(new GestureDetector(this));
         Gdx.input.setInputProcessor(input);
         stage.addActor(swapGame);
-        AnotherManager.getInstance().soundPlayer.playGameMusic();
+        AnotherManager.getInstance();
+		AnotherManager.soundPlayer.playGameMusic();
 
 		/*
 		 * swapGame = myGame.swapGame; swapGame.init();

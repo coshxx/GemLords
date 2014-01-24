@@ -23,7 +23,7 @@ public class StarEffect {
 
 	public void spawnStars(final float x, final float y, final Group foreGround) {
 		for (int d = 0; d < 5; d++) {
-			final Image star = new Image(myGame.assets.get("data/textures/star.png", Texture.class));
+			final Image star = new Image(AnotherManager.assets.get("data/textures/star.png", Texture.class));
 			final boolean left = r.nextBoolean();
 			float duration = 800 + r.nextInt(1400);
 			float xAmount = r.nextInt(1000);

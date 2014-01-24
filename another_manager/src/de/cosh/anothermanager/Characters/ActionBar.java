@@ -42,7 +42,8 @@ public class ActionBar {
                                 itemsInBar[index] = item;
                                 itemsInBar[index].setPosition(itemBorders[index].getX(), itemBorders[index].getY());
                                 ParticleActor p = new ParticleActor(itemBorders[index].getX() + (itemBorders[index].getWidth()/2), itemBorders[index].getY() + itemBorders[index].getHeight()/2);
-                                AnotherManager.getInstance().soundPlayer.playWoosh();
+                                AnotherManager.getInstance();
+								AnotherManager.soundPlayer.playWoosh();
                                 stage.addActor(p);
                                 item.addedToActionBar(true);
                                 item.unselect();
