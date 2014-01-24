@@ -10,3 +10,4 @@ another_manager-android/lint.xml
 another_manager-android/.classpath
 another_manager-android/.settings/org.eclipse.jdt.core.prefs
 another_manager/.classpath
+another_manager-android/proguard/
