@@ -119,7 +119,7 @@ public class Board extends Group {
 						Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
 						Actions.moveBy(10f,  0f, 0.1f),
 						Actions.moveBy(-10f,  0f, 0.1f)));
-				AnotherManager.soundPlayer.playSlideIn();
+				//AnotherManager.soundPlayer.playSlideIn();
 				backGround.addActor(cells[x][y]);
 				foreGround.addActor(cells[x][y].getGem());
 			}
