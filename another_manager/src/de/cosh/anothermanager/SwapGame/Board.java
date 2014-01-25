@@ -101,9 +101,39 @@ public class Board extends Group {
 
 	@Override
 	public void draw(final SpriteBatch batch, final float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		enemy.draw(batch, parentAlpha);
-		player.draw(batch, parentAlpha);
+        backGround.draw(batch, parentAlpha);
+        foreGround.draw(batch, parentAlpha);
+        
+        drawCells(batch, parentAlpha);
+        //enemy.draw(batch, parentAlpha);
+        //player.draw(batch, parentAlpha);
+        drawGems(batch, parentAlpha);
+        effectGroup.draw(batch, parentAlpha);
+        
+        
+        // draw background
+        // draw cells (back)
+        // draw enemy
+        // draw player
+        // draw gems
+        // draw effects
+        // draw UI
+	}
+	
+	public void drawCells(SpriteBatch batch, float parentAlpha) {
+		for( int x = 0; x < MAX_SIZE_X; x++ ) {
+			for( int y = 0; y < MAX_SIZE_Y; y++) {
+				//cells[x][y].draw(batch, 0.5f);
+			}
+		}
+	}
+	
+	public void drawGems(SpriteBatch batch, float parentAlpha) {
+		for( int x = 0; x < MAX_SIZE_X; x++ ) {
+			for( int y = 0; y < MAX_SIZE_Y; y++) {
+				cells[x][y].getGem().draw(batch, parentAlpha);
+			}
+		}
 	}
 
 	private void fillWithRandomGems() {
