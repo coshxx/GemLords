@@ -21,9 +21,10 @@ import de.cosh.anothermanager.SwapGame.GemFactory;
 public class AnotherManager extends Game {
 	public static final int VIRTUAL_HEIGHT = 1280;
 	public static final int VIRTUAL_WIDTH = 720;
+
 	public static AssetManager assets;
 	public static SoundPlayer soundPlayer;
-	public static boolean DEBUGMODE = false;
+	public static boolean DEBUGMODE = true;
 	private static AnotherManager instance;
 	public OrthographicCamera camera;
 	public Enemy enemy;

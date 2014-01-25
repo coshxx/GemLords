@@ -22,6 +22,7 @@ public class SoundPlayer {
 	private Sound clawSound;
 	private Sound totem;
 	private Sound slideIn;
+    private Sound petrify;
 
 	private Sound impressive, godlike, unstoppable;
 
@@ -117,6 +118,10 @@ public class SoundPlayer {
 		error.play();
 	}
 
+    public void playPetrify() {
+        petrify.play();
+    }
+
 	public void playVictorySound() {
 		victorySound.play();
 	}
@@ -166,7 +171,7 @@ public class SoundPlayer {
 		loadoutMusic = AnotherManager.assets.get("data/sounds/loadoutmusic.ogg", Music.class);
 		error = AnotherManager.assets.get("data/sounds/error.ogg", Sound.class);
 		slideIn = AnotherManager.assets.get("data/sounds/slidein.ogg", Sound.class);
-
+        petrify = AnotherManager.assets.get("data/sounds/abilitypetrify.ogg");
 		impressive = AnotherManager.assets.get("data/sounds/impressive.ogg", Sound.class);
 		godlike = AnotherManager.assets.get("data/sounds/godlike.ogg", Sound.class);
 		unstoppable = AnotherManager.assets.get("data/sounds/unstoppable.ogg", Sound.class);

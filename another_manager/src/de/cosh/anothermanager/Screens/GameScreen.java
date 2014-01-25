@@ -153,4 +153,8 @@ public class GameScreen implements Screen, GestureListener {
 	public boolean zoom(final float initialDistance, final float distance) {
 		return false;
 	}
+
+    public Board getBoard() {
+        return swapGame;
+    }
 }

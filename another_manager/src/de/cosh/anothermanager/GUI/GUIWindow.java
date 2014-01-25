@@ -101,6 +101,7 @@ public class GUIWindow {
 	}
 
 	private void fadeToLootScreen() {
+        myGame.mapTraverseScreen.enemyWindowOpen = false;
 		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
 			@Override
 			public void run() {
@@ -110,6 +111,7 @@ public class GUIWindow {
 	}
 
 	private void fadeToMapScreen() {
+        myGame.mapTraverseScreen.enemyWindowOpen = false;
 		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
 			@Override
 			public void run() {

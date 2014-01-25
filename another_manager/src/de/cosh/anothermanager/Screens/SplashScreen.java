@@ -71,7 +71,7 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/textures/abilityattack.png", Texture.class);
 		AnotherManager.assets.load("data/textures/abilityfireball.png", Texture.class);
 		AnotherManager.assets.load("data/textures/abilitypoison.png", Texture.class);
-
+		AnotherManager.assets.load("data/textures/abilitypetrify.png", Texture.class);
 
 		AnotherManager.assets.load("data/textures/debuff_border.png", Texture.class);
 		AnotherManager.assets.load("data/textures/buff_border.png", Texture.class);
@@ -131,6 +131,7 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/sounds/abilityattack_fire.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/abilityfireball_fire.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/abilitypoison_fire.ogg", Sound.class);
+		AnotherManager.assets.load("data/sounds/abilitypetrify.ogg", Sound.class);
 
 		AnotherManager.assets.load("data/sounds/awesome.ogg", Sound.class);
 

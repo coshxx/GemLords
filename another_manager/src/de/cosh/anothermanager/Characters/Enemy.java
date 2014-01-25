@@ -13,12 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
+import de.cosh.anothermanager.Abilities.*;
 import de.cosh.anothermanager.AnotherManager;
-import de.cosh.anothermanager.Abilities.Ability;
-import de.cosh.anothermanager.Abilities.AbilityAttack;
-import de.cosh.anothermanager.Abilities.AbilityFireball;
-import de.cosh.anothermanager.Abilities.AbilityPoison;
-import de.cosh.anothermanager.Abilities.BaseAbility;
 import de.cosh.anothermanager.GUI.GUIWindow;
 import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.Items.ItemApprenticeRobe;
@@ -67,7 +63,7 @@ public class Enemy extends BaseCharacter {
 		pointButtonDone = new ImageButton(styleDone.up, styleDone.down);
 
 		abilities = new Array<BaseAbility>();
-
+/*
 		final AbilityAttack abilityAttack = new AbilityAttack();
 		abilityAttack.setAbilityDamage(10);
 		abilityAttack.setCooldown(2);
@@ -79,10 +75,16 @@ public class Enemy extends BaseCharacter {
 		final AbilityPoison abilityPoison = new AbilityPoison();
 		abilityPoison.setAbilityDamage(0);
 		abilityPoison.setCooldown(5);
-
+*/
+        final AbilityPetrify abilityPetrify = new AbilityPetrify();
+        abilityPetrify.setAbilityDamage(0);
+        abilityPetrify.setCooldown(1);
+/*
 		abilities.add(abilityAttack);
 		abilities.add(abilityFireball);
 		abilities.add(abilityPoison);
+*/
+        abilities.add(abilityPetrify);
 
 		locationOnMap = new Vector2(0, 0);
 	}

@@ -20,7 +20,11 @@ import de.cosh.anothermanager.GUI.GUIWindow;
  * Created by cosh on 13.01.14.
  */
 public class Board extends Group {
-	private enum BoardState {
+    public Cell[][] getCells() {
+        return cells;
+    }
+
+    private enum BoardState {
 		STATE_CHECK, STATE_EMPTY, STATE_FADING, STATE_IDLE, STATE_INACTIVE, STATE_MOVING, STATE_SWAPPING
 	}
 
@@ -89,6 +93,10 @@ public class Board extends Group {
 		super.act(delta);
 	}
 
+    public Group getEffectGroup() {
+        return effectGroup;
+    }
+
 	private GridPoint2 convertToBoardIndex(final Vector2 position) {
 		position.x -= CELL_PAD_X;
 		position.x /= CELL_SIZE;
@@ -99,27 +107,7 @@ public class Board extends Group {
 		return point;
 	}
 
-	@Override
-	public void draw(final SpriteBatch batch, final float parentAlpha) {
-        backGround.draw(batch, parentAlpha);
-        foreGround.draw(batch, parentAlpha);
-        
-        drawCells(batch, parentAlpha);
-        //enemy.draw(batch, parentAlpha);
-        //player.draw(batch, parentAlpha);
-        drawGems(batch, parentAlpha);
-        effectGroup.draw(batch, parentAlpha);
-        
-        
-        // draw background
-        // draw cells (back)
-        // draw enemy
-        // draw player
-        // draw gems
-        // draw effects
-        // draw UI
-	}
-	
+
 	public void drawCells(SpriteBatch batch, float parentAlpha) {
 		for( int x = 0; x < MAX_SIZE_X; x++ ) {
 			for( int y = 0; y < MAX_SIZE_Y; y++) {
@@ -127,7 +115,7 @@ public class Board extends Group {
 			}
 		}
 	}
-	
+
 	public void drawGems(SpriteBatch batch, float parentAlpha) {
 		for( int x = 0; x < MAX_SIZE_X; x++ ) {
 			for( int y = 0; y < MAX_SIZE_Y; y++) {

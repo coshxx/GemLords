@@ -17,7 +17,9 @@ import de.cosh.anothermanager.AnotherManager;
  * Created by cosh on 13.01.14.
  */
 public class Gem extends Image {
-	public enum GemType {
+
+
+    public enum GemType {
 		TYPE_BLUE("data/textures/ball_blue.png"),
 		TYPE_GREEN("data/textures/ball_green.png"),
 		TYPE_PURPLE("data/textures/ball_purple.png"),
@@ -111,6 +113,7 @@ public class Gem extends Image {
 	private boolean isSpecialVerticalGem;
 	private boolean isSuperSpecialGem;
 	private boolean checked;
+    private boolean isDisabled;
 	private MoveDirection moveDirection;
 
 	private boolean markedForRemoval;
@@ -130,10 +133,19 @@ public class Gem extends Image {
 		this.isSuperSpecialGem = false;
 		this.isSpecialHorizontalGem = false;
 		this.checked = false;
+        this.isDisabled = false;
 		specialTypeHorizontal = SpecialTypeHorizontal.TYPE_NONE;
 		specialTypeVertical = SpecialTypeVertical.TYPE_NONE;
 		specialSuperSpecial = SpecialSuperSpecial.TYPE_NONE;
 	}
+
+    public void disable() {
+        isDisabled = true;
+    }
+
+    public boolean isDisabled() {
+        return isDisabled;
+    }
 
 	public void convertToSpecialGem() {
 		if( isSuperSpecialGem )

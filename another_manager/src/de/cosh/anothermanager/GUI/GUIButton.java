@@ -40,6 +40,8 @@ public class GUIButton {
 						Actions.run(new Runnable() {
 							@Override
 							public void run() {
+                                final AnotherManager myGame = AnotherManager.getInstance();
+                                myGame.mapTraverseScreen.enemyWindowOpen = false;
 								AnotherManager.getInstance().setScreen(new LoadoutScreen());
 							}
 						})));
