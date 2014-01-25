@@ -10,11 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 public class GemRespawner {
 	private final Cell[][] cells;
 	private final GemFactory gemFactory;
-	private final Random random;
-
 	public GemRespawner(final Cell[][] cells, final Random r, final GemFactory gemFactory) {
 		this.cells = cells;
-		this.random = r;
 		this.gemFactory = gemFactory;
 	}
 

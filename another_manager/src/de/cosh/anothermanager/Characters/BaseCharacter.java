@@ -1,15 +1,8 @@
 package de.cosh.anothermanager.Characters;
 
-import java.awt.Font;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
-
-import de.cosh.anothermanager.AnotherManager;
 
 /**
  * Created by cosh on 11.01.14.
@@ -32,13 +25,13 @@ public class BaseCharacter {
 		debuff.setPosition(healthBar.getWidth() - (45 * debuffs.size), healthBar.getY() + healthBar.getHeight() + 30);
 		debuff.addDebuffToGroup(getCharacterGroup());
 	}
-	
+
 	public void addBuff(final Buff buff) {
 		buffs.add(buff);
 		buff.setPosition(0, healthBar.getY() + healthBar.getHeight() + 30);
 		buff.addBuffToGroup(getCharacterGroup());
-		
-		
+
+
 	}
 
 	public void addToBoard(final Group foreGround) {
@@ -46,7 +39,7 @@ public class BaseCharacter {
 	}
 
 	public void damage(final int damage) {
-        healthPoints -= damage;
+		healthPoints -= damage;
 		healthBar.hit(damage);
 	}
 
@@ -57,7 +50,7 @@ public class BaseCharacter {
 	public Array<Debuff> getDebuffs() {
 		return debuffs;
 	}
-	
+
 	public Array<Buff> getBuffs() {
 		return buffs;
 	}
@@ -71,7 +64,7 @@ public class BaseCharacter {
 	}
 
 	public void init(final int hp) {
-        healthPoints = hp;
+		healthPoints = hp;
 		healthBar = new HealthBar();
 		healthBar.init(hp);
 		debuffs.clear();
@@ -102,8 +95,8 @@ public class BaseCharacter {
 		}
 	}
 
-    public void increaseHealth(int hp) {
-        healthPoints += hp;
-        healthBar.increaseHealth(hp);
-    }
+	public void increaseHealth(int hp) {
+		healthPoints += hp;
+		healthBar.increaseHealth(hp);
+	}
 }

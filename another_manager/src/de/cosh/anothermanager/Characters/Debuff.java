@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import de.cosh.anothermanager.AnotherManager;
 
@@ -27,7 +28,10 @@ public class Debuff {
 
 	public Debuff() {
 		this.debuffBorderImage = new Image(AnotherManager.assets.get("data/textures/debuff_border.png", Texture.class));
-		this.bmf = new BitmapFont();
+		AnotherManager.getInstance();
+		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class)	;
+		bmf = s.getFont("default-font");
+
 	}
 
 	public void addDebuffToGroup(final Group group) {

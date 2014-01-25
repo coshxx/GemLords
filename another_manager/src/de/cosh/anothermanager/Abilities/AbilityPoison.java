@@ -12,10 +12,10 @@ import de.cosh.anothermanager.Characters.Debuff;
  * Created by cosh on 16.01.14.
  */
 public class AbilityPoison extends BaseAbility {
-    public AbilityPoison() {
-        abilityImageLocation = "data/textures/abilitypoison.png";
-        abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
-    }
+	public AbilityPoison() {
+		abilityImageLocation = "data/textures/abilitypoison.png";
+		abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
+	}
 
 	@Override
 	public boolean fire(final BaseCharacter target) {

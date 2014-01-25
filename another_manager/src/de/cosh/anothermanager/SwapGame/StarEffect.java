@@ -13,11 +13,9 @@ import de.cosh.anothermanager.AnotherManager;
  * Created by cosh on 06.01.14.
  */
 public class StarEffect {
-	private final AnotherManager myGame;
 	private final Random r;
 
 	public StarEffect(final AnotherManager myGame) {
-		this.myGame = myGame;
 		r = new Random();
 	}
 

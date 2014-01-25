@@ -2,10 +2,6 @@ package de.cosh.anothermanager.GUI;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import de.cosh.anothermanager.AnotherManager;
 
@@ -29,14 +23,12 @@ import de.cosh.anothermanager.AnotherManager;
 public class GUIWindow {
 	private Table table;
 	private Skin skin;
-	private final boolean showingMapEnemyWindow;
 	private final Stage stage;
-    private AnotherManager myGame;
+	private AnotherManager myGame;
 
 	public GUIWindow( final Stage stage) {
 		this.stage = stage;
-        this.myGame = AnotherManager.getInstance();
-		showingMapEnemyWindow = false;
+		this.myGame = AnotherManager.getInstance();
 		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
 		table = new Table();
 	}
@@ -134,29 +126,29 @@ public class GUIWindow {
 	public void showMapEnemyWindow(final int enemyHP, final Image enemyImage) {
 		if (!myGame.mapTraverseScreen.enemyWindowOpen) {
 			myGame.mapTraverseScreen.enemyWindowOpen = true;
-			
+
 			final Window window = new Window("Challenge:", skin);
 			window.setMovable(false);
-			
+
 			table.setPosition(-500, 0);
 			table.setFillParent(true);
 			window.add(enemyImage).size(200, 250);
 			window.row();
-			
+
 			Label hpLabel = new Label(enemyHP + " HP", skin);
 			window.add(hpLabel);
 			window.row();
-			
+
 			TextButton fightButton = new TextButton("Fight", skin);
 			window.add(fightButton).size(100, 50);
 			window.row();
 			TextButton cancelButton = new TextButton("Cancel", skin);
 			window.add(cancelButton).size(100, 50);
-			
+
 			table.add(window);
 			table.addAction(Actions.moveBy(500, 0, 0.25f));
 			stage.addActor(table);
-			
+
 			Gdx.input.setInputProcessor(stage);
 			fightButton.addListener(new ClickListener() {
 				@Override

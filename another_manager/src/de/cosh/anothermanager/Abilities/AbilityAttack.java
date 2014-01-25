@@ -12,8 +12,8 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
  */
 public class AbilityAttack extends BaseAbility {
 	public AbilityAttack( ) {
-        abilityImageLocation = "data/textures/abilityattack.png";
-        abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
+		abilityImageLocation = "data/textures/abilityattack.png";
+		abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
 	}
 
 	@Override

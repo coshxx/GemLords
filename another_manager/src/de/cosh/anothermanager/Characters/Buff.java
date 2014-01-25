@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import de.cosh.anothermanager.AnotherManager;
 
@@ -27,7 +28,9 @@ public class Buff {
 
 	public Buff() {
 		this.buffBorderImage = new Image(AnotherManager.assets.get("data/textures/buff_border.png", Texture.class));
-		this.bmf = new BitmapFont();
+		AnotherManager.getInstance();
+		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class)	;
+		bmf = s.getFont("default-font");
 	}
 
 	public void addBuffToGroup(final Group group) {

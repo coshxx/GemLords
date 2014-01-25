@@ -147,7 +147,7 @@ public class MatchFinder {
 						result.howMany++;
 					}
 				}
-				
+
 				final int countMatchesTop = howManyMatchesTop(x, y);
 				for( int xt = 0; xt < Board.MAX_SIZE_X; xt++ ) {
 					for( int yt = 0; yt < Board.MAX_SIZE_Y; yt++ ) {

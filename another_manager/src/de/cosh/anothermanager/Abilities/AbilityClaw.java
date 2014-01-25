@@ -12,10 +12,10 @@ import de.cosh.anothermanager.Characters.Debuff;
  * Created by cosh on 16.01.14.
  */
 public class AbilityClaw extends BaseAbility {
-    public AbilityClaw() {
-        abilityImageLocation = "data/textures/abilityclaw.png";
-        abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
-    }
+	public AbilityClaw() {
+		abilityImageLocation = "data/textures/abilityclaw.png";
+		abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
+	}
 
 	@Override
 	public boolean fire(final BaseCharacter target) {
@@ -31,7 +31,7 @@ public class AbilityClaw extends BaseAbility {
 			final Debuff clawDebuff = new Debuff();
 			clawDebuff.setup(10, 10, target);
 			clawDebuff.setDebuffImage(new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class)));
-			
+
 			final Image fullscreenEffect = new Image(AnotherManager.assets.get("data/textures/clawfullscreen.png", Texture.class));
 			fullscreenEffect.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);;
 			fullscreenEffect.addAction(Actions.alpha(0f));

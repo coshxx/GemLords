@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import de.cosh.anothermanager.Abilities.Ability;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 
@@ -13,52 +13,52 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
  * Created by cosh on 20.01.14.
  */
 public class ItemMinorHealthPotion extends BaseItem implements UseItem {
-    private int cooldown;
-    private Integer currentCooldown;
-    private BitmapFont bmf;
+	private int cooldown;
+	private Integer currentCooldown;
+	private BitmapFont bmf;
 
-    public ItemMinorHealthPotion() {
-        super(AnotherManager.assets.get("data/textures/minorhealthpotion.png", Texture.class));
-        itemNumber = 1;
-        setItemName("Minor potion");
-        setItemText("Recover 10 hp\nCooldown: 5");
-        setItemSlotType(ItemSlotType.POTION);
+	public ItemMinorHealthPotion() {
+		super(AnotherManager.assets.get("data/textures/minorhealthpotion.png", Texture.class));
+		itemNumber = 1;
+		setItemName("Minor potion");
+		setItemText("Recover 10 hp\nCooldown: 5");
+		setItemSlotType(ItemSlotType.POTION);
+		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
+		bmf = s.getFont("default-font");
+		cooldown = 5;
+		currentCooldown = 5;
+	}
 
-        cooldown = 5;
-        currentCooldown = 5;
-        bmf = new BitmapFont();
-    }
-
-    @Override
-    public void onUse() {
-        if (currentCooldown <= 0) {
-            AnotherManager.getInstance();
+	@Override
+	public void onUse() {
+		if (currentCooldown <= 0) {
+			AnotherManager.getInstance();
 			AnotherManager.soundPlayer.playGulp();
-            AnotherManager.getInstance().player.increaseHealth(10);
-            addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
-            currentCooldown = cooldown;
-        }
-    }
+			AnotherManager.getInstance().player.increaseHealth(10);
+			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
+			currentCooldown = cooldown;
+		}
+	}
 
-    @Override
-    public void drawCooldown(SpriteBatch batch, float parentAlpha) {
-        if( currentCooldown <= 0 )
-            bmf.draw(batch, "Ready", getX(), getY() );
-        else bmf.draw(batch, currentCooldown.toString(), getX(), getY());
-    }
+	@Override
+	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
+		if( currentCooldown <= 0 )
+			bmf.draw(batch, "Ready", getX(), getY() );
+		else bmf.draw(batch, currentCooldown.toString(), getX(), getY());
+	}
 
-    @Override
-    public void turn() {
-        currentCooldown--;
-    }
+	@Override
+	public void turn() {
+		currentCooldown--;
+	}
 
-    @Override
-    public void resetCooldown() {
-        currentCooldown = cooldown;
-    }
+	@Override
+	public void resetCooldown() {
+		currentCooldown = cooldown;
+	}
 
-    @Override
-    public int preFirstTurnBuff(BaseCharacter wearer) {
-        return 0;
-    }
+	@Override
+	public int preFirstTurnBuff(BaseCharacter wearer) {
+		return 0;
+	}
 }

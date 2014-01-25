@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.SwapGame.Board;
@@ -88,6 +90,26 @@ public class GameScreen implements Screen, GestureListener {
 
 		stage.act(delta);
 		stage.draw();
+
+		/*
+		final SpriteBatch batch = stage.getSpriteBatch();
+		batch.begin();
+        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 247));
+        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH ,
+                AnotherManager.VIRTUAL_HEIGHT - 720));
+        final Rectangle scissor = new Rectangle();
+        final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
+        ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
+                batch.getTransformMatrix(), clipBounds, scissor);
+        //batch.flush();
+        ScissorStack.pushScissors(scissor);
+        swapGame.drawGems(batch, 1);
+        //super.draw(batch, parentAlpha);
+        //batch.flush();
+        ScissorStack.popScissors();
+        batch.end();
+        */
+        stage.draw();
 	}
 
 	@Override
@@ -104,13 +126,14 @@ public class GameScreen implements Screen, GestureListener {
 	public void show() {
 		stage = new Stage(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, false);
 		stage.setCamera(myGame.camera);
-        swapGame = new Board(myGame);
-        InputMultiplexer input = new InputMultiplexer();
-        input.addProcessor(stage);
-        input.addProcessor(new GestureDetector(this));
-        Gdx.input.setInputProcessor(input);
-        stage.addActor(swapGame);
+		swapGame = new Board(myGame);
+		InputMultiplexer input = new InputMultiplexer();
+		input.addProcessor(stage);
+		input.addProcessor(new GestureDetector(this));
+		Gdx.input.setInputProcessor(input);
+		stage.addActor(swapGame);
 		AnotherManager.soundPlayer.playGameMusic();
+		swapGame.init();
 		swapGame.addAction(Actions.alpha(0.0f));
 		swapGame.addAction(Actions.fadeIn(0.5f));
 	}

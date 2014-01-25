@@ -6,18 +6,17 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import de.cosh.anothermanager.AnotherManager;
 
 public class SplashScreen implements Screen {
-	private BitmapFont bmf;
 	private NinePatch empty;
 	private Texture emptyT;
 	private NinePatch full;
@@ -60,14 +59,14 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/textures/special_whiteh.png", Texture.class);
 		AnotherManager.assets.load("data/textures/special_yellowh.png", Texture.class);
 
-        AnotherManager.assets.load("data/textures/special_bluev.png", Texture.class);
-        AnotherManager.assets.load("data/textures/special_greenv.png", Texture.class);
-        AnotherManager.assets.load("data/textures/special_purplev.png", Texture.class);
-        AnotherManager.assets.load("data/textures/special_redv.png", Texture.class);
-        AnotherManager.assets.load("data/textures/special_whitev.png", Texture.class);
-        AnotherManager.assets.load("data/textures/special_yellowv.png", Texture.class);
+		AnotherManager.assets.load("data/textures/special_bluev.png", Texture.class);
+		AnotherManager.assets.load("data/textures/special_greenv.png", Texture.class);
+		AnotherManager.assets.load("data/textures/special_purplev.png", Texture.class);
+		AnotherManager.assets.load("data/textures/special_redv.png", Texture.class);
+		AnotherManager.assets.load("data/textures/special_whitev.png", Texture.class);
+		AnotherManager.assets.load("data/textures/special_yellowv.png", Texture.class);
 
-        AnotherManager.assets.load("data/textures/special_5.png", Texture.class);
+		AnotherManager.assets.load("data/textures/special_5.png", Texture.class);
 
 		AnotherManager.assets.load("data/textures/abilityattack.png", Texture.class);
 		AnotherManager.assets.load("data/textures/abilityfireball.png", Texture.class);
@@ -101,8 +100,8 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/textures/heartempty.png", Texture.class);
 		AnotherManager.assets.load("data/textures/robe.png", Texture.class);
 		AnotherManager.assets.load("data/textures/robe_scholar.png", Texture.class);
-        AnotherManager.assets.load("data/textures/awesome.png", Texture.class);
-        AnotherManager.assets.load("data/textures/loadout.jpg", Texture.class);
+		AnotherManager.assets.load("data/textures/awesome.png", Texture.class);
+		AnotherManager.assets.load("data/textures/loadout.jpg", Texture.class);
 
 		AnotherManager.assets.load("data/sounds/blub1.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/blub2.ogg", Sound.class);
@@ -125,24 +124,18 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/sounds/totem.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/music0.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/gulp.ogg", Sound.class);
-        AnotherManager.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
-        
+		AnotherManager.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
 
-        AnotherManager.assets.load("data/sounds/abilityattack_fire.ogg", Sound.class);
-        AnotherManager.assets.load("data/sounds/abilityfireball_fire.ogg", Sound.class);
-        AnotherManager.assets.load("data/sounds/abilitypoison_fire.ogg", Sound.class);
+		AnotherManager.assets.load("data/ui/uiskin.json", Skin.class);
+
+		AnotherManager.assets.load("data/sounds/abilityattack_fire.ogg", Sound.class);
+		AnotherManager.assets.load("data/sounds/abilityfireball_fire.ogg", Sound.class);
+		AnotherManager.assets.load("data/sounds/abilitypoison_fire.ogg", Sound.class);
 
 		AnotherManager.assets.load("data/sounds/awesome.ogg", Sound.class);
 
 
 		AnotherManager.assets.load("data/sounds/error.ogg", Sound.class);
-
-		AnotherManager.assets.load("data/fonts/font.fnt", BitmapFont.class);
-		AnotherManager.assets.load("data/fonts/font2.fnt", BitmapFont.class);
-		AnotherManager.assets.load("data/fonts/heal.fnt", BitmapFont.class);
-		AnotherManager.assets.load("data/fonts/heal.png", Texture.class);
-		AnotherManager.assets.load("data/fonts/damage.fnt", BitmapFont.class);
-		AnotherManager.assets.load("data/fonts/damage.png", Texture.class);
 
 	}
 
@@ -172,8 +165,10 @@ public class SplashScreen implements Screen {
 		sb.begin();
 		empty.draw(sb, left, bot, Gdx.graphics.getWidth() - (2 * left), 30);
 		full.draw(sb, left, bot, done, 30);
-		bmf.drawMultiLine(sb, (int) (AnotherManager.assets.getProgress() * 100) + "% loaded", width / 2 + 60, bot + 20, 0,
+		/*
+		.drawMultiLine(sb, (int) (AnotherManager.assets.getProgress() * 100) + "% loaded", width / 2 + 60, bot + 20, 0,
 				BitmapFont.HAlignment.CENTER);
+		 */
 		sb.end();
 
 	}
@@ -204,10 +199,9 @@ public class SplashScreen implements Screen {
 		empty = new NinePatch(new TextureRegion(emptyT, 24, 24), 8, 8, 8, 8);
 		full = new NinePatch(new TextureRegion(fullT, 24, 24), 8, 8, 8, 8);
 
-		bmf = new BitmapFont();
 
 		loadAllAssets();
-        AnotherManager.assets.finishLoading();
+		AnotherManager.assets.finishLoading();
 	}
 
 }

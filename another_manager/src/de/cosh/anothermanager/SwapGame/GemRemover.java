@@ -25,7 +25,7 @@ public class GemRemover {
 		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
 			for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
 				final Gem rem = cells[x][y].getGem();
-				
+
 				if( rem.isMarkedForSuperSpecialConversion() ) {
 					rem.convertToSuperSpecial();
 					final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY()
@@ -47,11 +47,11 @@ public class GemRemover {
 						specialRowExplode(y, effectGroup);
 						result.specialExplo = true;
 					} else {
-                        if( rem.isSpecialVerticalGem()) {
-                            specialColExplode(x, effectGroup);
-                            result.specialExplo = true;
-                        }
-                    }
+						if( rem.isSpecialVerticalGem()) {
+							specialColExplode(x, effectGroup);
+							result.specialExplo = true;
+						}
+					}
 					if (rem.getActions().size > 0) {
 						continue;
 					}
@@ -64,7 +64,7 @@ public class GemRemover {
 		return result;
 	}
 
-    private void superSpecialExplode(int x, int y, final Group effectGroup) {
+	private void superSpecialExplode(int x, int y, final Group effectGroup) {
 		for( int exploStartX = x-3; exploStartX < x+4; exploStartX++ ) {
 			for( int exploStartY = y-3; exploStartY < y+4; exploStartY++ ) {
 				if( exploStartY < 0 )
@@ -80,11 +80,9 @@ public class GemRemover {
 				final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY()
 						+ rem.getHeight() / 2);
 				effectGroup.addActor(effect);
-				/*
-				if (rem.getActions().size > 0) {
+				if (rem.getActions().size > 0 || rem.isMarkedForSpecialConversion() || rem.isMarkedForSuperSpecialConversion()) {
 					continue;
 				}
-				*/
 				result.howMany++;
 				rem.addAction(Actions.parallel(Actions.scaleTo(0.0f, 0.0f, FADE_TIME),
 						Actions.moveBy(rem.getWidth() / 2, rem.getHeight() / 2, FADE_TIME)));
@@ -110,38 +108,36 @@ public class GemRemover {
 	private void specialRowExplode(final int y, final Group effectGroup) {
 		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
 			final Gem rem = cells[x][y].getGem();
-            if( rem.isSpecialVerticalGem() )
-                specialColExplode(x, effectGroup);
+			if( rem.isSpecialVerticalGem() )
+				specialColExplode(x, effectGroup);
 			rem.markGemForRemoval();
 			final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY()
 					+ rem.getHeight() / 2);
 			effectGroup.addActor(effect);
-			/*
-			if (rem.getActions().size > 0) {
+			if (rem.getActions().size > 0 || rem.isMarkedForSpecialConversion() || rem.isMarkedForSuperSpecialConversion()) {
 				continue;
 			}
-			*/
 			result.howMany++;
 			rem.addAction(Actions.parallel(Actions.scaleTo(0.0f, 0.0f, FADE_TIME),
 					Actions.moveBy(rem.getWidth() / 2, rem.getHeight() / 2, FADE_TIME)));
 		}
 	}
 
-    private void specialColExplode(final int x, Group effectGroup) {
-        for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
-            final Gem rem = cells[x][y].getGem();
-            if( rem.isSpecialHorizontalGem() )
-                specialRowExplode(y, effectGroup);
-            rem.markGemForRemoval();
-            final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY()
-                    + rem.getHeight() / 2);
-            effectGroup.addActor(effect);
-            if (rem.getActions().size > 0) {
-                continue;
-            }
-            result.howMany++;
-            rem.addAction(Actions.parallel(Actions.scaleTo(0.0f, 0.0f, FADE_TIME),
-                    Actions.moveBy(rem.getWidth() / 2, rem.getHeight() / 2, FADE_TIME)));
-        }
-    }
+	private void specialColExplode(final int x, Group effectGroup) {
+		for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
+			final Gem rem = cells[x][y].getGem();
+			if( rem.isSpecialHorizontalGem() )
+				specialRowExplode(y, effectGroup);
+			rem.markGemForRemoval();
+			final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY()
+					+ rem.getHeight() / 2);
+			effectGroup.addActor(effect);
+			if (rem.getActions().size > 0 || rem.isMarkedForSpecialConversion() || rem.isMarkedForSuperSpecialConversion()) {
+				continue;
+			}
+			result.howMany++;
+			rem.addAction(Actions.parallel(Actions.scaleTo(0.0f, 0.0f, FADE_TIME),
+					Actions.moveBy(rem.getWidth() / 2, rem.getHeight() / 2, FADE_TIME)));
+		}
+	}
 }

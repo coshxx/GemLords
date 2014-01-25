@@ -1,17 +1,12 @@
 package de.cosh.anothermanager.GUI;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import de.cosh.anothermanager.AnotherManager;
@@ -23,84 +18,83 @@ import de.cosh.anothermanager.Screens.MapTraverseScreen;
  * Created by cosh on 20.01.14.
  */
 public class GUIButton {
-    private Texture buttonTexture;
-    private TextButton button;
-    
-    private Skin skin;
+	private TextButton button;
 
-    public GUIButton() {
-    	skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
-    }
+	private Skin skin;
 
-    public void createLoadoutButton(final Table table, float x, float y) {
-        button = new TextButton("Loadout", skin);
-        /*
+	public GUIButton() {
+		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
+	}
+
+	public void createLoadoutButton(final Table table, float x, float y) {
+		button = new TextButton("Loadout", skin);
+		/*
         button.setPosition(x, y);
         button.setLayoutEnabled(true);
         button.setBounds(x, y, 100, 100);
-        */
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
-                table.getStage().addAction(Actions.sequence(Actions.fadeOut(.25f),
-                        Actions.run(new Runnable() {
-                            @Override
-                            public void run() {
-                                AnotherManager.getInstance().setScreen(new LoadoutScreen());
-                            }
-                        })));
-            }
-        });
+		 */
+		button.addListener(new ClickListener() {
+			@Override
+			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
+				table.getStage().addAction(Actions.sequence(Actions.fadeOut(.25f),
+						Actions.run(new Runnable() {
+							@Override
+							public void run() {
+								AnotherManager.getInstance().setScreen(new LoadoutScreen());
+							}
+						})));
+			}
+		});
 
-        table.row();
-        table.add(button).expand().bottom().right().size(100, 50);
-    }
+		table.row();
+		table.add(button).expand().bottom().right().size(100, 50);
+	}
 
-    public void createBacktoMapButton(final Stage stage, float x, float y) {
-        button = new TextButton("Back to map", skin);
-        button.setPosition(x, y);
-        button.setLayoutEnabled(true);
-        button.setBounds(x, y, 100, 100);
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
-                stage.addAction(Actions.sequence(Actions.fadeOut(.25f),
-                        Actions.run(new Runnable() {
-                            @Override
-                            public void run() {
-                                AnotherManager.getInstance();
+	public void createBacktoMapButton(final Stage stage, float x, float y) {
+		button = new TextButton("Back to map", skin);
+		button.setPosition(x, y);
+		button.setLayoutEnabled(true);
+		button.setBounds(x, y, 100, 100);
+		button.addListener(new ClickListener() {
+			@Override
+			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
+				stage.addAction(Actions.sequence(Actions.fadeOut(.25f),
+						Actions.run(new Runnable() {
+							@Override
+							public void run() {
+								AnotherManager.getInstance();
 								AnotherManager.soundPlayer.stopLoadoutMusic();
-                                AnotherManager.getInstance().setScreen(new MapTraverseScreen(AnotherManager.getInstance()));
-                            }
-                        })));
-            }
-        });
+								AnotherManager.getInstance().setScreen(new MapTraverseScreen(AnotherManager.getInstance()));
+							}
+						})));
+			}
+		});
 
-        stage.addActor(button);
-    }
+		stage.addActor(button);
+	}
 
-    public void createRemoveFromBarButton(final Stage stage, float x, float y) {
-        button = new TextButton("Remove", skin);
-        button.setPosition(x, y);
-        button.setLayoutEnabled(true);
-        button.setBounds(x, y, 100, 100);
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
-                Array<BaseItem> items = AnotherManager.getInstance().player.getInventory().getAllItems();
-                for (BaseItem item : items) {
-                    if (item.isAddedToActionBar()) {
-                        if (item.isSelected()) {
-                            item.removeFromActionBar();
-                            item.unselect();
-                            item.setDrawText(true);
-                            AnotherManager.getInstance().player.getInventory().resortItems();
-                        }
-                    }
-                }
-            }
-        });
+	public void createRemoveFromBarButton(final Stage stage, float x, float y) {
+		button = new TextButton("Remove", skin);
+		button.setPosition(x, y);
+		button.setLayoutEnabled(true);
+		button.setBounds(x, y, 100, 100);
+		button.addListener(new ClickListener() {
+			@Override
+			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
+				Array<BaseItem> items = AnotherManager.getInstance().player.getInventory().getAllItems();
+				for (BaseItem item : items) {
+					if (item.isAddedToActionBar()) {
+						if (item.isSelected()) {
+							item.removeFromActionBar();
+							item.unselect();
+							item.setDrawText(true);
+							AnotherManager.getInstance().player.getInventory().resortItems();
+						}
+					}
+				}
+			}
+		});
 
-        stage.addActor(button);
-    }
+		stage.addActor(button);
+	}
 }

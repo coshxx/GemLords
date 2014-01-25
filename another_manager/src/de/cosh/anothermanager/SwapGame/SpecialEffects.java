@@ -22,12 +22,12 @@ public class SpecialEffects {
 				Actions.delay(0.5f),
 				Actions.moveBy(-(halfScreen + halfImage), 0, 0.25f)));
 		group.addActor(awesome);
-						
+
 	}
 	public void playImpressive() {
-		
+
 	}
 	public void playGodlike() {
-		
+
 	}
 }

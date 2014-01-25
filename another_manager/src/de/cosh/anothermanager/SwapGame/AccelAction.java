@@ -4,19 +4,18 @@ import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
-import de.cosh.anothermanager.AnotherManager;
-
 /**
  * Created by cosh on 13.01.14.
  */
 public class AccelAction extends Action {
-	private final float ACCEL_FACTOR = 750f;
+	private final float ACCEL_FACTOR = 1000f;
 	private float speed;
 	private final float yGoal;
 	private Random r;
 
 	public AccelAction(final float yGoal, final float speed) {
 		this.yGoal = yGoal;
+		//this.speed = speed;
 		this.speed = speed;
 		r = new Random();
 	}

@@ -29,13 +29,13 @@ public class MapTraverseScreen implements Screen {
 	private boolean fadeMusic;
 	private Image mapImage;
 	private final AnotherManager myGame;
-    private Json json;
+	private Json json;
 	private Stage stage;
 
 	public MapTraverseScreen(final AnotherManager anotherManager) {
 		myGame = anotherManager;
-        json = new Json();
-        stage = new Stage();
+		json = new Json();
+		stage = new Stage();
 	}
 
 	@Override
@@ -54,35 +54,35 @@ public class MapTraverseScreen implements Screen {
 	}
 
 	private void initEnemyLocations() {
-        Player player = AnotherManager.getInstance().player;
-        int counter = 0;
-        while( true ) {
-            FileHandle handle = Gdx.files.internal("data/enemies/enemy" + counter + ".dat");
-            if( !handle.exists() )
-                break;
-            Enemy e = json.fromJson(Enemy.class, handle.readString());
-            e.setDefeated(player.levelDone[e.getEnemyNumber()]);
-            e.loadImage();
-            if( e.getEnemyNumber() == 0 || AnotherManager.DEBUGMODE) {
-            e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
-            } else {
-                int previous = e.getEnemyNumber() - 1;
-                if( previous < 0 )
-                    break;
-                if( player.levelDone[previous] ) {
-                    e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
-                }
-            }
-            counter++;
-        }
-        
-        if( AnotherManager.DEBUGMODE ) {
-        	Enemy e = new Enemy();
-        	e.setLocationOnMap(250,  250);
-        	e.setHealth(999);
-        	e.setDropItemID(-1);
-        	e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(AnotherManager.assets.get("data/textures/enemy.png", Texture.class)), 999, stage, myGame.enemyManager);
-        }
+		Player player = AnotherManager.getInstance().player;
+		int counter = 0;
+		while( true ) {
+			FileHandle handle = Gdx.files.internal("data/enemies/enemy" + counter + ".dat");
+			if( !handle.exists() )
+				break;
+			Enemy e = json.fromJson(Enemy.class, handle.readString());
+			e.setDefeated(player.levelDone[e.getEnemyNumber()]);
+			e.loadImage();
+			if( e.getEnemyNumber() == 0 || AnotherManager.DEBUGMODE) {
+				e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+			} else {
+				int previous = e.getEnemyNumber() - 1;
+				if( previous < 0 )
+					break;
+				if( player.levelDone[previous] ) {
+					e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+				}
+			}
+			counter++;
+		}
+
+		if( AnotherManager.DEBUGMODE ) {
+			Enemy e = new Enemy();
+			e.setLocationOnMap(250,  250);
+			e.setHealth(999);
+			e.setDropItemID(-1);
+			e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(AnotherManager.assets.get("data/textures/enemy.png", Texture.class)), 999, stage, myGame.enemyManager);
+		}
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class MapTraverseScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
-		
+
 		if (fadeMusic) {
 			AnotherManager.soundPlayer.fadeOutMapMusic(delta);
 		}
@@ -114,7 +114,7 @@ public class MapTraverseScreen implements Screen {
 
 	@Override
 	public void show() {
-        stage.clear();
+		stage.clear();
 		fadeMusic = false;
 		enemyWindowOpen = false;
 
@@ -126,11 +126,11 @@ public class MapTraverseScreen implements Screen {
 
 		stage.addActor(mapImage);
 		table.debug();
-		
+
 		initEnemyLocations();
-        GUIButton guiButton = new GUIButton();
-        guiButton.createLoadoutButton(table, AnotherManager.VIRTUAL_WIDTH-100, 0);
-		
+		GUIButton guiButton = new GUIButton();
+		guiButton.createLoadoutButton(table, AnotherManager.VIRTUAL_WIDTH-100, 0);
+
 		AnotherManager.soundPlayer.playMapMusic();
 
 		Gdx.input.setInputProcessor(stage);
@@ -138,12 +138,12 @@ public class MapTraverseScreen implements Screen {
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));
 
-        if( AnotherManager.DEBUGMODE ) {
-            myGame.player.getInventory().addItem(new ItemMinorHealthPotion());
-            myGame.player.getInventory().addItem(new ItemApprenticeRobe());
-            myGame.player.getInventory().addItem(new ItemScholarRobe());
-            myGame.player.getInventory().addItem(new ItemTotem());
-            myGame.player.getInventory().addItem(new ItemDevRobe());
-        }
+		if( AnotherManager.DEBUGMODE ) {
+			myGame.player.getInventory().addItem(new ItemMinorHealthPotion());
+			myGame.player.getInventory().addItem(new ItemApprenticeRobe());
+			myGame.player.getInventory().addItem(new ItemScholarRobe());
+			myGame.player.getInventory().addItem(new ItemTotem());
+			myGame.player.getInventory().addItem(new ItemDevRobe());
+		}
 	}
 }

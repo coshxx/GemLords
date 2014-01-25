@@ -1,9 +1,11 @@
 package de.cosh.anothermanager.Characters;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
+import de.cosh.anothermanager.AnotherManager;
 
 public class FloatingNumbers extends Actor {
 	private BitmapFont healFont;
@@ -12,8 +14,10 @@ public class FloatingNumbers extends Actor {
 	private Integer value;
 
 	public FloatingNumbers() {
-		healFont = new BitmapFont(Gdx.files.internal("data/fonts/heal.fnt"));
-		damageFont = new BitmapFont(Gdx.files.internal("data/fonts/damage.fnt"));
+		AnotherManager.getInstance();
+		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class)	;
+		healFont = s.getFont("default-font");
+		damageFont = s.getFont("default-font");
 	}
 
 	@Override
@@ -30,6 +34,8 @@ public class FloatingNumbers extends Actor {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+
+
 		healFont.setColor(getColor());
 		damageFont.setColor(getColor());
 		if (value > 0) {

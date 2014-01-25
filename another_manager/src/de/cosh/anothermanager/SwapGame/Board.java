@@ -6,15 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import de.cosh.anothermanager.AnotherManager;
-import de.cosh.anothermanager.Characters.ActionBar;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIWindow;
@@ -26,9 +23,10 @@ public class Board extends Group {
 	private enum BoardState {
 		STATE_CHECK, STATE_EMPTY, STATE_FADING, STATE_IDLE, STATE_INACTIVE, STATE_MOVING, STATE_SWAPPING
 	}
-	public static final int CELL_PAD_X = 45;
+
+	public static final int CELL_PAD_X = 0;
 	public static final int CELL_PAD_Y = 250;
-	public static final int CELL_SIZE = 70;
+	public static final int CELL_SIZE = 80;
 	public static final int MAX_SIZE_X = 9;
 	public static final int MAX_SIZE_Y = 9;
 	private final Group backGround;
@@ -49,7 +47,6 @@ public class Board extends Group {
 	private final AnotherManager myGame;
 	private Player player;
 	private final Random random;
-    private ActionBar actionBar;
 	private final SwapController swapController;
 	private final SpecialEffects sfx;
 
@@ -63,23 +60,28 @@ public class Board extends Group {
 		random = new Random();
 		gemRespawner = new GemRespawner(cells, random, myGame.gemFactory);
 		backGround = new Group();
-		backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+		backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH,
+				AnotherManager.VIRTUAL_HEIGHT);
 		foreGround = new Group();
-		foreGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+		foreGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH,
+				AnotherManager.VIRTUAL_HEIGHT);
 		effectGroup = new Group();
-		effectGroup.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
-		final Image backImage = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
-		backImage.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+		effectGroup.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH,
+				AnotherManager.VIRTUAL_HEIGHT);
+		final Image backImage = new Image(AnotherManager.assets.get(
+				"data/textures/background.png", Texture.class));
+		backImage.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH,
+				AnotherManager.VIRTUAL_HEIGHT);
 		backGround.addActor(backImage);
 		addActor(backGround);
 		addActor(foreGround);
 		addActor(effectGroup);
-        effectGroup.setTouchable(Touchable.disabled);
+		effectGroup.setTouchable(Touchable.disabled);
 		boardState = BoardState.STATE_EMPTY;
 		initialized = false;
 		justSwapped = false;
-		sfx  = new SpecialEffects();		
-		
+		sfx = new SpecialEffects();
+
 	}
 
 	@Override
@@ -109,17 +111,22 @@ public class Board extends Group {
 			for (int y = 0; y < MAX_SIZE_Y; y++) {
 				cells[x][y] = new Cell(myGame);
 				cells[x][y].setColor(1f, 1f, 1f, 0.35f);
-				cells[x][y].setPosition( CELL_PAD_X + ( x * CELL_SIZE) + AnotherManager.VIRTUAL_WIDTH, CELL_PAD_Y + (y * CELL_SIZE));
+				cells[x][y].setBounds(CELL_PAD_X + (x * CELL_SIZE)
+						+ AnotherManager.VIRTUAL_WIDTH, CELL_PAD_Y
+						+ (y * CELL_SIZE), 80, 80);
 				cells[x][y].addAction(Actions.sequence(
-						Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
-						Actions.moveBy(10f,  0f, 0.1f),
-						Actions.moveBy(-10f,  0f, 0.1f)));
+						Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y
+								+ (y * CELL_SIZE), 0.50f),
+						Actions.moveBy(10f, 0f, 0.1f),
+						Actions.moveBy(-10f, 0f, 0.1f)));
 				cells[x][y].putGem(myGame.gemFactory.newRandomGem());
-				cells[x][y].getGem().addAction(Actions.sequence(
-						Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
-						Actions.moveBy(10f,  0f, 0.1f),
-						Actions.moveBy(-10f,  0f, 0.1f)));
-				//AnotherManager.soundPlayer.playSlideIn();
+				cells[x][y].getGem().addAction(
+						Actions.sequence(Actions.moveTo(CELL_PAD_X
+								+ (x * CELL_SIZE),
+								CELL_PAD_Y + (y * CELL_SIZE), 0.50f), Actions
+								.moveBy(10f, 0f, 0.1f), Actions.moveBy(-10f,
+								0f, 0.1f)));
+				// AnotherManager.soundPlayer.playSlideIn();
 				backGround.addActor(cells[x][y]);
 				foreGround.addActor(cells[x][y].getGem());
 			}
@@ -134,11 +141,12 @@ public class Board extends Group {
 
 	private void preparePlayer() {
 		player = myGame.player;
-        player.init( 100 + player.getItemBuffsHP() );
+		player.init(100 + player.getItemBuffsHP());
 		player.addToBoard(foreGround);
 	}
 
-	public void swapTo(final Vector2 flingStartPosition, final int x, final int y) {
+	public void swapTo(final Vector2 flingStartPosition, final int x,
+			final int y) {
 		if (boardState == BoardState.STATE_IDLE) {
 			lastX = x;
 			lastY = y;
@@ -147,29 +155,32 @@ public class Board extends Group {
 			final GridPoint2 start = convertToBoardIndex(flingStartPosition);
 			lastSwap = start;
 
-            GridPoint2 end = new GridPoint2(start);
-            end.x += x;
-            end.y += y;
+			GridPoint2 end = new GridPoint2(start);
+			end.x += x;
+			end.y += y;
 
-            if( start.x < 0 || start.x >= MAX_SIZE_X || start.y < 0 || start.y >= MAX_SIZE_Y )
-                return;
+			if (start.x < 0 || start.x >= MAX_SIZE_X || start.y < 0
+					|| start.y >= MAX_SIZE_Y)
+				return;
 
-            if( end.x < 0 || end.x >= MAX_SIZE_X || end.y < 0 || end.y >= MAX_SIZE_Y )
-                return;
+			if (end.x < 0 || end.x >= MAX_SIZE_X || end.y < 0
+					|| end.y >= MAX_SIZE_Y)
+				return;
 
 			swapController.swap(start, x, y);
 			boardState = BoardState.STATE_SWAPPING;
 		}
 	}
 
-	public void update(final float delta) {
+	public void init() {
 		if (!initialized) {
 			initialized = true;
 			fillWithRandomGems();
 			while (matchFinder.hasMatches()) {
 				backGround.clear();
 				foreGround.clear();
-				final Image backImage = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
+				final Image backImage = new Image(AnotherManager.assets.get(
+						"data/textures/background.png", Texture.class));
 				backGround.addActor(backImage);
 				fillWithRandomGems();
 			}
@@ -178,6 +189,9 @@ public class Board extends Group {
 			boardState = BoardState.STATE_CHECK;
 			matchesDuringCurrentMove = 0;
 		}
+	}
+
+	public void update(final float delta) {
 
 		if (boardState == BoardState.STATE_CHECK) {
 			MatchResult result = matchFinder.markAllMatchingGems();
@@ -195,17 +209,17 @@ public class Board extends Group {
 				}
 				boardState = BoardState.STATE_FADING;
 			} else {
-				if( matchesDuringCurrentMove >= 8 ) {
+				if (matchesDuringCurrentMove >= 8) {
 					AnotherManager.soundPlayer.playGodlike();
 					sfx.playUnstoppable(effectGroup);
-				} else if (matchesDuringCurrentMove >= 6 ) {
+				} else if (matchesDuringCurrentMove >= 6) {
 					AnotherManager.soundPlayer.playUnstoppable();
 					sfx.playUnstoppable(effectGroup);
-				} else if (matchesDuringCurrentMove >= 4 ) {
+				} else if (matchesDuringCurrentMove >= 4) {
 					AnotherManager.soundPlayer.playImpressive();
 					sfx.playUnstoppable(effectGroup);
 				}
-					
+
 			}
 		}
 
@@ -228,24 +242,28 @@ public class Board extends Group {
 			gemRespawner.respawn(foreGround);
 			boardState = BoardState.STATE_MOVING;
 		} else if (!stillMovement && boardState == BoardState.STATE_SWAPPING) {
-			if (!matchFinder.hasMatches()) {
-				boardState = BoardState.STATE_MOVING;
-				swapController.swap(lastSwap, lastX, lastY);
+			if (!AnotherManager.DEBUGMODE) {
+				if (!matchFinder.hasMatches()) {
+					boardState = BoardState.STATE_MOVING;
+					swapController.swap(lastSwap, lastX, lastY);
+				}
 			}
 			boardState = BoardState.STATE_CHECK;
 		} else if (!stillMovement && boardState == BoardState.STATE_CHECK) {
 
 			if (enemy.getHealth() <= 0) {
-                effectGroup.setTouchable(Touchable.enabled);
+				effectGroup.setTouchable(Touchable.enabled);
 				final GUIWindow guiWindow = new GUIWindow(getStage());
-				guiWindow.createVictoryWindow(foreGround, backGround, effectGroup);
+				guiWindow.createVictoryWindow(foreGround, backGround,
+						effectGroup);
 				AnotherManager.soundPlayer.stopGameMusic();
 				AnotherManager.soundPlayer.playVictorySound();
 				boardState = BoardState.STATE_INACTIVE;
 			} else if (player.getHealth() <= 0) {
-                effectGroup.setTouchable(Touchable.enabled);
+				effectGroup.setTouchable(Touchable.enabled);
 				final GUIWindow guiWindow = new GUIWindow(getStage());
-				guiWindow.createDefeatWindow(foreGround, backGround, effectGroup);
+				guiWindow.createDefeatWindow(foreGround, backGround,
+						effectGroup);
 				AnotherManager.soundPlayer.stopGameMusic();
 				AnotherManager.soundPlayer.playLoseSound();
 				boardState = BoardState.STATE_INACTIVE;
@@ -261,5 +279,4 @@ public class Board extends Group {
 			boardState = BoardState.STATE_CHECK;
 		}
 	}
-
 }

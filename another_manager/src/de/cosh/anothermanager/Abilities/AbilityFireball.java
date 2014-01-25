@@ -13,10 +13,10 @@ import de.cosh.anothermanager.Characters.Debuff;
  */
 public class AbilityFireball extends BaseAbility {
 
-    public AbilityFireball() {
-        abilityImageLocation = "data/textures/abilityfireball.png";
-        abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
-    }
+	public AbilityFireball() {
+		abilityImageLocation = "data/textures/abilityfireball.png";
+		abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
+	}
 
 	@Override
 	public boolean fire(final BaseCharacter target) {
