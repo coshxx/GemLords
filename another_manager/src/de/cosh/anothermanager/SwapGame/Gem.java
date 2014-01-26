@@ -18,28 +18,7 @@ import de.cosh.anothermanager.AnotherManager;
  */
 public class Gem extends Image {
 
-
-    public enum GemType {
-		TYPE_BLUE("data/textures/ball_blue.png"),
-		TYPE_GREEN("data/textures/ball_green.png"),
-		TYPE_PURPLE("data/textures/ball_purple.png"),
-		TYPE_RED("data/textures/ball_red.png"),
-		TYPE_WHITE("data/textures/ball_white.png"),
-		TYPE_YELLOW("data/textures/ball_yellow.png"),
-		TYPE_NONE("");
-
-		private String texturePath;
-
-		GemType(final String texturePath) {
-			this.texturePath = texturePath;
-		}
-
-		public String getTexturePath() {
-			return texturePath;
-		}
-	}
-
-	public enum SpecialTypeHorizontal {
+	public enum GemTypeSpecialHorizontal {
 		TYPE_BLUE("data/textures/special_blueh.png"),
 		TYPE_GREEN("data/textures/special_greenh.png"),
 		TYPE_PURPLE("data/textures/special_purpleh.png"),
@@ -49,7 +28,7 @@ public class Gem extends Image {
 		TYPE_NONE("");
 		private String texturePath;
 
-		SpecialTypeHorizontal(final String texturePath) {
+		GemTypeSpecialHorizontal(final String texturePath) {
 			this.texturePath = texturePath;
 		}
 
@@ -58,7 +37,7 @@ public class Gem extends Image {
 		}
 	}
 
-	public enum SpecialTypeVertical {
+	public enum GemTypeSpecialVertical {
 		TYPE_BLUE("data/textures/special_bluev.png"),
 		TYPE_GREEN("data/textures/special_greenv.png"),
 		TYPE_PURPLE("data/textures/special_purplev.png"),
@@ -68,7 +47,7 @@ public class Gem extends Image {
 		TYPE_NONE("");
 		private String texturePath;
 
-		SpecialTypeVertical(final String texturePath) {
+		GemTypeSpecialVertical(final String texturePath) {
 			this.texturePath = texturePath;
 		}
 
@@ -77,13 +56,13 @@ public class Gem extends Image {
 		}
 	}
 
-	public enum SpecialSuperSpecial {
+	public enum GemTypeSuperSpecial {
 		TYPE_SPECIAL_5("data/textures/special_5.png"),
 		TYPE_NONE("");
 
 		private String texturePath;
 
-		SpecialSuperSpecial(final String texturePath) {
+		GemTypeSuperSpecial(final String texturePath) {
 			this.texturePath = texturePath;
 		}
 
@@ -102,9 +81,9 @@ public class Gem extends Image {
 
 	private final float GEM_SPEED = 150f;
 	private GemType gemType;
-	private SpecialTypeHorizontal specialTypeHorizontal;
-	private SpecialTypeVertical specialTypeVertical;
-	private SpecialSuperSpecial specialSuperSpecial;
+	private GemTypeSpecialHorizontal specialTypeHorizontal;
+	private GemTypeSpecialVertical specialTypeVertical;
+	private GemTypeSuperSpecial specialSuperSpecial;
 
 	private boolean isMarkedForSpecialConversion;
 	private boolean isMarkedForSuperSpecialConversion;
@@ -134,9 +113,9 @@ public class Gem extends Image {
 		this.isSpecialHorizontalGem = false;
 		this.checked = false;
         this.isDisabled = false;
-		specialTypeHorizontal = SpecialTypeHorizontal.TYPE_NONE;
-		specialTypeVertical = SpecialTypeVertical.TYPE_NONE;
-		specialSuperSpecial = SpecialSuperSpecial.TYPE_NONE;
+		specialTypeHorizontal = GemTypeSpecialHorizontal.TYPE_NONE;
+		specialTypeVertical = GemTypeSpecialVertical.TYPE_NONE;
+		specialSuperSpecial = GemTypeSuperSpecial.TYPE_NONE;
 	}
 
     public void disable() {
@@ -151,12 +130,12 @@ public class Gem extends Image {
 		if( isSuperSpecialGem )
 			return;
 		if (convertHorizontal) {
-			specialTypeHorizontal = SpecialTypeHorizontal.values()[gemType.ordinal()];
+			specialTypeHorizontal = GemTypeSpecialHorizontal.values()[gemType.ordinal()];
 			setDrawable(new TextureRegionDrawable(new TextureRegion(AnotherManager.assets.get(specialTypeHorizontal.getTexturePath(), Texture.class))));
 			isMarkedForSpecialConversion = false;
 			isSpecialHorizontalGem = true;
 		} else {
-			specialTypeVertical = SpecialTypeVertical.values()[gemType.ordinal()];
+			specialTypeVertical = GemTypeSpecialVertical.values()[gemType.ordinal()];
 			setDrawable(new TextureRegionDrawable(new TextureRegion(AnotherManager.assets.get(specialTypeVertical.getTexturePath(), Texture.class))));
 			isMarkedForSpecialConversion = false;
 			isSpecialVerticalGem = true;
@@ -226,9 +205,9 @@ public class Gem extends Image {
 
 	public boolean isTypeNone() {
 		return (gemType == GemType.TYPE_NONE &&
-				specialSuperSpecial == SpecialSuperSpecial.TYPE_NONE &&
-				specialTypeHorizontal == SpecialTypeHorizontal.TYPE_NONE &&
-				specialTypeVertical == SpecialTypeVertical.TYPE_NONE);
+				specialSuperSpecial == GemTypeSuperSpecial.TYPE_NONE &&
+				specialTypeHorizontal == GemTypeSpecialHorizontal.TYPE_NONE &&
+				specialTypeVertical == GemTypeSpecialVertical.TYPE_NONE);
 	}
 
 	public void markForSpecialConversion() {
@@ -254,9 +233,9 @@ public class Gem extends Image {
 
 	public void setToNone() {
 		gemType = GemType.TYPE_NONE;
-		specialSuperSpecial = SpecialSuperSpecial.TYPE_NONE;
-		specialTypeHorizontal = SpecialTypeHorizontal.TYPE_NONE;
-		specialTypeVertical = SpecialTypeVertical.TYPE_NONE;
+		specialSuperSpecial = GemTypeSuperSpecial.TYPE_NONE;
+		specialTypeHorizontal = GemTypeSpecialHorizontal.TYPE_NONE;
+		specialTypeVertical = GemTypeSpecialVertical.TYPE_NONE;
 
 	}
 
@@ -273,7 +252,7 @@ public class Gem extends Image {
 	}
 
 	public void convertToSuperSpecial() {
-		specialSuperSpecial = SpecialSuperSpecial.TYPE_SPECIAL_5;
+		specialSuperSpecial = GemTypeSuperSpecial.TYPE_SPECIAL_5;
 		setDrawable(new TextureRegionDrawable(new TextureRegion(AnotherManager.assets.get(specialSuperSpecial.getTexturePath(), Texture.class))));
 		isMarkedForSuperSpecialConversion = false;
 		isSuperSpecialGem = true;

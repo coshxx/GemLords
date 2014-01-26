@@ -1,18 +1,17 @@
 package de.cosh.anothermanager.Abilities;
 
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
-import de.cosh.anothermanager.Characters.Debuff;
 import de.cosh.anothermanager.SwapGame.Board;
 import de.cosh.anothermanager.SwapGame.Cell;
 import de.cosh.anothermanager.SwapGame.Gem;
-
-import java.util.Random;
 
 /**
  * Created by cosh on 16.01.14.

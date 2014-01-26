@@ -1,6 +1,5 @@
 package de.cosh.anothermanager.SwapGame;
 
-import de.cosh.anothermanager.SwapGame.Gem.GemType;
 
 /**
  * Created by cosh on 13.01.14.
@@ -33,7 +32,8 @@ public class MatchFinder {
 
 	private int howManyMatchesRight(final int x, final int y) {
 		int count = 0;
-		Gem.GemType typeFound = Gem.GemType.TYPE_NONE;
+		GemType typeFound = GemType.TYPE_NONE;
+		
 		for (int d = x; d < Board.MAX_SIZE_X; d++) {
 			if (d + 1 >= Board.MAX_SIZE_X) {
 				break;
@@ -64,7 +64,7 @@ public class MatchFinder {
 
 	private int howManyMatchesTop(final int x, final int y) {
 		int count = 0;
-		Gem.GemType typeFound = Gem.GemType.TYPE_NONE;
+		GemType typeFound = GemType.TYPE_NONE;
 		for (int d = y; d < Board.MAX_SIZE_Y; d++) {
 			if (d + 1 >= Board.MAX_SIZE_Y) {
 				break;

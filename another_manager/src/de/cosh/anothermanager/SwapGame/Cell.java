@@ -1,7 +1,6 @@
 package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import de.cosh.anothermanager.AnotherManager;
