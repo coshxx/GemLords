@@ -17,67 +17,12 @@ import de.cosh.anothermanager.AnotherManager;
  * Created by cosh on 13.01.14.
  */
 public class Gem extends Image {
-
-	public enum GemTypeSpecialHorizontal {
-		TYPE_BLUE("data/textures/special_blueh.png"),
-		TYPE_GREEN("data/textures/special_greenh.png"),
-		TYPE_PURPLE("data/textures/special_purpleh.png"),
-		TYPE_RED("data/textures/special_redh.png"),
-		TYPE_WHITE("data/textures/special_whiteh.png"),
-		TYPE_YELLOW("data/textures/special_yellowh.png"),
-		TYPE_NONE("");
-		private String texturePath;
-
-		GemTypeSpecialHorizontal(final String texturePath) {
-			this.texturePath = texturePath;
-		}
-
-		public String getTexturePath() {
-			return texturePath;
-		}
-	}
-
-	public enum GemTypeSpecialVertical {
-		TYPE_BLUE("data/textures/special_bluev.png"),
-		TYPE_GREEN("data/textures/special_greenv.png"),
-		TYPE_PURPLE("data/textures/special_purplev.png"),
-		TYPE_RED("data/textures/special_redv.png"),
-		TYPE_WHITE("data/textures/special_whitev.png"),
-		TYPE_YELLOW("data/textures/special_yellowv.png"),
-		TYPE_NONE("");
-		private String texturePath;
-
-		GemTypeSpecialVertical(final String texturePath) {
-			this.texturePath = texturePath;
-		}
-
-		public String getTexturePath() {
-			return texturePath;
-		}
-	}
-
-	public enum GemTypeSuperSpecial {
-		TYPE_SPECIAL_5("data/textures/special_5.png"),
-		TYPE_NONE("");
-
-		private String texturePath;
-
-		GemTypeSuperSpecial(final String texturePath) {
-			this.texturePath = texturePath;
-		}
-
-		public String getTexturePath() {
-			return texturePath;
-		}
-	}
-
+	
 	public enum MoveDirection {
 		DIRECTION_HORIZONTAL,
 		DIRECTION_VERTICAL,
 		DIRECTION_NONE
-	}
-
-	;
+	};
 
 	private final float GEM_SPEED = 150f;
 	private GemType gemType;
@@ -116,6 +61,11 @@ public class Gem extends Image {
 		specialTypeHorizontal = GemTypeSpecialHorizontal.TYPE_NONE;
 		specialTypeVertical = GemTypeSpecialVertical.TYPE_NONE;
 		specialSuperSpecial = GemTypeSuperSpecial.TYPE_NONE;
+	}
+
+	@Override
+	public void act(float delta) {
+		
 	}
 
     public void disable() {
