@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -51,7 +52,6 @@ public class GameScreen implements Screen, GestureListener {
 
 	@Override
 	public void hide() {
-		// swapGame.dispose();
 		stage.dispose();
 	}
 
@@ -91,25 +91,10 @@ public class GameScreen implements Screen, GestureListener {
 		stage.act(delta);
 		stage.draw();
 
-		/*
-		final SpriteBatch batch = stage.getSpriteBatch();
-		batch.begin();
-        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 247));
-        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH ,
-                AnotherManager.VIRTUAL_HEIGHT - 720));
-        final Rectangle scissor = new Rectangle();
-        final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
-        ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
-                batch.getTransformMatrix(), clipBounds, scissor);
-        //batch.flush();
-        ScissorStack.pushScissors(scissor);
-        swapGame.drawGems(batch, 1);
-        //super.draw(batch, parentAlpha);
-        //batch.flush();
-        ScissorStack.popScissors();
-        batch.end();
-        */
-        stage.draw();
+        // TODO: crap
+        if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE ) ) {
+            swapGame.pressedBack();
+        }
 	}
 
 	@Override
@@ -131,11 +116,11 @@ public class GameScreen implements Screen, GestureListener {
 		input.addProcessor(stage);
 		input.addProcessor(new GestureDetector(this));
 		Gdx.input.setInputProcessor(input);
-		stage.addActor(swapGame);
 		AnotherManager.soundPlayer.playGameMusic();
 		swapGame.init();
 		swapGame.addAction(Actions.alpha(0.0f));
-		swapGame.addAction(Actions.fadeIn(0.5f));
+		swapGame.addAction(Actions.fadeIn(1));
+        stage.addActor(swapGame);
 	}
 
 	@Override

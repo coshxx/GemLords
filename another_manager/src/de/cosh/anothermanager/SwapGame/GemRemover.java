@@ -94,6 +94,10 @@ public class GemRemover {
 		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
 			for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
 				final Gem rem = cells[x][y].getGem();
+                if( rem.isDisabled() ) {
+                    rem.getActions().clear();
+                    continue;
+                }
 				if (rem.isMarkedForRemoval()) {
 					final StarEffect effect = new StarEffect(myGame);
 					effect.spawnStars(rem.getX(), rem.getY(), effectGroup);

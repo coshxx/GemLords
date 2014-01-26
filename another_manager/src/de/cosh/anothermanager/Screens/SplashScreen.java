@@ -155,7 +155,7 @@ public class SplashScreen implements Screen {
 		if (AnotherManager.assets.update()) {
 			AnotherManager.soundPlayer.touchSounds();
 			AnotherManager.soundPlayer.PlayBlub2();
-			myGame.setScreen(myGame.mapTraverseScreen);
+			myGame.setScreen(myGame.menuScreen);
 		}
 		final float left = Gdx.graphics.getWidth() * 0.1f;
 		final float bot = Gdx.graphics.getHeight() * 0.5f;

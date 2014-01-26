@@ -95,7 +95,7 @@ public class GUIWindow {
 		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
 			@Override
 			public void run() {
-				myGame.setScreen(myGame.gameScreen);
+		myGame.setScreen(myGame.gameScreen);
 			}
 		})));
 	}

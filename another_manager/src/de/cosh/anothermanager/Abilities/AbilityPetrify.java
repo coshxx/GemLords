@@ -36,10 +36,13 @@ public class AbilityPetrify extends BaseAbility {
             int MAX_Y = Board.MAX_SIZE_Y;
             Random r = new Random();
 
-            int x = r.nextInt(MAX_X);
-            int y = r.nextInt(MAX_Y);
+            Gem gem;
+            do {
+                int x = r.nextInt(MAX_X);
+                int y = r.nextInt(MAX_Y);
+                gem = cells[x][y].getGem();
+            } while (gem.isDisabled() || gem.isTypeNone());
 
-            Gem gem = cells[x][y].getGem();
             gem.disable();
             gem.addAction(Actions.parallel(
                     Actions.moveBy(gem.getWidth()/2, gem.getHeight()/2, 0.5f),

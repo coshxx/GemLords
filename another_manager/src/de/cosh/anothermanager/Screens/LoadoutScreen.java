@@ -28,7 +28,7 @@ public class LoadoutScreen implements Screen {
 
 	@Override
 	public void hide() {
-
+        stage.dispose();
 	}
 
 	@Override
@@ -63,9 +63,6 @@ public class LoadoutScreen implements Screen {
 		background.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
 		stage.addActor(background);
 
-		stage.addAction(Actions.alpha(0.0f));
-		stage.addAction(Actions.fadeIn(1.0f));
-
 		AnotherManager.getInstance();
 		AnotherManager.soundPlayer.playLoadoutMusic();
 
@@ -78,40 +75,9 @@ public class LoadoutScreen implements Screen {
 		AnotherManager.getInstance().player.getInventory().addToLoadoutScreen(stage);
 		AnotherManager.getInstance().player.getInventory().resortItems();
 
-		/*
-        final ActionBar actionBar = new ActionBar(ActionBar.ActionBarMode.LOADOUT);
-        actionBar.addToStage(stage);
-
-        int counter = 0;
-        Array<BaseItem> items = AnotherManager.getInstance().player.getInventoryItems();
-        if( items.size > 0 ) {
-        for( int x = 0; x < 4; x++ ) {
-            for( int y = 0; y < 6; y++ ) {
-                if( counter >= items.size )
-                    break;
-                final BaseItem i = items.get(counter);
-                if( i.isAddedToActionBar() )
-                    continue;
-                i.setPosition( 70 + ( (x * i.getWidth() ) + ( x * 100 )), (AnotherManager.VIRTUAL_HEIGHT-80) - ( y * 140 ) );
-                i.addListener(new ClickListener() {
-                    public void clicked(InputEvent e, float x, float y) {
-                        if (i.isSelected() ) {
-                            i.unselect();
-                            return;
-                        }
-                        i.selected();
-                        Array<BaseItem> items = AnotherManager.getInstance().player.getInventoryItems();
-                        for( BaseItem otherItem : items )
-                            if( otherItem != i )
-                                otherItem.unselect();
-                    }
-                });
-                stage.addActor(i);
-                counter++;
-            }
-        }
-        }
-		 */
 		Gdx.input.setInputProcessor(stage);
+
+        stage.addAction(Actions.alpha(0.0f));
+        stage.addAction(Actions.fadeIn(1.0f));
 	}
 }

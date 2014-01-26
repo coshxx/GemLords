@@ -19,6 +19,9 @@ public class SwapController {
 		if (firstGem.isTypeNone() || secondGem.isTypeNone()) {
 			return;
 		}
+        if( firstGem.isDisabled() || secondGem.isDisabled()) {
+            return;
+        }
 
 		firstGem.moveBy(x, y);
 		secondGem.moveBy(-x, -y);

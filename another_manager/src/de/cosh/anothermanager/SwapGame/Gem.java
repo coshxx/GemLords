@@ -183,6 +183,10 @@ public class Gem extends Image {
 	}
 
 	public boolean equals(final Gem b) {
+        if( isDisabled || b.isDisabled() )
+            return false;
+        if( isTypeNone() || b.isTypeNone() )
+            return false;
 		if( isSuperSpecialGem() )
 			return true;
 		if( b.isSuperSpecialGem() )

@@ -35,7 +35,7 @@ public class MapTraverseScreen implements Screen {
 	public MapTraverseScreen(final AnotherManager anotherManager) {
 		myGame = anotherManager;
 		json = new Json();
-		stage = new Stage();
+
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class MapTraverseScreen implements Screen {
 
 	@Override
 	public void show() {
-		stage.clear();
+        stage = new Stage();
 		fadeMusic = false;
 		enemyWindowOpen = false;
 
@@ -123,14 +123,12 @@ public class MapTraverseScreen implements Screen {
 
 		mapImage = new Image(AnotherManager.assets.get("data/textures/map.png", Texture.class));
 		mapImage.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
 		stage.addActor(mapImage);
-		table.debug();
 
 		initEnemyLocations();
+
 		GUIButton guiButton = new GUIButton();
 		guiButton.createLoadoutButton(table, AnotherManager.VIRTUAL_WIDTH-100, 0);
-
 		AnotherManager.soundPlayer.playMapMusic();
 
 		Gdx.input.setInputProcessor(stage);

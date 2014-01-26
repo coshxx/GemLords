@@ -38,7 +38,8 @@ public class HealthBar extends Actor {
 
 	@Override
 	public void draw(final SpriteBatch batch, final float parentAlpha) {
-		empty.draw(batch, left, bot, width, height);
+        super.draw(batch, parentAlpha);
+        empty.draw(batch, left, bot, width, height);
 		if (healthpoints > 0) {
 			full.draw(batch, left, bot, done * width, height);
 		}

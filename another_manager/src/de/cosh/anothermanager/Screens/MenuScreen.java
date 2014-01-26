@@ -28,7 +28,7 @@ public class MenuScreen implements Screen {
 
 	public MenuScreen(final AnotherManager myGame) {
 		this.myGame = myGame;
-		this.stage = new Stage();
+
 		table = new Table();
 		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
 		newGameButton = new TextButton("New game", skin);
@@ -56,7 +56,6 @@ public class MenuScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();
-
 		//Table.drawDebug(stage);
 	}
 
@@ -72,6 +71,7 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void show() {
+        this.stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		table.setFillParent(true);
 		//table.debug();
