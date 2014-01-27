@@ -39,6 +39,8 @@ public class AbilityPetrify extends BaseAbility {
             do {
                 int x = r.nextInt(MAX_X);
                 int y = r.nextInt(MAX_Y);
+                x = 4;
+                y = 4;
                 gem = cells[x][y].getGem();
             } while (gem.isDisabled() || gem.isTypeNone());
 

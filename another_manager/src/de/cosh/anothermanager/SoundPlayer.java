@@ -1,5 +1,6 @@
 package de.cosh.anothermanager;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
@@ -34,7 +35,6 @@ public class SoundPlayer {
 	private Sound woosh;
 
 	public SoundPlayer(final AnotherManager game) {
-
 	}
 
 	public void fadeOutMapMusic(final float delta) {
@@ -139,12 +139,12 @@ public class SoundPlayer {
 	}
 
 	public void playLoadoutMusic() {
-		loadoutMusic.setVolume(0.2f);
-		loadoutMusic.play();
+//		loadoutMusic.setVolume(0.2f);
+//		loadoutMusic.play();
 	}
 
 	public void playGameMusic() {
-		gameMusic0.play();
+//		gameMusic0.play();
 	}
 
 	public void stopGameMusic() {

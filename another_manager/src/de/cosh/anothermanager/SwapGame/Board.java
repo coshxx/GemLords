@@ -222,7 +222,6 @@ public class Board extends Group {
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
                 enemy.damage(result.howMany);
-                System.out.println("Enemy damage: " + result.howMany);
                 if (result.specialExplo) {
                     AnotherManager.soundPlayer.playWoosh();
                 }

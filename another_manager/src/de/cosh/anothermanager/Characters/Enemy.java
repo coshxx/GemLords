@@ -78,7 +78,7 @@ public class Enemy extends BaseCharacter {
 */
         final AbilityPetrify abilityPetrify = new AbilityPetrify();
         abilityPetrify.setAbilityDamage(0);
-        abilityPetrify.setCooldown(1);
+        abilityPetrify.setCooldown(5);
 /*
 		abilities.add(abilityAttack);
 		abilities.add(abilityFireball);

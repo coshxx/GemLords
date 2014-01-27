@@ -128,11 +128,12 @@ public class Gem extends Image {
 	}
 
 	public void fallBy(final int x, final int y) {
-		final float fallTo = getY() + y * Board.CELL_SIZE;
-		addAction(Actions.sequence(
-				new AccelAction(fallTo, GEM_SPEED),
+		final float fallGoal = y * Board.CELL_SIZE;
+		addAction(Actions.after(
+				Actions.sequence(
+				new AccelAction(fallGoal, GEM_SPEED),
 				Actions.moveBy(0, 4f, 0.04f),
-				Actions.moveBy(0, -4f, 0.04f)));
+				Actions.moveBy(0, -4f, 0.04f))));
 	}
 
 	public boolean isMarkedForRemoval() {
