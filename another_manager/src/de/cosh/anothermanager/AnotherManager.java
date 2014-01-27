@@ -30,7 +30,6 @@ public class AnotherManager extends Game {
 	public Enemy enemy;
 	public EnemyManager enemyManager;
 	public GameScreen gameScreen;
-	public GemFactory gemFactory;
 	public LootScreen lootScreen;
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
@@ -60,7 +59,6 @@ public class AnotherManager extends Game {
 		gameScreen = new GameScreen(this);
 		lootScreen = new LootScreen(this, enemyManager);
 		mapTraverseScreen = new MapTraverseScreen(this);
-		gemFactory = new GemFactory(this);
 		bitmapFont = new BitmapFont();
 		setScreen(splashScreen);
 	}

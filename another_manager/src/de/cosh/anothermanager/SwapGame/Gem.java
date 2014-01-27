@@ -65,7 +65,7 @@ public class Gem extends Image {
 
 	@Override
 	public void act(float delta) {
-		
+		super.act(delta);
 	}
 
     public void disable() {
@@ -94,21 +94,23 @@ public class Gem extends Image {
 
 	@Override
 	public void draw(final SpriteBatch batch, final float parentAlpha) {
-		Stage stage = getStage();
-		AnotherManager myGame = AnotherManager.getInstance();
+		super.draw(batch, parentAlpha);
 		
-        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 247));
-        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH ,
-                AnotherManager.VIRTUAL_HEIGHT - 720));
-        final Rectangle scissor = new Rectangle();
-        final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
-        ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
-                batch.getTransformMatrix(), clipBounds, scissor);
-        batch.flush();
-        ScissorStack.pushScissors(scissor);
-        super.draw(batch, parentAlpha);
-        batch.flush();
-        ScissorStack.popScissors();
+//		Stage stage = getStage();
+//		AnotherManager myGame = AnotherManager.getInstance();
+//		
+//        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 247));
+//        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH ,
+//                AnotherManager.VIRTUAL_HEIGHT - 720));
+//        final Rectangle scissor = new Rectangle();
+//        final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
+//        ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
+//                batch.getTransformMatrix(), clipBounds, scissor);
+//        batch.flush();
+//        ScissorStack.pushScissors(scissor);
+//        super.draw(batch, parentAlpha);
+//        batch.flush();
+//        ScissorStack.popScissors();
 	}
 
 	public boolean equals(final Gem b) {

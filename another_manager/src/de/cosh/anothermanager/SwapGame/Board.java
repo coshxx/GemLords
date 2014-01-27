@@ -41,8 +41,7 @@ public class Board extends Group {
     private Enemy enemy;
     private final Group foreGround;
     private final GemRemover gemRemover;
-    private final GemRespawner gemRespawner;
-    private final GravityApplier gravityApplier;
+    private final GemHandler gemHandler;
     private boolean initialized;
     private boolean justSwapped;
     private GridPoint2 lastSwap;
@@ -62,10 +61,9 @@ public class Board extends Group {
         cells = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
         swapController = new SwapController(cells);
         matchFinder = new MatchFinder(cells);
-        gravityApplier = new GravityApplier(cells);
         gemRemover = new GemRemover(cells);
+        gemHandler = new GemHandler(cells);
         random = new Random();
-        gemRespawner = new GemRespawner(cells, random, myGame.gemFactory);
         backGround = new Group();
         backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH,
                 AnotherManager.VIRTUAL_HEIGHT);
@@ -140,7 +138,7 @@ public class Board extends Group {
                                 + (y * CELL_SIZE), 0.50f),
                         Actions.moveBy(10f, 0f, 0.1f),
                         Actions.moveBy(-10f, 0f, 0.1f)));
-                cells[x][y].putGem(myGame.gemFactory.newRandomGem());
+                cells[x][y].putGem(gemHandler.getGemFactory().newRandomGem());
                 cells[x][y].getGem().addAction(
                         Actions.sequence(Actions.moveTo(CELL_PAD_X
                                 + (x * CELL_SIZE),
@@ -268,8 +266,7 @@ public class Board extends Group {
 
         if (!stillMovement && boardState == BoardState.STATE_FADING) {
             gemRemover.removeFadedGems(myGame, effectGroup);
-            gravityApplier.applyGravity();
-            gemRespawner.respawn(foreGround);
+            gemHandler.respawnAndApplyGravity(foreGround);
             boardState = BoardState.STATE_MOVING;
         } else if (!stillMovement && boardState == BoardState.STATE_SWAPPING) {
             if (!AnotherManager.DEBUGMODE) {
