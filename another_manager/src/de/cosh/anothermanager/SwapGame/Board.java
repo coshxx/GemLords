@@ -1,7 +1,5 @@
 package de.cosh.anothermanager.SwapGame;
 
-import java.util.Random;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
@@ -50,7 +48,6 @@ public class Board extends Group {
     private final MatchFinder matchFinder;
     private final AnotherManager myGame;
     private Player player;
-    private final Random random;
     private final SwapController swapController;
     private final SpecialEffects sfx;
 
@@ -63,7 +60,6 @@ public class Board extends Group {
         matchFinder = new MatchFinder(cells);
         gemRemover = new GemRemover(cells);
         gemHandler = new GemHandler(cells);
-        random = new Random();
         backGround = new Group();
         backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH,
                 AnotherManager.VIRTUAL_HEIGHT);

@@ -3,7 +3,6 @@ package de.cosh.anothermanager.SwapGame;
 import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 
 /**
  * Created by cosh on 13.01.14.
@@ -28,7 +27,6 @@ public class AccelAction extends Action {
 		float translate = -(speed * delta);
 		actor.translate(0, translate);
 		totalTranslated += translate;
-		final float current = actor.getY();
 		if (totalTranslated <= translateGoal) {
 			actor.translate(0, (translateGoal - totalTranslated));
 			return true;

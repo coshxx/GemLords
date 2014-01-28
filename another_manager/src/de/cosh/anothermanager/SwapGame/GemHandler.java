@@ -23,39 +23,43 @@ public class GemHandler {
 	}
 
 	public void respawn(final Group foreGround) {
-		// int counter;
-		// boolean disabledFound = false;
-		// for (int x = 0; x < Board.MAX_SIZE_X; x++) {
-		// counter = 0;
-		// disabledFound = false;
-		// for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
-		// final Gem gem = cells[x][y].getGem();
-		// if (gem.isTypeNone()) {
-		// for (int d = y; d < Board.MAX_SIZE_Y; d++) {
-		// Gem disabledOne = cells[x][d].getGem();
-		// if (disabledOne.isDisabled())
-		// disabledFound = true;
-		// }
-		//
-		// if (disabledFound)
-		// break;
-		// final Gem newGem = gemFactory.newRandomGem();
-		// newGem.setPosition(Board.CELL_PAD_X + (x * Board.CELL_SIZE),
-		// Board.CELL_PAD_Y
-		// + ((counter + Board.MAX_SIZE_Y) * Board.CELL_SIZE));
-		// newGem.fallBy(0, -(counter + (Board.MAX_SIZE_Y - y)));
-		// ++counter;
-		// cells[x][y].setGem(newGem);
-		// foreGround.addActor(newGem);
-		// }
-		// }
-		// }
+		int count;
+		boolean cancel;
+		boolean cenceledOnce = false;
+		for( int x = 0; x < Board.MAX_SIZE_X; x++ ) {
+			count = 0;
+			cancel = false;
+			for( int y = 0; y < Board.MAX_SIZE_Y; y++) {
+				Gem gem = cells[x][y].getGem();
+				if( gem.isTypeNone() ) {
+					for( int d = y; d < Board.MAX_SIZE_Y; d++ ) {
+						Gem test = cells[x][d].getGem();
+						if( test.isDisabled() ) {
+							cancel = true;
+						}
+					}
+					if( cancel ) {
+						cenceledOnce = true;
+						break;
+					}
+					Gem newGem = gemFactory.newRandomGem();
+					newGem.setPosition(Board.CELL_PAD_X + x * Board.CELL_SIZE, Board.CELL_PAD_Y + Board.CELL_SIZE * (count+Board.MAX_SIZE_Y));
+					newGem.fallBy(0, -(Board.MAX_SIZE_Y-(y-count)));
+					cells[x][y].setGem(newGem);
+					count++;
+					foreGround.addActor(newGem);
+				}
+			}
+		}
+		if( cenceledOnce )
+			respawnAndApplyGravity(foreGround);
 	}
 
 	public void respawnAndApplyGravity(Group foreGround) {
 		fall();
 		if (shift())
-			respawnAndApplyGravity(foreGround);
+			respawnAndApplyGravity(foreGround); // loop until no more shifts
+		respawn(foreGround);
 		delay = 0f;
 	}
 
@@ -68,36 +72,35 @@ public class GemHandler {
 				if (gem.isDisabled()) {
 					if (y - 1 < 0)
 						continue;
-					if (y + 1 > )
 					if (cells[x][y - 1].getGem().isTypeNone()) {
-						if (lastShiftRight) {
+						if (x - 1 < 0) {
 							lastShiftRight = false;
-							if (!cells[x - 1][y].getGem().isTypeNone()) {
-								fall = cells[x - 1][y].getGem();
-								fall.addAction(Actions.after(Actions.sequence(
-										Actions.delay(delay), Actions.moveBy(
-												Board.CELL_SIZE,
-												-Board.CELL_SIZE, 0.15f))));
-								Gem temp = cells[x][y - 1].getGem();
-								cells[x][y - 1].setGem(fall);
-								cells[x - 1][y].setGem(temp);
-								delay += delayDelta;
-								hadToShift = true;
-								delay = 0.25f;
-							}
+						}
+						if (x + 1 >= Board.MAX_SIZE_X) {
+							lastShiftRight = true;
+						}
+						if (lastShiftRight && !cells[x - 1][y].getGem().isTypeNone() && !cells[x-1][y].getGem().isDisabled()) {
+							lastShiftRight = false;
+							fall = cells[x - 1][y].getGem();
+							fall.addAction(Actions.after(Actions.sequence(Actions.delay(delay),
+									Actions.moveBy(Board.CELL_SIZE, -Board.CELL_SIZE, 0.15f))));
+							Gem temp = cells[x][y - 1].getGem();
+							cells[x][y - 1].setGem(fall);
+							cells[x - 1][y].setGem(temp);
+							delay += delayDelta;
+							hadToShift = true;
+							delay = 0f;
 						} else {
 							lastShiftRight = true;
-							if (!cells[x + 1][y].getGem().isTypeNone()) {
+							if (!cells[x + 1][y].getGem().isTypeNone() && !cells[x+1][y].getGem().isDisabled()) {
 								fall = cells[x + 1][y].getGem();
-								fall.addAction(Actions.after(Actions.sequence(
-										Actions.delay(delay), Actions.moveBy(
-												-Board.CELL_SIZE,
-												-Board.CELL_SIZE, 0.15f))));
+								fall.addAction(Actions.after(Actions.sequence(Actions.delay(delay),
+										Actions.moveBy(-Board.CELL_SIZE, -Board.CELL_SIZE, 0.15f))));
 								Gem temp = cells[x][y - 1].getGem();
 								cells[x][y - 1].setGem(fall);
 								cells[x + 1][y].setGem(temp);
 								hadToShift = true;
-								delay = 0.25f;
+								delay = 0f;
 							}
 						}
 					}

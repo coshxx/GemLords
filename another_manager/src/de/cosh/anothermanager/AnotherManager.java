@@ -15,7 +15,6 @@ import de.cosh.anothermanager.Screens.LootScreen;
 import de.cosh.anothermanager.Screens.MapTraverseScreen;
 import de.cosh.anothermanager.Screens.MenuScreen;
 import de.cosh.anothermanager.Screens.SplashScreen;
-import de.cosh.anothermanager.SwapGame.GemFactory;
 
 
 public class AnotherManager extends Game {
