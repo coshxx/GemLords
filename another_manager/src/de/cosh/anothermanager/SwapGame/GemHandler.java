@@ -56,11 +56,13 @@ public class GemHandler {
 	}
 
 	public void respawnAndApplyGravity(Group foreGround) {
+		/*
 		fall();
 		if (shift())
 			respawnAndApplyGravity(foreGround); // loop until no more shifts
 		respawn(foreGround);
 		delay = 0f;
+		*/
 	}
 
 	private boolean shift() {

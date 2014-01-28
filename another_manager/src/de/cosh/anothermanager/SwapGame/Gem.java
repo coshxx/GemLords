@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -21,6 +22,9 @@ public class Gem extends Image {
 	};
 
 	private final float GEM_SPEED = 150f;
+	private final float SWAP_SPEED = 0.20f;
+	private final float ACCEL_FACTOR = 1000f;
+	
 	private GemType gemType;
 	private GemTypeSpecialHorizontal specialTypeHorizontal;
 	private GemTypeSpecialVertical specialTypeVertical;
@@ -34,18 +38,23 @@ public class Gem extends Image {
 	private boolean isSuperSpecialGem;
 	private boolean checked;
     private boolean isDisabled;
+	private boolean markedForRemoval;
 	private MoveDirection moveDirection;
 
-	private boolean markedForRemoval;
+	private int cellX, cellY;
+	private Cell[][] cells;
+	private boolean fallOne;
+	private float totalTranslated;
+	private float speed;
+	
+	private BitmapFont bmf;
 
-	private final float SWAP_SPEED = 0.20f;
-
-
-	public Gem(final AnotherManager myGame, final GemType g) {
+	public Gem(GemType g) {
 		super(AnotherManager.assets.get(g.getTexturePath(), Texture.class));
 		super.setWidth(80);
 		super.setHeight(80);
 		this.gemType = g;
+		this.speed = GEM_SPEED;
 		this.isMarkedForSpecialConversion = false;
 		this.isMarkedForSuperSpecialConversion = false;
 		this.markedForRemoval = false;
@@ -54,14 +63,44 @@ public class Gem extends Image {
 		this.isSpecialHorizontalGem = false;
 		this.checked = false;
         this.isDisabled = false;
+        this.fallOne = false;
+        this.totalTranslated = 0f;
 		specialTypeHorizontal = GemTypeSpecialHorizontal.TYPE_NONE;
 		specialTypeVertical = GemTypeSpecialVertical.TYPE_NONE;
 		specialSuperSpecial = GemTypeSuperSpecial.TYPE_NONE;
+		cells = AnotherManager.getInstance().gameScreen.getBoard().getCells();
+		bmf = new BitmapFont();
 	}
 
 	@Override
 	public void act(float delta) {
 		super.act(delta);
+
+		if( fallOne ) {
+			translate(0, -(speed * delta));
+			totalTranslated += speed * delta;
+			speed += delta * ACCEL_FACTOR;
+			if( totalTranslated >= 80f ) {
+				translate(0, totalTranslated-80f);
+				totalTranslated = 0f;
+				fallOne = false;
+				if( !cells[cellX][cellY-1].getGem().isTypeNone() )
+					speed = 0f;
+			}
+			return;
+		}
+		if( cellY - 1 < 0 )
+			return;
+		
+		if( cells[cellX][cellY-1].getGem().isTypeNone() ) {
+			fallOne = true;
+			Cell swapTo = cells[cellX][cellY-1];
+			Cell swapFrom = cells[cellX][cellY];
+			
+			Gem temp = swapTo.getGem();
+			swapTo.setGem(this);
+			swapFrom.setGem(temp);
+		}
 	}
 
     public void disable() {
@@ -89,8 +128,9 @@ public class Gem extends Image {
 	}
 
 	@Override
-	public void draw(final SpriteBatch batch, final float parentAlpha) {
+	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		bmf.draw(batch, cellX + ", " + cellY, getX(), getY());
 		
 //		Stage stage = getStage();
 //		AnotherManager myGame = AnotherManager.getInstance();
@@ -225,5 +265,11 @@ public class Gem extends Image {
 
 	public GemType getGemType() {
 		return gemType;
+	}
+
+	public void setCell(int cellX, int cellY) {
+		this.cellX = cellX;
+		this.cellY = cellY;
+				
 	}
 }

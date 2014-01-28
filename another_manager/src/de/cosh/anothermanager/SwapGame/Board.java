@@ -124,7 +124,7 @@ public class Board extends Group {
     private void fillWithRandomGems() {
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
-                cells[x][y] = new Cell(myGame);
+                cells[x][y] = new Cell(myGame, x, y);
                 cells[x][y].setColor(1f, 1f, 1f, 0.35f);
                 cells[x][y].setBounds(CELL_PAD_X + (x * CELL_SIZE)
                         + AnotherManager.VIRTUAL_WIDTH, CELL_PAD_Y
