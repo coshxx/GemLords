@@ -12,10 +12,12 @@ public class GemRemover {
 	private final Cell[][] cells;
 	private final float FADE_TIME = 0.25f;
 	private final MatchResult result;
+	private final RespawnRequest respawnRequest;
 
-	public GemRemover(final Cell[][] cells) {
+	public GemRemover(final Cell[][] cells, RespawnRequest respawnRequest) {
 		this.cells = cells;
 		this.result = new MatchResult();
+		this.respawnRequest = respawnRequest;
 	}
 
 	public MatchResult fadeMarkedGems(final Group effectGroup) {
@@ -86,6 +88,7 @@ public class GemRemover {
 				result.howMany++;
 				rem.addAction(Actions.parallel(Actions.scaleTo(0.0f, 0.0f, FADE_TIME),
 						Actions.moveBy(rem.getWidth() / 2, rem.getHeight() / 2, FADE_TIME)));
+				
 			}
 		}
 	}
@@ -104,6 +107,7 @@ public class GemRemover {
 					rem.remove();
 					rem.unmarkRemoval();
 					rem.setToNone();
+					respawnRequest.addOne(x);
 				}
 			}
 		}

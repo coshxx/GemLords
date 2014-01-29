@@ -10,12 +10,15 @@ public class GemHandler {
 	private Cell[][] cells;
 	private float delayDelta, delay;
 	private boolean lastShiftRight;
+	private final RespawnRequest respawnRequest;
 
-	public GemHandler(Cell[][] cells) {
+	public GemHandler(Cell[][] cells, RespawnRequest respawnRequest) {
 		gemFactory = new GemFactory(AnotherManager.getInstance());
 		this.cells = cells;
+		this.respawnRequest = respawnRequest;
 		lastShiftRight = false;
 		delay = 0f;
+		
 	}
 
 	public GemFactory getGemFactory() {
@@ -24,15 +27,16 @@ public class GemHandler {
 
 	public void respawn(final Group foreGround) {
 		for( int x = 0; x < Board.MAX_SIZE_X; x++ ) {
-			Gem topGem = cells[x][Board.MAX_SIZE_Y-1].getGem();
-			if( topGem.isTypeNone() ) {
-				Gem newOne = gemFactory.newRandomGem();
-				newOne.setBounds(Board.CELL_PAD_X + x*Board.CELL_SIZE, Board.CELL_PAD_Y + Board.MAX_SIZE_Y*Board.CELL_SIZE, 80, 80);
-				cells[x][Board.MAX_SIZE_Y-1].setGem(newOne);
-				newOne.setFalling(true);
-				foreGround.addActor(newOne);
+			int numSpawns = respawnRequest.howManyForCol(x);
+			for( int i = 0; i < numSpawns; i++ ) {
+				Gem newGem = gemFactory.newRandomGem();
+				newGem.setPosition(Board.CELL_PAD_X + Board.CELL_SIZE * x, Board.CELL_PAD_Y + Board.CELL_SIZE * (Board.MAX_SIZE_Y + i));
+				foreGround.addActor(newGem);
+				newGem.setFalling(true);
+				newGem.setCell(x, Board.MAX_SIZE_Y);
 			}
 		}
+		respawnRequest.clear();
 	}
 
 	public void respawnAndApplyGravity(Group foreGround) {
@@ -44,7 +48,7 @@ public class GemHandler {
 		delay = 0f;
 		*/
 		
-		respawn(foreGround);
+		//respawn(foreGround);
 	}
 
 	private boolean shift() {

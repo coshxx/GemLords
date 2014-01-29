@@ -32,4 +32,5 @@ public class Cell extends Image {
 		occupant = gem;
 		gem.setCell(cellX, cellY);
 	}
+	
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.SwapGame.Board.BoardState;
 
 /**
  * Created by cosh on 13.01.14.
@@ -41,7 +42,7 @@ public class Gem extends Image {
 	private boolean markedForRemoval;
 	private MoveDirection moveDirection;
 
-	private int cellX, cellY;
+	private int cellX, cellY, destCellX, destCellY;
 	private Cell[][] cells;
 	private boolean fallOne;
 	private float totalTranslated;
@@ -84,6 +85,78 @@ public class Gem extends Image {
 	public void act(float delta) {
 		super.act(delta);
 		
+		/*
+		if( !(AnotherManager.getInstance().gameScreen.getBoard().getBoardState() == BoardState.STATE_CHECK) )
+			return;
+		*/
+		
+		// where am I
+		// what is below me
+		// nothig below me -> fall
+		// easy, right?
+		// no
+		
+		
+		
+		
+		if( fallOne ) {
+			speed += ACCEL_FACTOR * delta;
+			translate(0, -speed);
+			totalTranslated += speed;
+			if( totalTranslated >= Board.CELL_SIZE ) {
+				translate(0, totalTranslated-Board.CELL_SIZE);
+				fallOne = false;
+				totalTranslated = 0f;
+				/*
+				int cellPosX = Math.round((getX() - Board.CELL_PAD_X )/Board.CELL_SIZE);
+				int cellPosY = Math.round((getY() - Board.CELL_PAD_Y )/Board.CELL_SIZE);
+				*/
+				
+			}
+			return;
+		}
+		if( cellY-1 < 0 ) // bottom gem never falls
+			return;
+
+		Gem gemBelow = cells[cellX][cellY-1].getGem();
+		
+		if( gemBelow.isTypeNone() ) {
+			fallOne = true;
+			destCellX = cellX;
+			destCellY = cellY-1;
+
+			Gem tempGem = cells[destCellX][destCellY].getGem();
+			cells[cellX][cellY].setGem(tempGem);
+			cells[destCellX][destCellY].setGem(this);
+		} else speed = 0f;
+		
+		/*
+		if( cellY-1 < 0 )
+			return;
+		
+		int cellPosX = Math.round((getX() - Board.CELL_PAD_X )/Board.CELL_SIZE);
+		int cellPosY = Math.round((getY() - Board.CELL_PAD_Y )/Board.CELL_SIZE);
+
+		if( fallOne ) {
+			speed += ACCEL_FACTOR * delta;
+			translate(0, -speed);
+			totalTranslated += speed;
+			if( totalTranslated >= 80f ) {
+				translate(0, totalTranslated-80f);
+				fallOne = false;
+				totalTranslated = 0f;
+			}
+			return;
+		}
+		Gem gemBelow = cells[cellX][cellY-1].getGem();
+		
+		if( gemBelow.isTypeNone() ) {
+			fallOne = true;
+			cells[cellX][cellY-1].setGem(this);
+			cells[cellX][cellY+1].setGem(gemBelow);
+		} else speed = 0;
+		
+		/*
 		if( fallOne ) {
 			speed += ACCEL_FACTOR * delta; 
 			totalTranslated += speed;
@@ -95,13 +168,24 @@ public class Gem extends Image {
 			translate(0, -speed);
 			return;
 		}
+
+		int cellPosX = Math.round((getX() - Board.CELL_PAD_X )/Board.CELL_SIZE);
+		int cellPosY = Math.round((getY() - Board.CELL_PAD_Y )/Board.CELL_SIZE);
+		
+		if( cellPosX >= 0 && cellPosX < Board.MAX_SIZE_X && cellPosY >= 0 && cellPosY < Board.MAX_SIZE_Y )
+			setCell(cellPosX, cellPosY);
+		
+		if( cellPosY > Board.MAX_SIZE_Y ) {
+			fallOne = true;
+			return;
+		}
+			
 		
 		if( cellY-1 < 0 )
 			return;
 		
 		if( cells[cellX][cellY-1].getGem().isTypeNone() ) {
 			fallOne = true;
-			
 			Gem temp = cells[cellX][cellY-1].getGem();
 			cells[cellX][cellY-1].setGem(this);
 			cells[cellX][cellY+1].setGem(temp);
@@ -109,6 +193,7 @@ public class Gem extends Image {
 			speed = 0;
 		}
 		
+		*/
 		
 	}
 
@@ -278,6 +363,5 @@ public class Gem extends Image {
 	public void setCell(int cellX, int cellY) {
 		this.cellX = cellX;
 		this.cellY = cellY;
-				
 	}
 }

@@ -23,7 +23,7 @@ public class Board extends Group {
     }
 
 
-    private enum BoardState {
+    public enum BoardState {
         STATE_CHECK, STATE_EMPTY, STATE_FADING, STATE_IDLE, STATE_INACTIVE, STATE_MOVING, STATE_SWAPPING
     }
 
@@ -50,7 +50,7 @@ public class Board extends Group {
     private Player player;
     private final SwapController swapController;
     private final SpecialEffects sfx;
-
+    private final RespawnRequest respawnRequest;
     private boolean foregroundWindowActive;
 
     public Board(final AnotherManager myGame) {
@@ -58,8 +58,11 @@ public class Board extends Group {
         cells = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
         swapController = new SwapController(cells);
         matchFinder = new MatchFinder(cells);
-        gemRemover = new GemRemover(cells);
-        gemHandler = new GemHandler(cells);
+        
+        respawnRequest = new RespawnRequest();
+        gemRemover = new GemRemover(cells, respawnRequest);
+        gemHandler = new GemHandler(cells, respawnRequest);
+        
         backGround = new Group();
         backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH,
                 AnotherManager.VIRTUAL_HEIGHT);
@@ -308,6 +311,8 @@ public class Board extends Group {
             AnotherManager.soundPlayer.playLoseSound();
             boardState = BoardState.STATE_INACTIVE;
         }
-
+    }
+    public BoardState getBoardState() {
+    	return boardState;
     }
 }
