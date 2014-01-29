@@ -32,8 +32,8 @@ public class GemHandler {
 				Gem newGem = gemFactory.newRandomGem();
 				newGem.setPosition(Board.CELL_PAD_X + Board.CELL_SIZE * x, Board.CELL_PAD_Y + Board.CELL_SIZE * (Board.MAX_SIZE_Y + i));
 				foreGround.addActor(newGem);
-				newGem.setFalling(true);
-				newGem.setCell(x, Board.MAX_SIZE_Y);
+				//newGem.setFalling(true);
+				//newGem.setCell(x, Board.MAX_SIZE_Y);
 			}
 		}
 		respawnRequest.clear();
@@ -112,7 +112,7 @@ public class GemHandler {
 						if (fall.isDisabled()) {
 							break;
 						}
-						fall.fallBy(0, -(d - y));
+						//fall.fallBy(0, -(d - y));
 
 						fall.setMoving(Gem.MoveDirection.DIRECTION_VERTICAL);
 

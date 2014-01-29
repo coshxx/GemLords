@@ -25,12 +25,10 @@ public class Cell extends Image {
 	public void putGem(Gem gem) {
 		occupant = gem;
 		occupant.setBounds(getX(), getY(), 80, 80);
-		occupant.setCell(cellX, cellY);
 	}
 
 	public void setGem(Gem gem) {
 		occupant = gem;
-		gem.setCell(cellX, cellY);
 	}
 	
 }

@@ -42,20 +42,11 @@ public class Gem extends Image {
 	private boolean markedForRemoval;
 	private MoveDirection moveDirection;
 
-	private int cellX, cellY, destCellX, destCellY;
-	private Cell[][] cells;
-	private boolean fallOne;
-	private float totalTranslated;
-	private float speed;
-	
-	private BitmapFont bmf;
-
 	public Gem(GemType g) {
 		super(AnotherManager.assets.get(g.getTexturePath(), Texture.class));
 		super.setWidth(80);
 		super.setHeight(80);
 		this.gemType = g;
-		this.speed = 0;
 		this.isMarkedForSpecialConversion = false;
 		this.isMarkedForSuperSpecialConversion = false;
 		this.markedForRemoval = false;
@@ -64,137 +55,14 @@ public class Gem extends Image {
 		this.isSpecialHorizontalGem = false;
 		this.checked = false;
         this.isDisabled = false;
-        this.fallOne = false;
-        this.totalTranslated = 0f;
 		specialTypeHorizontal = GemTypeSpecialHorizontal.TYPE_NONE;
 		specialTypeVertical = GemTypeSpecialVertical.TYPE_NONE;
 		specialSuperSpecial = GemTypeSuperSpecial.TYPE_NONE;
-		cells = AnotherManager.getInstance().gameScreen.getBoard().getCells();
-		//bmf = new BitmapFont();
 	}
 	
-	public boolean isFalling() {
-		return fallOne;
-	}
-	
-	public void setFalling(boolean b) {
-		fallOne = b;
-	}
-
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		
-		/*
-		if( !(AnotherManager.getInstance().gameScreen.getBoard().getBoardState() == BoardState.STATE_CHECK) )
-			return;
-		*/
-		
-		// where am I
-		// what is below me
-		// nothig below me -> fall
-		// easy, right?
-		// no
-		
-		
-		
-		
-		if( fallOne ) {
-			speed += ACCEL_FACTOR * delta;
-			translate(0, -speed);
-			totalTranslated += speed;
-			if( totalTranslated >= Board.CELL_SIZE ) {
-				translate(0, totalTranslated-Board.CELL_SIZE);
-				fallOne = false;
-				totalTranslated = 0f;
-				/*
-				int cellPosX = Math.round((getX() - Board.CELL_PAD_X )/Board.CELL_SIZE);
-				int cellPosY = Math.round((getY() - Board.CELL_PAD_Y )/Board.CELL_SIZE);
-				*/
-				
-			}
-			return;
-		}
-		if( cellY-1 < 0 ) // bottom gem never falls
-			return;
-
-		Gem gemBelow = cells[cellX][cellY-1].getGem();
-		
-		if( gemBelow.isTypeNone() ) {
-			fallOne = true;
-			destCellX = cellX;
-			destCellY = cellY-1;
-
-			Gem tempGem = cells[destCellX][destCellY].getGem();
-			cells[cellX][cellY].setGem(tempGem);
-			cells[destCellX][destCellY].setGem(this);
-		} else speed = 0f;
-		
-		/*
-		if( cellY-1 < 0 )
-			return;
-		
-		int cellPosX = Math.round((getX() - Board.CELL_PAD_X )/Board.CELL_SIZE);
-		int cellPosY = Math.round((getY() - Board.CELL_PAD_Y )/Board.CELL_SIZE);
-
-		if( fallOne ) {
-			speed += ACCEL_FACTOR * delta;
-			translate(0, -speed);
-			totalTranslated += speed;
-			if( totalTranslated >= 80f ) {
-				translate(0, totalTranslated-80f);
-				fallOne = false;
-				totalTranslated = 0f;
-			}
-			return;
-		}
-		Gem gemBelow = cells[cellX][cellY-1].getGem();
-		
-		if( gemBelow.isTypeNone() ) {
-			fallOne = true;
-			cells[cellX][cellY-1].setGem(this);
-			cells[cellX][cellY+1].setGem(gemBelow);
-		} else speed = 0;
-		
-		/*
-		if( fallOne ) {
-			speed += ACCEL_FACTOR * delta; 
-			totalTranslated += speed;
-			if( totalTranslated >= 80f ) {
-				translate(0, totalTranslated-80f);
-				fallOne = false;
-				totalTranslated = 0f;
-			}
-			translate(0, -speed);
-			return;
-		}
-
-		int cellPosX = Math.round((getX() - Board.CELL_PAD_X )/Board.CELL_SIZE);
-		int cellPosY = Math.round((getY() - Board.CELL_PAD_Y )/Board.CELL_SIZE);
-		
-		if( cellPosX >= 0 && cellPosX < Board.MAX_SIZE_X && cellPosY >= 0 && cellPosY < Board.MAX_SIZE_Y )
-			setCell(cellPosX, cellPosY);
-		
-		if( cellPosY > Board.MAX_SIZE_Y ) {
-			fallOne = true;
-			return;
-		}
-			
-		
-		if( cellY-1 < 0 )
-			return;
-		
-		if( cells[cellX][cellY-1].getGem().isTypeNone() ) {
-			fallOne = true;
-			Gem temp = cells[cellX][cellY-1].getGem();
-			cells[cellX][cellY-1].setGem(this);
-			cells[cellX][cellY+1].setGem(temp);
-		} else {
-			speed = 0;
-		}
-		
-		*/
-		
 	}
 
     public void disable() {
@@ -254,15 +122,6 @@ public class Gem extends Image {
 		if( gemType == b.gemType )
 			return true;
 		return false;
-	}
-
-	public void fallBy(final int x, final int y) {
-		final float fallGoal = y * Board.CELL_SIZE;
-		addAction(Actions.after(
-				Actions.sequence(
-				new AccelAction(fallGoal, GEM_SPEED),
-				Actions.moveBy(0, 4f, 0.04f),
-				Actions.moveBy(0, -4f, 0.04f))));
 	}
 
 	public boolean isMarkedForRemoval() {
@@ -358,10 +217,5 @@ public class Gem extends Image {
 
 	public GemType getGemType() {
 		return gemType;
-	}
-
-	public void setCell(int cellX, int cellY) {
-		this.cellX = cellX;
-		this.cellY = cellY;
 	}
 }

@@ -254,7 +254,7 @@ public class Board extends Group {
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 final Gem gem = cells[x][y].getGem();
-                if (gem.isFalling() || gem.getActions().size > 0) {
+                if (gem.getActions().size > 0) {
                     stillMovement = true;
                 }
             }
