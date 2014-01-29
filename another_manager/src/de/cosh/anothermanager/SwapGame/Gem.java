@@ -23,7 +23,7 @@ public class Gem extends Image {
 
 	private final float GEM_SPEED = 150f;
 	private final float SWAP_SPEED = 0.20f;
-	private final float ACCEL_FACTOR = 1000f;
+	private final float ACCEL_FACTOR = 20f;
 	
 	private GemType gemType;
 	private GemTypeSpecialHorizontal specialTypeHorizontal;
@@ -54,7 +54,7 @@ public class Gem extends Image {
 		super.setWidth(80);
 		super.setHeight(80);
 		this.gemType = g;
-		this.speed = GEM_SPEED;
+		this.speed = 0;
 		this.isMarkedForSpecialConversion = false;
 		this.isMarkedForSuperSpecialConversion = false;
 		this.markedForRemoval = false;
@@ -69,38 +69,47 @@ public class Gem extends Image {
 		specialTypeVertical = GemTypeSpecialVertical.TYPE_NONE;
 		specialSuperSpecial = GemTypeSuperSpecial.TYPE_NONE;
 		cells = AnotherManager.getInstance().gameScreen.getBoard().getCells();
-		bmf = new BitmapFont();
+		//bmf = new BitmapFont();
+	}
+	
+	public boolean isFalling() {
+		return fallOne;
+	}
+	
+	public void setFalling(boolean b) {
+		fallOne = b;
 	}
 
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-
+		
 		if( fallOne ) {
-			translate(0, -(speed * delta));
-			totalTranslated += speed * delta;
-			speed += delta * ACCEL_FACTOR;
+			speed += ACCEL_FACTOR * delta; 
+			totalTranslated += speed;
 			if( totalTranslated >= 80f ) {
 				translate(0, totalTranslated-80f);
-				totalTranslated = 0f;
 				fallOne = false;
-				if( !cells[cellX][cellY-1].getGem().isTypeNone() )
-					speed = 0f;
+				totalTranslated = 0f;
 			}
+			translate(0, -speed);
 			return;
 		}
-		if( cellY - 1 < 0 )
+		
+		if( cellY-1 < 0 )
 			return;
 		
 		if( cells[cellX][cellY-1].getGem().isTypeNone() ) {
 			fallOne = true;
-			Cell swapTo = cells[cellX][cellY-1];
-			Cell swapFrom = cells[cellX][cellY];
 			
-			Gem temp = swapTo.getGem();
-			swapTo.setGem(this);
-			swapFrom.setGem(temp);
+			Gem temp = cells[cellX][cellY-1].getGem();
+			cells[cellX][cellY-1].setGem(this);
+			cells[cellX][cellY+1].setGem(temp);
+		} else {
+			speed = 0;
 		}
+		
+		
 	}
 
     public void disable() {
@@ -130,7 +139,6 @@ public class Gem extends Image {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		bmf.draw(batch, cellX + ", " + cellY, getX(), getY());
 		
 //		Stage stage = getStage();
 //		AnotherManager myGame = AnotherManager.getInstance();

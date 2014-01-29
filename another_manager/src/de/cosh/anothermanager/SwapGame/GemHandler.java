@@ -23,36 +23,16 @@ public class GemHandler {
 	}
 
 	public void respawn(final Group foreGround) {
-		int count;
-		boolean cancel;
-		boolean cenceledOnce = false;
 		for( int x = 0; x < Board.MAX_SIZE_X; x++ ) {
-			count = 0;
-			cancel = false;
-			for( int y = 0; y < Board.MAX_SIZE_Y; y++) {
-				Gem gem = cells[x][y].getGem();
-				if( gem.isTypeNone() ) {
-					for( int d = y; d < Board.MAX_SIZE_Y; d++ ) {
-						Gem test = cells[x][d].getGem();
-						if( test.isDisabled() ) {
-							cancel = true;
-						}
-					}
-					if( cancel ) {
-						cenceledOnce = true;
-						break;
-					}
-					Gem newGem = gemFactory.newRandomGem();
-					newGem.setPosition(Board.CELL_PAD_X + x * Board.CELL_SIZE, Board.CELL_PAD_Y + Board.CELL_SIZE * (count+Board.MAX_SIZE_Y));
-					newGem.fallBy(0, -(Board.MAX_SIZE_Y-(y-count)));
-					cells[x][y].setGem(newGem);
-					count++;
-					foreGround.addActor(newGem);
-				}
+			Gem topGem = cells[x][Board.MAX_SIZE_Y-1].getGem();
+			if( topGem.isTypeNone() ) {
+				Gem newOne = gemFactory.newRandomGem();
+				newOne.setBounds(Board.CELL_PAD_X + x*Board.CELL_SIZE, Board.CELL_PAD_Y + Board.MAX_SIZE_Y*Board.CELL_SIZE, 80, 80);
+				cells[x][Board.MAX_SIZE_Y-1].setGem(newOne);
+				newOne.setFalling(true);
+				foreGround.addActor(newOne);
 			}
 		}
-		if( cenceledOnce )
-			respawnAndApplyGravity(foreGround);
 	}
 
 	public void respawnAndApplyGravity(Group foreGround) {
@@ -63,6 +43,8 @@ public class GemHandler {
 		respawn(foreGround);
 		delay = 0f;
 		*/
+		
+		respawn(foreGround);
 	}
 
 	private boolean shift() {
