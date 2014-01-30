@@ -132,7 +132,8 @@ public class MapTraverseScreen implements Screen {
 		*/
 		
 		mapImage = new Image(AnotherManager.assets.get("data/textures/map.png", Texture.class));
-		table.add(mapImage).expand().fill();
+		//table.add(mapImage).expand().fill();
+		table.setBackground(mapImage.getDrawable());
 
 		initEnemyLocations();
 

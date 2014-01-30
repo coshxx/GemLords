@@ -12,8 +12,8 @@ public class Main {
 		cfg.width = 720;
 		cfg.height = 1280;
 		*/
-		cfg.width = 432;
-        cfg.height = 768;
+		cfg.width = 640;
+        cfg.height = 960;
         cfg.resizable = false;
         cfg.foregroundFPS = 100;
 

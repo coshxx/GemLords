@@ -138,12 +138,12 @@ public class SoundPlayer {
 	}
 
 	public void playLoadoutMusic() {
-//		loadoutMusic.setVolume(0.2f);
-//		loadoutMusic.play();
+		loadoutMusic.setVolume(0.2f);
+		loadoutMusic.play();
 	}
 
 	public void playGameMusic() {
-//		gameMusic0.play();
+		gameMusic0.play();
 	}
 
 	public void stopGameMusic() {

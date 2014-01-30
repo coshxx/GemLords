@@ -4,9 +4,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import de.cosh.anothermanager.AnotherManager;
@@ -148,28 +152,30 @@ public class Gem extends Image {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		/*
 		super.draw(batch, parentAlpha);
 		bmf.setColor(1f, 1f, 1f, 1f);
 		bmf.draw(batch, cellX + ", " + cellY, getX(), getY());
-		// Stage stage = getStage();
-		// AnotherManager myGame = AnotherManager.getInstance();
-		//
-		// final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0,
-		// AnotherManager.VIRTUAL_HEIGHT - 247));
-		// final Vector2 end = stage.stageToScreenCoordinates(new
-		// Vector2(AnotherManager.VIRTUAL_WIDTH ,
-		// AnotherManager.VIRTUAL_HEIGHT - 720));
-		// final Rectangle scissor = new Rectangle();
-		// final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x,
-		// end.y);
-		// ScissorStack.calculateScissors(myGame.camera, 0, 0,
-		// AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
-		// batch.getTransformMatrix(), clipBounds, scissor);
-		// batch.flush();
-		// ScissorStack.pushScissors(scissor);
-		// super.draw(batch, parentAlpha);
-		// batch.flush();
-		// ScissorStack.popScissors();
+		*/
+		 Stage stage = getStage();
+		 AnotherManager myGame = AnotherManager.getInstance();
+		
+		 final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0,
+		 AnotherManager.VIRTUAL_HEIGHT - 247));
+		 final Vector2 end = stage.stageToScreenCoordinates(new
+		 Vector2(AnotherManager.VIRTUAL_WIDTH ,
+		 AnotherManager.VIRTUAL_HEIGHT - 720));
+		 final Rectangle scissor = new Rectangle();
+		 final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x,
+		 end.y);
+		 ScissorStack.calculateScissors(myGame.camera, 0, 0,
+		 AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
+		 batch.getTransformMatrix(), clipBounds, scissor);
+		 batch.flush();
+		 ScissorStack.pushScissors(scissor);
+		 super.draw(batch, parentAlpha);
+		 batch.flush();
+		 ScissorStack.popScissors();
 	}
 
 	public boolean equals(final Gem b) {
