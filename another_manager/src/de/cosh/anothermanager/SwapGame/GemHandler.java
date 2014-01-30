@@ -32,8 +32,8 @@ public class GemHandler {
 				Gem newGem = gemFactory.newRandomGem();
 				newGem.setPosition(Board.CELL_PAD_X + Board.CELL_SIZE * x, Board.CELL_PAD_Y + Board.CELL_SIZE * (Board.MAX_SIZE_Y + i));
 				foreGround.addActor(newGem);
-				newGem.setCell(x, 99);
-				newGem.setFalling(true);
+				newGem.setCell(x, Board.MAX_SIZE_Y + i);
+				//newGem.setFalling(true);
 			}
 		}
 		respawnRequest.clear();
@@ -48,7 +48,7 @@ public class GemHandler {
 		delay = 0f;
 		*/
 		
-		//respawn(foreGround);
+		respawn(foreGround);
 	}
 
 	private boolean shift() {

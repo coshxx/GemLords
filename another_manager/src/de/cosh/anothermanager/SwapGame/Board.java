@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
@@ -52,6 +54,8 @@ public class Board extends Group {
     private final SpecialEffects sfx;
     private final RespawnRequest respawnRequest;
     private boolean foregroundWindowActive;
+    
+    private BitmapFont bmf;
 
     public Board(final AnotherManager myGame) {
         this.myGame = myGame;
@@ -86,11 +90,20 @@ public class Board extends Group {
         justSwapped = false;
         sfx = new SpecialEffects();
         foregroundWindowActive = false;
+        
+        Skin s = AnotherManager.getInstance().assets.get("data/ui/uiskin.json", Skin.class);
+        bmf = s.getFont("default-font");
     }
 
     @Override
     public void act(final float delta) {
-        super.act(delta);
+    	super.act(delta);
+    }
+    
+    public void draw(SpriteBatch batch, float parentAlpha) {
+    	super.draw(batch, parentAlpha);
+    	bmf.setColor(1f, 1f, 1f, 1f);
+    	bmf.draw(batch, boardState.toString(), 100, 100);
     }
 
     public Group getEffectGroup() {
@@ -210,8 +223,7 @@ public class Board extends Group {
     }
 
     public void update(final float delta) {
-    	// TODO: don't check on idle?
-        if (boardState == BoardState.STATE_CHECK || boardState == BoardState.STATE_IDLE) {
+        if (boardState == BoardState.STATE_CHECK) {
             MatchResult result = matchFinder.markAllMatchingGems();
             if (result.howMany > 0) {
                 if (result.conversion) {
@@ -253,12 +265,13 @@ public class Board extends Group {
         boolean stillMovement = false;
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
-                final Gem gem = cells[x][y].getGem();
-                if( gem == null )
-                	continue;
-                if (gem.getActions().size > 0 || gem.isFalling()) {
-                    stillMovement = true;
-                }
+            	if( cells[x][y].isEmpty() )
+            		stillMovement = true;
+            	Gem g = cells[x][y].getGem();
+            	if( g == null )
+            		continue;
+            	if( g.getActions().size > 0 )
+            		stillMovement = true;
             }
         }
 

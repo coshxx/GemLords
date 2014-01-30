@@ -17,6 +17,7 @@ public class Main {
         cfg.width = 432;
         cfg.height = 768;
         cfg.resizable = false;
+        cfg.foregroundFPS = 100;
 
 		new LwjglApplication(new AnotherManager(), cfg);
 	}

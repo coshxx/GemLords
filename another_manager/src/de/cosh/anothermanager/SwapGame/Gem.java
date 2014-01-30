@@ -79,14 +79,15 @@ public class Gem extends Image {
 		if (fallOne) {
 			speed += delta * ACCEL_FACTOR;
 			totalTranslated += speed;
-			translate(0, -speed);
-
+			translate(0, -speed)
 			if (totalTranslated >= Board.CELL_SIZE) {
+				cellY--;
+				totalTranslated = 0;
 				fallOne = false;
-				translate(0, totalTranslated - Board.CELL_SIZE);
-				totalTranslated = 0f;
-				cells[cellX][cellY - 1].setEmpty(false);
-				cells[cellX][cellY - 1].setGem(this);
+				if (cellY < Board.MAX_SIZE_Y) {
+					cells[cellX][cellY].setEmpty(false);
+					cells[cellX][cellY].setGem(this);
+				}
 			}
 		}
 
@@ -95,16 +96,21 @@ public class Gem extends Image {
 			isFalling = false;
 			return;
 		}
+		if (cellY >= Board.MAX_SIZE_Y) {
+			fallOne = true;
+			return;
+		}
 
 		if (cells[cellX][cellY - 1].isEmpty()) {
+			System.out.println("IT'S FREE BELOW ME :" + cellX + ", " + cellY);
 			cells[cellX][cellY].setEmpty(true);
 			fallOne = true;
 			isFalling = true;
 		} else {
 			speed = 0f;
 			isFalling = false;
+			fallOne = false;
 		}
-
 	}
 
 	public boolean isFalling() {
