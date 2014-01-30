@@ -1,8 +1,7 @@
 package de.cosh.anothermanager.SwapGame;
 
-import java.util.Random;
-
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
@@ -25,7 +25,7 @@ public class Board extends Group {
     }
 
 
-    private enum BoardState {
+    public enum BoardState {
         STATE_CHECK, STATE_EMPTY, STATE_FADING, STATE_IDLE, STATE_INACTIVE, STATE_MOVING, STATE_SWAPPING
     }
 
@@ -41,8 +41,7 @@ public class Board extends Group {
     private Enemy enemy;
     private final Group foreGround;
     private final GemRemover gemRemover;
-    private final GemRespawner gemRespawner;
-    private final GravityApplier gravityApplier;
+    private final GemHandler gemHandler;
     private boolean initialized;
     private boolean justSwapped;
     private GridPoint2 lastSwap;
@@ -51,21 +50,23 @@ public class Board extends Group {
     private final MatchFinder matchFinder;
     private final AnotherManager myGame;
     private Player player;
-    private final Random random;
     private final SwapController swapController;
     private final SpecialEffects sfx;
-
+    private final RespawnRequest respawnRequest;
     private boolean foregroundWindowActive;
+    
+    private BitmapFont bmf;
 
     public Board(final AnotherManager myGame) {
         this.myGame = myGame;
         cells = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
         swapController = new SwapController(cells);
         matchFinder = new MatchFinder(cells);
-        gravityApplier = new GravityApplier(cells);
-        gemRemover = new GemRemover(cells);
-        random = new Random();
-        gemRespawner = new GemRespawner(cells, random, myGame.gemFactory);
+        
+        respawnRequest = new RespawnRequest();
+        gemRemover = new GemRemover(cells, respawnRequest);
+        gemHandler = new GemHandler(cells, respawnRequest);
+        
         backGround = new Group();
         backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH,
                 AnotherManager.VIRTUAL_HEIGHT);
@@ -89,11 +90,20 @@ public class Board extends Group {
         justSwapped = false;
         sfx = new SpecialEffects();
         foregroundWindowActive = false;
+        
+        Skin s = AnotherManager.getInstance().assets.get("data/ui/uiskin.json", Skin.class);
+        bmf = s.getFont("default-font");
     }
 
     @Override
     public void act(final float delta) {
-        super.act(delta);
+    	super.act(delta);
+    }
+    
+    public void draw(SpriteBatch batch, float parentAlpha) {
+    	super.draw(batch, parentAlpha);
+    	bmf.setColor(1f, 1f, 1f, 1f);
+    	bmf.draw(batch, boardState.toString(), 100, 100);
     }
 
     public Group getEffectGroup() {
@@ -130,7 +140,7 @@ public class Board extends Group {
     private void fillWithRandomGems() {
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
-                cells[x][y] = new Cell(myGame);
+                cells[x][y] = new Cell(myGame, x, y);
                 cells[x][y].setColor(1f, 1f, 1f, 0.35f);
                 cells[x][y].setBounds(CELL_PAD_X + (x * CELL_SIZE)
                         + AnotherManager.VIRTUAL_WIDTH, CELL_PAD_Y
@@ -140,7 +150,7 @@ public class Board extends Group {
                                 + (y * CELL_SIZE), 0.50f),
                         Actions.moveBy(10f, 0f, 0.1f),
                         Actions.moveBy(-10f, 0f, 0.1f)));
-                cells[x][y].putGem(myGame.gemFactory.newRandomGem());
+                cells[x][y].putGem(gemHandler.getGemFactory().newRandomGem());
                 cells[x][y].getGem().addAction(
                         Actions.sequence(Actions.moveTo(CELL_PAD_X
                                 + (x * CELL_SIZE),
@@ -213,7 +223,6 @@ public class Board extends Group {
     }
 
     public void update(final float delta) {
-
         if (boardState == BoardState.STATE_CHECK) {
             MatchResult result = matchFinder.markAllMatchingGems();
             if (result.howMany > 0) {
@@ -224,7 +233,6 @@ public class Board extends Group {
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
                 enemy.damage(result.howMany);
-                System.out.println("Enemy damage: " + result.howMany);
                 if (result.specialExplo) {
                     AnotherManager.soundPlayer.playWoosh();
                 }
@@ -257,19 +265,25 @@ public class Board extends Group {
         boolean stillMovement = false;
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
-                final Gem gem = cells[x][y].getGem();
-                if (gem.getActions().size > 0) {
-                    stillMovement = true;
-                }
+            	if( cells[x][y].isEmpty() )
+            		stillMovement = true;
+            	Gem g = cells[x][y].getGem();
+            	if( g == null )
+            		continue;
+            	if( g.getActions().size > 0 )
+            		stillMovement = true;
             }
         }
-        if( boardState == BoardState.STATE_IDLE )
+
+        gemHandler.respawnAndApplyGravity(foreGround);
+       	
+        if( boardState == BoardState.STATE_IDLE ) {
             checkPlayerAndEnemyStatus();
+        }
 
         if (!stillMovement && boardState == BoardState.STATE_FADING) {
             gemRemover.removeFadedGems(myGame, effectGroup);
-            gravityApplier.applyGravity();
-            gemRespawner.respawn(foreGround);
+            gemHandler.respawnAndApplyGravity(foreGround);
             boardState = BoardState.STATE_MOVING;
         } else if (!stillMovement && boardState == BoardState.STATE_SWAPPING) {
             if (!AnotherManager.DEBUGMODE) {
@@ -313,6 +327,8 @@ public class Board extends Group {
             AnotherManager.soundPlayer.playLoseSound();
             boardState = BoardState.STATE_INACTIVE;
         }
-
+    }
+    public BoardState getBoardState() {
+    	return boardState;
     }
 }

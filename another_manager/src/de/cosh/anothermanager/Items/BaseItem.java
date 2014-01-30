@@ -78,8 +78,8 @@ public abstract class BaseItem extends Image implements UseItem {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		if (selected)
-			itemBorder.setColor(1f, 0f, 0f, parentAlpha);
-		else itemBorder.setColor(1f, 1f, 1f, parentAlpha);
+			itemBorder.setColor(1f, 0f, 0f, parentAlpha * getColor().a);
+		else itemBorder.setColor(1f, 1f, 1f, parentAlpha * getColor().a);
 
 		AnotherManager.getInstance();
 		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
@@ -90,13 +90,12 @@ public abstract class BaseItem extends Image implements UseItem {
 		super.draw(batch, parentAlpha);
 		float imgCenterX = getX() + (getWidth() / 2);
 		if (drawText) {
-			bmf.setColor(1f, 1f, 1f, parentAlpha);
-			bmf.setColor(0f, 1f, 0f, parentAlpha);
+			bmf.setColor(0f, 1f, 0f, parentAlpha * getColor().a);
 			bounds = bmf.getBounds(itemName);
 			bmf.draw(batch, itemName, imgCenterX - (bounds.width / 2), getY() - 5);
 			bounds = bmf.getBounds(itemText);
 			//bmf.draw(batch, itemText, imgCenterX-(bounds.width/2), getY()-25 );
-			bmf.setColor(1f, 1f, 1f, parentAlpha);
+			bmf.setColor(1f, 1f, 1f, parentAlpha * getColor().a);
 			bmf.drawMultiLine(batch, itemText, imgCenterX - 50, getY() - 25, 100, BitmapFont.HAlignment.CENTER);
 		}
 	}

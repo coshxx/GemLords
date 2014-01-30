@@ -1,6 +1,5 @@
 package de.cosh.anothermanager.SwapGame;
 
-import de.cosh.anothermanager.SwapGame.Gem.GemType;
 
 /**
  * Created by cosh on 13.01.14.
@@ -33,13 +32,19 @@ public class MatchFinder {
 
 	private int howManyMatchesRight(final int x, final int y) {
 		int count = 0;
-		Gem.GemType typeFound = Gem.GemType.TYPE_NONE;
+		GemType typeFound = GemType.TYPE_NONE;
+		
 		for (int d = x; d < Board.MAX_SIZE_X; d++) {
 			if (d + 1 >= Board.MAX_SIZE_X) {
 				break;
 			}
 			final Gem curGem = cells[d][y].getGem();
 			final Gem nextGem = cells[d + 1][y].getGem();
+			
+			if( curGem == null )
+				return count;
+			if( nextGem == null )
+				return count;
 
 			if (curGem.equals(nextGem)) {
 				if (count == 0) {
@@ -64,13 +69,18 @@ public class MatchFinder {
 
 	private int howManyMatchesTop(final int x, final int y) {
 		int count = 0;
-		Gem.GemType typeFound = Gem.GemType.TYPE_NONE;
+		GemType typeFound = GemType.TYPE_NONE;
 		for (int d = y; d < Board.MAX_SIZE_Y; d++) {
 			if (d + 1 >= Board.MAX_SIZE_Y) {
 				break;
 			}
 			final Gem curGem = cells[x][d].getGem();
 			final Gem nextGem = cells[x][d + 1].getGem();
+			
+			if( curGem == null )
+				return count;
+			if( nextGem == null )
+				return count;
 
 			if (curGem.equals(nextGem)) {
 				if (count == 0) {
@@ -97,6 +107,8 @@ public class MatchFinder {
 		final MatchResult result = new MatchResult();
 		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
 			for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
+				if( cells[x][y].getGem() == null )
+					continue;
 				if (cells[x][y].getGem().isChecked()) {
 					continue;
 				}
@@ -105,7 +117,7 @@ public class MatchFinder {
 					boolean convertedOne = false;
 					for (int d = x; d < x + countMatchesRight; d++) {
 						final Gem rem = cells[d][y].getGem();
-						rem.checked();
+						rem.setChecked(true);
 						if (rem.isMoving() && !convertedOne) {
 							if (rem.isSpecialHorizontalGem() || rem.isSpecialVerticalGem() || rem.isSuperSpecialGem()) {
 								rem.markGemForRemoval();
@@ -124,7 +136,7 @@ public class MatchFinder {
 					boolean convertedOne = false;
 					for (int d = x; d < x + countMatchesRight; d++) {
 						final Gem rem = cells[d][y].getGem();
-						rem.checked();
+						rem.setChecked(true);
 						if (rem.isMoving() && !convertedOne) {
 							if (rem.isSpecialHorizontalGem() || rem.isSpecialVerticalGem() || rem.isSuperSpecialGem()) {
 								rem.markGemForRemoval();
@@ -142,7 +154,7 @@ public class MatchFinder {
 				} else if (countMatchesRight >= 3) {
 					for (int d = x; d < x + countMatchesRight; d++) {
 						final Gem rem = cells[d][y].getGem();
-						rem.checked();
+						rem.setChecked(true);
 						rem.markGemForRemoval();
 						result.howMany++;
 					}
@@ -151,6 +163,8 @@ public class MatchFinder {
 				final int countMatchesTop = howManyMatchesTop(x, y);
 				for( int xt = 0; xt < Board.MAX_SIZE_X; xt++ ) {
 					for( int yt = 0; yt < Board.MAX_SIZE_Y; yt++ ) {
+						if( cells[xt][yt].getGem() == null )
+							continue;
 						cells[xt][yt].getGem().setChecked(false);
 					}
 				}
@@ -159,7 +173,7 @@ public class MatchFinder {
 					boolean convertedOne = false;
 					for (int d = y; d < y + countMatchesTop; d++) {
 						final Gem rem = cells[x][d].getGem();
-						rem.checked();
+						rem.setChecked(true);
 						if (rem.isMoving() && !convertedOne) {
 							if (rem.isSpecialHorizontalGem() || rem.isSpecialVerticalGem() || rem.isSuperSpecialGem()) {
 								rem.markGemForRemoval();
@@ -178,7 +192,7 @@ public class MatchFinder {
 					boolean convertedOne = false;
 					for (int d = y; d < y + countMatchesTop; d++) {
 						final Gem rem = cells[x][d].getGem();
-						rem.checked();
+						rem.setChecked(true);
 						if (rem.isMoving() && !convertedOne) {
 							if (rem.isSpecialHorizontalGem() || rem.isSpecialVerticalGem() || rem.isSuperSpecialGem()) {
 								rem.markGemForRemoval();
@@ -196,7 +210,7 @@ public class MatchFinder {
 				} else if (countMatchesTop >= 3) {
 					for (int d = y; d < y + countMatchesTop; d++) {
 						final Gem rem = cells[x][d].getGem();
-						rem.checked();
+						rem.setChecked(true);
 						rem.markGemForRemoval();
 						result.howMany++;
 					}
@@ -206,6 +220,8 @@ public class MatchFinder {
 		}
 		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
 			for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
+				if( cells[x][y].getGem() == null )
+					continue;
 				cells[x][y].getGem().setChecked(false);
 			}
 		}

@@ -17,7 +17,7 @@ public class GemFactory {
 	}
 
 	public Gem newRandomGem() {
-		final Gem g = new Gem(myGame, Gem.GemType.values()[random.nextInt(6)]);
+		final Gem g = new Gem(GemType.values()[random.nextInt(6)]);
 		return g;
 	}
 }

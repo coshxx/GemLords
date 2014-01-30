@@ -15,7 +15,6 @@ import de.cosh.anothermanager.Screens.LootScreen;
 import de.cosh.anothermanager.Screens.MapTraverseScreen;
 import de.cosh.anothermanager.Screens.MenuScreen;
 import de.cosh.anothermanager.Screens.SplashScreen;
-import de.cosh.anothermanager.SwapGame.GemFactory;
 
 
 public class AnotherManager extends Game {
@@ -27,10 +26,10 @@ public class AnotherManager extends Game {
 	public static boolean DEBUGMODE = true;
 	private static AnotherManager instance;
 	public OrthographicCamera camera;
+	public OrthographicCamera guiCamera;
 	public Enemy enemy;
 	public EnemyManager enemyManager;
 	public GameScreen gameScreen;
-	public GemFactory gemFactory;
 	public LootScreen lootScreen;
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
@@ -52,6 +51,11 @@ public class AnotherManager extends Game {
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.update();
+		
+		guiCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCamera.update();
+		
 		player = new Player(this);
 		enemyManager = new EnemyManager();
 		splashScreen = new SplashScreen(this);
@@ -60,7 +64,6 @@ public class AnotherManager extends Game {
 		gameScreen = new GameScreen(this);
 		lootScreen = new LootScreen(this, enemyManager);
 		mapTraverseScreen = new MapTraverseScreen(this);
-		gemFactory = new GemFactory(this);
 		bitmapFont = new BitmapFont();
 		setScreen(splashScreen);
 	}
@@ -91,6 +94,10 @@ public class AnotherManager extends Game {
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.update();
+		
+		guiCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCamera.update();
 	}
 
 	@Override

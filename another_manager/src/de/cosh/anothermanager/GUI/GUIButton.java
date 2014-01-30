@@ -3,6 +3,7 @@ package de.cosh.anothermanager.GUI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -52,15 +53,13 @@ public class GUIButton {
 		table.add(button).expand().bottom().right().size(100, 50);
 	}
 
-	public void createBacktoMapButton(final Stage stage, float x, float y) {
+	public void createBacktoMapButton(final Table table, float x, float y) {
 		button = new TextButton("Back to map", skin);
-		button.setPosition(x, y);
-		button.setLayoutEnabled(true);
-		button.setBounds(x, y, 100, 100);
+		button.setBounds(x, y, 200, 200);
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
-				stage.addAction(Actions.sequence(Actions.fadeOut(.25f),
+				table.addAction(Actions.sequence(Actions.fadeOut(.25f),
 						Actions.run(new Runnable() {
 							@Override
 							public void run() {
@@ -71,15 +70,14 @@ public class GUIButton {
 						})));
 			}
 		});
-
-		stage.addActor(button);
+		table.add(button).expand().left().bottom().size(100, 50);
 	}
 
-	public void createRemoveFromBarButton(final Stage stage, float x, float y) {
+	public void createRemoveFromBarButton(final Table table, float x, float y) {
 		button = new TextButton("Remove", skin);
 		button.setPosition(x, y);
 		button.setLayoutEnabled(true);
-		button.setBounds(x, y, 100, 100);
+		button.setBounds(x, y, 200, 200);
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
@@ -96,7 +94,7 @@ public class GUIButton {
 				}
 			}
 		});
-
-		stage.addActor(button);
+		
+		table.add(button).expand().right().bottom().size(100, 50);
 	}
 }

@@ -97,6 +97,8 @@ public class MapTraverseScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
+		
+		Table.drawDebug(stage);
 
 		if (fadeMusic) {
 			AnotherManager.soundPlayer.fadeOutMapMusic(delta);
@@ -105,6 +107,7 @@ public class MapTraverseScreen implements Screen {
 
 	@Override
 	public void resize(final int width, final int height) {
+		stage.setViewport(width, height, false);
 	}
 
 	@Override
@@ -120,10 +123,16 @@ public class MapTraverseScreen implements Screen {
 
 		Table table = new Table();
 		table.setFillParent(true);
+		table.debug();
 
+		/*
 		mapImage = new Image(AnotherManager.assets.get("data/textures/map.png", Texture.class));
 		mapImage.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		stage.addActor(mapImage);
+		*/
+		
+		mapImage = new Image(AnotherManager.assets.get("data/textures/map.png", Texture.class));
+		table.add(mapImage).expand().fill();
 
 		initEnemyLocations();
 
