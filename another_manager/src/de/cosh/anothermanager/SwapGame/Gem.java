@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import de.cosh.anothermanager.AnotherManager;
@@ -15,17 +16,15 @@ import de.cosh.anothermanager.SwapGame.Board.BoardState;
  * Created by cosh on 13.01.14.
  */
 public class Gem extends Image {
-	
+
 	public enum MoveDirection {
-		DIRECTION_HORIZONTAL,
-		DIRECTION_VERTICAL,
-		DIRECTION_NONE
+		DIRECTION_HORIZONTAL, DIRECTION_VERTICAL, DIRECTION_NONE
 	};
 
 	private final float GEM_SPEED = 150f;
 	private final float SWAP_SPEED = 0.20f;
 	private final float ACCEL_FACTOR = 20f;
-	
+
 	private GemType gemType;
 	private GemTypeSpecialHorizontal specialTypeHorizontal;
 	private GemTypeSpecialVertical specialTypeVertical;
@@ -38,9 +37,15 @@ public class Gem extends Image {
 	private boolean isSpecialVerticalGem;
 	private boolean isSuperSpecialGem;
 	private boolean checked;
-    private boolean isDisabled;
+	private boolean isDisabled;
 	private boolean markedForRemoval;
 	private MoveDirection moveDirection;
+
+	private int cellX, cellY;
+	private Cell[][] cells;
+	private boolean fallOne, isFalling;
+	private float speed, totalTranslated;
+	private BitmapFont bmf;
 
 	public Gem(GemType g) {
 		super(AnotherManager.assets.get(g.getTexturePath(), Texture.class));
@@ -54,27 +59,73 @@ public class Gem extends Image {
 		this.isSuperSpecialGem = false;
 		this.isSpecialHorizontalGem = false;
 		this.checked = false;
-        this.isDisabled = false;
+		this.isDisabled = false;
+		this.fallOne = false;
+		this.isFalling = false;
+		this.speed = 0f;
+		this.totalTranslated = 0f;
+		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
+		bmf = s.getFont("default-font");
+		this.cells = AnotherManager.getInstance().gameScreen.getBoard().getCells();
 		specialTypeHorizontal = GemTypeSpecialHorizontal.TYPE_NONE;
 		specialTypeVertical = GemTypeSpecialVertical.TYPE_NONE;
 		specialSuperSpecial = GemTypeSuperSpecial.TYPE_NONE;
 	}
-	
+
 	@Override
 	public void act(float delta) {
 		super.act(delta);
+
+		if (fallOne) {
+			speed += delta * ACCEL_FACTOR;
+			totalTranslated += speed;
+			translate(0, -speed);
+
+			if (totalTranslated >= Board.CELL_SIZE) {
+				fallOne = false;
+				translate(0, totalTranslated - Board.CELL_SIZE);
+				totalTranslated = 0f;
+				cells[cellX][cellY - 1].setEmpty(false);
+				cells[cellX][cellY - 1].setGem(this);
+			}
+		}
+
+		if (cellY - 1 < 0) {
+			fallOne = false;
+			isFalling = false;
+			return;
+		}
+
+		if (cells[cellX][cellY - 1].isEmpty()) {
+			cells[cellX][cellY].setEmpty(true);
+			fallOne = true;
+			isFalling = true;
+		} else {
+			speed = 0f;
+			isFalling = false;
+		}
+
 	}
 
-    public void disable() {
-        isDisabled = true;
-    }
+	public boolean isFalling() {
+		return isFalling;
+	}
 
-    public boolean isDisabled() {
-        return isDisabled;
-    }
+	public void setFalling(boolean b) {
+		fallOne = true;
+		isFalling = true;
+	}
+
+	public void disable() {
+		isDisabled = true;
+	}
+
+	public boolean isDisabled() {
+		return isDisabled;
+	}
 
 	public void convertToSpecialGem() {
-		if( isSuperSpecialGem )
+		if (isSuperSpecialGem)
 			return;
 		if (convertHorizontal) {
 			specialTypeHorizontal = GemTypeSpecialHorizontal.values()[gemType.ordinal()];
@@ -92,34 +143,39 @@ public class Gem extends Image {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		
-//		Stage stage = getStage();
-//		AnotherManager myGame = AnotherManager.getInstance();
-//		
-//        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 247));
-//        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH ,
-//                AnotherManager.VIRTUAL_HEIGHT - 720));
-//        final Rectangle scissor = new Rectangle();
-//        final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
-//        ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
-//                batch.getTransformMatrix(), clipBounds, scissor);
-//        batch.flush();
-//        ScissorStack.pushScissors(scissor);
-//        super.draw(batch, parentAlpha);
-//        batch.flush();
-//        ScissorStack.popScissors();
+		bmf.setColor(1f, 1f, 1f, 1f);
+		bmf.draw(batch, cellX + ", " + cellY, getX(), getY());
+		// Stage stage = getStage();
+		// AnotherManager myGame = AnotherManager.getInstance();
+		//
+		// final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0,
+		// AnotherManager.VIRTUAL_HEIGHT - 247));
+		// final Vector2 end = stage.stageToScreenCoordinates(new
+		// Vector2(AnotherManager.VIRTUAL_WIDTH ,
+		// AnotherManager.VIRTUAL_HEIGHT - 720));
+		// final Rectangle scissor = new Rectangle();
+		// final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x,
+		// end.y);
+		// ScissorStack.calculateScissors(myGame.camera, 0, 0,
+		// AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
+		// batch.getTransformMatrix(), clipBounds, scissor);
+		// batch.flush();
+		// ScissorStack.pushScissors(scissor);
+		// super.draw(batch, parentAlpha);
+		// batch.flush();
+		// ScissorStack.popScissors();
 	}
 
 	public boolean equals(final Gem b) {
-        if( isDisabled || b.isDisabled() )
-            return false;
-        if( isTypeNone() || b.isTypeNone() )
-            return false;
-		if( isSuperSpecialGem() )
+		if (isDisabled || b.isDisabled())
+			return false;
+		if (isTypeNone() || b.isTypeNone())
+			return false;
+		if (isSuperSpecialGem())
 			return true;
-		if( b.isSuperSpecialGem() )
+		if (b.isSuperSpecialGem())
 			return true;
-		if( gemType == b.gemType )
+		if (gemType == b.gemType)
 			return true;
 		return false;
 	}
@@ -145,19 +201,19 @@ public class Gem extends Image {
 	}
 
 	public boolean isTypeNone() {
-		return (gemType == GemType.TYPE_NONE &&
-				specialSuperSpecial == GemTypeSuperSpecial.TYPE_NONE &&
-				specialTypeHorizontal == GemTypeSpecialHorizontal.TYPE_NONE &&
-				specialTypeVertical == GemTypeSpecialVertical.TYPE_NONE);
+		return (gemType == GemType.TYPE_NONE && specialSuperSpecial == GemTypeSuperSpecial.TYPE_NONE
+				&& specialTypeHorizontal == GemTypeSpecialHorizontal.TYPE_NONE && specialTypeVertical == GemTypeSpecialVertical.TYPE_NONE);
 	}
 
 	public void markForSpecialConversion() {
-		if( isMarkedForSuperSpecialConversion || isMarkedForSpecialConversion || isSuperSpecialGem || isSpecialHorizontalGem() || isSpecialVerticalGem )
+		if (isMarkedForSuperSpecialConversion || isMarkedForSpecialConversion || isSuperSpecialGem || isSpecialHorizontalGem()
+				|| isSpecialVerticalGem)
 			return;
 		isMarkedForSpecialConversion = true;
-		if( moveDirection == MoveDirection.DIRECTION_HORIZONTAL )
+		if (moveDirection == MoveDirection.DIRECTION_HORIZONTAL)
 			convertHorizontal = true;
-		else convertHorizontal = false;
+		else
+			convertHorizontal = false;
 	}
 
 	public void markGemForRemoval() {
@@ -203,10 +259,6 @@ public class Gem extends Image {
 		return isSuperSpecialGem;
 	}
 
-	public void checked() {
-		checked = true;
-	}
-
 	public boolean isChecked() {
 		return checked;
 	}
@@ -218,4 +270,10 @@ public class Gem extends Image {
 	public GemType getGemType() {
 		return gemType;
 	}
+
+	public void setCell(int cellX, int cellY) {
+		this.cellX = cellX;
+		this.cellY = cellY;
+	}
+
 }

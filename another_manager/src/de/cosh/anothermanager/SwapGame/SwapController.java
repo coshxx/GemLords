@@ -16,6 +16,9 @@ public class SwapController {
 		final Gem firstGem = cells[start.x][start.y].getGem();
 		final Gem secondGem = cells[start.x + x][start.y + y].getGem();
 
+		if( firstGem == null | secondGem == null )
+			return;
+		
 		if (firstGem.isTypeNone() || secondGem.isTypeNone()) {
 			return;
 		}

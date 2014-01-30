@@ -210,8 +210,8 @@ public class Board extends Group {
     }
 
     public void update(final float delta) {
-
-        if (boardState == BoardState.STATE_CHECK) {
+    	// TODO: don't check on idle?
+        if (boardState == BoardState.STATE_CHECK || boardState == BoardState.STATE_IDLE) {
             MatchResult result = matchFinder.markAllMatchingGems();
             if (result.howMany > 0) {
                 if (result.conversion) {
@@ -254,7 +254,9 @@ public class Board extends Group {
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 final Gem gem = cells[x][y].getGem();
-                if (gem.getActions().size > 0) {
+                if( gem == null )
+                	continue;
+                if (gem.getActions().size > 0 || gem.isFalling()) {
                     stillMovement = true;
                 }
             }
@@ -262,8 +264,9 @@ public class Board extends Group {
 
         gemHandler.respawnAndApplyGravity(foreGround);
        	
-        if( boardState == BoardState.STATE_IDLE )
+        if( boardState == BoardState.STATE_IDLE ) {
             checkPlayerAndEnemyStatus();
+        }
 
         if (!stillMovement && boardState == BoardState.STATE_FADING) {
             gemRemover.removeFadedGems(myGame, effectGroup);
