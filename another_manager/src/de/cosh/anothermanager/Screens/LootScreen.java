@@ -9,12 +9,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.Items.BaseItem;
+import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 
 /**
  * Created by cosh on 07.01.14.
@@ -25,6 +27,7 @@ public class LootScreen implements Screen {
 	private Image chestImage;
 	private Stage stage;
 	private Skin skin;
+	private Table table;
 
 	public LootScreen(final AnotherManager anotherManager, final EnemyManager enemyManager) {
 		this.myGame = anotherManager;
@@ -53,10 +56,12 @@ public class LootScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();
+		
 	}
 
 	@Override
 	public void resize(final int width, final int height) {
+		stage.setViewport(width, height, false);
 	}
 
 	@Override
@@ -67,33 +72,23 @@ public class LootScreen implements Screen {
 	@Override
 	public void show() {
 		stage = new Stage();
-		stage.setCamera(myGame.camera);
-
+		table = new Table();
+		table.setFillParent(true);
+		table.center().top();
 		chestImage = new Image(AnotherManager.assets.get("data/textures/treasure.jpg", Texture.class));
-		chestImage.setPosition(AnotherManager.VIRTUAL_WIDTH / 2 - 200, AnotherManager.VIRTUAL_HEIGHT / 2);
-		stage.addActor(chestImage);
-
-		stage.addAction(Actions.alpha(0.0f));
-		stage.addAction(Actions.fadeIn(1.0f));
-
-		AnotherManager.soundPlayer.playLootMusic();
-
-		TextButton button = new TextButton("Return to map", skin);
-		button.setPosition(50, 50);
-		button.setSize(200, 100);
-
+		table.add(chestImage);
+		table.row();
+		
+		AnotherManager.getInstance().soundPlayer.playLootMusic();
+		
 		final BaseItem i = enemyManager.getSelectedEnemy().getDroppedItem();
-
-		if (i != null) {
-
-			i.setPosition(AnotherManager.VIRTUAL_WIDTH + i.getWidth(), (AnotherManager.VIRTUAL_HEIGHT / 2) - 200);
-			i.addAction(Actions.sequence(
-					Actions.delay(0.5f),
-					Actions.moveBy(-((AnotherManager.VIRTUAL_WIDTH / 2) + i.getWidth() * 1.5f), 0, 0.25f)
-					));
-			stage.addActor(i);
+		if( i != null ) {
+			i.addAction(Actions.alpha(0));
+			i.addAction(Actions.fadeIn(5.0f));
+			table.add(i).pad(50).top();
 		}
-
+		table.row();
+		TextButton button = new TextButton("Return to map", skin);
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(final InputEvent event, final float x, final float y) {
@@ -111,7 +106,8 @@ public class LootScreen implements Screen {
 				})));
 			}
 		});
-		stage.addActor(button);
+		table.add(button).pad(100).size(200, 50);
+		stage.addActor(table);
 		Gdx.input.setInputProcessor(stage);
 	}
 }

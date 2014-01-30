@@ -26,6 +26,7 @@ public class AnotherManager extends Game {
 	public static boolean DEBUGMODE = true;
 	private static AnotherManager instance;
 	public OrthographicCamera camera;
+	public OrthographicCamera guiCamera;
 	public Enemy enemy;
 	public EnemyManager enemyManager;
 	public GameScreen gameScreen;
@@ -50,6 +51,11 @@ public class AnotherManager extends Game {
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.update();
+		
+		guiCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCamera.update();
+		
 		player = new Player(this);
 		enemyManager = new EnemyManager();
 		splashScreen = new SplashScreen(this);
@@ -88,6 +94,10 @@ public class AnotherManager extends Game {
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.update();
+		
+		guiCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCamera.update();
 	}
 
 	@Override

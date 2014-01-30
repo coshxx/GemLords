@@ -8,13 +8,11 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "another_manager";
 		cfg.useGL20 = true;
-        /*
-		cfg.width = 486;
-		cfg.height = 864;
+		/*
+		cfg.width = 720;
+		cfg.height = 1280;
 		*/
-
-
-        cfg.width = 432;
+		cfg.width = 432;
         cfg.height = 768;
         cfg.resizable = false;
         cfg.foregroundFPS = 100;

@@ -3,6 +3,7 @@ package de.cosh.anothermanager.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Scaling;
 
 import de.cosh.anothermanager.AnotherManager;
 
@@ -24,6 +26,8 @@ public class MenuScreen implements Screen {
 	private TextButton newGameButton;
 	private TextButton optionsButton;
 	private TextButton exitGameButton;
+	
+	private Vector2 crop;
 
 
 	public MenuScreen(final AnotherManager myGame) {
@@ -61,7 +65,7 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void resize(final int width, final int height) {
-
+		stage.setViewport(width, height, false);
 	}
 
 	@Override
@@ -71,16 +75,18 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void show() {
+		float buttonWidth = Gdx.graphics.getWidth() * 0.8f;
+		float buttonHeight = Gdx.graphics.getHeight() * 0.1f;
         this.stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		table.setFillParent(true);
 		//table.debug();
 		table.bottom();
-		table.add(newGameButton).pad(20).height(75).width(200);
+		table.add(newGameButton).pad(20).height(buttonHeight).width(buttonWidth);
 		table.row();
-		table.add(optionsButton).pad(20).height(75).width(200);
+		table.add(optionsButton).pad(20).height(buttonHeight).width(buttonWidth);
 		table.row();
-		table.add(exitGameButton).pad(20).height(75).width(200);
+		table.add(exitGameButton).pad(20).height(buttonHeight).width(buttonWidth);
 
 		addButtonListeners();
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -134,8 +135,6 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/sounds/abilitypetrify.ogg", Sound.class);
 
 		AnotherManager.assets.load("data/sounds/awesome.ogg", Sound.class);
-
-
 		AnotherManager.assets.load("data/sounds/error.ogg", Sound.class);
 
 	}
@@ -155,6 +154,8 @@ public class SplashScreen implements Screen {
 		if (AnotherManager.assets.update()) {
 			AnotherManager.soundPlayer.touchSounds();
 			AnotherManager.soundPlayer.PlayBlub2();
+			// set font texture scaling to linear
+			AnotherManager.assets.get("data/ui/uiskin.json", Skin.class).getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			myGame.setScreen(myGame.menuScreen);
 		}
 		final float left = Gdx.graphics.getWidth() * 0.1f;
