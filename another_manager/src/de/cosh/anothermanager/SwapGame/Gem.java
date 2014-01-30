@@ -43,7 +43,7 @@ public class Gem extends Image {
 
 	private int cellX, cellY;
 	private Cell[][] cells;
-	private boolean fallOne, isFalling;
+	private boolean isFalling;
 	private float speed, totalTranslated;
 	private BitmapFont bmf;
 
@@ -60,7 +60,6 @@ public class Gem extends Image {
 		this.isSpecialHorizontalGem = false;
 		this.checked = false;
 		this.isDisabled = false;
-		this.fallOne = false;
 		this.isFalling = false;
 		this.speed = 0f;
 		this.totalTranslated = 0f;
@@ -76,41 +75,43 @@ public class Gem extends Image {
 	public void act(float delta) {
 		super.act(delta);
 
-		if (fallOne) {
-			speed += delta * ACCEL_FACTOR;
-			totalTranslated += speed;
-			translate(0, -speed)
-			if (totalTranslated >= Board.CELL_SIZE) {
-				cellY--;
-				totalTranslated = 0;
-				fallOne = false;
-				if (cellY < Board.MAX_SIZE_Y) {
-					cells[cellX][cellY].setEmpty(false);
-					cells[cellX][cellY].setGem(this);
-				}
-			}
+		if (cellY >= Board.MAX_SIZE_Y) {
+			fall(delta);
+			return;
 		}
 
-		if (cellY - 1 < 0) {
-			fallOne = false;
-			isFalling = false;
+		if (cellY - 1 < 0)
 			return;
-		}
-		if (cellY >= Board.MAX_SIZE_Y) {
-			fallOne = true;
-			return;
-		}
 
 		if (cells[cellX][cellY - 1].isEmpty()) {
-			System.out.println("IT'S FREE BELOW ME :" + cellX + ", " + cellY);
 			cells[cellX][cellY].setEmpty(true);
-			fallOne = true;
-			isFalling = true;
+			fall(delta);
 		} else {
-			speed = 0f;
-			isFalling = false;
-			fallOne = false;
+			setFalling(false);
+			cells[cellX][cellY].setGem(this);
+			cells[cellX][cellY].setEmpty(false);
+			speed = 0;
 		}
+	}
+
+	public boolean fall(float delta) {
+		speed += delta * ACCEL_FACTOR;
+		translate(0, -speed);
+		totalTranslated += speed;
+
+		if (totalTranslated >= Board.CELL_SIZE) {
+			translate(0, totalTranslated - Board.CELL_SIZE);
+			totalTranslated = 0;
+			cellY--;
+			if (cellY < Board.MAX_SIZE_Y) {
+				cells[cellX][cellY].setEmpty(false);
+				cells[cellX][cellY].setGem(this);
+				cells[cellX][cellY].setPosition(cells[cellX][cellY].getX(), cells[cellX][cellY].getY());
+			}
+			isFalling = false;
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isFalling() {
@@ -118,8 +119,7 @@ public class Gem extends Image {
 	}
 
 	public void setFalling(boolean b) {
-		fallOne = true;
-		isFalling = true;
+		isFalling = b;
 	}
 
 	public void disable() {
