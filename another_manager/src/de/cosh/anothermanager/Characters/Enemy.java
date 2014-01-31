@@ -19,6 +19,7 @@ import de.cosh.anothermanager.GUI.GUIWindow;
 import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
+import de.cosh.anothermanager.Items.ItemPocketWatch;
 import de.cosh.anothermanager.Items.ItemScholarRobe;
 import de.cosh.anothermanager.Items.ItemTotem;
 
@@ -194,6 +195,8 @@ public class Enemy extends BaseCharacter {
 			return new ItemScholarRobe();
 		case 3:
 			return new ItemTotem();
+		case 4:
+			return new ItemPocketWatch();
 		default:
 			return null;
 		}

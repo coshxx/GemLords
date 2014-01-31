@@ -19,6 +19,7 @@ import de.cosh.anothermanager.GUI.GUIButton;
 import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 import de.cosh.anothermanager.Items.ItemDevRobe;
 import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
+import de.cosh.anothermanager.Items.ItemPocketWatch;
 import de.cosh.anothermanager.Items.ItemScholarRobe;
 import de.cosh.anothermanager.Items.ItemTotem;
 
@@ -161,6 +162,7 @@ public class MapTraverseScreen implements Screen {
 			myGame.player.getInventory().addItem(new ItemScholarRobe());
 			myGame.player.getInventory().addItem(new ItemTotem());
 			myGame.player.getInventory().addItem(new ItemDevRobe());
+			myGame.player.getInventory().addItem(new ItemPocketWatch());
 		}
 	}
 }

@@ -1,0 +1,22 @@
+{
+enemyImageLocation: data/textures/enemyogre.png,
+enemyNumber: 6,
+abilities: [
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		currentCooldown: 2,
+		cooldown: 2
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilitySmash,
+		currentCooldown: 1,
+		cooldown: 4
+	}
+],
+locationOnMap: {
+	x: 320,
+	y: 210
+},
+healthPoints: 195,
+dropItemID: -1
+}

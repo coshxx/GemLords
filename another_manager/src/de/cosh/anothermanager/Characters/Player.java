@@ -15,6 +15,8 @@ public class Player extends BaseCharacter {
 	private int lives;
 	private PlayerInventory playerInventory;
 	private ActionBar actionBar;
+	
+	private int lastDamageReceived;
 
 	public PlayerInventory getInventory() {
 		return playerInventory;
@@ -27,7 +29,7 @@ public class Player extends BaseCharacter {
 			levelDone[x] = false;
 		}
 		lives = 5;
-
+		lastDamageReceived = 0;
 		playerInventory = new PlayerInventory();
 		actionBar = new ActionBar();
 	}
@@ -54,7 +56,7 @@ public class Player extends BaseCharacter {
 		for (int i = 0; i < playerInventory.getAllItems().size; i++ ) {
 			BaseItem item = playerInventory.getAllItems().get(i);
 			if( item.isAddedToActionBar() ) {
-				if( item.getItemSlotType() == BaseItem.ItemSlotType.POTION )
+				if( item.getItemSlotType() == BaseItem.ItemSlotType.POTION || item.getItemSlotType() == BaseItem.ItemSlotType.ACTIVE)
 					item.drawCooldown(batch, parentAlpha);
 			}
 		}
@@ -79,6 +81,16 @@ public class Player extends BaseCharacter {
 
 	public int getLives() {
 		return lives;
+	}
+	
+	@Override
+	public void damage(final int damage) {
+		super.damage(damage);
+		lastDamageReceived = damage;
+	}
+	
+	public int getLastDamageReceived() {
+		return lastDamageReceived;
 	}
 
 	public void levelDone(int i) {

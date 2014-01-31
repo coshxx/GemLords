@@ -23,7 +23,7 @@ public class AnotherManager extends Game {
 
 	public static AssetManager assets;
 	public static SoundPlayer soundPlayer;
-	public static boolean DEBUGMODE = false;
+	public static boolean DEBUGMODE = true;
 	private static AnotherManager instance;
 	public OrthographicCamera camera;
 	public OrthographicCamera guiCamera;

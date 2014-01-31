@@ -19,6 +19,8 @@ public abstract class BaseItem extends Image implements UseItem {
 	private transient boolean drawText;
 	private transient boolean addedToActionBar;
 	private transient int actionBarSlot;
+	
+	protected BitmapFont bmf;
 
 	protected int itemNumber = -1;
 
@@ -33,7 +35,6 @@ public abstract class BaseItem extends Image implements UseItem {
 
 	@Override
 	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
-
 	}
 
 	@Override
@@ -61,6 +62,8 @@ public abstract class BaseItem extends Image implements UseItem {
 		drawText = true;
 		addedToActionBar = false;
 		actionBarSlot = -1;
+		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
+		bmf = s.getFont("default-font");
 	}
 
 	public void setItemSlotType(ItemSlotType type) {
@@ -80,17 +83,19 @@ public abstract class BaseItem extends Image implements UseItem {
 		if (selected)
 			itemBorder.setColor(1f, 0f, 0f, parentAlpha * getColor().a);
 		else itemBorder.setColor(1f, 1f, 1f, parentAlpha * getColor().a);
-
 		AnotherManager.getInstance();
-		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
-		BitmapFont bmf = s.getFont("default-font"); 
 		BitmapFont.TextBounds bounds = new BitmapFont.TextBounds();
 		itemBorder.setPosition(getX(), getY());
 		itemBorder.draw(batch, parentAlpha);
 		super.draw(batch, parentAlpha);
 		float imgCenterX = getX() + (getWidth() / 2);
 		if (drawText) {
-			bmf.setColor(0f, 1f, 0f, parentAlpha * getColor().a);
+				
+			if (itemSlotType == ItemSlotType.ACTIVE )
+				bmf.setColor(0.4f, 0.4f, 1f, parentAlpha * getColor().a);
+			else if( itemSlotType == ItemSlotType.POTION ) 
+				bmf.setColor(1f, 1f, 0f, parentAlpha * getColor().a);
+			else bmf.setColor(0f, 1f, 0f, parentAlpha * getColor().a);
 			bounds = bmf.getBounds(itemName);
 			bmf.draw(batch, itemName, imgCenterX - (bounds.width / 2), getY() - 5);
 			bounds = bmf.getBounds(itemText);

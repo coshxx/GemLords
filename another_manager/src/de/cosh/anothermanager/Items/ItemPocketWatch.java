@@ -10,20 +10,26 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Buff;
+import de.cosh.anothermanager.Characters.Player;
 
 /**
  * Created by cosh on 20.01.14.
  */
-public class ItemTotem extends BaseItem implements UseItem {
+ 
+public class ItemPocketWatch extends BaseItem implements UseItem {
 	private int cooldown;
 	private Integer currentCooldown;
+	private BitmapFont bmf;
 
-	public ItemTotem() {
-		super(AnotherManager.assets.get("data/textures/totem.png", Texture.class));
-		itemNumber = 3;
-		setItemName("Alpha Totem");
-		setItemText("Recover 5 hp\neach turn\nOne use");
+	public ItemPocketWatch() {
+		super(AnotherManager.assets.get("data/textures/pocketwatch.png", Texture.class));
+		itemNumber = 4;
+		setItemName("Simaohs Pocketwatch");
+		setItemText("Undo last\nreceived damage");
 		setItemSlotType(ItemSlotType.ACTIVE);
+		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
+		bmf = s.getFont("default-font");
+
 		cooldown = 99;
 		currentCooldown = 0;
 		bmf = new BitmapFont();
@@ -33,11 +39,9 @@ public class ItemTotem extends BaseItem implements UseItem {
 	public void onUse() {
 		if (currentCooldown <= 0) {
 			AnotherManager.getInstance();
-			AnotherManager.soundPlayer.playTotem();
-			Buff totemBuff = new Buff();
-			totemBuff.setBuffImage(new Image(AnotherManager.assets.get("data/textures/totem.png", Texture.class)));
-			totemBuff.setup(5, 99, AnotherManager.getInstance().player);
-			AnotherManager.getInstance().player.addBuff(totemBuff);
+			AnotherManager.soundPlayer.playPocketwatch();
+			Player player = AnotherManager.getInstance().player;
+			player.increaseHealth(player.getLastDamageReceived());
 			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 			currentCooldown = cooldown;
 		}

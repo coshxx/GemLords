@@ -3,10 +3,12 @@ package de.cosh.anothermanager.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -75,24 +77,52 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void show() {
-		float buttonWidth = Gdx.graphics.getWidth() * 0.8f;
-		float buttonHeight = Gdx.graphics.getHeight() * 0.1f;
-        this.stage = new Stage();
+		float width = Gdx.graphics.getWidth();
+		float height = Gdx.graphics.getHeight();
+		float buttonWidth = width * 0.3f;
+		float buttonHeight = height * 0.05f;
+		this.stage = new Stage();
+		AnotherManager.getInstance().soundPlayer.playMenuMusic();
 		Gdx.input.setInputProcessor(stage);
 		table.setFillParent(true);
+		Image backGround = new Image(AnotherManager.getInstance().assets.get("data/textures/menu.png", Texture.class));
+		table.setBackground(backGround.getDrawable());
 		//table.debug();
-		table.bottom();
-		table.add(newGameButton).pad(20).height(buttonHeight).width(buttonWidth);
+
+		addWobbleToButtons();
+		
+		table.bottom().pad(Gdx.graphics.getHeight() * 0.15f);
+		table.add(newGameButton).pad(height*0.02f).height(buttonHeight).width(buttonWidth);
 		table.row();
-		table.add(optionsButton).pad(20).height(buttonHeight).width(buttonWidth);
+		table.add(optionsButton).pad(height*0.02f).height(buttonHeight).width(buttonWidth);
 		table.row();
-		table.add(exitGameButton).pad(20).height(buttonHeight).width(buttonWidth);
+		table.add(exitGameButton).pad(height*0.02f).height(buttonHeight).width(buttonWidth);
 
 		addButtonListeners();
 
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(0.5f));
 		stage.addActor(table);
+	}
+
+	private void addWobbleToButtons() {
+		newGameButton.addAction(Actions.forever(
+				Actions.sequence(
+						Actions.moveBy(0, 5f, 0.5f),
+						Actions.moveBy(0, -5f, 0.5f)
+						)));
+		
+		optionsButton.addAction(Actions.forever(
+				Actions.sequence(
+						Actions.moveBy(0, 5f, 0.5f),
+						Actions.moveBy(0, -5f, 0.5f)
+						)));
+		
+		exitGameButton.addAction(Actions.forever(
+				Actions.sequence(
+						Actions.moveBy(0, 5f, 0.5f),
+						Actions.moveBy(0, -5f, 0.5f)
+						)));
 	}
 
 	private void addButtonListeners() {
@@ -104,6 +134,7 @@ public class MenuScreen implements Screen {
 						Actions.run(new Runnable() {
 							@Override
 							public void run() {
+								myGame.soundPlayer.stopMenuMusic();
 								myGame.setScreen(myGame.mapTraverseScreen);
 							}})));
 			}});

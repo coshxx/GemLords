@@ -73,11 +73,13 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/textures/abilityfireball.png", Texture.class);
 		AnotherManager.assets.load("data/textures/abilitypoison.png", Texture.class);
 		AnotherManager.assets.load("data/textures/abilitypetrify.png", Texture.class);
+		AnotherManager.assets.load("data/textures/abilitysmash.png", Texture.class);
 
 		AnotherManager.assets.load("data/textures/debuff_border.png", Texture.class);
 		AnotherManager.assets.load("data/textures/buff_border.png", Texture.class);
 		AnotherManager.assets.load("data/textures/item_border.png", Texture.class);
 		AnotherManager.assets.load("data/textures/minorhealthpotion.png", Texture.class);
+		AnotherManager.assets.load("data/textures/pocketwatch.png", Texture.class);
 
 		AnotherManager.assets.load("data/textures/empty.png", Texture.class);
 		AnotherManager.assets.load("data/textures/full.png", Texture.class);
@@ -94,6 +96,7 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/textures/enemyscarecrow.png", Texture.class);
 		AnotherManager.assets.load("data/textures/enemysnake.png", Texture.class);
 		AnotherManager.assets.load("data/textures/enemydummy.png", Texture.class);
+		AnotherManager.assets.load("data/textures/enemyogre.png", Texture.class);
 		AnotherManager.assets.load("data/textures/enemyrat.png", Texture.class);
 		AnotherManager.assets.load("data/textures/star.png", Texture.class);
 		AnotherManager.assets.load("data/textures/treasure.jpg", Texture.class);
@@ -103,12 +106,14 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/textures/robe_scholar.png", Texture.class);
 		AnotherManager.assets.load("data/textures/awesome.png", Texture.class);
 		AnotherManager.assets.load("data/textures/loadout.jpg", Texture.class);
+		AnotherManager.assets.load("data/textures/menu.png", Texture.class);
 
 		AnotherManager.assets.load("data/sounds/blub1.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/blub2.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/blub3.ogg", Sound.class);
 
 		AnotherManager.assets.load("data/sounds/bang.ogg", Sound.class);
+		AnotherManager.assets.load("data/sounds/smash.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/music.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/loot.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/victory.ogg", Sound.class);
@@ -125,7 +130,10 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/sounds/totem.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/music0.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/gulp.ogg", Sound.class);
+		AnotherManager.assets.load("data/sounds/pocketwatch.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
+		AnotherManager.assets.load("data/sounds/menumusic.ogg", Music.class);
+		
 
 		AnotherManager.assets.load("data/ui/uiskin.json", Skin.class);
 

@@ -15,7 +15,6 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
 public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 	private int cooldown;
 	private Integer currentCooldown;
-	private BitmapFont bmf;
 
 	public ItemMinorHealthPotion() {
 		super(AnotherManager.assets.get("data/textures/minorhealthpotion.png", Texture.class));
@@ -23,8 +22,6 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 		setItemName("Minor potion");
 		setItemText("Recover 10 hp\nCooldown: 5");
 		setItemSlotType(ItemSlotType.POTION);
-		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
-		bmf = s.getFont("default-font");
 		cooldown = 5;
 		currentCooldown = 5;
 	}

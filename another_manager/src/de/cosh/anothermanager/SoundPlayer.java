@@ -1,5 +1,6 @@
 package de.cosh.anothermanager;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
@@ -23,15 +24,18 @@ public class SoundPlayer {
 	private Sound totem;
 	private Sound slideIn;
     private Sound petrify;
+    private Sound pocketwatch;
 
 	private Sound impressive, godlike, unstoppable;
 
 	private Music mapMusic;
 	private Music loadoutMusic;
+	private Music menuMusic;
 	private Music gameMusic0;
 	private float mapMusicVolume;
 	private Sound victorySound, loseSound;
 	private Sound woosh;
+	private Sound smash;
 
 	public SoundPlayer(final AnotherManager game) {
 	}
@@ -151,40 +155,55 @@ public class SoundPlayer {
 	}
 
 	public void touchSounds() {
-		blub1 = AnotherManager.assets.get("data/sounds/blub1.ogg", Sound.class);
-		blub2 = AnotherManager.assets.get("data/sounds/blub2.ogg", Sound.class);
+		AssetManager assets = AnotherManager.assets;
+		blub1 = assets.get("data/sounds/blub1.ogg", Sound.class);
+		blub2 = assets.get("data/sounds/blub2.ogg", Sound.class);
 
-		bang = AnotherManager.assets.get("data/sounds/bang.ogg", Sound.class);
+		bang = assets.get("data/sounds/bang.ogg", Sound.class);
 
-		mapMusic = AnotherManager.assets.get("data/sounds/music.ogg", Music.class);
-		woosh = AnotherManager.assets.get("data/sounds/woosh.ogg", Sound.class);
-		convert = AnotherManager.assets.get("data/sounds/convert.ogg", Sound.class);
-		ding = AnotherManager.assets.get("data/sounds/ding.ogg", Sound.class);
-		victorySound = AnotherManager.assets.get("data/sounds/victory.ogg", Sound.class);
-		loseSound = AnotherManager.assets.get("data/sounds/boo.ogg", Sound.class);
-		abilityAttack = AnotherManager.assets.get("data/sounds/abilityattack_fire.ogg", Sound.class);
-		fireball_start = AnotherManager.assets.get("data/sounds/abilityfireball_fire.ogg", Sound.class);
-		abilityPoison = AnotherManager.assets.get("data/sounds/abilitypoison_fire.ogg", Sound.class);
-		totem = AnotherManager.assets.get("data/sounds/totem.ogg", Sound.class);
-		clawSound = AnotherManager.assets.get("data/sounds/abilityclaw.ogg", Sound.class);
-		loadoutMusic = AnotherManager.assets.get("data/sounds/loadoutmusic.ogg", Music.class);
-		error = AnotherManager.assets.get("data/sounds/error.ogg", Sound.class);
-		slideIn = AnotherManager.assets.get("data/sounds/slidein.ogg", Sound.class);
-        petrify = AnotherManager.assets.get("data/sounds/abilitypetrify.ogg");
-		impressive = AnotherManager.assets.get("data/sounds/impressive.ogg", Sound.class);
-		godlike = AnotherManager.assets.get("data/sounds/godlike.ogg", Sound.class);
-		unstoppable = AnotherManager.assets.get("data/sounds/unstoppable.ogg", Sound.class);
-
-
-		gulp = AnotherManager.assets.get("data/sounds/gulp.ogg", Sound.class);
-		loot = AnotherManager.assets.get("data/sounds/loot.ogg", Sound.class);
-		challenge = AnotherManager.assets.get("data/sounds/challenge.ogg", Sound.class);
-		gameMusic0 = AnotherManager.assets.get("data/sounds/music0.ogg", Music.class);
-		awesome = AnotherManager.assets.get("data/sounds/awesome.ogg", Sound.class);
+		mapMusic = assets.get("data/sounds/music.ogg", Music.class);
+		woosh = assets.get("data/sounds/woosh.ogg", Sound.class);
+		convert = assets.get("data/sounds/convert.ogg", Sound.class);
+		ding = assets.get("data/sounds/ding.ogg", Sound.class);
+		victorySound = assets.get("data/sounds/victory.ogg", Sound.class);
+		loseSound = assets.get("data/sounds/boo.ogg", Sound.class);
+		abilityAttack = assets.get("data/sounds/abilityattack_fire.ogg", Sound.class);
+		fireball_start = assets.get("data/sounds/abilityfireball_fire.ogg", Sound.class);
+		abilityPoison = assets.get("data/sounds/abilitypoison_fire.ogg", Sound.class);
+		totem = assets.get("data/sounds/totem.ogg", Sound.class);
+		clawSound = assets.get("data/sounds/abilityclaw.ogg", Sound.class);
+		loadoutMusic = assets.get("data/sounds/loadoutmusic.ogg", Music.class);
+		error = assets.get("data/sounds/error.ogg", Sound.class);
+		slideIn = assets.get("data/sounds/slidein.ogg", Sound.class);
+        petrify = assets.get("data/sounds/abilitypetrify.ogg");
+		impressive = assets.get("data/sounds/impressive.ogg", Sound.class);
+		godlike = assets.get("data/sounds/godlike.ogg", Sound.class);
+		unstoppable = assets.get("data/sounds/unstoppable.ogg", Sound.class);
+		pocketwatch = assets.get("data/sounds/pocketwatch.ogg", Sound.class);
+		menuMusic = assets.get("data/sounds/menumusic.ogg", Music.class);
+		gulp = assets.get("data/sounds/gulp.ogg", Sound.class);
+		loot = assets.get("data/sounds/loot.ogg", Sound.class);
+		challenge = assets.get("data/sounds/challenge.ogg", Sound.class);
+		gameMusic0 = assets.get("data/sounds/music0.ogg", Music.class);
+		awesome = assets.get("data/sounds/awesome.ogg", Sound.class);
+		smash = assets.get("data/sounds/smash.ogg", Sound.class);
 	}
 
 	public void stopLoadoutMusic() {
 		loadoutMusic.stop();
+	}
+	public void playMenuMusic() {
+		menuMusic.setLooping(true);
+		menuMusic.setVolume(0.3f);
+		menuMusic.play();
+	}
+	
+	public void playSmash() {
+		smash.play();
+	}
+	
+	public void playPocketwatch() {
+		pocketwatch.play();
 	}
 
 	public void playGulp() {
@@ -197,5 +216,9 @@ public class SoundPlayer {
 
 	public void playClawSound() {
 		clawSound.play();
+	}
+
+	public void stopMenuMusic() {
+		menuMusic.stop();
 	}
 }

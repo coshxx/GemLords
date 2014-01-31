@@ -97,6 +97,8 @@ public class Board extends Group {
 
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		player.draw(batch, parentAlpha);
+		enemy.draw(batch, parentAlpha);
 		bmf.setColor(1f, 1f, 1f, 1f);
 		bmf.draw(batch, boardState.toString(), 100, 100);
 	}
@@ -279,8 +281,6 @@ public class Board extends Group {
 			}
 		}
 
-		gemHandler.respawnAndApplyGravity(foreGround);
-
 		if (boardState == BoardState.STATE_IDLE) {
 			checkPlayerAndEnemyStatus();
 		}
@@ -302,6 +302,8 @@ public class Board extends Group {
 				justSwapped = false;
 				player.turn();
 				enemy.turn(player);
+				boardState = BoardState.STATE_MOVING;
+				return;
 			}
 			boardState = BoardState.STATE_IDLE;
 		} else if (!stillMovement && boardState == BoardState.STATE_MOVING) {
@@ -333,5 +335,17 @@ public class Board extends Group {
 
 	public BoardState getBoardState() {
 		return boardState;
+	}
+
+	public RespawnRequest getRespawnRequest() {
+		return respawnRequest;
+	}
+
+	public GemHandler getGemHandler() {
+		return gemHandler;
+	}
+
+	public Group getGemGroup() {
+		return foreGround;
 	}
 }
