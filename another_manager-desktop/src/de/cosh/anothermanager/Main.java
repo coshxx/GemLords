@@ -10,13 +10,13 @@ public class Main {
 		cfg.useGL20 = true;
 		/*
 		cfg.width = 720;
-		cfg.height = 1280;
+		cfg.height = 1000;
 		*/
-		cfg.width = 640;
-        cfg.height = 960;
-        cfg.resizable = false;
+		cfg.width = 480;
+        cfg.height = 720;
+        cfg.resizable = true;
         cfg.foregroundFPS = 100;
-
+        
 		new LwjglApplication(new AnotherManager(), cfg);
 	}
 }

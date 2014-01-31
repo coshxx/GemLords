@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
@@ -31,6 +32,7 @@ public class MapTraverseScreen implements Screen {
 	private final AnotherManager myGame;
 	private Json json;
 	private Stage stage;
+	private Stage guiStage;
 
 	public MapTraverseScreen(final AnotherManager anotherManager) {
 		myGame = anotherManager;
@@ -64,13 +66,13 @@ public class MapTraverseScreen implements Screen {
 			e.setDefeated(player.levelDone[e.getEnemyNumber()]);
 			e.loadImage();
 			if( e.getEnemyNumber() == 0 || AnotherManager.DEBUGMODE) {
-				e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+				e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, guiStage, myGame.enemyManager);
 			} else {
 				int previous = e.getEnemyNumber() - 1;
 				if( previous < 0 )
 					break;
 				if( player.levelDone[previous] ) {
-					e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+					e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, guiStage, myGame.enemyManager);
 				}
 			}
 			counter++;
@@ -81,7 +83,7 @@ public class MapTraverseScreen implements Screen {
 			e.setLocationOnMap(250,  250);
 			e.setHealth(999);
 			e.setDropItemID(-1);
-			e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(AnotherManager.assets.get("data/textures/enemy.png", Texture.class)), 999, stage, myGame.enemyManager);
+			e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(AnotherManager.assets.get("data/textures/enemy.png", Texture.class)), 999, stage, guiStage, myGame.enemyManager);
 		}
 	}
 
@@ -98,6 +100,9 @@ public class MapTraverseScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 		
+		guiStage.act(delta);
+		guiStage.draw();
+		
 		Table.drawDebug(stage);
 
 		if (fadeMusic) {
@@ -107,7 +112,8 @@ public class MapTraverseScreen implements Screen {
 
 	@Override
 	public void resize(final int width, final int height) {
-		stage.setViewport(width, height, false);
+		stage.setViewport(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, false);
+		guiStage.setViewport(width, height, false);
 	}
 
 	@Override
@@ -118,31 +124,34 @@ public class MapTraverseScreen implements Screen {
 	@Override
 	public void show() {
         stage = new Stage();
+        guiStage = new Stage();
 		fadeMusic = false;
 		enemyWindowOpen = false;
 
 		Table table = new Table();
 		table.setFillParent(true);
 		table.debug();
-
-		/*
-		mapImage = new Image(AnotherManager.assets.get("data/textures/map.png", Texture.class));
-		mapImage.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		stage.addActor(mapImage);
-		*/
 		
+		Table guiTable = new Table();
+		guiTable.setFillParent(true);
+
 		mapImage = new Image(AnotherManager.assets.get("data/textures/map.png", Texture.class));
 		//table.add(mapImage).expand().fill();
 		table.setBackground(mapImage.getDrawable());
-
+		stage.addActor(table);
 		initEnemyLocations();
+		guiStage.addActor(guiTable);
 
 		GUIButton guiButton = new GUIButton();
-		guiButton.createLoadoutButton(table, AnotherManager.VIRTUAL_WIDTH-100, 0);
+		guiButton.createLoadoutButton(guiTable, AnotherManager.VIRTUAL_WIDTH-100, 0);
 		AnotherManager.soundPlayer.playMapMusic();
 
-		Gdx.input.setInputProcessor(stage);
-		stage.addActor(table);
+		InputMultiplexer plex = new InputMultiplexer();
+		plex.addProcessor(stage);
+		plex.addProcessor(guiStage);
+		
+		Gdx.input.setInputProcessor(plex);
+		
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));
 

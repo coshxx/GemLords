@@ -75,10 +75,7 @@ public class Gem extends Image {
 		specialSuperSpecial = GemTypeSuperSpecial.TYPE_NONE;
 	}
 
-	@Override
-	public void act(float delta) {
-		super.act(delta);
-
+	public void update(float delta) {
 		if (cellY >= Board.MAX_SIZE_Y) {
 			fall(delta);
 			return;
@@ -87,8 +84,13 @@ public class Gem extends Image {
 		if (cellY - 1 < 0)
 			return;
 
-		if (cells[cellX][cellY - 1].isEmpty()) {
+		if (isFalling) {
+			fall(delta);
+		} else if (cells[cellX][cellY - 1].isEmpty()) {
 			cells[cellX][cellY].setEmpty(true);
+			setFalling(true);
+			setMoving(MoveDirection.DIRECTION_VERTICAL);
+			AnotherManager.getInstance().gameScreen.getBoard().addToUncelledGems(this);
 			fall(delta);
 		} else {
 			setFalling(false);
@@ -102,7 +104,6 @@ public class Gem extends Image {
 		speed += delta * ACCEL_FACTOR;
 		translate(0, -speed);
 		totalTranslated += speed;
-
 		if (totalTranslated >= Board.CELL_SIZE) {
 			translate(0, totalTranslated - Board.CELL_SIZE);
 			totalTranslated = 0;
@@ -153,29 +154,23 @@ public class Gem extends Image {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		/*
+		 * super.draw(batch, parentAlpha); bmf.setColor(1f, 1f, 1f, 1f);
+		 * bmf.draw(batch, cellX + ", " + cellY, getX(), getY());
+		 */
+		Stage stage = getStage();
+		AnotherManager myGame = AnotherManager.getInstance();
+
+		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 247));
+		final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT - 720));
+		final Rectangle scissor = new Rectangle();
+		final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
+		ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, batch.getTransformMatrix(),
+				clipBounds, scissor);
+		batch.flush();
+		ScissorStack.pushScissors(scissor);
 		super.draw(batch, parentAlpha);
-		bmf.setColor(1f, 1f, 1f, 1f);
-		bmf.draw(batch, cellX + ", " + cellY, getX(), getY());
-		*/
-		 Stage stage = getStage();
-		 AnotherManager myGame = AnotherManager.getInstance();
-		
-		 final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0,
-		 AnotherManager.VIRTUAL_HEIGHT - 247));
-		 final Vector2 end = stage.stageToScreenCoordinates(new
-		 Vector2(AnotherManager.VIRTUAL_WIDTH ,
-		 AnotherManager.VIRTUAL_HEIGHT - 720));
-		 final Rectangle scissor = new Rectangle();
-		 final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x,
-		 end.y);
-		 ScissorStack.calculateScissors(myGame.camera, 0, 0,
-		 AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT,
-		 batch.getTransformMatrix(), clipBounds, scissor);
-		 batch.flush();
-		 ScissorStack.pushScissors(scissor);
-		 super.draw(batch, parentAlpha);
-		 batch.flush();
-		 ScissorStack.popScissors();
+		batch.flush();
+		ScissorStack.popScissors();
 	}
 
 	public boolean equals(final Gem b) {
@@ -286,6 +281,12 @@ public class Gem extends Image {
 	public void setCell(int cellX, int cellY) {
 		this.cellX = cellX;
 		this.cellY = cellY;
+	}
+
+	public boolean foundACell() {
+		if (cellY < Board.MAX_SIZE_Y && !isFalling)
+			return true;
+		return false;
 	}
 
 }

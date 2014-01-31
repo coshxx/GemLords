@@ -134,7 +134,7 @@ public class GUIWindow {
 
 			table.setPosition(-500, 0);
 			table.setFillParent(true);
-			window.add(enemyImage).size(200, 250);
+			window.add(enemyImage).size(Gdx.graphics.getWidth()*0.4f, Gdx.graphics.getHeight()*0.4f);
 			window.row();
 
 			Label hpLabel = new Label(enemyHP + " HP", skin);
@@ -142,16 +142,15 @@ public class GUIWindow {
 			window.row();
 
 			TextButton fightButton = new TextButton("Fight", skin);
-			window.add(fightButton).size(100, 50);
+			window.add(fightButton).size(200, 75);
 			window.row();
 			TextButton cancelButton = new TextButton("Cancel", skin);
-			window.add(cancelButton).size(100, 50);
+			window.add(cancelButton).size(200, 75);
 
 			table.add(window);
 			table.addAction(Actions.moveBy(500, 0, 0.25f));
 			stage.addActor(table);
 
-			Gdx.input.setInputProcessor(stage);
 			fightButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(final InputEvent event, final float x, final float y) {

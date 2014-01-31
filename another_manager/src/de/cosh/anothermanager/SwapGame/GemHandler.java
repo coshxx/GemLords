@@ -33,6 +33,7 @@ public class GemHandler {
 				newGem.setPosition(Board.CELL_PAD_X + Board.CELL_SIZE * x, Board.CELL_PAD_Y + Board.CELL_SIZE * (Board.MAX_SIZE_Y + i));
 				foreGround.addActor(newGem);
 				newGem.setCell(x, Board.MAX_SIZE_Y + i);
+				AnotherManager.getInstance().gameScreen.getBoard().addToUncelledGems(newGem);
 				//newGem.setFalling(true);
 			}
 		}

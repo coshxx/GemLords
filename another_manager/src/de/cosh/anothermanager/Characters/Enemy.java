@@ -28,10 +28,11 @@ import de.cosh.anothermanager.Items.ItemTotem;
 public class Enemy extends BaseCharacter {
 	private boolean isDefeated;
 	private transient Image enemyImage;
-	private transient ImageButton pointButton, pointButtonDone;
 	private transient TextureRegion pointTexture, pointDoneTexture;
 	private transient ImageButton.ImageButtonStyle style, styleDone;
 
+	private Image pointButton;
+	private Image pointButtonDone;
 
 	private Integer enemyNumber;
 	private String enemyImageLocation;
@@ -59,8 +60,8 @@ public class Enemy extends BaseCharacter {
 		styleDone.up = new TextureRegionDrawable(pointDoneTexture);
 		styleDone.down = new TextureRegionDrawable(pointDoneTexture);
 
-		pointButton = new ImageButton(style.up, style.down);
-		pointButtonDone = new ImageButton(styleDone.up, styleDone.down);
+		pointButton = new Image(style.up);
+		pointButtonDone = new Image(styleDone.up);
 
 		abilities = new Array<BaseAbility>();
 /*
@@ -76,32 +77,34 @@ public class Enemy extends BaseCharacter {
 		abilityPoison.setAbilityDamage(0);
 		abilityPoison.setCooldown(5);
 */
+        /*
         final AbilityPetrify abilityPetrify = new AbilityPetrify();
         abilityPetrify.setAbilityDamage(0);
         abilityPetrify.setCooldown(3);
+        */
 /*
 		abilities.add(abilityAttack);
 		abilities.add(abilityFireball);
 		abilities.add(abilityPoison);
 */
-        abilities.add(abilityPetrify);
+        //abilities.add(abilityPetrify);
 
 		locationOnMap = new Vector2(0, 0);
 	}
 
 	public void addPositionalButtonToMap(final Vector2 mapPos, final Image enemyImage, final int enemyHP,
-			final Stage stage, final EnemyManager enemyManager) {
+			final Stage stage, final Stage guiStage, final EnemyManager enemyManager) {
 		this.enemyImage = enemyImage;
 		final Enemy e = this;
-		pointButton.setPosition(mapPos.x, mapPos.y);
-		pointButtonDone.setPosition(mapPos.x, mapPos.y);
+		pointButton.setBounds(mapPos.x, mapPos.y, 60, 60);
+		pointButtonDone.setBounds(mapPos.x, mapPos.y, 60, 60);
 		setHealth(enemyHP);
 		pointButton.addListener(new ClickListener() {
 
 			@Override
 			public void clicked(final InputEvent event, final float x, final float y) {
 				AnotherManager.soundPlayer.playChallenge();
-				final GUIWindow guiWindow = new GUIWindow(stage);
+				final GUIWindow guiWindow = new GUIWindow(guiStage);
 				guiWindow.showMapEnemyWindow(enemyHP, enemyImage);
 				enemyManager.setSelectedEnemy(e);
 			}
