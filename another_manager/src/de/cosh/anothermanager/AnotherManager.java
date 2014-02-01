@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Scaling;
 
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.EnemyManager;
@@ -18,11 +20,11 @@ import de.cosh.anothermanager.Screens.MapTraverseScreen;
 import de.cosh.anothermanager.Screens.MenuScreen;
 import de.cosh.anothermanager.Screens.SplashScreen;
 
-
 public class AnotherManager extends Game {
 	public static final int VIRTUAL_HEIGHT = 1280;
 	public static final int VIRTUAL_WIDTH = 720;
-	public static final float ASPECT_RATIO = (float)VIRTUAL_WIDTH/(float)VIRTUAL_HEIGHT;
+	public static final float ASPECT_RATIO = (float) VIRTUAL_WIDTH
+			/ (float) VIRTUAL_HEIGHT;
 
 	public static AssetManager assets;
 	public static SoundPlayer soundPlayer;
@@ -53,7 +55,8 @@ public class AnotherManager extends Game {
 		assets = new AssetManager();
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-		guiCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCamera = new OrthographicCamera(Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight());
 		player = new Player(this);
 		enemyManager = new EnemyManager();
 		splashScreen = new SplashScreen(this);
@@ -78,10 +81,11 @@ public class AnotherManager extends Game {
 	public void render() {
 		super.render();
 		camera.update();
-		
-		Gdx.gl.glViewport((int)viewport.x, (int)viewport.y, (int)viewport.width, (int)viewport.height);
+
+		// Gdx.gl.glViewport((int)viewport.x, (int)viewport.y,
+		// (int)viewport.width, (int)viewport.height);
 		if (DEBUGMODE) {
-			//batch.setProjectionMatrix(camera.combined);
+			// batch.setProjectionMatrix(camera.combined);
 			batch.begin();
 			bitmapFont.setColor(1f, 1f, 1f, 1f);
 			bitmapFont.draw(batch, "TW:" + Gdx.graphics.getWidth(), 10, 20);
@@ -93,36 +97,54 @@ public class AnotherManager extends Game {
 	@Override
 	public void resize(final int width, final int height) {
 		super.resize(width, height);
-		float aspectRatio = (float)width / (float)height;
-		float scale = 1f;
-		Vector2 crop = new Vector2(0f, 0f);
-		
-		if( aspectRatio > ASPECT_RATIO ) {
-			scale = (float)height / (float) VIRTUAL_HEIGHT;
-			crop.x = (width - VIRTUAL_WIDTH*scale)/2f;
-		} else if (aspectRatio < ASPECT_RATIO ) {
-			scale = (float)width / (float) VIRTUAL_WIDTH;
-			crop.y = (height - VIRTUAL_HEIGHT*scale)/2f;
-		} else {
-			scale = (float) width / (float) VIRTUAL_WIDTH;
-		}
-		
-		float w = (float)VIRTUAL_WIDTH * scale;
-		float h = (float)VIRTUAL_HEIGHT * scale;
-		viewport = new Rectangle(crop.x, crop.y, w, h);
 		/*
-		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-		camera.update();
-		
-		guiCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		guiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		guiCamera.update();
-		*/
-		
-		}
+		 * super.resize(width, height); float aspectRatio = (float)width /
+		 * (float)height; float scale = 1f; Vector2 crop = new Vector2(0f, 0f);
+		 * 
+		 * if( aspectRatio > ASPECT_RATIO ) { scale = (float)height / (float)
+		 * VIRTUAL_HEIGHT; crop.x = (width - VIRTUAL_WIDTH*scale)/2f; } else if
+		 * (aspectRatio < ASPECT_RATIO ) { scale = (float)width / (float)
+		 * VIRTUAL_WIDTH; crop.y = (height - VIRTUAL_HEIGHT*scale)/2f; } else {
+		 * scale = (float) width / (float) VIRTUAL_WIDTH; }
+		 * 
+		 * float w = (float)VIRTUAL_WIDTH * scale; float h =
+		 * (float)VIRTUAL_HEIGHT * scale; viewport = new Rectangle(crop.x,
+		 * crop.y, w, h);
+		 */
+		/*
+		 * camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		 * camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		 * camera.update();
+		 * 
+		 * guiCamera = new OrthographicCamera(Gdx.graphics.getWidth(),
+		 * Gdx.graphics.getHeight()); guiCamera.setToOrtho(false,
+		 * Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		 * guiCamera.update();
+		 */
+
+	}
 
 	@Override
 	public void resume() {
+	}
+
+	public void stageResize(int width, int height, Stage stage) {
+		Vector2 size = Scaling.fit.apply(AnotherManager.VIRTUAL_WIDTH,
+				AnotherManager.VIRTUAL_HEIGHT, width, height);
+		
+		float ratio = (float) width / (float) height;
+		if (ratio < 0.66f && ratio > 0.55f) {
+			stage.setViewport(AnotherManager.VIRTUAL_WIDTH,
+					AnotherManager.VIRTUAL_HEIGHT);
+			return;
+		}
+		int viewportX = (int) (width - size.x) / 2;
+		int viewportY = (int) (height - size.y) / 2;
+		int viewportWidth = (int) size.x;
+		int viewportHeight = (int) size.y;
+		Gdx.gl.glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
+		stage.setViewport(AnotherManager.VIRTUAL_WIDTH,
+				AnotherManager.VIRTUAL_HEIGHT, true, viewportX, viewportY,
+				viewportWidth, viewportHeight);
 	}
 }

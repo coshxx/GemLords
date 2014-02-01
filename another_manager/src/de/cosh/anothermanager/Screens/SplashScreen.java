@@ -185,6 +185,7 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void resize(final int width, final int height) {
+		AnotherManager.getInstance().stageResize(width, height, stage);
 	}
 
 	@Override
