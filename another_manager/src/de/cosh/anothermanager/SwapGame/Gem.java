@@ -1,7 +1,6 @@
 package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -9,12 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import de.cosh.anothermanager.AnotherManager;
-import de.cosh.anothermanager.SwapGame.Board.BoardState;
 
 /**
  * Created by cosh on 13.01.14.
@@ -25,7 +22,6 @@ public class Gem extends Image {
 		DIRECTION_HORIZONTAL, DIRECTION_VERTICAL, DIRECTION_NONE
 	};
 
-	private final float GEM_SPEED = 150f;
 	private final float SWAP_SPEED = 0.20f;
 	private final float ACCEL_FACTOR = 20f;
 
@@ -49,7 +45,6 @@ public class Gem extends Image {
 	private Cell[][] cells;
 	private boolean isFalling;
 	private float speed, totalTranslated;
-	private BitmapFont bmf;
 
 	public Gem(GemType g) {
 		super(AnotherManager.assets.get(g.getTexturePath(), Texture.class));
@@ -67,8 +62,6 @@ public class Gem extends Image {
 		this.isFalling = false;
 		this.speed = 0f;
 		this.totalTranslated = 0f;
-		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
-		bmf = s.getFont("default-font");
 		this.cells = AnotherManager.getInstance().gameScreen.getBoard().getCells();
 		specialTypeHorizontal = GemTypeSpecialHorizontal.TYPE_NONE;
 		specialTypeVertical = GemTypeSpecialVertical.TYPE_NONE;

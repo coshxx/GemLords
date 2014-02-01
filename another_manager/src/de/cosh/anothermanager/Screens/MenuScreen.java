@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -28,9 +29,6 @@ public class MenuScreen implements Screen {
 	private TextButton newGameButton;
 	private TextButton optionsButton;
 	private TextButton exitGameButton;
-	
-	private Vector2 crop;
-
 
 	public MenuScreen(final AnotherManager myGame) {
 		this.myGame = myGame;
@@ -62,12 +60,18 @@ public class MenuScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();
-		//Table.drawDebug(stage);
+		Table.drawDebug(stage);
 	}
 
 	@Override
 	public void resize(final int width, final int height) {
-		stage.setViewport(width, height, false);
+		Vector2 size = Scaling.fit.apply(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, width, height);
+        int viewportX = (int)(width - size.x) / 2;
+        int viewportY = (int)(height - size.y) / 2;
+        int viewportWidth = (int)size.x;
+        int viewportHeight = (int)size.y;
+        Gdx.gl.glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
+        stage.setViewport(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, true, viewportX, viewportY, viewportWidth, viewportHeight);
 	}
 
 	@Override
@@ -77,78 +81,78 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void show() {
-		float width = Gdx.graphics.getWidth();
-		float height = Gdx.graphics.getHeight();
-		float buttonWidth = width * 0.3f;
-		float buttonHeight = height * 0.05f;
 		this.stage = new Stage();
 		AnotherManager.getInstance().soundPlayer.playMenuMusic();
 		Gdx.input.setInputProcessor(stage);
 		table.setFillParent(true);
-		Image backGround = new Image(AnotherManager.getInstance().assets.get("data/textures/menu.png", Texture.class));
+		Image backGround = new Image(AnotherManager.getInstance().assets.get(
+				"data/textures/menu.png", Texture.class));
 		table.setBackground(backGround.getDrawable());
-		//table.debug();
+		table.debug();
 
 		addWobbleToButtons();
 		
-		table.bottom().pad(Gdx.graphics.getHeight() * 0.15f);
-		table.add(newGameButton).pad(height*0.02f).height(buttonHeight).width(buttonWidth);
-		table.row();
-		table.add(optionsButton).pad(height*0.02f).height(buttonHeight).width(buttonWidth);
-		table.row();
-		table.add(exitGameButton).pad(height*0.02f).height(buttonHeight).width(buttonWidth);
-
 		addButtonListeners();
 
+		backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+		newGameButton.setBounds(265, 450, 200, 80);
+		newGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		newGameButton.getStyle().font.setScale(2f);
+		
+		optionsButton.setBounds(265, 350, 200, 80);
+		optionsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		optionsButton.getStyle().font.setScale(2f);
+		
+		exitGameButton.setBounds(265, 250, 200, 80);
+		exitGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		exitGameButton.getStyle().font.setScale(2f);
+		
+		stage.setCamera(AnotherManager.getInstance().camera);
+		stage.addActor(backGround);
+		stage.addActor(newGameButton);
+		stage.addActor(optionsButton);
+		stage.addActor(exitGameButton);
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(0.5f));
-		stage.addActor(table);
 	}
 
 	private void addWobbleToButtons() {
-		newGameButton.addAction(Actions.forever(
-				Actions.sequence(
-						Actions.moveBy(0, 5f, 0.5f),
-						Actions.moveBy(0, -5f, 0.5f)
-						)));
-		
-		optionsButton.addAction(Actions.forever(
-				Actions.sequence(
-						Actions.moveBy(0, 5f, 0.5f),
-						Actions.moveBy(0, -5f, 0.5f)
-						)));
-		
-		exitGameButton.addAction(Actions.forever(
-				Actions.sequence(
-						Actions.moveBy(0, 5f, 0.5f),
-						Actions.moveBy(0, -5f, 0.5f)
-						)));
+		newGameButton.addAction(Actions.forever(Actions.sequence(
+				Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
+
+		optionsButton.addAction(Actions.forever(Actions.sequence(
+				Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
+
+		exitGameButton.addAction(Actions.forever(Actions.sequence(
+				Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
 	}
 
 	private void addButtonListeners() {
 		newGameButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				stage.addAction(Actions.sequence(
-						Actions.fadeOut(0.5f),
+				stage.addAction(Actions.sequence(Actions.fadeOut(0.5f),
 						Actions.run(new Runnable() {
 							@Override
 							public void run() {
 								myGame.soundPlayer.stopMenuMusic();
 								myGame.setScreen(myGame.mapTraverseScreen);
-							}})));
-			}});
+							}
+						})));
+			}
+		});
 
 		exitGameButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				stage.addAction(Actions.sequence(
-						Actions.fadeOut(0.5f),
+				stage.addAction(Actions.sequence(Actions.fadeOut(0.5f),
 						Actions.run(new Runnable() {
 							@Override
 							public void run() {
 								Gdx.app.exit();
-							}})));
-			}});
+							}
+						})));
+			}
+		});
 	}
 }

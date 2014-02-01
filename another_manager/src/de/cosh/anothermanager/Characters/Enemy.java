@@ -94,7 +94,7 @@ public class Enemy extends BaseCharacter {
 	}
 
 	public void addPositionalButtonToMap(final Vector2 mapPos, final Image enemyImage, final int enemyHP,
-			final Stage stage, final Stage guiStage, final EnemyManager enemyManager) {
+			final Stage stage, final EnemyManager enemyManager) {
 		this.enemyImage = enemyImage;
 		final Enemy e = this;
 		pointButton.setBounds(mapPos.x, mapPos.y, 60, 60);
@@ -105,7 +105,7 @@ public class Enemy extends BaseCharacter {
 			@Override
 			public void clicked(final InputEvent event, final float x, final float y) {
 				AnotherManager.soundPlayer.playChallenge();
-				final GUIWindow guiWindow = new GUIWindow(guiStage);
+				final GUIWindow guiWindow = new GUIWindow(stage);
 				guiWindow.showMapEnemyWindow(enemyHP, enemyImage);
 				enemyManager.setSelectedEnemy(e);
 			}

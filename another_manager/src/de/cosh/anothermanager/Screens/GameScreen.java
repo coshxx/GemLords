@@ -10,6 +10,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Scaling;
 
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.SwapGame.Board;
@@ -95,7 +96,13 @@ public class GameScreen implements Screen, GestureListener {
 
 	@Override
 	public void resize(final int width, final int height) {
-		stage.setViewport(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, false);
+		Vector2 size = Scaling.fit.apply(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, width, height);
+        int viewportX = (int)(width - size.x) / 2;
+        int viewportY = (int)(height - size.y) / 2;
+        int viewportWidth = (int)size.x;
+        int viewportHeight = (int)size.y;
+        Gdx.gl.glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
+        stage.setViewport(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, true, viewportX, viewportY, viewportWidth, viewportHeight);
 	}
 
 	@Override
@@ -127,6 +134,7 @@ public class GameScreen implements Screen, GestureListener {
 	@Override
 	public boolean touchDown(final float x, final float y, final int pointer, final int button) {
 		flingStartPosition = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+		//flingStartPosition = new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight()-Gdx.input.getY());
 		return false;
 	}
 

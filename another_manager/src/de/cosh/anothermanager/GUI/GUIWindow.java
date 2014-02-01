@@ -2,6 +2,7 @@ package de.cosh.anothermanager.GUI;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
@@ -21,16 +21,16 @@ import de.cosh.anothermanager.AnotherManager;
  * Created by cosh on 10.01.14.
  */
 public class GUIWindow {
-	private Table table;
 	private Skin skin;
 	private final Stage stage;
 	private AnotherManager myGame;
+	
+	private Window window;
 
 	public GUIWindow( final Stage stage) {
 		this.stage = stage;
 		this.myGame = AnotherManager.getInstance();
 		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
-		table = new Table();
 	}
 
 	public void createDefeatWindow(final Group foreGround, final Group backGround, final Group windowGroup) {
@@ -91,7 +91,7 @@ public class GUIWindow {
 	private void fadeToGameScreen() {
 		myGame.mapTraverseScreen.enemyWindowOpen = false;
 		myGame.mapTraverseScreen.fadeMusic();
-		table.addAction(Actions.moveBy(600, 0, 0.25f));
+		window.addAction(Actions.moveBy(600, 0, 0.25f));
 		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
 			@Override
 			public void run() {
@@ -121,7 +121,7 @@ public class GUIWindow {
 	}
 
 	private void hideEnemyWindow() {
-		table.addAction(Actions.moveBy(600, 0, 0.25f));
+		window.addAction(Actions.moveBy(800, 0, 0.35f));
 		myGame.mapTraverseScreen.enemyWindowOpen = false;
 	}
 
@@ -129,27 +129,32 @@ public class GUIWindow {
 		if (!myGame.mapTraverseScreen.enemyWindowOpen) {
 			myGame.mapTraverseScreen.enemyWindowOpen = true;
 
-			final Window window = new Window("Challenge:", skin);
+			window = new Window("Challenge:", skin);
+			window.setKeepWithinStage(false);
+			window.setBounds(-400, 400, 300, 500);
 			window.setMovable(false);
+			window.getStyle().titleFont.setScale(2f);
 
-			table.setPosition(-500, 0);
-			table.setFillParent(true);
-			window.add(enemyImage).size(Gdx.graphics.getWidth()*0.4f, Gdx.graphics.getHeight()*0.4f);
+			window.add(enemyImage).size(250, 250);
 			window.row();
 
+			skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			skin.getFont("default-font").setScale(1f);
 			Label hpLabel = new Label(enemyHP + " HP", skin);
+			hpLabel.setFontScale(2f);
 			window.add(hpLabel);
 			window.row();
 
 			TextButton fightButton = new TextButton("Fight", skin);
-			window.add(fightButton).size(200, 75);
+			fightButton.getLabel().setFontScale(2f);
+			window.add(fightButton).size(250, 75);
 			window.row();
 			TextButton cancelButton = new TextButton("Cancel", skin);
-			window.add(cancelButton).size(200, 75);
+			cancelButton.getLabel().setFontScale(2f);
+			window.add(cancelButton).size(250, 75);
 
-			table.add(window);
-			table.addAction(Actions.moveBy(500, 0, 0.25f));
-			stage.addActor(table);
+			window.addAction(Actions.moveBy(600, 0, 0.25f));
+			stage.addActor(window);
 
 			fightButton.addListener(new ClickListener() {
 				@Override

@@ -1,11 +1,10 @@
 package de.cosh.anothermanager.GUI;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -27,17 +26,15 @@ public class GUIButton {
 		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
 	}
 
-	public void createLoadoutButton(final Table table, float x, float y) {
+	public void createLoadoutButton(final Stage stage, float x, float y) {
 		button = new TextButton("Loadout", skin);
-		/*
-        button.setPosition(x, y);
-        button.setLayoutEnabled(true);
-        button.setBounds(x, y, 100, 100);
-		 */
+		button.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		button.getStyle().font.setScale(2f);
+		button.setBounds(x-100, y, 200, 100);
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
-				table.getStage().addAction(Actions.sequence(Actions.fadeOut(.25f),
+				stage.addAction(Actions.after(Actions.sequence(Actions.fadeOut(.25f),
 						Actions.run(new Runnable() {
 							@Override
 							public void run() {
@@ -45,21 +42,22 @@ public class GUIButton {
                                 myGame.mapTraverseScreen.enemyWindowOpen = false;
 								AnotherManager.getInstance().setScreen(new LoadoutScreen());
 							}
-						})));
+						}))));
 			}
 		});
 
-		table.row();
-		table.add(button).expand().bottom().right().size(100, 50);
+		stage.addActor(button);
 	}
 
-	public void createBacktoMapButton(final Table table, float x, float y) {
+	public void createBacktoMapButton(final Stage stage, float x, float y) {
+		skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		button = new TextButton("Back to map", skin);
-		button.setBounds(x, y, 200, 200);
+		button.getLabel().setFontScale(2f);
+		button.setBounds(x, y, 200, 100);
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
-				table.addAction(Actions.sequence(Actions.fadeOut(.25f),
+				stage.addAction(Actions.after(Actions.sequence(Actions.fadeOut(.25f),
 						Actions.run(new Runnable() {
 							@Override
 							public void run() {
@@ -67,17 +65,20 @@ public class GUIButton {
 								AnotherManager.soundPlayer.stopLoadoutMusic();
 								AnotherManager.getInstance().setScreen(new MapTraverseScreen(AnotherManager.getInstance()));
 							}
-						})));
+						}))));
 			}
 		});
-		table.add(button).expand().left().bottom().size(100, 50);
+		stage.addActor(button);
 	}
 
-	public void createRemoveFromBarButton(final Table table, float x, float y) {
+	public void createRemoveFromBarButton(final Stage stage, float x, float y) {
+		skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		button = new TextButton("Remove", skin);
+		button.getLabel().setFontScale(2f);
 		button.setPosition(x, y);
 		button.setLayoutEnabled(true);
-		button.setBounds(x, y, 200, 200);
+		
+		button.setBounds(x, y, 200, 100);
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
@@ -95,6 +96,6 @@ public class GUIButton {
 			}
 		});
 		
-		table.add(button).expand().right().bottom().size(100, 50);
+		stage.addActor(button);
 	}
 }

@@ -8,11 +8,9 @@ import de.cosh.anothermanager.AnotherManager;
  * Created by cosh on 13.01.14.
  */
 public class GemFactory {
-	private final AnotherManager myGame;
 	private final Random random;
 
 	public GemFactory(final AnotherManager myGame) {
-		this.myGame = myGame;
 		random = new Random();
 	}
 

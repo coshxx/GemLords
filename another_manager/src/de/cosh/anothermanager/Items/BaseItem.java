@@ -90,7 +90,6 @@ public abstract class BaseItem extends Image implements UseItem {
 		super.draw(batch, parentAlpha);
 		float imgCenterX = getX() + (getWidth() / 2);
 		if (drawText) {
-				
 			if (itemSlotType == ItemSlotType.ACTIVE )
 				bmf.setColor(0.4f, 0.4f, 1f, parentAlpha * getColor().a);
 			else if( itemSlotType == ItemSlotType.POTION ) 
