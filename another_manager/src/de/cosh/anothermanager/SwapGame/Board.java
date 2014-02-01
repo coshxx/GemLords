@@ -47,7 +47,6 @@ public class Board extends Group {
     private boolean foregroundWindowActive;
     private Array<Gem> uncelledGems;
     private TurnIndicator turnIndicator;
-    private boolean playerTurn;
     private BitmapFont bmf;
 
     public Board(final AnotherManager myGame) {
@@ -162,6 +161,9 @@ public class Board extends Group {
     public void swapTo(final Vector2 flingStartPosition, final int x, final int y) {
         if (boardState != BoardState.STATE_IDLE)
             return;
+        if( !turnIndicator.isPlayerTurn() )
+            return;
+
         lastX = x;
         lastY = y;
         justSwapped = true;
@@ -186,7 +188,6 @@ public class Board extends Group {
     public void init() {
         if (!initialized) {
             initialized = true;
-            playerTurn = true;
             fillWithRandomGems();
             while (matchFinder.hasMatches()) {
                 backGround.clear();
@@ -203,9 +204,27 @@ public class Board extends Group {
         }
     }
 
-    public void update(float delta) {
+    public void turnComplete(float delay) {
+        addAction(Actions.sequence(
+                Actions.delay(delay),
+                Actions.run(new Runnable() {
 
-        System.out.println(boardState.toString());
+            @Override
+            public void run() {
+                turnIndicator.switchPlayers();
+            }
+        })));
+    }
+
+    public void update(float delta) {
+        if( boardState == BoardState.STATE_IDLE ) {
+            if( justSwapped ) {
+                justSwapped = false;
+                turnComplete(0.0f);
+                enemy.turn(player);
+            }
+            checkPlayerAndEnemyStatus();
+        }
 
         if (boardState == BoardState.STATE_CHECK) {
             MatchResult result = matchFinder.markAllMatchingGems();
@@ -216,7 +235,9 @@ public class Board extends Group {
                 AnotherManager.soundPlayer.playDing(matchesDuringCurrentMove++);
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
-                enemy.damage(result.howMany);
+                if( turnIndicator.isPlayerTurn() )
+                    enemy.damage(result.howMany);
+                else player.damage(result.howMany);
                 if (result.specialExplo) {
                     AnotherManager.soundPlayer.playWoosh();
                 }
@@ -224,47 +245,20 @@ public class Board extends Group {
             } else boardState = BoardState.STATE_IDLE;
         } else if (boardState == BoardState.STATE_MOVING) {
             updateGems(delta);
+            if (!gemsHaveWork()) {
+                boardState = BoardState.STATE_CHECK;
+            }
         } else if (boardState == BoardState.STATE_SWAPPING) {
+            if (!gemsHaveWork()) {
+                boardState = BoardState.STATE_CHECK;
+            }
         } else if (boardState == BoardState.STATE_FADING) {
-            gemRemover.fadeMarkedGems(effectGroup);
-            gemRemover.removeFadedGems(myGame, effectGroup);
-            gemHandler.respawnAndApplyGravity(foreGround);
+            if (gemRemover.doneFading()) {
+                gemRemover.removeFadedGems(myGame, effectGroup);
+                gemHandler.respawnAndApplyGravity(foreGround);
+                boardState = BoardState.STATE_MOVING;
+            }
         }
-
-        /*
-        if (boardState == BoardState.STATE_CHECK) {
-			MatchResult result = matchFinder.markAllMatchingGems();
-			if (result.howMany > 0) {
-				if (result.conversion) {
-					AnotherManager.soundPlayer.playConvert();
-				}
-				AnotherManager.soundPlayer.playDing(matchesDuringCurrentMove++);
-				result.howMany = 0;
-				result = gemRemover.fadeMarkedGems(effectGroup);
-				enemy.damage(result.howMany);
-				if (result.specialExplo) {
-					AnotherManager.soundPlayer.playWoosh();
-				}
-				boardState = BoardState.STATE_FADING;
-			} else {
-				if (matchesDuringCurrentMove >= 8) {
-					AnotherManager.soundPlayer.playGodlike();
-					sfx.playUnstoppable(effectGroup);
-				} else if (matchesDuringCurrentMove >= 6) {
-					AnotherManager.soundPlayer.playUnstoppable();
-					sfx.playUnstoppable(effectGroup);
-				} else if (matchesDuringCurrentMove >= 4) {
-					AnotherManager.soundPlayer.playImpressive();
-					sfx.playUnstoppable(effectGroup);
-				}
-
-			}
-		}
-
-		updateGems(delta);
-
-		updateBoardState();
-		*/
     }
 
     private void updateGems(float delta) {
@@ -294,8 +288,10 @@ public class Board extends Group {
     private boolean gemsHaveWork() {
         boolean gemsHaveWork = false;
 
-        if (uncelledGems.size > 0)
-            gemsHaveWork = true;
+        for (int i = 0; i < uncelledGems.size; i++) {
+            if (uncelledGems.get(i).isFalling())
+                gemsHaveWork = true;
+        }
 
         for (int x = 0; x < Board.MAX_SIZE_X; x++) {
             for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
@@ -321,51 +317,6 @@ public class Board extends Group {
         // TODO
         // add giveupQuestion......
         player.setHealth(0);
-    }
-
-    private void updateBoardState() {
-        boolean stillMovement = false;
-        for (int x = 0; x < MAX_SIZE_X; x++) {
-            for (int y = 0; y < MAX_SIZE_Y; y++) {
-                if (cells[x][y].isEmpty())
-                    stillMovement = true;
-                Gem g = cells[x][y].getGem();
-                if (g == null)
-                    continue;
-                if (g.getActions().size > 0)
-                    stillMovement = true;
-            }
-        }
-
-        if (boardState == BoardState.STATE_IDLE) {
-            checkPlayerAndEnemyStatus();
-        }
-
-        if (!stillMovement && boardState == BoardState.STATE_FADING) {
-            gemRemover.removeFadedGems(myGame, effectGroup);
-            gemHandler.respawnAndApplyGravity(foreGround);
-            boardState = BoardState.STATE_MOVING;
-        } else if (!stillMovement && boardState == BoardState.STATE_SWAPPING) {
-            if (!AnotherManager.DEBUGMODE) {
-                if (!matchFinder.hasMatches()) {
-                    boardState = BoardState.STATE_MOVING;
-                    swapController.swap(lastSwap, lastX, lastY);
-                }
-            }
-            boardState = BoardState.STATE_CHECK;
-        } else if (!stillMovement && boardState == BoardState.STATE_CHECK) {
-            if (justSwapped) {
-                justSwapped = false;
-                player.turn();
-                enemy.turn(player);
-                turnIndicator.switchPlayers();
-                boardState = BoardState.STATE_MOVING;
-                return;
-            }
-            boardState = BoardState.STATE_IDLE;
-        } else if (!stillMovement && boardState == BoardState.STATE_MOVING) {
-            boardState = BoardState.STATE_CHECK;
-        }
     }
 
     private void checkPlayerAndEnemyStatus() {

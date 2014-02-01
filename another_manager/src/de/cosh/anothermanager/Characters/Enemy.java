@@ -157,12 +157,15 @@ public class Enemy extends BaseCharacter {
 	}
 
 	public void turn(Player player) {
+        super.turn();
 		for (int i = 0; i < abilities.size; i++) {
 			final Ability current = abilities.get(i);
 			if (!current.fire(player)) {
 				current.turn();
 			}
 		}
+
+        AnotherManager.getInstance().gameScreen.getBoard().turnComplete(0.5f);
 	}
 
 	public void setEnemyNumber(int n) {

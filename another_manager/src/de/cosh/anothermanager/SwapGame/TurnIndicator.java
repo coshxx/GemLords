@@ -44,4 +44,8 @@ public class TurnIndicator extends Actor {
 		}
 		playerTurn = !playerTurn;
 	}
+
+    public boolean isPlayerTurn() {
+        return playerTurn;
+    }
 }

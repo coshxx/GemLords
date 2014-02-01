@@ -20,6 +20,22 @@ public class GemRemover {
 		this.respawnRequest = respawnRequest;
 	}
 
+    public boolean doneFading() {
+        boolean doneFading = true;
+
+        for( int x = 0; x < Board.MAX_SIZE_X; x++ ) {
+            for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
+                Gem g = cells[x][y].getGem();
+                if( g == null )
+                    continue;
+
+                if( g.getActions().size > 0 )
+                    doneFading = false;
+            }
+        }
+        return doneFading;
+    }
+
 	public MatchResult fadeMarkedGems(final Group effectGroup) {
 		result.howMany = 0;
 		result.specialExplo = false;
