@@ -21,7 +21,7 @@ public class ActionBar {
 	private BaseItem[] itemsInBar;
 	private Image[] itemBorders;
 
-	private final int BARLENGTH = 8;
+	private final int BARLENGTH = 5;
 
 	public ActionBar() {
 		itemBorders = new Image[BARLENGTH];
@@ -56,8 +56,11 @@ public class ActionBar {
 				}
 			});
 			stage.addActor(itemBorders[i]);
-			if (itemsInBar[i] != null)
+			if (itemsInBar[i] != null) {
+                itemsInBar[i].setPosition(itemBorders[i].getX(), itemBorders[i].getY());
+                itemsInBar[i].setDrawText(false);
 				stage.addActor(itemsInBar[i]);
+            }
 		}
 	}
 
@@ -91,4 +94,26 @@ public class ActionBar {
 			}
 		}
 	}
+
+    public boolean hasFreeSlot() {
+        boolean slotFree = false;
+        for( int i = 0; i < BARLENGTH; i++ ) {
+            if( itemsInBar[i] == null ) {
+                slotFree = true;
+            }
+        }
+        return slotFree;
+    }
+
+    public void addToActionBar(BaseItem item) {
+        for( int i = 0; i < BARLENGTH; i++ ) {
+            if( itemsInBar[i] == null ) {
+                itemsInBar[i] = item;
+                item.addedToActionBar(true);
+                item.setDrawText(false);
+                item.setPosition(itemBorders[i].getX(), itemBorders[i].getY());
+                break;
+            }
+        }
+    }
 }

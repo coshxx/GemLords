@@ -4,6 +4,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
+import java.util.Random;
+
 /**
  * Created by cosh on 11.12.13.
  */
@@ -147,11 +149,15 @@ public class SoundPlayer {
 	}
 
 	public void playGameMusic() {
-		gameMusic0.play();
+        Random r = new Random();
+        if( r.nextInt(2) == 1 )
+		    gameMusic0.play();
+        else menuMusic.play();
 	}
 
 	public void stopGameMusic() {
 		gameMusic0.stop();
+        menuMusic.stop();
 	}
 
 	public void touchSounds() {

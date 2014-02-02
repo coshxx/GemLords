@@ -23,12 +23,10 @@ import de.cosh.anothermanager.Screens.SplashScreen;
 public class AnotherManager extends Game {
 	public static final int VIRTUAL_HEIGHT = 1280;
 	public static final int VIRTUAL_WIDTH = 720;
-	public static final float ASPECT_RATIO = (float) VIRTUAL_WIDTH
-			/ (float) VIRTUAL_HEIGHT;
-
+	public static final float ASPECT_RATIO = (float) VIRTUAL_WIDTH / (float) VIRTUAL_HEIGHT;
 	public static AssetManager assets;
 	public static SoundPlayer soundPlayer;
-	public static boolean DEBUGMODE = true;
+	public static boolean DEBUGMODE = false;
 	private static AnotherManager instance;
 	public OrthographicCamera camera;
 	public OrthographicCamera guiCamera;
@@ -97,31 +95,6 @@ public class AnotherManager extends Game {
 	@Override
 	public void resize(final int width, final int height) {
 		super.resize(width, height);
-		/*
-		 * super.resize(width, height); float aspectRatio = (float)width /
-		 * (float)height; float scale = 1f; Vector2 crop = new Vector2(0f, 0f);
-		 * 
-		 * if( aspectRatio > ASPECT_RATIO ) { scale = (float)height / (float)
-		 * VIRTUAL_HEIGHT; crop.x = (width - VIRTUAL_WIDTH*scale)/2f; } else if
-		 * (aspectRatio < ASPECT_RATIO ) { scale = (float)width / (float)
-		 * VIRTUAL_WIDTH; crop.y = (height - VIRTUAL_HEIGHT*scale)/2f; } else {
-		 * scale = (float) width / (float) VIRTUAL_WIDTH; }
-		 * 
-		 * float w = (float)VIRTUAL_WIDTH * scale; float h =
-		 * (float)VIRTUAL_HEIGHT * scale; viewport = new Rectangle(crop.x,
-		 * crop.y, w, h);
-		 */
-		/*
-		 * camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-		 * camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-		 * camera.update();
-		 * 
-		 * guiCamera = new OrthographicCamera(Gdx.graphics.getWidth(),
-		 * Gdx.graphics.getHeight()); guiCamera.setToOrtho(false,
-		 * Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		 * guiCamera.update();
-		 */
-
 	}
 
 	@Override

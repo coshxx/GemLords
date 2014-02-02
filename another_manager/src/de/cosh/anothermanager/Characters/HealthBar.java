@@ -31,9 +31,16 @@ public class HealthBar extends Actor {
 	@Override
 	public void act(final float delta) {
 		done = (float) healthpoints / (float) maxHP;
-		for( FloatingNumbers f : floatingNumbers ) {
-			f.act(delta);
-		}
+
+        for( int i = 0; i < floatingNumbers.size; i++ ) {
+            FloatingNumbers f = floatingNumbers.get(i);
+            if( f.getColor().a <= 0f ) {
+                floatingNumbers.removeIndex(i);
+                f.remove();
+                i--;
+            } else
+                f.act(delta);
+        }
 	}
 
 	@Override
@@ -81,8 +88,8 @@ public class HealthBar extends Actor {
 		}
 
 		FloatingNumbers f = new FloatingNumbers();
-		f.setup(-damage, left + width/2 + width/4, bot + 70);
-		floatingNumbers.add(f);
+        floatingNumbers.add(f);
+		f.setup(-damage, left + width/2 + width/4, bot + 70 + (floatingNumbers.size * 35));
 		f.addAction(Actions.fadeOut(3f));
 		getStage().addActor(f);
 	}
@@ -112,11 +119,13 @@ public class HealthBar extends Actor {
 
 	public void increaseHealth(int hp) {
 		this.healthpoints += hp;
-		FloatingNumbers f = new FloatingNumbers();
-		f.setup(hp, left + width/4, bot + 70);
+
 		if( floatingNumbers == null )
 			floatingNumbers = new Array<FloatingNumbers>();
+
+        FloatingNumbers f = new FloatingNumbers();
 		floatingNumbers.add(f);
+        f.setup(hp, left + width/4, bot + 70 + (floatingNumbers.size * 35));
 		f.addAction(Actions.fadeOut(3f));
 		if( getStage() != null )
 			getStage().addActor(f);

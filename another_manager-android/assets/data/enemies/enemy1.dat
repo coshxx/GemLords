@@ -1,5 +1,5 @@
 {
-enemyImageLocation: data/textures/enemy.png,
+enemyImageLocation: data/textures/enemyhuman.png,
 enemyNumber: 1,
 abilities: [
 	{

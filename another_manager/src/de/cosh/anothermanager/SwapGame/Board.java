@@ -235,6 +235,7 @@ public class Board extends Group {
                 if (result.conversion) {
                     AnotherManager.soundPlayer.playConvert();
                 }
+
                 AnotherManager.soundPlayer.playDing(matchesDuringCurrentMove++);
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
@@ -264,6 +265,11 @@ public class Board extends Group {
             }
         } else if (boardState == BoardState.STATE_SWAPPING) {
             if (!gemsHaveWork()) {
+                if( justSwapped ) {
+                    if( !matchFinder.hasMatches() ) {
+                        swapController.swap(lastSwap, lastX, lastY);
+                    }
+                }
                 boardState = BoardState.STATE_CHECK;
             }
         } else if (boardState == BoardState.STATE_FADING) {
@@ -274,7 +280,6 @@ public class Board extends Group {
             }
         }
     }
-
     private void updateGems(float delta) {
         if (boardState == BoardState.STATE_MOVING) {
             for (int i = 0; i < uncelledGems.size; i++) {

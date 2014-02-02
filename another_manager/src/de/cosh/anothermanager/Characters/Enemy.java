@@ -157,6 +157,7 @@ public class Enemy extends BaseCharacter {
 	}
 
 	public void turn(Player player) {
+        player.clearLastTurnReceivedDamage();
         super.turn();
 		for (int i = 0; i < abilities.size; i++) {
 			final Ability current = abilities.get(i);

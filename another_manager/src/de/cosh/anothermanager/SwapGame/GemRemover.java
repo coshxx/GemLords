@@ -81,8 +81,8 @@ public class GemRemover {
 	}
 
 	private void superSpecialExplode(int x, int y, final Group effectGroup) {
-		for (int exploStartX = x - 3; exploStartX < x + 4; exploStartX++) {
-			for (int exploStartY = y - 3; exploStartY < y + 4; exploStartY++) {
+		for (int exploStartX = x - 2; exploStartX < x + 3; exploStartX++) {
+			for (int exploStartY = y - 2; exploStartY < y + 3; exploStartY++) {
 				if (exploStartY < 0)
 					continue;
 				if (exploStartY >= Board.MAX_SIZE_Y)
