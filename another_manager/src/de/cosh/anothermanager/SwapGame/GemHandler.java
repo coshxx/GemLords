@@ -25,7 +25,7 @@ public class GemHandler {
 		return gemFactory;
 	}
 
-	public void respawn(final Group foreGround) {
+	void respawn(final Group foreGround) {
 		for( int x = 0; x < Board.MAX_SIZE_X; x++ ) {
 			int numSpawns = respawnRequest.howManyForCol(x);
 			for( int i = 0; i < numSpawns; i++ ) {

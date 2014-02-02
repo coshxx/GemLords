@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import de.cosh.anothermanager.AnotherManager;
 
-public class SpecialEffects {
+class SpecialEffects {
 	public void playUnstoppable(Group group) {
 		AnotherManager.getInstance();
 		Image awesome = new Image(AnotherManager.assets.get("data/textures/awesome.png", Texture.class));

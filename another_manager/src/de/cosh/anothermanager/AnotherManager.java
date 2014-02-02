@@ -29,7 +29,7 @@ public class AnotherManager extends Game {
 	public static boolean DEBUGMODE = false;
 	private static AnotherManager instance;
 	public OrthographicCamera camera;
-	public OrthographicCamera guiCamera;
+	private OrthographicCamera guiCamera;
 	public Rectangle viewport;
 	public Enemy enemy;
 	public EnemyManager enemyManager;
@@ -38,10 +38,10 @@ public class AnotherManager extends Game {
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
 	public Player player;
-	public SplashScreen splashScreen;
+	private SplashScreen splashScreen;
 	private SpriteBatch batch;
 
-	public BitmapFont bitmapFont;
+	private BitmapFont bitmapFont;
 
 	public static AnotherManager getInstance() {
 		return instance;

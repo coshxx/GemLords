@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.cosh.anothermanager.AnotherManager;
 
-public class FloatingNumbers extends Actor {
+class FloatingNumbers extends Actor {
     private BitmapFont bmf;
 
     private Integer value;

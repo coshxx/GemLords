@@ -16,7 +16,7 @@ import de.cosh.anothermanager.AnotherManager;
 /**
  * Created by cosh on 27.12.13.
  */
-public class HealthBar extends Actor {
+class HealthBar extends Actor {
 	private BitmapFont bmf;
 	private float done;
 

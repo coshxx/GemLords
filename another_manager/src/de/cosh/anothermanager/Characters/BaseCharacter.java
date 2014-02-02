@@ -14,7 +14,7 @@ public class BaseCharacter {
 	private transient HealthBar healthBar;
 	private int healthPoints;
 
-	public BaseCharacter() {
+	BaseCharacter() {
 		healthBar = new HealthBar();
 		debuffs = new Array<Debuff>();
 		buffs = new Array<Buff>();
@@ -34,7 +34,7 @@ public class BaseCharacter {
 
 	}
 
-	public void addToBoard(final Group foreGround) {
+	void addToBoard(final Group foreGround) {
 		characterGroup = foreGround;
 	}
 
@@ -43,15 +43,15 @@ public class BaseCharacter {
 		healthBar.hit(damage);
 	}
 
-	public Group getCharacterGroup() {
+	Group getCharacterGroup() {
 		return characterGroup;
 	}
 
-	public Array<Debuff> getDebuffs() {
+	Array<Debuff> getDebuffs() {
 		return debuffs;
 	}
 
-	public Array<Buff> getBuffs() {
+	Array<Buff> getBuffs() {
 		return buffs;
 	}
 
@@ -59,7 +59,7 @@ public class BaseCharacter {
 		return healthPoints;
 	}
 
-	public Actor getHealthBar() {
+	Actor getHealthBar() {
 		return healthBar;
 	}
 
@@ -76,11 +76,11 @@ public class BaseCharacter {
 		healthBar.init(healthPoints);
 	}
 
-	public void setHealthBarPosition(final int left, final int bot, final int width, final int height) {
+	void setHealthBarPosition(final int left, final int bot, final int width, final int height) {
 		healthBar.setPosition(left, bot, width, height);
 	}
 
-	public void turn() {
+	void turn() {
 		for (int i = 0; i < getDebuffs().size; i++) {
 			if (getDebuffs().get(i).turn()) {
 				debuffs.removeIndex(i);

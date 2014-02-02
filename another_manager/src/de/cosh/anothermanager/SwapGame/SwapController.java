@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 /**
  * Created by cosh on 13.01.14.
  */
-public class SwapController {
+class SwapController {
 	private final Cell[][] cells;
 
 	public SwapController(final Cell[][] cells) {

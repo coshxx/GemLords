@@ -12,14 +12,14 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
  * Created by cosh on 15.01.14.
  */
 public class BaseAbility implements Ability {
-	protected transient Image abilityImage;
-	protected String abilityImageLocation;
+	transient Image abilityImage;
+	String abilityImageLocation;
 	private transient BitmapFont bmf;
 	private int cooldown;
 	private int currentCooldown;
 	private int damage;
 
-	public BaseAbility() {
+	BaseAbility() {
 		cooldown = 5;
 		damage = 10;
 		abilityImageLocation = "data/textures/empty.png";

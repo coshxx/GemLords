@@ -93,7 +93,7 @@ public class Gem extends Image {
 		}
 	}
 
-	public boolean fall(float delta) {
+	boolean fall(float delta) {
 		speed += delta * ACCEL_FACTOR;
 		translate(0, -speed);
 		totalTranslated += speed;
@@ -116,7 +116,7 @@ public class Gem extends Image {
 		return isFalling;
 	}
 
-	public void setFalling(boolean b) {
+	void setFalling(boolean b) {
 		isFalling = b;
 	}
 

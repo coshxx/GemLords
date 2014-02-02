@@ -1,7 +1,7 @@
 package de.cosh.anothermanager.SwapGame;
 
 public class RespawnRequest {
-	int[] respawnsRequestedInCol;
+	private int[] respawnsRequestedInCol;
 	
 	public RespawnRequest() {
 		respawnsRequestedInCol = new int[Board.MAX_SIZE_X];

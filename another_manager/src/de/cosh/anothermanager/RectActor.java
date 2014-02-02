@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 /**
  * Created by cosh on 10.12.13.
  */
-public class RectActor extends Actor {
+class RectActor extends Actor {
 	private final ShapeRenderer shapeRenderer;
 	private final float x, y, width, height;
 

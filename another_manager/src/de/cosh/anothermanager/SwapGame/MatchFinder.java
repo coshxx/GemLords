@@ -4,7 +4,7 @@ package de.cosh.anothermanager.SwapGame;
 /**
  * Created by cosh on 13.01.14.
  */
-public class MatchFinder {
+class MatchFinder {
 	private final Cell[][] cells;
 
 	public MatchFinder(final Cell[][] cells) {

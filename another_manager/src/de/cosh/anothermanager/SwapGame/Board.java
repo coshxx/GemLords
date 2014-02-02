@@ -204,7 +204,7 @@ public class Board extends Group {
         }
     }
 
-    public void turnComplete(float delay) {
+    void turnComplete(float delay) {
         addAction(Actions.sequence(
                 Actions.delay(delay),
                 Actions.run(new Runnable() {

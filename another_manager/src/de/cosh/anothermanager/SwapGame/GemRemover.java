@@ -8,7 +8,7 @@ import de.cosh.anothermanager.AnotherManager;
 /**
  * Created by cosh on 13.01.14.
  */
-public class GemRemover {
+class GemRemover {
 	private final Cell[][] cells;
 	private final float FADE_TIME = 0.25f;
 	private final MatchResult result;

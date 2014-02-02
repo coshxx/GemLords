@@ -20,9 +20,9 @@ public abstract class BaseItem extends Image implements UseItem {
 	private transient boolean addedToActionBar;
 	private transient int actionBarSlot;
 	
-	protected BitmapFont bmf;
+	BitmapFont bmf;
 
-	protected int itemNumber = -1;
+	int itemNumber = -1;
 
 	public ItemSlotType getItemSlotType() {
 		return itemSlotType;
@@ -55,7 +55,7 @@ public abstract class BaseItem extends Image implements UseItem {
 
 	private ItemSlotType itemSlotType;
 
-	public BaseItem(Texture t) {
+	BaseItem(Texture t) {
 		super(t);
 		itemBorder = new Image(AnotherManager.assets.get("data/textures/item_border.png", Texture.class));
 		selected = false;
@@ -66,15 +66,15 @@ public abstract class BaseItem extends Image implements UseItem {
 		bmf = s.getFont("default-font");
 	}
 
-	public void setItemSlotType(ItemSlotType type) {
+	void setItemSlotType(ItemSlotType type) {
 		itemSlotType = type;
 	}
 
-	public void setItemName(String name) {
+	void setItemName(String name) {
 		this.itemName = name;
 	}
 
-	public void setItemText(String text) {
+	void setItemText(String text) {
 		this.itemText = text;
 	}
 
