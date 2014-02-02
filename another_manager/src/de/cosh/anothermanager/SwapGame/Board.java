@@ -218,12 +218,15 @@ public class Board extends Group {
 
     public void update(float delta) {
         if( boardState == BoardState.STATE_IDLE ) {
-            if( justSwapped ) {
+            checkPlayerAndEnemyStatus();
+            if( justSwapped && !(boardState == BoardState.STATE_INACTIVE)) {
                 justSwapped = false;
                 turnComplete(0.0f);
+                player.turn();
                 enemy.turn(player);
+                boardState = BoardState.STATE_MOVING;
+                return;
             }
-            checkPlayerAndEnemyStatus();
         }
 
         if (boardState == BoardState.STATE_CHECK) {
@@ -242,7 +245,18 @@ public class Board extends Group {
                     AnotherManager.soundPlayer.playWoosh();
                 }
                 boardState = BoardState.STATE_FADING;
-            } else boardState = BoardState.STATE_IDLE;
+            } else {
+                boardState = BoardState.STATE_IDLE;
+                if( !turnIndicator.isPlayerTurn()) {
+                    addAction(Actions.run(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            turnComplete(0.5f);
+                        }
+                    }));
+                }
+            }
         } else if (boardState == BoardState.STATE_MOVING) {
             updateGems(delta);
             if (!gemsHaveWork()) {

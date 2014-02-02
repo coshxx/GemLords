@@ -16,9 +16,9 @@ import de.cosh.anothermanager.SwapGame.StarEffect;
 /**
  * Created by cosh on 16.01.14.
  */
-public class AbilitySmash extends BaseAbility {
-	public AbilitySmash() {
-		abilityImageLocation = "data/textures/abilitysmash.png";
+public class AbilityRedSmash extends BaseAbility {
+	public AbilityRedSmash() {
+		abilityImageLocation = "data/textures/abilitysmashred.png";
 		abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
 	}
 
@@ -50,7 +50,6 @@ public class AbilitySmash extends BaseAbility {
             	}
             }
             AnotherManager.getInstance().gameScreen.getBoard().getGemHandler().respawnAndApplyGravity(foreGround);
-            target.damage(damageCount);
             return true;
 		}
 		return false;

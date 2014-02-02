@@ -8,8 +8,13 @@ abilities: [
 		cooldown: 2
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilitySmash,
+		class: de.cosh.anothermanager.Abilities.AbilityRedSmash,
 		currentCooldown: 1,
+		cooldown: 4
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityBlueSmash,
+		currentCooldown: 2,
 		cooldown: 4
 	}
 ],
@@ -17,6 +22,6 @@ locationOnMap: {
 	x: 320,
 	y: 210
 },
-healthPoints: 195,
+healthPoints: 235,
 dropItemID: -1
 }

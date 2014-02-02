@@ -164,8 +164,6 @@ public class Enemy extends BaseCharacter {
 				current.turn();
 			}
 		}
-
-        AnotherManager.getInstance().gameScreen.getBoard().turnComplete(0.5f);
 	}
 
 	public void setEnemyNumber(int n) {
