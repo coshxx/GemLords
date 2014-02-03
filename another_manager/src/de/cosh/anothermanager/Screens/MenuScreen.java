@@ -5,6 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -28,9 +31,10 @@ public class MenuScreen implements Screen {
 	private TextButton optionsButton;
 	private TextButton exitGameButton;
 
+    private BitmapFont test;
+
 	public MenuScreen(final AnotherManager myGame) {
 		this.myGame = myGame;
-
 		table = new Table();
 		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
 		newGameButton = new TextButton("New game", skin);
