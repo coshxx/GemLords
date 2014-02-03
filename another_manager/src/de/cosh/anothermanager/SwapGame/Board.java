@@ -66,7 +66,8 @@ public class Board extends Group {
         effectGroup = new Group();
         effectGroup.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
         final Image backImage = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
-        backImage.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+        //backImage.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+        backImage.setFillParent(true);
         backGround.addActor(backImage);
         addActor(backGround);
         addActor(foreGround);
@@ -109,22 +110,6 @@ public class Board extends Group {
         final int gemX = (int) position.x, gemY = (int) position.y;
         final GridPoint2 point = new GridPoint2(gemX, gemY);
         return point;
-    }
-
-    public void drawCells(SpriteBatch batch, float parentAlpha) {
-        for (int x = 0; x < MAX_SIZE_X; x++) {
-            for (int y = 0; y < MAX_SIZE_Y; y++) {
-                // cells[x][y].draw(batch, 0.5f);
-            }
-        }
-    }
-
-    public void drawGems(SpriteBatch batch, float parentAlpha) {
-        for (int x = 0; x < MAX_SIZE_X; x++) {
-            for (int y = 0; y < MAX_SIZE_Y; y++) {
-                cells[x][y].getGem().draw(batch, parentAlpha);
-            }
-        }
     }
 
     private void fillWithRandomGems() {
@@ -193,6 +178,7 @@ public class Board extends Group {
                 backGround.clear();
                 foreGround.clear();
                 final Image backImage = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
+                backImage.setFillParent(true);
                 backGround.addActor(backImage);
                 fillWithRandomGems();
             }

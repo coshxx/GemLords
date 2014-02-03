@@ -22,7 +22,7 @@ public class BaseCharacter {
 
 	public void addDebuff(final Debuff debuff) {
 		debuffs.add(debuff);
-		debuff.setPosition(healthBar.getWidth() - (45 * debuffs.size), healthBar.getY() + healthBar.getHeight() + 30);
+		debuff.setPosition(healthBar.getWidth() - (45 * debuffs.size), healthBar.getY() + healthBar.getHeight());
 		debuff.addDebuffToGroup(getCharacterGroup());
 	}
 

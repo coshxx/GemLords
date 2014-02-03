@@ -36,7 +36,7 @@ public class Player extends BaseCharacter {
     @Override
     public void addToBoard(final Group foreGround) {
         super.addToBoard(foreGround);
-        setHealthBarPosition(0, 25, AnotherManager.VIRTUAL_WIDTH, 50);
+        setHealthBarPosition(0, 0, AnotherManager.VIRTUAL_WIDTH, 50);
         foreGround.addActor(getHealthBar());
         actionBar.addToBoard(foreGround);
     }

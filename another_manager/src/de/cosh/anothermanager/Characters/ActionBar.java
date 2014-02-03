@@ -16,12 +16,14 @@ import de.cosh.anothermanager.SwapGame.ParticleActor;
  * Created by cosh on 20.01.14.
  */
 public class ActionBar {
-	private final float ACTION_PAD_X = 42;
-	private final float ACTION_SPACEING_X = 5;
+	private final float ACTION_PAD_X = 20;
+	private final float ACTION_SPACEING_X = 31;
 	private BaseItem[] itemsInBar;
 	private Image[] itemBorders;
 
-	private final int BARLENGTH = 5;
+    private Image actionBarImage;
+
+	private final int BARLENGTH = 6;
 
 	public ActionBar() {
 		itemBorders = new Image[BARLENGTH];
@@ -29,6 +31,10 @@ public class ActionBar {
 	}
 
 	public void addToLoadoutScreen(final Stage stage) {
+        actionBarImage = new Image(AnotherManager.assets.get("data/textures/actionbar.png", Texture.class));
+        actionBarImage.setPosition(0, 150);
+        stage.addActor(actionBarImage);
+
 		for (int i = 0; i < BARLENGTH; i++) {
 			final int index = i;
 			itemBorders[i] = new Image(AnotherManager.assets.get("data/textures/item_border.png", Texture.class));
@@ -75,15 +81,20 @@ public class ActionBar {
 	}
 
 	public void addToBoard(Group foreGround) {
+        actionBarImage = new Image(AnotherManager.assets.get("data/textures/actionbar.png", Texture.class));
+        actionBarImage.setPosition(0, 80);
+        foreGround.addActor(actionBarImage);
+
 		for (int i = 0; i < BARLENGTH; i++) {
 			final int index = i;
 			itemBorders[i] = new Image(AnotherManager.assets.get("data/textures/item_border.png", Texture.class));
-			itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), 170);
+			itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), 95);
 			itemBorders[i].clearListeners();
 			foreGround.addActor(itemBorders[i]);
 			if (itemsInBar[i] != null) {
 				itemsInBar[i].clearListeners();
 				itemsInBar[i].resetCooldown();
+                itemsInBar[i].setPosition(itemBorders[i].getX(), itemBorders[i].getY());
 				itemsInBar[i].addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {

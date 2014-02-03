@@ -19,12 +19,14 @@ public class Debuff {
 	private final Image debuffBorderImage;
 
 	private Image debuffImage;
-	private final int height = 30;
+
+    private final int height = 30;
+    private final int width = 30;
 
 	private BaseCharacter toChar;
 	private int turns;
 	private int turnsComplete;
-	private final int width = 30;
+
 
 	public Debuff() {
 		this.debuffBorderImage = new Image(AnotherManager.assets.get("data/textures/debuff_border.png", Texture.class));
@@ -42,12 +44,7 @@ public class Debuff {
 	public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
 		final Integer cooldown = turns - turnsComplete;
 		bmf.setColor(1f, 1f, 1f, parentAlpha);
-		bmf.draw(batch, cooldown.toString(), debuffImage.getX(), debuffImage.getY());
-	}
-
-	public void moveRight() {
-		debuffBorderImage.addAction(Actions.moveBy(debuffBorderImage.getWidth(), 0));
-		debuffImage.addAction(Actions.moveBy(debuffBorderImage.getWidth(), 0));
+		bmf.draw(batch, cooldown.toString(), debuffImage.getX()+6, debuffImage.getY()+20);
 	}
 
 	public void setDebuffImage(final Image img) {
