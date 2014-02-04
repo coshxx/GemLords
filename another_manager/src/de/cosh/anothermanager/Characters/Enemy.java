@@ -16,12 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.Abilities.*;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.GUI.GUIWindow;
-import de.cosh.anothermanager.Items.BaseItem;
-import de.cosh.anothermanager.Items.ItemApprenticeRobe;
-import de.cosh.anothermanager.Items.ItemMinorHealthPotion;
-import de.cosh.anothermanager.Items.ItemPocketWatch;
-import de.cosh.anothermanager.Items.ItemScholarRobe;
-import de.cosh.anothermanager.Items.ItemTotem;
+import de.cosh.anothermanager.Items.*;
 
 /**
  * Created by cosh on 10.01.14.
@@ -199,6 +194,8 @@ public class Enemy extends BaseCharacter {
 			return new ItemTotem();
 		case 4:
 			return new ItemPocketWatch();
+        case 5:
+            return new ItemTerribleShield();
 		default:
 			return null;
 		}

@@ -50,7 +50,8 @@ public abstract class BaseItem extends Image implements UseItem {
 	public enum ItemSlotType {
 		ARMOR,
 		POTION,
-		ACTIVE
+		ACTIVE,
+        SHIELD
 	}
 
 	private ItemSlotType itemSlotType;
@@ -135,4 +136,8 @@ public abstract class BaseItem extends Image implements UseItem {
 	public boolean isAddedToActionBar() {
 		return addedToActionBar;
 	}
+
+    public int tryToReduceDamage(int incomingDamage) {
+        return incomingDamage;
+    }
 }

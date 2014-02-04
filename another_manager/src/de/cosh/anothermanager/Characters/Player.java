@@ -87,9 +87,17 @@ public class Player extends BaseCharacter {
     }
 
     @Override
-    public void damage(final int damage) {
-        super.damage(damage);
-        lastTurnDamageReceived += damage;
+    public void damage(int damage) {
+        int finalDamage = damage;
+        for( BaseItem i : getInventory().getAllItems() ) {
+            if( !i.isAddedToActionBar() )
+                continue;
+            if( i.getItemSlotType() == BaseItem.ItemSlotType.SHIELD ) {
+                finalDamage = i.tryToReduceDamage(damage);
+            }
+        }
+        super.damage(finalDamage);
+        lastTurnDamageReceived += finalDamage;
     }
 
     public int getLastTurnDamageReceived() {

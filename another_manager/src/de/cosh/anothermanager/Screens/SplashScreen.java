@@ -112,12 +112,14 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/textures/awesome.png", Texture.class);
 		AnotherManager.assets.load("data/textures/loadout.jpg", Texture.class);
 		AnotherManager.assets.load("data/textures/menu.png", Texture.class);
+		AnotherManager.assets.load("data/textures/shield.png", Texture.class);
 
 		AnotherManager.assets.load("data/sounds/blub1.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/blub2.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/blub3.ogg", Sound.class);
 
 		AnotherManager.assets.load("data/sounds/bang.ogg", Sound.class);
+		AnotherManager.assets.load("data/sounds/block.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/smash.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/music.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/loot.ogg", Sound.class);

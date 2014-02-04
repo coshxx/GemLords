@@ -27,6 +27,7 @@ public class SoundPlayer {
 	private Sound slideIn;
     private Sound petrify;
     private Sound pocketwatch;
+    private Sound block;
 
 	private Sound impressive, godlike, unstoppable;
 
@@ -160,13 +161,17 @@ public class SoundPlayer {
         menuMusic.stop();
 	}
 
+    public void playBlock() {
+        block.play();
+    }
+
 	public void touchSounds() {
 		AssetManager assets = AnotherManager.assets;
 		blub1 = assets.get("data/sounds/blub1.ogg", Sound.class);
 		blub2 = assets.get("data/sounds/blub2.ogg", Sound.class);
 
 		bang = assets.get("data/sounds/bang.ogg", Sound.class);
-
+        block = assets.get("data/sounds/block.ogg", Sound.class);
 		mapMusic = assets.get("data/sounds/music.ogg", Music.class);
 		woosh = assets.get("data/sounds/woosh.ogg", Sound.class);
 		convert = assets.get("data/sounds/convert.ogg", Sound.class);
