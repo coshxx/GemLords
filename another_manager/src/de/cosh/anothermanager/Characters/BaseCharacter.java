@@ -28,7 +28,7 @@ public class BaseCharacter {
 
 	public void addBuff(final Buff buff) {
 		buffs.add(buff);
-		buff.setPosition(0, healthBar.getY() + healthBar.getHeight() + 30);
+		buff.setPosition(0, healthBar.getY() + healthBar.getHeight());
 		buff.addBuffToGroup(getCharacterGroup());
 
 

@@ -153,7 +153,7 @@ public class Gem extends Image {
 		Stage stage = getStage();
 		AnotherManager myGame = AnotherManager.getInstance();
 
-		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 247));
+		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 277));
 		final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT - 720));
 		final Rectangle scissor = new Rectangle();
 		final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);

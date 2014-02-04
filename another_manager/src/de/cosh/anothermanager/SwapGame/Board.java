@@ -21,7 +21,7 @@ import de.cosh.anothermanager.GUI.GUIWindow;
  */
 public class Board extends Group {
     public static final int CELL_PAD_X = 0;
-    public static final int CELL_PAD_Y = 250;
+    public static final int CELL_PAD_Y = 280;
     public static final int CELL_SIZE = 80;
     public static final int MAX_SIZE_X = 9;
     public static final int MAX_SIZE_Y = 9;

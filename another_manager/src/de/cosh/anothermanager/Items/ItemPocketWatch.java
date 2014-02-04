@@ -23,7 +23,7 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 		super(AnotherManager.assets.get("data/textures/pocketwatch.png", Texture.class));
 		itemNumber = 4;
 		setItemName("Simaohs Pocketwatch");
-		setItemText("Undo 50% of received damage\nin the last turn");
+		setItemText("Undo 50% of received damage\nCooldown: 99");
 		setItemSlotType(ItemSlotType.ACTIVE);
 		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
 		bmf = s.getFont("default-font");
@@ -47,9 +47,11 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 
 	@Override
 	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
-		if( currentCooldown <= 0 )
-			bmf.draw(batch, "Ready", getX(), getY() );
-		else bmf.draw(batch, currentCooldown.toString(), getX(), getY());
+        bmf.setScale(2f);
+        if( currentCooldown <= 0 )
+            bmf.draw(batch, "Ready", getX(), getY()+50 );
+        else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
+        bmf.setScale(1f);
 	}
 
 	@Override

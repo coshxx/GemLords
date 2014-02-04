@@ -21,7 +21,7 @@ public class ItemTotem extends BaseItem implements UseItem {
 		super(AnotherManager.assets.get("data/textures/totem.png", Texture.class));
 		itemNumber = 3;
 		setItemName("Alpha Totem");
-		setItemText("Recover 5 hp\neach turn\nOne use");
+		setItemText("Recover 4 hp each turn\nCooldown: 99");
 		setItemSlotType(ItemSlotType.ACTIVE);
 		cooldown = 99;
 		currentCooldown = 0;
@@ -44,9 +44,11 @@ public class ItemTotem extends BaseItem implements UseItem {
 
 	@Override
 	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
+        bmf.setScale(2f);
 		if( currentCooldown <= 0 )
-			bmf.draw(batch, "Ready", getX(), getY() );
-		else bmf.draw(batch, currentCooldown.toString(), getX(), getY());
+			bmf.draw(batch, "Ready", getX(), getY()+50 );
+		else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
+        bmf.setScale(1f);
 	}
 
 	@Override

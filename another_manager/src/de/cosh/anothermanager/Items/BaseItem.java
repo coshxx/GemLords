@@ -85,7 +85,7 @@ public abstract class BaseItem extends Image implements UseItem {
 			itemBorder.setColor(1f, 0f, 0f, parentAlpha * getColor().a);
 		else itemBorder.setColor(1f, 1f, 1f, parentAlpha * getColor().a);
 		AnotherManager.getInstance();
-		BitmapFont.TextBounds bounds = new BitmapFont.TextBounds();
+        BitmapFont.TextBounds bounds;
 		itemBorder.setPosition(getX(), getY());
 		itemBorder.draw(batch, parentAlpha);
 		super.draw(batch, parentAlpha);
@@ -101,7 +101,9 @@ public abstract class BaseItem extends Image implements UseItem {
 			bounds = bmf.getBounds(itemText);
 			//bmf.draw(batch, itemText, imgCenterX-(bounds.width/2), getY()-25 );
 			bmf.setColor(1f, 1f, 1f, parentAlpha * getColor().a);
+            bmf.setScale(1.25f);
 			bmf.drawMultiLine(batch, itemText, imgCenterX - 50, getY() - 25, 100, BitmapFont.HAlignment.CENTER);
+            //bmf.drawWrapped(batch, itemText, imgCenterX - 50, getY() - 25, 200, BitmapFont.HAlignment.CENTER);
 		}
 	}
 

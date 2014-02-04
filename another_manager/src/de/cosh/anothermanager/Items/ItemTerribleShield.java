@@ -16,7 +16,7 @@ public class ItemTerribleShield extends BaseItem {
 		super(AnotherManager.assets.get("data/textures/shield.png", Texture.class));
 		itemNumber = 5;
 		setItemName("Terrible Shield");
-		setItemText("20% chance to block\n5 damage");
+		setItemText("20% chance to block\n4 damage");
 		setItemSlotType(ItemSlotType.SHIELD);
         r = new Random();
 	}
@@ -37,7 +37,7 @@ public class ItemTerribleShield extends BaseItem {
         if( inHundret < 20 ) {
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             AnotherManager.getInstance().soundPlayer.playBlock();
-            return (incomingDamage-5 < 0) ? 0 : incomingDamage-5;
+            return (incomingDamage-4 < 0) ? 0 : incomingDamage-4;
         }
         return incomingDamage;
     }
