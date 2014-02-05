@@ -1,16 +1,11 @@
 {
-enemyImageLocation: data/textures/enemysnake.png,
+enemyImageLocation: data/textures/enemybat.png,
 enemyNumber: 3,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
-		currentCooldown: 1,
-		cooldown: 1
-	},
-	{
-		class: de.cosh.anothermanager.Abilities.AbilityPoison,
 		currentCooldown: 0,
-		cooldown: 5
+		cooldown: 0
 	},
 ],
 locationOnMap: {

@@ -1,5 +1,6 @@
 package de.cosh.anothermanager.Characters;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -171,7 +172,7 @@ public class Enemy extends BaseCharacter {
 	}
 
 	public void loadImage() {
-		enemyImage = new Image(AnotherManager.assets.get(enemyImageLocation, Texture.class));
+		enemyImage = new Image(new Texture(Gdx.files.internal(enemyImageLocation)));
 	}
 
 	public void setLocationOnMap(float x, float y) {

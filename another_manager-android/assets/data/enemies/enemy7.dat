@@ -1,0 +1,22 @@
+{
+enemyImageLocation: data/textures/enemynecro.png,
+enemyNumber: 7,
+abilities: [
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		currentCooldown: 2,
+		cooldown: 2
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityFireball,
+		currentCooldown: 4,
+		cooldown: 4
+	},
+],
+locationOnMap: {
+	x: 420,
+	y: 210
+},
+healthPoints: 255,
+dropItemID: -1
+}

@@ -77,7 +77,7 @@ public class MapTraverseScreen implements Screen {
 			e.setLocationOnMap(250,  250);
 			e.setHealth(999);
 			e.setDropItemID(-1);
-			e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(AnotherManager.assets.get("data/textures/enemy.png", Texture.class)), 999, stage, myGame.enemyManager);
+			e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(new Texture("data/textures/enemy.png")), 999, stage, myGame.enemyManager);
 		}
 	}
 

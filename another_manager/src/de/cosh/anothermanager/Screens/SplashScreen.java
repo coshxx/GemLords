@@ -96,13 +96,6 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/textures/splash.jpg", Texture.class);
 		AnotherManager.assets.load("data/textures/totem.png", Texture.class);
 		AnotherManager.assets.load("data/textures/cell_back.png", Texture.class);
-		AnotherManager.assets.load("data/textures/enemy.png", Texture.class);
-		AnotherManager.assets.load("data/textures/enemyhuman.png", Texture.class);
-		AnotherManager.assets.load("data/textures/enemyscarecrow.png", Texture.class);
-		AnotherManager.assets.load("data/textures/enemysnake.png", Texture.class);
-		AnotherManager.assets.load("data/textures/enemydummy.png", Texture.class);
-		AnotherManager.assets.load("data/textures/enemyogre.png", Texture.class);
-		AnotherManager.assets.load("data/textures/enemyrat.png", Texture.class);
 		AnotherManager.assets.load("data/textures/star.png", Texture.class);
 		AnotherManager.assets.load("data/textures/treasure.jpg", Texture.class);
 		AnotherManager.assets.load("data/textures/heart.png", Texture.class);
