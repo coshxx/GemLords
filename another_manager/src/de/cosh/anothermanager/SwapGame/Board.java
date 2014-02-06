@@ -15,6 +15,7 @@ import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIWindow;
+import de.cosh.anothermanager.Items.BaseItem;
 
 /**
  * Created by cosh on 13.01.14.
@@ -225,8 +226,11 @@ public class Board extends Group {
                 AnotherManager.soundPlayer.playDing(matchesDuringCurrentMove++);
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
-                if( turnIndicator.isPlayerTurn() )
-                    enemy.damage(result.howMany);
+                if( turnIndicator.isPlayerTurn() ) {
+                    int damageDone = result.howMany;
+                    damageDone += player.getItemDamageBuffs();
+                    enemy.damage(damageDone);
+                }
                 else player.damage(result.howMany);
                 if (result.specialExplo) {
                     AnotherManager.soundPlayer.playWoosh();

@@ -1,5 +1,6 @@
 {
 enemyImageLocation: data/textures/enemyogre.png,
+enemyName: "Ogre",
 enemyNumber: 6,
 abilities: [
 	{
@@ -26,5 +27,5 @@ healthBar: {
 	hp: 235,
 	maxHP: 235
 },
-dropItemID: -1
+dropItemID: 6
 }

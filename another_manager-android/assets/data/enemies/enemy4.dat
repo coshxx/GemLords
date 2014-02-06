@@ -1,5 +1,6 @@
 {
 enemyImageLocation: data/textures/enemyrat.png,
+enemyName: "Common Rat",
 enemyNumber: 4,
 abilities: [
 	{

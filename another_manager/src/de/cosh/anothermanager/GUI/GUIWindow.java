@@ -125,18 +125,23 @@ public class GUIWindow {
 		myGame.mapTraverseScreen.enemyWindowOpen = false;
 	}
 
-	public void showMapEnemyWindow(final int enemyHP, final Image enemyImage) {
+	public void showMapEnemyWindow(int enemyHP, Image enemyImage, String enemyName) {
 		if (!myGame.mapTraverseScreen.enemyWindowOpen) {
 			myGame.mapTraverseScreen.enemyWindowOpen = true;
 
 			window = new Window("Challenge:", skin);
 			window.setKeepWithinStage(false);
-			window.setBounds(-400, 400, 300, 500);
+			window.setBounds(-400, 400, 300, 550);
 			window.setMovable(false);
 			window.getStyle().titleFont.setScale(2f);
 
 			window.add(enemyImage).size(250, 250);
 			window.row();
+
+            Label enemyNameLabel = new Label(enemyName, skin);
+            enemyNameLabel.setFontScale(2f);
+            window.add(enemyNameLabel);
+            window.row();
 
 			skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			skin.getFont("default-font").setScale(1f);

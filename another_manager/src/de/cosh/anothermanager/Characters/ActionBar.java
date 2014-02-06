@@ -12,6 +12,8 @@ import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.SwapGame.ParticleActor;
 
+import java.util.ArrayList;
+
 /**
  * Created by cosh on 20.01.14.
  */
@@ -43,7 +45,7 @@ public class ActionBar {
 			itemBorders[i].addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					Array<BaseItem> baseItems = AnotherManager.getInstance().player.getInventory().getAllItems();
+					ArrayList<BaseItem> baseItems = AnotherManager.getInstance().player.getInventory().getAllItems();
 					for (BaseItem item : baseItems) {
 						if (item.isSelected()) {
 							if (itemsInBar[index] == null) {

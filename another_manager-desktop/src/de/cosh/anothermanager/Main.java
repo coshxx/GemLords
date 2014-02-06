@@ -10,6 +10,8 @@ class Main {
 		cfg.useGL20 = true;
 		cfg.width = 518;
 		cfg.height = 921;
+        cfg.x = 300;
+        cfg.y = 0;
 		/*
 		cfg.width = 900;
 		cfg.height = 900;

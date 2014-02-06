@@ -36,6 +36,7 @@ public class Enemy extends BaseCharacter {
 	private final Array<BaseAbility> abilities;
 	private Vector2 locationOnMap;
 	private Integer dropItemID;
+    private String enemyName;
 
 	public void setDropItemID(int id) {
 		dropItemID = id;
@@ -100,7 +101,7 @@ public class Enemy extends BaseCharacter {
 			public void clicked(final InputEvent event, final float x, final float y) {
 				AnotherManager.soundPlayer.playChallenge();
 				final GUIWindow guiWindow = new GUIWindow(stage);
-				guiWindow.showMapEnemyWindow(enemyHP, enemyImage);
+				guiWindow.showMapEnemyWindow(enemyHP, enemyImage, enemyName);
 				enemyManager.setSelectedEnemy(e);
 			}
 		});
@@ -120,7 +121,7 @@ public class Enemy extends BaseCharacter {
 
 		for (int i = 0; i < abilities.size; i++) {
 			final Ability current = abilities.get(i);
-			current.getImage().setBounds(enemyImage.getX() + (i * 55), AnotherManager.VIRTUAL_HEIGHT - 230, 70, 70);
+			current.getImage().setBounds(enemyImage.getX() + (i * 95), AnotherManager.VIRTUAL_HEIGHT - 230, 70, 70);
 			foreGround.addActor(current.getImage());
 		}
 	}
@@ -196,6 +197,9 @@ public class Enemy extends BaseCharacter {
 			return new ItemPocketWatch();
         case 5:
             return new ItemTerribleShield();
+        case 6:
+            return new ItemDagger();
+
 		default:
 			return null;
 		}

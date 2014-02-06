@@ -52,10 +52,10 @@ public class BaseAbility implements Ability {
 		bmf.setColor(1f, 1f, 1f, parentAlpha);
 		if (currentCooldown > 0) {
 			//bmf.draw(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY());
-			bmf.drawMultiLine(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY(), 70, BitmapFont.HAlignment.CENTER);
+			bmf.drawMultiLine(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY()+45, 70, BitmapFont.HAlignment.CENTER);
 		} else {
 			//bmf.draw(batch, "Ready", abilityImage.getX(), abilityImage.getY());
-			bmf.drawMultiLine(batch, "Ready", abilityImage.getX(), abilityImage.getY(), 70, BitmapFont.HAlignment.CENTER);
+			bmf.drawMultiLine(batch, "Ready", abilityImage.getX(), abilityImage.getY()+45, 70, BitmapFont.HAlignment.CENTER);
 		}
 	}
 

@@ -37,7 +37,7 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 
 	@Override
 	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
-        bmf.setScale(2f);
+        bmf.setScale(1.25f);
         if( currentCooldown <= 0 )
             bmf.draw(batch, "Ready", getX(), getY()+50 );
         else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);

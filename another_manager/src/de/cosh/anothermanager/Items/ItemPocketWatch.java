@@ -23,7 +23,7 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 		super(AnotherManager.assets.get("data/textures/pocketwatch.png", Texture.class));
 		itemNumber = 4;
 		setItemName("Simaohs Pocketwatch");
-		setItemText("Undo 50% of received damage\nCooldown: 99");
+		setItemText("Undo 100% of received damage\nCooldown: 99");
 		setItemSlotType(ItemSlotType.ACTIVE);
 		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
 		bmf = s.getFont("default-font");
@@ -39,7 +39,7 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 			AnotherManager.getInstance();
 			AnotherManager.soundPlayer.playPocketwatch();
 			Player player = AnotherManager.getInstance().player;
-			player.increaseHealth(player.getLastTurnDamageReceived()/2);
+			player.increaseHealth(player.getLastTurnDamageReceived());
 			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 			currentCooldown = cooldown;
 		}

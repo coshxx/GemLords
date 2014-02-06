@@ -8,28 +8,32 @@ import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Items.BaseItem;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by cosh on 21.01.14.
  */
 public class PlayerInventory {
-	private Array<BaseItem> itemsInInventory;
+	private ArrayList<BaseItem> itemsInInventory;
 
 	public PlayerInventory() {
-		itemsInInventory = new Array<BaseItem>();
+		itemsInInventory = new ArrayList<BaseItem>();
 	}
 
 	public void addItem(BaseItem item) {
 		itemsInInventory.add(item);
 	}
 
-	public Array<BaseItem> getAllItems() {
+	public ArrayList<BaseItem> getAllItems() {
 		return itemsInInventory;
 	}
 
 	public void addToLoadoutScreen(Stage stage) {
 		float x = 0;
 		float y = 0;
-		for( int i = 0; i < itemsInInventory.size; i++ ) {
+		for( int i = 0; i < itemsInInventory.size(); i++ ) {
 			final BaseItem item = itemsInInventory.get(i);
 			if( !item.isAddedToActionBar() )
 				item.setPosition(50 + ((x * item.getWidth()) + (x * 120)), (AnotherManager.VIRTUAL_HEIGHT - 80) - (y * 160));
@@ -59,7 +63,7 @@ public class PlayerInventory {
 	public void resortItems() {
 		float x = 0;
 		float y = 0;
-		for( int i = 0; i < itemsInInventory.size; i++ ) {
+		for( int i = 0; i < itemsInInventory.size(); i++ ) {
 			final BaseItem item = itemsInInventory.get(i);
 			if( item.isAddedToActionBar() )
 				continue;

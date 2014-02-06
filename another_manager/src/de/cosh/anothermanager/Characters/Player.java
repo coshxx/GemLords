@@ -52,7 +52,7 @@ public class Player extends BaseCharacter {
         for (int i = 0; i < getBuffs().size; i++) {
             getBuffs().get(i).drawCooldown(batch, parentAlpha);
         }
-        for (int i = 0; i < playerInventory.getAllItems().size; i++) {
+        for (int i = 0; i < playerInventory.getAllItems().size(); i++) {
             BaseItem item = playerInventory.getAllItems().get(i);
             if (item.isAddedToActionBar()) {
                 if (item.getItemSlotType() == BaseItem.ItemSlotType.POTION || item.getItemSlotType() == BaseItem.ItemSlotType.ACTIVE)
@@ -64,7 +64,7 @@ public class Player extends BaseCharacter {
     @Override
     public void turn() {
         super.turn();
-        for (int i = 0; i < playerInventory.getAllItems().size; i++) {
+        for (int i = 0; i < playerInventory.getAllItems().size(); i++) {
             BaseItem currentItem = playerInventory.getAllItems().get(i);
             if (currentItem.isAddedToActionBar()) {
                 if (currentItem.getItemSlotType() == BaseItem.ItemSlotType.POTION) {
@@ -127,5 +127,17 @@ public class Player extends BaseCharacter {
 
     public void clearLastTurnReceivedDamage() {
         lastTurnDamageReceived = 0;
+    }
+
+    public int getItemDamageBuffs() {
+        int damageIncrease = 0;
+        for( BaseItem i : playerInventory.getAllItems() ) {
+            if( i.isAddedToActionBar() ) {
+                if( i.getItemSlotType() == BaseItem.ItemSlotType.WEAPON ) {
+                    damageIncrease += i.getAdditionalDamage();
+                }
+            }
+        }
+        return damageIncrease;
     }
 }

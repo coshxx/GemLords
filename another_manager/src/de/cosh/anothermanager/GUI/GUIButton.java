@@ -14,6 +14,8 @@ import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.Screens.LoadoutScreen;
 import de.cosh.anothermanager.Screens.MapTraverseScreen;
 
+import java.util.ArrayList;
+
 /**
  * Created by cosh on 20.01.14.
  */
@@ -82,7 +84,7 @@ public class GUIButton {
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
-				Array<BaseItem> items = AnotherManager.getInstance().player.getInventory().getAllItems();
+				ArrayList<BaseItem> items = AnotherManager.getInstance().player.getInventory().getAllItems();
 				for (BaseItem item : items) {
 					if (item.isAddedToActionBar()) {
 						if (item.isSelected()) {

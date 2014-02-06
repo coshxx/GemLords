@@ -140,6 +140,7 @@ public class MapTraverseScreen implements Screen {
 			myGame.player.getInventory().addItem(new ItemDevRobe());
 			myGame.player.getInventory().addItem(new ItemPocketWatch());
             myGame.player.getInventory().addItem(new ItemTerribleShield());
+            myGame.player.getInventory().addItem(new ItemDagger());
 		}
 	}
 }

@@ -1,5 +1,6 @@
 {
 enemyImageLocation: data/textures/enemyscarecrow.png,
+enemyName: "The Scarecrow",
 enemyNumber: 5,
 abilities: [
 	{

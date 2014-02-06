@@ -26,4 +26,6 @@ public class ItemApprenticeRobe extends BaseItem {
 		wearer.increaseHealth(25);
 		return 25;
 	}
+
+
 }

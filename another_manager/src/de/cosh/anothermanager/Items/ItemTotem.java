@@ -21,7 +21,7 @@ public class ItemTotem extends BaseItem implements UseItem {
 		super(AnotherManager.assets.get("data/textures/totem.png", Texture.class));
 		itemNumber = 3;
 		setItemName("Alpha Totem");
-		setItemText("Recover 4 hp each turn\nCooldown: 99");
+		setItemText("Recover 3 hp each turn\nCooldown: 99");
 		setItemSlotType(ItemSlotType.ACTIVE);
 		cooldown = 99;
 		currentCooldown = 0;
@@ -35,7 +35,7 @@ public class ItemTotem extends BaseItem implements UseItem {
 			AnotherManager.soundPlayer.playTotem();
 			Buff totemBuff = new Buff();
 			totemBuff.setBuffImage(new Image(AnotherManager.assets.get("data/textures/totem.png", Texture.class)));
-			totemBuff.setup(5, 99, AnotherManager.getInstance().player);
+			totemBuff.setup(3, 99, AnotherManager.getInstance().player);
 			AnotherManager.getInstance().player.addBuff(totemBuff);
 			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 			currentCooldown = cooldown;

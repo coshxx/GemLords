@@ -1,5 +1,6 @@
 {
 enemyImageLocation: data/textures/enemydummy.png,
+enemyName: "Training Dummy",
 enemyNumber: 0,
 abilities: [
 	{

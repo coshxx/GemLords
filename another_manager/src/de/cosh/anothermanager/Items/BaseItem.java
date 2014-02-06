@@ -11,7 +11,7 @@ import de.cosh.anothermanager.AnotherManager;
 /**
  * Created by cosh on 20.01.14.
  */
-public abstract class BaseItem extends Image implements UseItem {
+public abstract class BaseItem extends Image implements UseItem, Comparable<BaseItem> {
 	private transient String itemName;
 	private transient String itemText;
 	private transient Image itemBorder;
@@ -22,7 +22,7 @@ public abstract class BaseItem extends Image implements UseItem {
 	
 	BitmapFont bmf;
 
-	int itemNumber = -1;
+	protected int itemNumber = -1;
 
 	public ItemSlotType getItemSlotType() {
 		return itemSlotType;
@@ -47,11 +47,16 @@ public abstract class BaseItem extends Image implements UseItem {
 		AnotherManager.getInstance().player.getActionBar().removeFromBar(this);
 	}
 
-	public enum ItemSlotType {
+    public int getAdditionalDamage() {
+        return 0;
+    }
+
+    public enum ItemSlotType {
 		ARMOR,
 		POTION,
 		ACTIVE,
-        SHIELD
+        SHIELD,
+        WEAPON
 	}
 
 	private ItemSlotType itemSlotType;
@@ -141,5 +146,14 @@ public abstract class BaseItem extends Image implements UseItem {
 
     public int tryToReduceDamage(int incomingDamage) {
         return incomingDamage;
+    }
+
+    @Override
+    public int compareTo(BaseItem o) {
+        if( itemNumber < o.itemNumber )
+            return -1;
+        if( itemNumber > o.itemNumber )
+            return 1;
+        return 0;
     }
 }
