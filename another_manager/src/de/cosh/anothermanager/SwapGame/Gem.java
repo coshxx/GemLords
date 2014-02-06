@@ -282,4 +282,8 @@ public class Gem extends Image {
 		return false;
 	}
 
+    @Override
+    public String toString() {
+        return super.toString() + gemType.toString();
+    }
 }

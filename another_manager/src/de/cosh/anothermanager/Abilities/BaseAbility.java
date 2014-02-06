@@ -18,12 +18,19 @@ public class BaseAbility implements Ability {
 	private int cooldown;
 	private int currentCooldown;
 	private int damage;
+    private transient BaseCharacter owner;
 
 	BaseAbility() {
 		cooldown = 5;
 		damage = 10;
 		abilityImageLocation = "data/textures/empty.png";
 	}
+
+    public void setOwner(BaseCharacter owner) {
+        this.owner = owner;
+    }
+
+    public BaseCharacter getOwner() { return owner; }
 
 	public void setAbilityDamage(int damage) {
 		this.damage = damage;

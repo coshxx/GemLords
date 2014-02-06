@@ -16,21 +16,21 @@ import de.cosh.anothermanager.AnotherManager;
 /**
  * Created by cosh on 27.12.13.
  */
-class HealthBar extends Actor {
-	private BitmapFont bmf;
-	private float done;
+public class HealthBar extends Actor {
+	private transient BitmapFont bmf;
+	private transient float done;
 
-	private NinePatch empty, full;
-	private Texture emptyT, fullT;
+	private transient NinePatch empty, full;
+	private transient Texture emptyT, fullT;
 
-	private int healthpoints, maxHP;
-	private float left, bot, width, height;
+	private int hp, maxHP;
+	private transient float left, bot, width, height;
 
-	private Array<FloatingNumbers> floatingNumbers;
+	private transient Array<FloatingNumbers> floatingNumbers;
 
 	@Override
 	public void act(final float delta) {
-		done = (float) healthpoints / (float) maxHP;
+		done = (float) hp / (float) maxHP;
 
         for( int i = 0; i < floatingNumbers.size; i++ ) {
             FloatingNumbers f = floatingNumbers.get(i);
@@ -47,11 +47,11 @@ class HealthBar extends Actor {
 	public void draw(final SpriteBatch batch, final float parentAlpha) {
         super.draw(batch, parentAlpha);
         empty.draw(batch, left, bot, width, height);
-		if (healthpoints > 0) {
+		if (hp > 0) {
 			full.draw(batch, left, bot, done * width, height);
 		}
 
-		final Integer health = healthpoints;
+		final Integer health = hp;
 		final Integer maxhealth = maxHP;
 
 		AnotherManager.getInstance();
@@ -67,8 +67,8 @@ class HealthBar extends Actor {
 		}
 	}
 
-	public int getHealthpoints() {
-		return healthpoints;
+	public int getHp() {
+		return hp;
 	}
 
 	@Override
@@ -82,9 +82,9 @@ class HealthBar extends Actor {
 	}
 
 	public void hit(final int damage) {
-		healthpoints -= damage;
-		if (healthpoints <= 0) {
-			healthpoints = 0;
+		hp -= damage;
+		if (hp <= 0) {
+			hp = 0;
 		}
 
 		FloatingNumbers f = new FloatingNumbers();
@@ -95,7 +95,7 @@ class HealthBar extends Actor {
 	}
 
 	public void init(final int hp) {
-		this.healthpoints = hp;
+		this.hp = hp;
 		this.maxHP = hp;
 
 
@@ -118,7 +118,9 @@ class HealthBar extends Actor {
 	}
 
 	public void increaseHealth(int hp) {
-		this.healthpoints += hp;
+		this.hp += hp;
+        if( this.hp >= maxHP )
+            this.hp = maxHP;
 
 		if( floatingNumbers == null )
 			floatingNumbers = new Array<FloatingNumbers>();

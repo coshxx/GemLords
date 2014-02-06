@@ -22,6 +22,9 @@ locationOnMap: {
 	x: 220,
 	y: 210
 },
-healthPoints: 130,
+healthBar: {
+	hp: 130,
+	maxHP: 130
+},
 dropItemID: 4
 }

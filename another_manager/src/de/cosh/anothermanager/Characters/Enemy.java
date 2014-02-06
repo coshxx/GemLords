@@ -35,7 +35,6 @@ public class Enemy extends BaseCharacter {
 	private String enemyImageLocation;
 	private final Array<BaseAbility> abilities;
 	private Vector2 locationOnMap;
-
 	private Integer dropItemID;
 
 	public void setDropItemID(int id) {
@@ -85,7 +84,6 @@ public class Enemy extends BaseCharacter {
 		abilities.add(abilityPoison);
 */
         //abilities.add(abilityPetrify);
-
 		locationOnMap = new Vector2(0, 0);
 	}
 
@@ -112,7 +110,7 @@ public class Enemy extends BaseCharacter {
 	@Override
 	public void addToBoard(final Group foreGround) {
 		super.addToBoard(foreGround);
-		init(getHealth());
+
 		//enemyImage.setPosition(AnotherManager.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), AnotherManager.VIRTUAL_HEIGHT - 150);
 		enemyImage.setBounds(AnotherManager.VIRTUAL_WIDTH / 2 - (75), AnotherManager.VIRTUAL_HEIGHT - 150, 150, 150);
 		setHealthBarPosition(0, AnotherManager.VIRTUAL_HEIGHT - (230 + 50), AnotherManager.VIRTUAL_WIDTH, 50);
@@ -156,7 +154,8 @@ public class Enemy extends BaseCharacter {
         player.clearLastTurnReceivedDamage();
         super.turn();
 		for (int i = 0; i < abilities.size; i++) {
-			final Ability current = abilities.get(i);
+			final BaseAbility current = abilities.get(i);
+            current.setOwner(this);
 			if (!current.fire(player)) {
 				current.turn();
 			}

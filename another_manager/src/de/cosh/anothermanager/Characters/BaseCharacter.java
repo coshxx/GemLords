@@ -1,6 +1,5 @@
 package de.cosh.anothermanager.Characters;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 
@@ -11,8 +10,7 @@ public class BaseCharacter {
 	private Group characterGroup;
 	private final Array<Debuff> debuffs;
 	private final Array<Buff> buffs;
-	private transient HealthBar healthBar;
-	private int healthPoints;
+	private HealthBar healthBar;
 
 	BaseCharacter() {
 		healthBar = new HealthBar();
@@ -39,7 +37,6 @@ public class BaseCharacter {
 	}
 
 	public void damage(final int damage) {
-		healthPoints -= damage;
 		healthBar.hit(damage);
 	}
 
@@ -56,15 +53,13 @@ public class BaseCharacter {
 	}
 
 	public int getHealth() {
-		return healthPoints;
-	}
+		return healthBar.getHp(); }
 
-	Actor getHealthBar() {
+	public HealthBar getHealthBar() {
 		return healthBar;
 	}
 
 	public void init(final int hp) {
-		healthPoints = hp;
 		healthBar = new HealthBar();
 		healthBar.init(hp);
 		debuffs.clear();
@@ -72,8 +67,7 @@ public class BaseCharacter {
 	}
 
 	public void setHealth(final int hp) {
-		healthPoints = hp;
-		healthBar.init(healthPoints);
+		healthBar.init(hp);
 	}
 
 	void setHealthBarPosition(final int left, final int bot, final int width, final int height) {
@@ -96,7 +90,6 @@ public class BaseCharacter {
 	}
 
 	public void increaseHealth(int hp) {
-		healthPoints += hp;
 		healthBar.increaseHealth(hp);
 	}
 }

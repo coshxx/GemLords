@@ -362,6 +362,14 @@ public class Board extends Group {
         return foreGround;
     }
 
+    public MatchFinder getMatchFinder() {
+        return matchFinder;
+    }
+
+    public SwapController getSwapController() {
+        return swapController;
+    }
+
     public enum BoardState {
         STATE_CHECK, STATE_EMPTY, STATE_FADING, STATE_IDLE, STATE_INACTIVE, STATE_MOVING, STATE_SWAPPING
     }

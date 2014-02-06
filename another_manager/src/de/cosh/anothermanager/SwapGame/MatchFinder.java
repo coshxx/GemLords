@@ -1,10 +1,18 @@
 package de.cosh.anothermanager.SwapGame;
 
 
+import com.badlogic.gdx.math.GridPoint2;
+import de.cosh.anothermanager.Abilities.AbilityThink;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by cosh on 13.01.14.
  */
-class MatchFinder {
+public class MatchFinder {
 	private final Cell[][] cells;
 
 	public MatchFinder(final Cell[][] cells) {
@@ -227,4 +235,78 @@ class MatchFinder {
 		}
 		return result;
 	}
+
+    public void findMatches() {
+
+    }
+
+    public void pseudoSwap(int x, int y, int x1, int y1) {
+        Gem current = cells[x][y].getGem();
+        Gem next = cells[x1][y1].getGem();
+
+        cells[x][y].setGem(next);
+        cells[x1][y1].setGem(current);
+    }
+
+    public SwapCommand getFirstSwapPossibility() {
+        List<SwapCommand> swapCommands = new ArrayList<SwapCommand>();
+
+        SwapCommand command = new SwapCommand();
+        for( int x = 0; x < Board.MAX_SIZE_X; x++ ) {
+            for( int y = 0; y < Board.MAX_SIZE_Y; y++ ) {
+                if( y + 1 >= Board.MAX_SIZE_Y )
+                    continue;
+
+                pseudoSwap(x, y, x, y+1);
+
+                command = findFirstMatch();
+
+                if( command.commandFound ) {
+                    command.x = 0;
+                    command.y = 1;
+                    command.swapStart = new GridPoint2(x, y);
+                    swapCommands.add(command);
+                }
+
+                pseudoSwap(x, y, x, y+1);
+
+                if( x + 1 >= Board.MAX_SIZE_X )
+                    continue;
+
+                pseudoSwap(x, y, x+1, y);
+
+                command = findFirstMatch();
+
+                if( command.commandFound ) {
+                    command.x = 1;
+                    command.y = 0;
+                    command.swapStart = new GridPoint2(x, y);
+                    swapCommands.add(command);
+                }
+
+                pseudoSwap(x, y, x+1, y);
+
+            }
+        }
+        Collections.shuffle(swapCommands);
+        return swapCommands.get(0);
+    }
+
+    private SwapCommand findFirstMatch() {
+        SwapCommand swapCommand = new SwapCommand();
+        for (int x = 0; x < Board.MAX_SIZE_X; x++) {
+            for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
+                final int countMatchesRight = howManyMatchesRight(x, y);
+                if (countMatchesRight >= 3) {
+                    swapCommand.commandFound = true;
+                }
+
+                final int countMatchesTop = howManyMatchesTop(x, y);
+                if (countMatchesTop >= 3) {
+                    swapCommand.commandFound = true;
+                }
+            }
+        }
+        return swapCommand;
+    }
 }

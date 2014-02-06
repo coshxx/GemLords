@@ -3,15 +3,18 @@ enemyImageLocation: data/textures/enemybat.png,
 enemyNumber: 3,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityAttack,
-		currentCooldown: 0,
-		cooldown: 0
+		class: de.cosh.anothermanager.Abilities.AbilityBite,
+		currentCooldown: 2,
+		cooldown: 4
 	},
 ],
 locationOnMap: {
 	x: 420,
 	y: 110
 },
-healthPoints: 80,
+healthBar: {
+	hp: 80,
+	maxHP: 80
+},
 dropItemID: 5
 }
