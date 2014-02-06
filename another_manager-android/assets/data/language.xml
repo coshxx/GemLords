@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+<language name="en_uk">
+    <string key="Start" value="Start"/>
+    <string key="Options" value="Options"/>
+    <string key="Exit" value="Exit"/>
+</language>
+
+<language name="de_DE">
+    <string key="Start" value="Start"/>
+    <string key="Options" value="Optionen"/>
+    <string key="Exit" value="Ende"/>
+</language>
+
+</languages>

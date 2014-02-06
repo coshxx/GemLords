@@ -1,6 +1,6 @@
 {
 enemyImageLocation: data/textures/enemysnake.png,
-enemyName: "Common Snake",
+enemyName: "Snake",
 enemyNumber: 2,
 abilities: [
 	{

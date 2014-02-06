@@ -1,6 +1,6 @@
 {
 enemyImageLocation: data/textures/enemybat.png,
-enemyName: "Common Bat",
+enemyName: "Bat",
 enemyNumber: 3,
 abilities: [
 	{
