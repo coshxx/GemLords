@@ -20,7 +20,7 @@ public class AbilityBite extends BaseAbility {
 	public boolean fire(final BaseCharacter target) {
 		if (super.fire(target)) {
 			abilityImage.addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
-			AnotherManager.soundPlayer.playAbilityAttack();
+			AnotherManager.soundPlayer.playAbilityBite();
             getOwner().increaseHealth(10);
 			return true;
 		}

@@ -28,8 +28,9 @@ public class SoundPlayer {
     private Sound petrify;
     private Sound pocketwatch;
     private Sound block;
-
+    private Sound bow;
 	private Sound impressive, godlike, unstoppable;
+    private Sound abilityBite;
 
 	private Music mapMusic;
 	private Music loadoutMusic;
@@ -54,6 +55,10 @@ public class SoundPlayer {
 	public void playAbilityAttack() {
 		abilityAttack.play(0.4f);
 	}
+
+    public void playBow() {
+        bow.play();
+    }
 
 	public void playTotem() {
 		totem.play();
@@ -169,7 +174,7 @@ public class SoundPlayer {
 		AssetManager assets = AnotherManager.assets;
 		blub1 = assets.get("data/sounds/blub1.ogg", Sound.class);
 		blub2 = assets.get("data/sounds/blub2.ogg", Sound.class);
-
+        bow = assets.get("data/sounds/bow.ogg", Sound.class);
 		bang = assets.get("data/sounds/bang.ogg", Sound.class);
         block = assets.get("data/sounds/block.ogg", Sound.class);
 		mapMusic = assets.get("data/sounds/music.ogg", Music.class);
@@ -198,6 +203,7 @@ public class SoundPlayer {
 		gameMusic0 = assets.get("data/sounds/music0.ogg", Music.class);
 		awesome = assets.get("data/sounds/awesome.ogg", Sound.class);
 		smash = assets.get("data/sounds/smash.ogg", Sound.class);
+        abilityBite = assets.get("data/sounds/bite.ogg", Sound.class);
 	}
 
 	public void stopLoadoutMusic() {
@@ -232,4 +238,8 @@ public class SoundPlayer {
 	public void stopMenuMusic() {
 		menuMusic.stop();
 	}
+
+    public void playAbilityBite() {
+        abilityBite.play();
+    }
 }

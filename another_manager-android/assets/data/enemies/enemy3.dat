@@ -8,14 +8,19 @@ abilities: [
 		currentCooldown: 2,
 		cooldown: 2
 	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	},
 ],
 locationOnMap: {
 	x: 420,
 	y: 110
 },
 healthBar: {
-	hp: 80,
-	maxHP: 80
+	hp: 90,
+	maxHP: 90
 },
 dropItemID: 5
 }

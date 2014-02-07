@@ -15,6 +15,7 @@ import de.cosh.anothermanager.AfterActionReport;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.Items.BaseItem;
+import de.cosh.anothermanager.Items.ItemApprenticeRobe;
 
 /**
  * Created by cosh on 07.01.14.
@@ -121,8 +122,16 @@ public class LootScreen implements Screen {
 
 
 
+        final BaseItem item = enemyManager.getSelectedEnemy().getDroppedItem();
+        //final BaseItem item = new ItemApprenticeRobe();
+        if( item != null ) {
+            Label label15 = new Label("Received Item:", skin);
+            leftSide.add(label15).left();
+            item.setPosition(AnotherManager.VIRTUAL_WIDTH/2 - item.getWidth()/2, 800);
+            myGame.player.getInventory().addItem(item);
+            stage.addActor(item);
 
-
+        }
 
         TextButton button = new TextButton("Return to map", skin);
         button.addListener(new ClickListener() {
@@ -133,10 +142,8 @@ public class LootScreen implements Screen {
                     public void run() {
                         AnotherManager.soundPlayer.stopLootMusic();
                         myGame.player.levelDone(myGame.enemyManager.getSelectedEnemy().getEnemyNumber());
-                        /*
-                        if (i != null)
-                            myGame.player.getActionBar().addToActionBar(i);
-                            */
+                        if (item != null)
+                            myGame.player.getActionBar().addToActionBar(item);
                         myGame.setScreen(myGame.mapTraverseScreen);
                     }
                 })));

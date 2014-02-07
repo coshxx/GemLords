@@ -37,9 +37,7 @@ public class ItemBow extends BaseItem {
         if( AnotherManager.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
             return;
         if (currentCooldown <= 0) {
-            AnotherManager.getInstance();
-            //AnotherManager.soundPlayer.playGulp();
-
+            AnotherManager.soundPlayer.playBow();
             int damage = random.nextInt( ( 20 - 5 ));
             damage += 5;
 

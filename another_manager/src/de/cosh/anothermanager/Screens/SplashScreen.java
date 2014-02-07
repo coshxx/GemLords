@@ -119,6 +119,7 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/sounds/bang.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/block.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/smash.ogg", Sound.class);
+		AnotherManager.assets.load("data/sounds/bow.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/music.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/loot.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/victory.ogg", Sound.class);
@@ -136,9 +137,10 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/sounds/music0.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/gulp.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/pocketwatch.ogg", Sound.class);
+		AnotherManager.assets.load("data/sounds/bite.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/menumusic.ogg", Music.class);
-		
+
 
 		AnotherManager.assets.load("data/ui/uiskin.json", Skin.class);
 
@@ -161,6 +163,7 @@ public class SplashScreen implements Screen {
 	public void render(final float delta) {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
 		stage.act(delta);
 		stage.draw();
 
@@ -171,14 +174,14 @@ public class SplashScreen implements Screen {
 			AnotherManager.assets.get("data/ui/uiskin.json", Skin.class).getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			myGame.setScreen(myGame.menuScreen);
 		}
-		final float left = Gdx.graphics.getWidth() * 0.1f;
-		final float bot = Gdx.graphics.getHeight() * 0.5f;
-		final float width = Gdx.graphics.getWidth() - (2 * left);
+		final float left = AnotherManager.VIRTUAL_WIDTH * 0.3f;
+		final float bot = AnotherManager.VIRTUAL_HEIGHT * 0.5f;
+		final float width = 300;
 		final float done = AnotherManager.assets.getProgress() * width;
 
 		final SpriteBatch sb = stage.getSpriteBatch();
 		sb.begin();
-		empty.draw(sb, left, bot, Gdx.graphics.getWidth() - (2 * left), 30);
+		empty.draw(sb, left, bot, 300, 30);
 		full.draw(sb, left, bot, done, 30);
 		/*
 		.drawMultiLine(sb, (int) (AnotherManager.assets.getProgress() * 100) + "% loaded", width / 2 + 60, bot + 20, 0,
@@ -217,7 +220,7 @@ public class SplashScreen implements Screen {
 
 
 		loadAllAssets();
-		AnotherManager.assets.finishLoading();
+		//AnotherManager.assets.finishLoading();
 	}
 
 }
