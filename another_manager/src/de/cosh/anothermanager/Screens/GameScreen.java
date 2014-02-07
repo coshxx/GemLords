@@ -87,6 +87,8 @@ public class GameScreen implements Screen, GestureListener {
 		stage.act(delta);
 		stage.draw();
 
+        System.out.println(stage.getSpriteBatch().renderCalls);
+
         // TODO: crap
         if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE ) ) {
             swapGame.pressedBack();

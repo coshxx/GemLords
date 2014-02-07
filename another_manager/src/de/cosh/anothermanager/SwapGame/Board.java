@@ -4,18 +4,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIWindow;
-import de.cosh.anothermanager.Items.BaseItem;
 
 /**
  * Created by cosh on 13.01.14.
@@ -30,6 +32,7 @@ public class Board extends Group {
     private final Cell[][] cells;
     private final Group effectGroup;
     private final Group foreGround;
+    private final Group gemGroup;
     private final GemRemover gemRemover;
     private final GemHandler gemHandler;
     private final MatchFinder matchFinder;
@@ -62,6 +65,8 @@ public class Board extends Group {
 
         backGround = new Group();
         backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+        gemGroup = new Group();
+        gemGroup.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
         foreGround = new Group();
         foreGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
         effectGroup = new Group();
@@ -72,8 +77,11 @@ public class Board extends Group {
         backGround.addActor(backImage);
         addActor(backGround);
         addActor(foreGround);
+        addActor(gemGroup);
         addActor(effectGroup);
         effectGroup.setTouchable(Touchable.disabled);
+        gemGroup.setTouchable(Touchable.disabled);
+        backGround.setTouchable(Touchable.disabled);
         boardState = BoardState.STATE_EMPTY;
         initialized = false;
         justSwapped = false;
@@ -94,7 +102,26 @@ public class Board extends Group {
     }
 
     public void draw(SpriteBatch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+        //super.draw(batch, parentAlpha);
+        backGround.draw(batch, parentAlpha);
+        foreGround.draw(batch, parentAlpha);
+
+		Stage stage = getStage();
+		AnotherManager myGame = AnotherManager.getInstance();
+
+		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 277));
+		final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT - 720));
+		final Rectangle scissor = new Rectangle();
+		final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
+		ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, batch.getTransformMatrix(),
+                clipBounds, scissor);
+		batch.flush();
+		ScissorStack.pushScissors(scissor);
+        gemGroup.draw(batch, parentAlpha);
+		batch.flush();
+		ScissorStack.popScissors();
+
+        effectGroup.draw(batch, parentAlpha);
         player.draw(batch, parentAlpha);
         enemy.draw(batch, parentAlpha);
     }
@@ -127,7 +154,7 @@ public class Board extends Group {
                                 Actions.moveBy(10f, 0f, 0.1f), Actions.moveBy(-10f, 0f, 0.1f)));
                 // AnotherManager.soundPlayer.playSlideIn();
                 backGround.addActor(cells[x][y]);
-                foreGround.addActor(cells[x][y].getGem());
+                gemGroup.addActor(cells[x][y].getGem());
             }
         }
     }
@@ -179,6 +206,7 @@ public class Board extends Group {
             while (matchFinder.hasMatches()) {
                 backGround.clear();
                 foreGround.clear();
+                gemGroup.clear();
                 final Image backImage = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
                 backImage.setFillParent(true);
                 backGround.addActor(backImage);
@@ -270,7 +298,7 @@ public class Board extends Group {
         } else if (boardState == BoardState.STATE_FADING) {
             if (gemRemover.doneFading()) {
                 gemRemover.removeFadedGems(myGame, effectGroup);
-                gemHandler.respawnAndApplyGravity(foreGround);
+                gemHandler.respawnAndApplyGravity(gemGroup);
                 boardState = BoardState.STATE_MOVING;
             }
         }

@@ -146,10 +146,13 @@ public class Gem extends Image {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
 		/*
 		 * super.draw(batch, parentAlpha); bmf.setColor(1f, 1f, 1f, 1f);
 		 * bmf.draw(batch, cellX + ", " + cellY, getX(), getY());
 		 */
+
+        /*
 		Stage stage = getStage();
 		AnotherManager myGame = AnotherManager.getInstance();
 
@@ -164,6 +167,7 @@ public class Gem extends Image {
 		super.draw(batch, parentAlpha);
 		batch.flush();
 		ScissorStack.popScissors();
+		*/
 	}
 
 	public boolean equals(final Gem b) {
