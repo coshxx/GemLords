@@ -36,7 +36,7 @@ public class PlayerInventory {
 		for( int i = 0; i < itemsInInventory.size(); i++ ) {
 			final BaseItem item = itemsInInventory.get(i);
 			if( !item.isAddedToActionBar() )
-				item.setPosition(50 + ((x * item.getWidth()) + (x * 120)), (AnotherManager.VIRTUAL_HEIGHT - 80) - (y * 160));
+				item.setPosition(50 + ((x * item.getWidth()) + (x * 120)), (AnotherManager.VIRTUAL_HEIGHT - 80) - (y * 180));
 			x++;
 			if( x >= 3 ) {
 				x = 0;
@@ -68,7 +68,7 @@ public class PlayerInventory {
 			if( item.isAddedToActionBar() )
 				continue;
 			//item.setPosition(70 + ((x * item.getWidth()) + (x * 100)), (AnotherManager.VIRTUAL_HEIGHT - 80) - (y * 140));
-            item.setPosition(70 + ((x * item.getWidth()) + (x * 140)), (AnotherManager.VIRTUAL_HEIGHT - 100) - (y * 190));
+            item.setPosition(70 + ((x * item.getWidth()) + (x * 140)), (AnotherManager.VIRTUAL_HEIGHT - 100) - (y * 220));
 			x++;
 			if( x >= 3 ) {
 				x = 0;

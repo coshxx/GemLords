@@ -8,15 +8,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.ActionBar;
+import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIButton;
+import de.cosh.anothermanager.Items.BaseItem;
 
 /**
  * Created by cosh on 07.01.14.
  */
 public class LoadoutScreen implements Screen {
 	private Stage stage;
+    private Table table;
 
 	public LoadoutScreen() {
 	}
@@ -42,6 +46,8 @@ public class LoadoutScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
+
+        Table.drawDebug(stage);
 	}
 
 	@Override
@@ -57,10 +63,9 @@ public class LoadoutScreen implements Screen {
 	@Override
 	public void show() {
 		stage = new Stage();
-		
-		Gdx.input.setInputProcessor(stage);
-		
-		Image background = new Image(AnotherManager.assets.get("data/textures/loadout.jpg", Texture.class));
+        Gdx.input.setInputProcessor(stage);
+
+		Image background = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
 		background.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
 		stage.addActor(background);
 

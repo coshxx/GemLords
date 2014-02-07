@@ -175,6 +175,7 @@ public class Board extends Group {
         if (!initialized) {
             initialized = true;
             fillWithRandomGems();
+            myGame.afterActionReport.reset();
             while (matchFinder.hasMatches()) {
                 backGround.clear();
                 foreGround.clear();
@@ -224,6 +225,8 @@ public class Board extends Group {
                 }
 
                 AnotherManager.soundPlayer.playDing(matchesDuringCurrentMove++);
+                if( turnIndicator.isPlayerTurn() )
+                    myGame.afterActionReport.setLongestCombo(matchesDuringCurrentMove);
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
                 if( turnIndicator.isPlayerTurn() ) {
@@ -231,7 +234,9 @@ public class Board extends Group {
                     damageDone += player.getItemDamageBuffs();
                     enemy.damage(damageDone);
                 }
-                else player.damage(result.howMany);
+                else {
+                    player.damage(result.howMany);
+                }
                 if (result.specialExplo) {
                     AnotherManager.soundPlayer.playWoosh();
                 }
@@ -372,6 +377,10 @@ public class Board extends Group {
 
     public SwapController getSwapController() {
         return swapController;
+    }
+
+    public Enemy getEnemy() {
+        return enemy;
     }
 
     public enum BoardState {

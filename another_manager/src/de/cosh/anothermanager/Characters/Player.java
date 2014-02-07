@@ -14,7 +14,6 @@ public class Player extends BaseCharacter {
     private int lives;
     private PlayerInventory playerInventory;
     private ActionBar actionBar;
-
     private int lastTurnDamageReceived;
 
     public Player(final AnotherManager myGame) {
@@ -45,6 +44,7 @@ public class Player extends BaseCharacter {
         lives--;
     }
 
+
     public void draw(final SpriteBatch batch, final float parentAlpha) {
         for (int i = 0; i < getDebuffs().size; i++) {
             getDebuffs().get(i).drawCooldown(batch, parentAlpha);
@@ -63,11 +63,15 @@ public class Player extends BaseCharacter {
 
     @Override
     public void turn() {
+        Enemy enemy = AnotherManager.getInstance().gameScreen.getBoard().getEnemy();
+        AnotherManager.getInstance().afterActionReport.setHighestDamageDealtInOneTurn(enemy.getLastTurnDamageReceived());
+        enemy.clearLastTurnReceivedDamage();
         super.turn();
         for (int i = 0; i < playerInventory.getAllItems().size(); i++) {
             BaseItem currentItem = playerInventory.getAllItems().get(i);
             if (currentItem.isAddedToActionBar()) {
-                if (currentItem.getItemSlotType() == BaseItem.ItemSlotType.POTION) {
+                if (currentItem.getItemSlotType() == BaseItem.ItemSlotType.POTION ||
+                        currentItem.getItemSlotType() == BaseItem.ItemSlotType.ACTIVE) {
                     currentItem.turn();
                 }
             }
@@ -98,6 +102,7 @@ public class Player extends BaseCharacter {
         }
         super.damage(finalDamage);
         lastTurnDamageReceived += finalDamage;
+        AnotherManager.getInstance().afterActionReport.totalDamageReceived += finalDamage;
     }
 
     public int getLastTurnDamageReceived() {
@@ -120,6 +125,14 @@ public class Player extends BaseCharacter {
         return count;
     }
 
+    public void increaseHealth(int hp) {
+        getHealthBar().increaseHealth(hp);
+        AnotherManager.getInstance().afterActionReport.playerTotalHealed += hp;
+    }
+
+    public void preGameIncreaseHealth(int hp) {
+        getHealthBar().increaseHealth(hp);
+    }
 
     public ActionBar getActionBar() {
         return actionBar;
@@ -133,7 +146,7 @@ public class Player extends BaseCharacter {
         int damageIncrease = 0;
         for( BaseItem i : playerInventory.getAllItems() ) {
             if( i.isAddedToActionBar() ) {
-                if( i.getItemSlotType() == BaseItem.ItemSlotType.WEAPON ) {
+                if( i.getItemSlotType() == BaseItem.ItemSlotType.WEAPONPASSIVE) {
                     damageIncrease += i.getAdditionalDamage();
                 }
             }

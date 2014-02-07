@@ -8,6 +8,11 @@ abilities: [
 		currentCooldown: 1,
 		cooldown: 1
 	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 2
+	},
 ],
 locationOnMap: {
 	x: 220,

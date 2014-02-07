@@ -6,7 +6,7 @@ abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityBite,
 		currentCooldown: 2,
-		cooldown: 4
+		cooldown: 2
 	},
 ],
 locationOnMap: {

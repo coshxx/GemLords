@@ -31,7 +31,6 @@ public class MapTraverseScreen implements Screen {
 	public MapTraverseScreen(final AnotherManager anotherManager) {
 		myGame = anotherManager;
 		json = new Json();
-
 	}
 
 	@Override
@@ -132,15 +131,41 @@ public class MapTraverseScreen implements Screen {
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));
 
-		if( AnotherManager.DEBUGMODE ) {
-			myGame.player.getInventory().addItem(new ItemMinorHealthPotion());
-			myGame.player.getInventory().addItem(new ItemApprenticeRobe());
-			myGame.player.getInventory().addItem(new ItemScholarRobe());
-			myGame.player.getInventory().addItem(new ItemTotem());
-			myGame.player.getInventory().addItem(new ItemDevRobe());
-			myGame.player.getInventory().addItem(new ItemPocketWatch());
-            myGame.player.getInventory().addItem(new ItemTerribleShield());
-            myGame.player.getInventory().addItem(new ItemDagger());
+		if( AnotherManager.DEBUGMODE && !AnotherManager.DEBUGITEMSADDED) {
+            AnotherManager.DEBUGITEMSADDED = true;
+
+            BaseItem item1, item2, item3, item4, item5,
+                    item6, item7, item8, item9, item10;
+            item1 = new ItemMinorHealthPotion();
+            item2 = new ItemApprenticeRobe();
+            item3 = new ItemScholarRobe();
+            item4 = new ItemTotem();
+            item5 = new ItemDevRobe();
+            item6 = new ItemPocketWatch();
+            item7 = new ItemTerribleShield();
+            item8 = new ItemDagger();
+            item9 = new ItemBow();
+            item10 = new ItemAmulet();
+
+			myGame.player.getInventory().addItem(item1);
+			myGame.player.getInventory().addItem(item2);
+			myGame.player.getInventory().addItem(item3);
+			myGame.player.getInventory().addItem(item4);
+			myGame.player.getInventory().addItem(item5);
+			myGame.player.getInventory().addItem(item6);
+            myGame.player.getInventory().addItem(item7);
+            myGame.player.getInventory().addItem(item8);
+            myGame.player.getInventory().addItem(item9);
+            myGame.player.getInventory().addItem(item10);
+
+            myGame.player.getActionBar().addToActionBar(item1);
+            myGame.player.getActionBar().addToActionBar(item3);
+            myGame.player.getActionBar().addToActionBar(item4);
+            //myGame.player.getActionBar().addToActionBar(item5);
+            //myGame.player.getActionBar().addToActionBar(item6);
+            myGame.player.getActionBar().addToActionBar(item9);
+            myGame.player.getActionBar().addToActionBar(item7);
+            myGame.player.getActionBar().addToActionBar(item8);
 		}
 	}
 }

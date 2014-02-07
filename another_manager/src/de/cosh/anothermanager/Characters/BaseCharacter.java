@@ -36,7 +36,7 @@ public class BaseCharacter {
 		characterGroup = foreGround;
 	}
 
-	public void damage(final int damage) {
+	public void damage(int damage) {
 		healthBar.hit(damage);
 	}
 
@@ -92,4 +92,8 @@ public class BaseCharacter {
 	public void increaseHealth(int hp) {
 		healthBar.increaseHealth(hp);
 	}
+
+    public void preGameIncreaseHealth(int hp) {
+        getHealthBar().increaseHealth(hp);
+    }
 }

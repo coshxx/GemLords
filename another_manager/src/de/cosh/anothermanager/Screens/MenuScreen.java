@@ -93,15 +93,15 @@ public class MenuScreen implements Screen {
 		backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
 		newGameButton.setBounds(265, 450, 200, 80);
 		newGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		newGameButton.getStyle().font.setScale(2f);
+		newGameButton.getStyle().font.setScale(1f);
 		
 		optionsButton.setBounds(265, 350, 200, 80);
 		optionsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		optionsButton.getStyle().font.setScale(2f);
+		optionsButton.getStyle().font.setScale(1f);
 		
 		exitGameButton.setBounds(265, 250, 200, 80);
 		exitGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		exitGameButton.getStyle().font.setScale(2f);
+		exitGameButton.getStyle().font.setScale(1f);
 		
 		stage.setCamera(AnotherManager.getInstance().camera);
 		stage.addActor(backGround);

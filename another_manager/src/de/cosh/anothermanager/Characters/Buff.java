@@ -58,7 +58,7 @@ public class Buff {
 		buffImage.setBounds(x + 2.5f, y + 2.5f, width - 5, height - 5);
 	}
 
-	public void setup(final int healthPerTurn, final int turns, final BaseCharacter toChar) {
+	public void setup(int healthPerTurn, int turns, BaseCharacter toChar) {
 		this.healthPerTurn = healthPerTurn;
 		this.turns = turns;
 		this.toChar = toChar;
@@ -77,6 +77,7 @@ public class Buff {
 		toChar.increaseHealth(healthPerTurn);
 		buffBorderImage.addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 		buffImage.addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
+
 		return false;
 	}
 }

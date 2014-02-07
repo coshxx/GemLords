@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
+import de.cosh.anothermanager.SwapGame.Board;
 
 /**
  * Created by cosh on 20.01.14.
@@ -18,18 +19,20 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 		super(AnotherManager.assets.get("data/textures/minorhealthpotion.png", Texture.class));
 		itemNumber = 1;
 		setItemName("Minor potion");
-		setItemText("Recover 10 hp\nCooldown: 5");
+		setItemText("Recover 16 hp\nCooldown: 10");
 		setItemSlotType(ItemSlotType.POTION);
-		cooldown = 5;
-		currentCooldown = 5;
+		cooldown = 10;
+		currentCooldown = 0;
 	}
 
 	@Override
 	public void onUse() {
+        if( AnotherManager.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
+            return;
 		if (currentCooldown <= 0) {
 			AnotherManager.getInstance();
 			AnotherManager.soundPlayer.playGulp();
-			AnotherManager.getInstance().player.increaseHealth(10);
+			AnotherManager.getInstance().player.increaseHealth(16);
 			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 			currentCooldown = cooldown;
 		}
@@ -37,11 +40,10 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 
 	@Override
 	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
-        bmf.setScale(1.25f);
+        bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
         if( currentCooldown <= 0 )
             bmf.draw(batch, "Ready", getX(), getY()+50 );
         else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
-        bmf.setScale(1f);
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 
 	@Override
 	public void resetCooldown() {
-		currentCooldown = cooldown;
+		currentCooldown = 0;
 	}
 
 	@Override

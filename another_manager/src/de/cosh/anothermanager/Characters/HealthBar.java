@@ -44,7 +44,7 @@ public class HealthBar extends Actor {
 	}
 
 	@Override
-	public void draw(final SpriteBatch batch, final float parentAlpha) {
+	public void draw(SpriteBatch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         empty.draw(batch, left, bot, width, height);
 		if (hp > 0) {
@@ -58,8 +58,9 @@ public class HealthBar extends Actor {
 		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class)	;
 		bmf = s.getFont("default-font");
 
-		bmf.setColor(1f, 1f, 1f, parentAlpha);
-		bmf.draw(batch, health.toString() + " / " + maxhealth.toString(), left + (width / 2), bot + 25);
+		bmf.setColor(0.25f, 0.25f, 1.0f, parentAlpha);
+        String text = health.toString() + " / " + maxhealth.toString();
+		bmf.draw(batch, text, left + (width / 2) - bmf.getBounds(text).width/2, bot + 25 + bmf.getBounds(text).height/2);
 
 		for( int i = 0; i < floatingNumbers.size; i++ ) {
 			FloatingNumbers f = floatingNumbers.get(i);
@@ -89,8 +90,8 @@ public class HealthBar extends Actor {
 
 		FloatingNumbers f = new FloatingNumbers();
         floatingNumbers.add(f);
-		f.setup(-damage, left + width/2 + width/4, bot + 70 + (floatingNumbers.size * 35));
-		f.addAction(Actions.fadeOut(3f));
+		f.setup(-damage, left + width/2 + width/4, bot + 100 - (floatingNumbers.size * 25));
+		f.addAction(Actions.fadeOut(6f));
 		getStage().addActor(f);
 	}
 
@@ -126,9 +127,9 @@ public class HealthBar extends Actor {
 			floatingNumbers = new Array<FloatingNumbers>();
 
         FloatingNumbers f = new FloatingNumbers();
-		floatingNumbers.add(f);
-        f.setup(hp, left + width/4, bot + 70 + (floatingNumbers.size * 35));
-		f.addAction(Actions.fadeOut(3f));
+        f.addAction(Actions.fadeOut(6f));
+        floatingNumbers.add(f);
+        f.setup(hp, left + width/4, bot + 100 - (floatingNumbers.size * 25));
 		if( getStage() != null )
 			getStage().addActor(f);
 	}

@@ -4,15 +4,19 @@ import com.badlogic.gdx.graphics.Texture;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 
+import java.util.Random;
+
 
 public class ItemDagger extends BaseItem {
+    private Random random;
 
 	public ItemDagger() {
 		super(AnotherManager.assets.get("data/textures/itemdagger.png", Texture.class));
 		itemNumber = 6;
 		setItemName("Valors Dagger");
-		setItemText("Increases your\ndamage by 2");
-		setItemSlotType(ItemSlotType.WEAPON);
+		setItemText("Increases your\ndamage by 1 - 5");
+		setItemSlotType(ItemSlotType.WEAPONPASSIVE);
+        random = new Random();
 	}
 
 	@Override
@@ -26,6 +30,8 @@ public class ItemDagger extends BaseItem {
 	}
 
     public int getAdditionalDamage() {
-        return 2;
+        int damage = random.nextInt(5 - 1);
+        damage += 1;
+        return damage;
     }
 }

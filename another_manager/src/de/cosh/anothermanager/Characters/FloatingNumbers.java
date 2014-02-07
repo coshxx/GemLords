@@ -22,7 +22,7 @@ class FloatingNumbers extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        this.translate(0, delta * 100);
+        this.translate(0, delta * 50);
     }
 
     public void setup(int value, float x, float y) {

@@ -20,7 +20,7 @@ class TurnIndicator extends Actor {
 		enemyTurnLabel = new Label("Enemy turn", skin);
 		playerTurn = true;
 		yourTurnLabel.setPosition(10, 1200);
-		enemyTurnLabel.setPosition(-90, 1200);
+		enemyTurnLabel.setPosition(-180, 1200);
 	}
 
 	public void draw(SpriteBatch batch, float parentAlpha) {
@@ -36,11 +36,11 @@ class TurnIndicator extends Actor {
 
 	public void switchPlayers() {
 		if (playerTurn) {
-			yourTurnLabel.addAction(Actions.moveBy(-100, 0, 0.25f));
-			enemyTurnLabel.addAction(Actions.moveBy(100, 0, 0.25f));
+			yourTurnLabel.addAction(Actions.moveBy(-190, 0, 0.3f));
+			enemyTurnLabel.addAction(Actions.moveBy(190, 0, 0.3f));
 		} else {
-			yourTurnLabel.addAction(Actions.moveBy(100, 0, 0.25f));
-			enemyTurnLabel.addAction(Actions.moveBy(-100, 0, 0.25f));
+			yourTurnLabel.addAction(Actions.moveBy(190, 0, 0.3f));
+			enemyTurnLabel.addAction(Actions.moveBy(-190, 0, 0.3f));
 		}
 		playerTurn = !playerTurn;
 	}

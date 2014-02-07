@@ -23,7 +23,7 @@ public class ItemApprenticeRobe extends BaseItem {
 
 	@Override
 	public int preFirstTurnBuff(BaseCharacter wearer) {
-		wearer.increaseHealth(25);
+		wearer.preGameIncreaseHealth(25);
 		return 25;
 	}
 

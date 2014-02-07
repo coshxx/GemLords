@@ -23,7 +23,7 @@ public class ItemScholarRobe extends BaseItem {
 
 	@Override
 	public int preFirstTurnBuff(BaseCharacter wearer) {
-		wearer.increaseHealth(50);
+		wearer.preGameIncreaseHealth(50);
 		return 50;
 	}
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Buff;
+import de.cosh.anothermanager.SwapGame.Board;
 
 /**
  * Created by cosh on 20.01.14.
@@ -21,15 +22,16 @@ public class ItemTotem extends BaseItem implements UseItem {
 		super(AnotherManager.assets.get("data/textures/totem.png", Texture.class));
 		itemNumber = 3;
 		setItemName("Alpha Totem");
-		setItemText("Recover 3 hp each turn\nCooldown: 99");
+		setItemText("Recover 3 hp\neach turn\nCooldown: 99");
 		setItemSlotType(ItemSlotType.ACTIVE);
 		cooldown = 99;
 		currentCooldown = 0;
-		bmf = new BitmapFont();
 	}
 
 	@Override
 	public void onUse() {
+        if( AnotherManager.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
+            return;
 		if (currentCooldown <= 0) {
 			AnotherManager.getInstance();
 			AnotherManager.soundPlayer.playTotem();
@@ -44,11 +46,10 @@ public class ItemTotem extends BaseItem implements UseItem {
 
 	@Override
 	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
-        bmf.setScale(2f);
-		if( currentCooldown <= 0 )
-			bmf.draw(batch, "Ready", getX(), getY()+50 );
-		else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
-        bmf.setScale(1f);
+        bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
+        if( currentCooldown <= 0 )
+            bmf.draw(batch, "Ready", getX(), getY()+50 );
+        else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
 	}
 
 	@Override

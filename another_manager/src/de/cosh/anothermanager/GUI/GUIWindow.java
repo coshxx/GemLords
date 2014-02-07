@@ -72,7 +72,7 @@ public class GUIWindow {
 		window.setSize(200, 200);
 
 		TextButton button;
-		button = new TextButton("Loot", skin);
+		button = new TextButton("Continue", skin);
 		button.setPosition(50, 50);
 		button.setSize(100, 100);
 		Gdx.input.setInputProcessor(stage);
@@ -133,29 +133,29 @@ public class GUIWindow {
 			window.setKeepWithinStage(false);
 			window.setBounds(-400, 400, 300, 550);
 			window.setMovable(false);
-			window.getStyle().titleFont.setScale(2f);
+			window.getStyle().titleFont.setScale(1f);
 
 			window.add(enemyImage).size(250, 250);
 			window.row();
 
             Label enemyNameLabel = new Label(enemyName, skin);
-            enemyNameLabel.setFontScale(2f);
+            enemyNameLabel.setFontScale(1f);
             window.add(enemyNameLabel);
             window.row();
 
 			skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			skin.getFont("default-font").setScale(1f);
 			Label hpLabel = new Label(enemyHP + " HP", skin);
-			hpLabel.setFontScale(2f);
+			hpLabel.setFontScale(1f);
 			window.add(hpLabel);
 			window.row();
 
 			TextButton fightButton = new TextButton("Fight", skin);
-			fightButton.getLabel().setFontScale(2f);
+			fightButton.getLabel().setFontScale(1f);
 			window.add(fightButton).size(250, 75);
 			window.row();
 			TextButton cancelButton = new TextButton("Cancel", skin);
-			cancelButton.getLabel().setFontScale(2f);
+			cancelButton.getLabel().setFontScale(1f);
 			window.add(cancelButton).size(250, 75);
 
 			window.addAction(Actions.moveBy(600, 0, 0.25f));

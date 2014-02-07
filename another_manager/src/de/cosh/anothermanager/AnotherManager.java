@@ -26,7 +26,8 @@ public class AnotherManager extends Game {
 	public static final float ASPECT_RATIO = (float) VIRTUAL_WIDTH / (float) VIRTUAL_HEIGHT;
 	public static AssetManager assets;
 	public static SoundPlayer soundPlayer;
-	public static boolean DEBUGMODE = false;
+	public static boolean DEBUGMODE = true;
+    public static boolean DEBUGITEMSADDED = false;
 	private static AnotherManager instance;
 	public OrthographicCamera camera;
 	private OrthographicCamera guiCamera;
@@ -37,6 +38,7 @@ public class AnotherManager extends Game {
 	public LootScreen lootScreen;
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
+    public AfterActionReport afterActionReport;
 	public Player player;
 	private SplashScreen splashScreen;
 	private SpriteBatch batch;
@@ -44,7 +46,7 @@ public class AnotherManager extends Game {
 	private BitmapFont bitmapFont;
 
 	public static AnotherManager getInstance() {
-		return instance;
+        return instance;
 	}
 
 	@Override
@@ -64,6 +66,7 @@ public class AnotherManager extends Game {
 		lootScreen = new LootScreen(this, enemyManager);
 		mapTraverseScreen = new MapTraverseScreen(this);
 		bitmapFont = new BitmapFont();
+        afterActionReport = new AfterActionReport();
 		setScreen(splashScreen);
 	}
 
@@ -79,7 +82,7 @@ public class AnotherManager extends Game {
 	public void render() {
 		super.render();
 		camera.update();
-
+        /*
 		// Gdx.gl.glViewport((int)viewport.x, (int)viewport.y,
 		// (int)viewport.width, (int)viewport.height);
 		if (DEBUGMODE) {
@@ -90,6 +93,7 @@ public class AnotherManager extends Game {
 			bitmapFont.draw(batch, "TH:" + Gdx.graphics.getHeight(), 10, 50);
 			batch.end();
 		}
+		*/
 	}
 
 	@Override

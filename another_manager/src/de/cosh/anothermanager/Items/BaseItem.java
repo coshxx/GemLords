@@ -56,7 +56,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 		POTION,
 		ACTIVE,
         SHIELD,
-        WEAPON
+        WEAPONPASSIVE
 	}
 
 	private ItemSlotType itemSlotType;
@@ -96,6 +96,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 		super.draw(batch, parentAlpha);
 		float imgCenterX = getX() + (getWidth() / 2);
 		if (drawText) {
+            bmf.setScale(0.75f);
 			if (itemSlotType == ItemSlotType.ACTIVE )
 				bmf.setColor(0.4f, 0.4f, 1f, parentAlpha * getColor().a);
 			else if( itemSlotType == ItemSlotType.POTION ) 
@@ -106,8 +107,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 			bounds = bmf.getBounds(itemText);
 			//bmf.draw(batch, itemText, imgCenterX-(bounds.width/2), getY()-25 );
 			bmf.setColor(1f, 1f, 1f, parentAlpha * getColor().a);
-            bmf.setScale(1.25f);
-			bmf.drawMultiLine(batch, itemText, imgCenterX - 50, getY() - 25, 100, BitmapFont.HAlignment.CENTER);
+			bmf.drawMultiLine(batch, itemText, imgCenterX - 50, getY() - 35, 100, BitmapFont.HAlignment.CENTER);
             //bmf.drawWrapped(batch, itemText, imgCenterX - 50, getY() - 25, 200, BitmapFont.HAlignment.CENTER);
 		}
 	}

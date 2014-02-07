@@ -31,7 +31,7 @@ public class GUIButton {
 	public void createLoadoutButton(final Stage stage, float x, float y) {
 		button = new TextButton("Loadout", skin);
 		button.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		button.getStyle().font.setScale(2f);
+		button.getStyle().font.setScale(1f);
 		button.setBounds(x-100, y, 200, 100);
 		button.addListener(new ClickListener() {
 			@Override
@@ -54,7 +54,7 @@ public class GUIButton {
 	public void createBacktoMapButton(final Stage stage, float x, float y) {
 		skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		button = new TextButton("Back to map", skin);
-		button.getLabel().setFontScale(2f);
+		button.getLabel().setFontScale(1f);
 		button.setBounds(x, y, 200, 100);
 		button.addListener(new ClickListener() {
 			@Override
@@ -76,7 +76,7 @@ public class GUIButton {
 	public void createRemoveFromBarButton(final Stage stage, float x, float y) {
 		skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		button = new TextButton("Remove", skin);
-		button.getLabel().setFontScale(2f);
+		button.getLabel().setFontScale(1f);
 		button.setPosition(x, y);
 		button.setLayoutEnabled(true);
 		

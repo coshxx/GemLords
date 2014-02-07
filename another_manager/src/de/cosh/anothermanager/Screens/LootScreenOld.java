@@ -8,10 +8,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import de.cosh.anothermanager.AfterActionReport;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.Items.BaseItem;
@@ -19,17 +20,22 @@ import de.cosh.anothermanager.Items.BaseItem;
 /**
  * Created by cosh on 07.01.14.
  */
-public class LootScreen implements Screen {
+public class LootScreenOld implements Screen {
     private final AnotherManager myGame;
     private final EnemyManager enemyManager;
+    private Image chestImage;
     private Stage stage;
     private Skin skin;
-    private Table table;
+    private Label addedToBarLabel, couldNotAddLabel;
 
-    public LootScreen(final AnotherManager anotherManager, final EnemyManager enemyManager) {
+    public LootScreenOld(final AnotherManager anotherManager, final EnemyManager enemyManager) {
         this.myGame = anotherManager;
         this.enemyManager = enemyManager;
         skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
+        addedToBarLabel = new Label("The item will be added to your Actionbar", skin);
+        addedToBarLabel.setFontScale(0.75f);
+        couldNotAddLabel = new Label("Your Actionbar is full. Please check the loadout screen", skin);
+        couldNotAddLabel.setFontScale(0.75f);
     }
 
     @Override
@@ -51,9 +57,9 @@ public class LootScreen implements Screen {
     public void render(final float delta) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
         stage.act(delta);
         stage.draw();
+
     }
 
     @Override
@@ -69,60 +75,34 @@ public class LootScreen implements Screen {
     @Override
     public void show() {
         stage = new Stage();
-        table = new Table();
-        table.setFillParent(true);
-        Gdx.input.setInputProcessor(stage);
+        chestImage = new Image(AnotherManager.assets.get("data/textures/treasure.jpg", Texture.class));
+        chestImage.setPosition(AnotherManager.VIRTUAL_WIDTH / 2 - chestImage.getWidth() / 2, 800);
+        stage.addActor(chestImage);
 
-        AfterActionReport aar = AnotherManager.getInstance().afterActionReport;
+        BitmapFont.TextBounds boundsAdded = addedToBarLabel.getStyle().font.getBounds(addedToBarLabel.getText());
+        addedToBarLabel.setPosition(-boundsAdded.width, 350);
+        BitmapFont.TextBounds boundsCouldNot = couldNotAddLabel.getStyle().font.getBounds(couldNotAddLabel.getText());
+        couldNotAddLabel.setPosition(-boundsCouldNot.width, 350);
 
-        Table leftSide = table.top().left();
+        AnotherManager.getInstance().soundPlayer.playLootMusic();
 
-        Label label1 = new Label("Total damage dealt: ", skin);
-        Label label2 = new Label(aar.totalDamgeDealt.toString(), skin);
-        leftSide.add(label1).left();
-        leftSide.add(label2);
-        leftSide.row();
+        final BaseItem i = enemyManager.getSelectedEnemy().getDroppedItem();
+        if (i != null) {
+            i.setPosition(AnotherManager.VIRTUAL_WIDTH, 500);
+            i.addAction(Actions.moveBy(-400, 0, 0.25f));
+            stage.addActor(i);
+        }
 
-        Label label3 = new Label("Total damage received: ", skin);
-        Label label4 = new Label(aar.totalDamageReceived.toString(), skin);
-        leftSide.add(label3).left();
-        leftSide.add(label4);
-        leftSide.row();
-
-        Label label5 = new Label("Highest damage dealt in one turn: ", skin);
-        Label label6 = new Label(aar.highestDamageDealtInOneTurn.toString(), skin);
-        leftSide.add(label5).left();
-        leftSide.add(label6);
-        leftSide.row();
-
-        Label label7 = new Label("Highest damage received in one turn: ", skin);
-        Label label8 = new Label(aar.highestDamageReceivedInOneTurn.toString(), skin);
-        leftSide.add(label7).left();
-        leftSide.add(label8);
-        leftSide.row();
-
-        Label label9 = new Label("Player total healed: ", skin);
-        Label label10 = new Label(aar.playerTotalHealed.toString(), skin);
-        leftSide.add(label9).left();
-        leftSide.add(label10);
-        leftSide.row();
-
-        Label label11 = new Label("Enemy total healed: ", skin);
-        Label label12 = new Label(aar.enemyTotalHealed.toString(), skin);
-        leftSide.add(label11).left();
-        leftSide.add(label12);
-        leftSide.row();
-
-        Label label13 = new Label("Longest combo: ", skin);
-        Label label14 = new Label(aar.longestCombo.toString(), skin);
-        leftSide.add(label13).left();
-        leftSide.add(label14);
-        leftSide.row();
-
-
-
-
-
+        if (i != null) {
+            myGame.player.getInventory().addItem(i);
+            if (myGame.player.getActionBar().hasFreeSlot()) {
+                addedToBarLabel.addAction(Actions.moveBy(boundsAdded.width - 40, 0, 0.25f));
+                stage.addActor(addedToBarLabel);
+            } else {
+                couldNotAddLabel.addAction(Actions.moveBy(boundsCouldNot.width + 80, 0, 0.25f));
+                stage.addActor(couldNotAddLabel);
+            }
+        }
 
         TextButton button = new TextButton("Return to map", skin);
         button.addListener(new ClickListener() {
@@ -133,17 +113,15 @@ public class LootScreen implements Screen {
                     public void run() {
                         AnotherManager.soundPlayer.stopLootMusic();
                         myGame.player.levelDone(myGame.enemyManager.getSelectedEnemy().getEnemyNumber());
-                        /*
                         if (i != null)
                             myGame.player.getActionBar().addToActionBar(i);
-                            */
                         myGame.setScreen(myGame.mapTraverseScreen);
                     }
                 })));
             }
         });
-        button.setBounds(AnotherManager.VIRTUAL_WIDTH / 2 - 100, 0, 200, 100);
-        stage.addActor(table);
+        button.setBounds(AnotherManager.VIRTUAL_WIDTH / 2 - 100, 200, 200, 100);
         stage.addActor(button);
+        Gdx.input.setInputProcessor(stage);
     }
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Player;
+import de.cosh.anothermanager.SwapGame.Board;
 
 /**
  * Created by cosh on 20.01.14.
@@ -23,7 +24,7 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 		super(AnotherManager.assets.get("data/textures/pocketwatch.png", Texture.class));
 		itemNumber = 4;
 		setItemName("Simaohs Pocketwatch");
-		setItemText("Undo 100% of received damage\nCooldown: 99");
+		setItemText("Undo 100%\nof received damage\nCooldown: 99");
 		setItemSlotType(ItemSlotType.ACTIVE);
 		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
 		bmf = s.getFont("default-font");
@@ -35,6 +36,8 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 
 	@Override
 	public void onUse() {
+        if( AnotherManager.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
+            return;
 		if (currentCooldown <= 0) {
 			AnotherManager.getInstance();
 			AnotherManager.soundPlayer.playPocketwatch();
@@ -47,11 +50,10 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 
 	@Override
 	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
-        bmf.setScale(2f);
+        bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
         if( currentCooldown <= 0 )
             bmf.draw(batch, "Ready", getX(), getY()+50 );
         else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
-        bmf.setScale(1f);
 	}
 
 	@Override

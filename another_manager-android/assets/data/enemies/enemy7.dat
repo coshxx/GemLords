@@ -22,5 +22,5 @@ healthBar: {
 	hp: 255,
 	maxHP: 255
 },
-dropItemID: -1
+dropItemID: 7
 }

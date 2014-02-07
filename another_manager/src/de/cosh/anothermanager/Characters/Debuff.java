@@ -27,7 +27,6 @@ public class Debuff {
 	private int turns;
 	private int turnsComplete;
 
-
 	public Debuff() {
 		this.debuffBorderImage = new Image(AnotherManager.assets.get("data/textures/debuff_border.png", Texture.class));
 		AnotherManager.getInstance();
@@ -56,7 +55,7 @@ public class Debuff {
 		debuffImage.setBounds(x + 2.5f, y + 2.5f, width - 5, height - 5);
 	}
 
-	public void setup(final int damagePerTurn, final int turns, final BaseCharacter toChar) {
+	public void setup(int damagePerTurn, int turns, BaseCharacter toChar ) {
 		this.damagePerTurn = damagePerTurn;
 		this.turns = turns;
 		this.toChar = toChar;
