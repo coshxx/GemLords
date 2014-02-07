@@ -3,19 +3,17 @@ package de.cosh.anothermanager.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.cosh.anothermanager.AfterActionReport;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.EnemyManager;
+import de.cosh.anothermanager.CustomActions.PlayGotItemSoundAction;
 import de.cosh.anothermanager.Items.BaseItem;
-import de.cosh.anothermanager.Items.ItemApprenticeRobe;
+import de.cosh.anothermanager.CustomActions.PlayConvertSoundAction;
 
 /**
  * Created by cosh on 07.01.14.
@@ -75,6 +73,7 @@ public class LootScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         AfterActionReport aar = AnotherManager.getInstance().afterActionReport;
+        AnotherManager.soundPlayer.playLootMusic();
 
         Table leftSide = table.top().left();
 
@@ -84,11 +83,35 @@ public class LootScreen implements Screen {
         leftSide.add(label2);
         leftSide.row();
 
+        label1.addAction(Actions.alpha(0));
+        label2.addAction(Actions.alpha(0));
+        label1.addAction(Actions.sequence(
+                Actions.delay(0.0f),
+                new PlayConvertSoundAction(),
+                Actions.fadeIn(0.25f)));
+
+
+        label2.addAction(Actions.sequence(
+                Actions.delay(0.0f),
+                Actions.fadeIn(0.25f)));
+
         Label label3 = new Label("Total damage received: ", skin);
         Label label4 = new Label(aar.totalDamageReceived.toString(), skin);
         leftSide.add(label3).left();
         leftSide.add(label4);
         leftSide.row();
+
+        label3.addAction(Actions.alpha(0));
+        label4.addAction(Actions.alpha(0));
+        label3.addAction(Actions.sequence(
+                Actions.delay(0.25f),
+                new PlayConvertSoundAction(),
+                Actions.fadeIn(0.25f)));
+
+
+        label4.addAction(Actions.sequence(
+                Actions.delay(0.25f),
+                Actions.fadeIn(0.25f)));
 
         Label label5 = new Label("Highest damage dealt in one turn: ", skin);
         Label label6 = new Label(aar.highestDamageDealtInOneTurn.toString(), skin);
@@ -96,11 +119,35 @@ public class LootScreen implements Screen {
         leftSide.add(label6);
         leftSide.row();
 
+        label5.addAction(Actions.alpha(0));
+        label6.addAction(Actions.alpha(0));
+        label5.addAction(Actions.sequence(
+                Actions.delay(0.5f),
+                new PlayConvertSoundAction(),
+                Actions.fadeIn(0.25f)));
+
+
+        label6.addAction(Actions.sequence(
+                Actions.delay(0.5f),
+                Actions.fadeIn(0.25f)));
+
         Label label7 = new Label("Highest damage received in one turn: ", skin);
         Label label8 = new Label(aar.highestDamageReceivedInOneTurn.toString(), skin);
         leftSide.add(label7).left();
         leftSide.add(label8);
         leftSide.row();
+
+        label7.addAction(Actions.alpha(0));
+        label8.addAction(Actions.alpha(0));
+        label7.addAction(Actions.sequence(
+                Actions.delay(0.75f),
+                new PlayConvertSoundAction(),
+                Actions.fadeIn(0.25f)));
+
+
+        label8.addAction(Actions.sequence(
+                Actions.delay(0.75f),
+                Actions.fadeIn(0.25f)));
 
         Label label9 = new Label("Player total healed: ", skin);
         Label label10 = new Label(aar.playerTotalHealed.toString(), skin);
@@ -108,11 +155,34 @@ public class LootScreen implements Screen {
         leftSide.add(label10);
         leftSide.row();
 
+        label9.addAction(Actions.alpha(0));
+        label10.addAction(Actions.alpha(0));
+        label9.addAction(Actions.sequence(
+                Actions.delay(1f),
+                new PlayConvertSoundAction(),
+                Actions.fadeIn(0.25f)));
+
+
+        label10.addAction(Actions.sequence(
+                Actions.delay(1f),
+                Actions.fadeIn(0.25f)));
+
         Label label11 = new Label("Enemy total healed: ", skin);
         Label label12 = new Label(aar.enemyTotalHealed.toString(), skin);
         leftSide.add(label11).left();
         leftSide.add(label12);
         leftSide.row();
+
+        label11.addAction(Actions.alpha(0));
+        label12.addAction(Actions.alpha(0));
+        label11.addAction(Actions.sequence(
+                Actions.delay(1.25f),
+                new PlayConvertSoundAction(),
+                Actions.fadeIn(0.25f)));
+
+        label12.addAction(Actions.sequence(
+                        Actions.delay(1.25f),
+                        Actions.fadeIn(0.25f)));
 
         Label label13 = new Label("Longest combo: ", skin);
         Label label14 = new Label(aar.longestCombo.toString(), skin);
@@ -120,12 +190,37 @@ public class LootScreen implements Screen {
         leftSide.add(label14);
         leftSide.row();
 
+        label13.addAction(Actions.alpha(0));
+        label14.addAction(Actions.alpha(0));
+        label13.addAction(Actions.sequence(
+                Actions.delay(1.5f),
+                new PlayConvertSoundAction(),
+                Actions.fadeIn(0.25f)));
+
+
+        label14.addAction(Actions.sequence(
+                Actions.delay(1.5f),
+                Actions.fadeIn(0.25f)));
+
 
 
         final BaseItem item = enemyManager.getSelectedEnemy().getDroppedItem();
         //final BaseItem item = new ItemApprenticeRobe();
         if( item != null ) {
             Label label15 = new Label("Received Item:", skin);
+            label15.addAction(Actions.alpha(0));
+            item.addAction(Actions.alpha(0));
+
+            label15.addAction(Actions.sequence(
+                    Actions.delay(1.75f),
+                    new PlayGotItemSoundAction(),
+                    Actions.fadeIn(0.25f)));
+
+
+            item.addAction(Actions.sequence(
+                    Actions.delay(1.75f),
+                    Actions.fadeIn(0.25f)));
+
             leftSide.add(label15).left();
             item.setPosition(AnotherManager.VIRTUAL_WIDTH/2 - item.getWidth()/2, 800);
             myGame.player.getInventory().addItem(item);

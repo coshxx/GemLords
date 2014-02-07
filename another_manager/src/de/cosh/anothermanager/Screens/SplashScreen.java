@@ -119,6 +119,7 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/sounds/bang.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/block.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/smash.ogg", Sound.class);
+		AnotherManager.assets.load("data/sounds/gotitem.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/bow.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/music.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/loot.ogg", Sound.class);
@@ -220,7 +221,7 @@ public class SplashScreen implements Screen {
 
 
 		loadAllAssets();
-		//AnotherManager.assets.finishLoading();
+		AnotherManager.assets.finishLoading();
 	}
 
 }

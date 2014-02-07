@@ -121,6 +121,8 @@ public class Enemy extends BaseCharacter {
         foreGround.addActor(enemyImage);
         foreGround.addActor(getHealthBar());
 
+        float startX = AnotherManager.VIRTUAL_WIDTH/2 - (abilities.size * 95);
+
         for (int i = 0; i < abilities.size; i++) {
             final Ability current = abilities.get(i);
             current.getImage().setBounds(enemyImage.getX() + (i * 95), AnotherManager.VIRTUAL_HEIGHT - 230, 70, 70);

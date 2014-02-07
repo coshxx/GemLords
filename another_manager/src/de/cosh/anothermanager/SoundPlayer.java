@@ -31,7 +31,7 @@ public class SoundPlayer {
     private Sound bow;
 	private Sound impressive, godlike, unstoppable;
     private Sound abilityBite;
-
+    private Sound gotItem;
 	private Music mapMusic;
 	private Music loadoutMusic;
 	private Music menuMusic;
@@ -71,6 +71,10 @@ public class SoundPlayer {
 	public void playUnstoppable() {
 		unstoppable.play(0.3f);
 	}
+
+    public void playGotItem() {
+        gotItem.play();
+    }
 
 	public void playGodlike() {
 		godlike.play(0.3f);
@@ -204,6 +208,7 @@ public class SoundPlayer {
 		awesome = assets.get("data/sounds/awesome.ogg", Sound.class);
 		smash = assets.get("data/sounds/smash.ogg", Sound.class);
         abilityBite = assets.get("data/sounds/bite.ogg", Sound.class);
+        gotItem = assets.get("data/sounds/gotitem.ogg", Sound.class);
 	}
 
 	public void stopLoadoutMusic() {
