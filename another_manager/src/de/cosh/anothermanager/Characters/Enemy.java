@@ -13,11 +13,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.XmlReader;
+import com.badlogic.gdx.utils.XmlWriter;
 import de.cosh.anothermanager.Abilities.Ability;
 import de.cosh.anothermanager.Abilities.BaseAbility;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.GUI.GUIWindow;
 import de.cosh.anothermanager.Items.*;
+
+import java.io.IOException;
 
 /**
  * Created by cosh on 10.01.14.
@@ -128,6 +132,7 @@ public class Enemy extends BaseCharacter {
             current.getImage().setBounds(enemyImage.getX() + (i * 95), AnotherManager.VIRTUAL_HEIGHT - 230, 70, 70);
             foreGround.addActor(current.getImage());
         }
+
     }
 
     public void draw(final SpriteBatch batch, final float parentAlpha) {
