@@ -1,0 +1,31 @@
+{
+enemyImageLocation: data/textures/enemyvulture.png,
+enemyName: "Vulture",
+enemyNumber: 8,
+abilities: [
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityClaw,
+		currentCooldown: 0,
+		cooldown: 19
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityBite,
+		currentCooldown: 5,
+		cooldown: 5
+	},
+],
+locationOnMap: {
+	x: 520,
+	y: 210
+},
+healthBar: {
+	hp: 265,
+	maxHP: 265
+},
+dropItemID: 8
+}

@@ -1,31 +1,26 @@
 {
-enemyImageLocation: data/textures/enemyogre.png,
-enemyName: "Ogre",
+enemyImageLocation: data/textures/enemybat.png,
+enemyName: "Bat",
 enemyNumber: 6,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		class: de.cosh.anothermanager.Abilities.AbilityBite,
 		currentCooldown: 2,
-		cooldown: 2
+		cooldown: 3
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityRedSmash,
-		currentCooldown: 1,
-		cooldown: 4
+		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
 	},
-	{
-		class: de.cosh.anothermanager.Abilities.AbilityBlueSmash,
-		currentCooldown: 2,
-		cooldown: 4
-	}
 ],
 locationOnMap: {
-	x: 320,
-	y: 210
+	x: 620,
+	y: 220
 },
 healthBar: {
-	hp: 235,
-	maxHP: 235
+	hp: 70,
+	maxHP: 70
 },
-dropItemID: 6
+dropItemID: 7
 }

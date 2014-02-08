@@ -1,6 +1,6 @@
 {
-enemyImageLocation: data/textures/enemysnake.png,
-enemyName: "Snake",
+enemyImageLocation: data/textures/enemyhuman.png,
+enemyName: "Human",
 enemyNumber: 2,
 abilities: [
 	{
@@ -9,9 +9,9 @@ abilities: [
 		cooldown: 1
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityPoison,
+		class: de.cosh.anothermanager.Abilities.AbilityThink,
 		currentCooldown: 0,
-		cooldown: 5
+		cooldown: 2
 	},
 ],
 locationOnMap: {
@@ -19,8 +19,9 @@ locationOnMap: {
 	y: 110
 },
 healthBar: {
-	hp: 60,
-	maxHP: 60
+	hp: 50,
+	maxHP: 50
 },
-dropItemID: 2
+
+dropItemID: 1
 }

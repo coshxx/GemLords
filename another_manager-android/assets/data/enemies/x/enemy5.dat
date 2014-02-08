@@ -1,7 +1,7 @@
 {
 enemyImageLocation: data/textures/enemyscarecrow.png,
 enemyName: "The Scarecrow",
-enemyNumber: 8,
+enemyNumber: 5,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
@@ -20,8 +20,8 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 320,
-	y: 220
+	x: 220,
+	y: 210
 },
 healthBar: {
 	hp: 120,

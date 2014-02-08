@@ -1,26 +1,21 @@
 {
-enemyImageLocation: data/textures/enemynecro.png,
-enemyName: "Necromancer",
+enemyImageLocation: data/textures/enemyrat.png,
+enemyName: "Rat",
 enemyNumber: 7,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		class: de.cosh.anothermanager.Abilities.AbilityClaw,
 		currentCooldown: 0,
-		cooldown: 0
-	},
-	{
-		class: de.cosh.anothermanager.Abilities.AbilityFireball,
-		currentCooldown: 1,
-		cooldown: 4
+		cooldown: 10
 	},
 ],
 locationOnMap: {
-	x: 420,
-	y: 210
+	x: 520,
+	y: 220
 },
 healthBar: {
-	hp: 255,
-	maxHP: 255
+	hp: 90,
+	maxHP: 90
 },
-dropItemID: 7
+dropItemID: -1
 }

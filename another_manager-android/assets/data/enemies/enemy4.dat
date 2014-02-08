@@ -1,12 +1,17 @@
 {
-enemyImageLocation: data/textures/enemyrat.png,
-enemyName: "Rat",
+enemyImageLocation: data/textures/enemysnake.png,
+enemyName: "Snake",
 enemyNumber: 4,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityClaw,
+		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		currentCooldown: 1,
+		cooldown: 1
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityPoison,
 		currentCooldown: 0,
-		cooldown: 10
+		cooldown: 5
 	},
 ],
 locationOnMap: {
@@ -14,8 +19,8 @@ locationOnMap: {
 	y: 110
 },
 healthBar: {
-	hp: 115,
-	maxHP: 115
+	hp: 60,
+	maxHP: 60
 },
-dropItemID: 3
+dropItemID: 2
 }

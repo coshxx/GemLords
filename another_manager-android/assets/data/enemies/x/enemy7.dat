@@ -1,0 +1,26 @@
+{
+enemyImageLocation: data/textures/enemynecro.png,
+enemyName: "Necromancer",
+enemyNumber: 7,
+abilities: [
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityFireball,
+		currentCooldown: 1,
+		cooldown: 4
+	},
+],
+locationOnMap: {
+	x: 420,
+	y: 210
+},
+healthBar: {
+	hp: 255,
+	maxHP: 255
+},
+dropItemID: 7
+}

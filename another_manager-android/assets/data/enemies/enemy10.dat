@@ -1,0 +1,31 @@
+{
+enemyImageLocation: data/textures/enemyogre.png,
+enemyName: "Ogre",
+enemyNumber: 9,
+abilities: [
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		currentCooldown: 2,
+		cooldown: 2
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityRedSmash,
+		currentCooldown: 1,
+		cooldown: 4
+	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityBlueSmash,
+		currentCooldown: 2,
+		cooldown: 4
+	}
+],
+locationOnMap: {
+	x: 220,
+	y: 210
+},
+healthBar: {
+	hp: 235,
+	maxHP: 235
+},
+dropItemID: 6
+}
