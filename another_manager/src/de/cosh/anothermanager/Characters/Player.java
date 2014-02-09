@@ -65,6 +65,7 @@ public class Player extends BaseCharacter {
     public void turn() {
         Enemy enemy = AnotherManager.getInstance().gameScreen.getBoard().getEnemy();
         AnotherManager.getInstance().afterActionReport.setHighestDamageDealtInOneTurn(enemy.getLastTurnDamageReceived());
+        System.out.println("Enemy dmg received last turn: " + enemy.getLastTurnDamageReceived());
         enemy.clearLastTurnReceivedDamage();
         super.turn();
         for (int i = 0; i < playerInventory.getAllItems().size(); i++) {
@@ -91,16 +92,17 @@ public class Player extends BaseCharacter {
     }
 
     @Override
-    public void damage(int damage) {
-        int finalDamage = damage;
+    public void damage(Damage damage) {
+        int finalDamage = damage.damage;
         for( BaseItem i : getInventory().getAllItems() ) {
             if( !i.isAddedToActionBar() )
                 continue;
             if( i.getItemSlotType() == BaseItem.ItemSlotType.SHIELD ) {
-                finalDamage = i.tryToReduceDamage(damage);
+                finalDamage = i.tryToReduceDamage(damage.damage);
+                damage.damage = finalDamage;
             }
         }
-        super.damage(finalDamage);
+        super.damage(damage);
         lastTurnDamageReceived += finalDamage;
         AnotherManager.getInstance().afterActionReport.totalDamageReceived += finalDamage;
     }
@@ -142,12 +144,12 @@ public class Player extends BaseCharacter {
         lastTurnDamageReceived = 0;
     }
 
-    public int getItemDamageBuffs() {
+    public int getItemDamageBuffs(Damage damage) {
         int damageIncrease = 0;
         for( BaseItem i : playerInventory.getAllItems() ) {
             if( i.isAddedToActionBar() ) {
                 if( i.getItemSlotType() == BaseItem.ItemSlotType.WEAPONPASSIVE) {
-                    damageIncrease += i.getAdditionalDamage();
+                    damageIncrease += i.getAdditionalDamage(damage);
                 }
             }
         }

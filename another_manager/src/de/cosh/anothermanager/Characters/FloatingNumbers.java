@@ -9,8 +9,8 @@ import de.cosh.anothermanager.AnotherManager;
 
 class FloatingNumbers extends Actor {
     private BitmapFont bmf;
-
     private Integer value;
+    private boolean isCrit;
 
     public FloatingNumbers() {
         AnotherManager.getInstance();
@@ -25,8 +25,9 @@ class FloatingNumbers extends Actor {
         this.translate(0, delta * 50);
     }
 
-    public void setup(int value, float x, float y) {
+    public void setup(int value, float x, float y, boolean isCrit) {
         this.value = value;
+        this.isCrit = isCrit;
         setX(x);
         setY(y);
     }
@@ -39,7 +40,12 @@ class FloatingNumbers extends Actor {
             bmf.draw(batch, "+" + value.toString(), getX(), getY());
         } else if (value < 0) {
             bmf.setColor(1f, 0f, 0f, parentAlpha * this.getColor().a);
-            bmf.draw(batch, value.toString(), getX(), getY());
+            if( isCrit ) {
+                bmf.draw(batch, "*" + value.toString() + "*", getX(), getY());
+            }
+            else {
+                bmf.draw(batch, value.toString(), getX(), getY());
+            }
         }
         bmf.setScale(1f);
     }

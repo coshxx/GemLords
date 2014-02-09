@@ -29,8 +29,8 @@ public class ItemDagger extends BaseItem {
         return 0;
 	}
 
-    public int getAdditionalDamage() {
-        int damage = random.nextInt(5 - 1);
+    public int getAdditionalDamage(int originalDamage) {
+        int damage = random.nextInt((5 - 1)+1);
         damage += 1;
         return damage;
     }

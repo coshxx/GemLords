@@ -37,6 +37,7 @@ public class ItemTerribleShield extends BaseItem {
         if( inHundret < 20 ) {
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             AnotherManager.getInstance().soundPlayer.playBlock();
+            System.out.println("The shield blocks: " + (incomingDamage-4));
             return (incomingDamage-4 < 0) ? 0 : incomingDamage-4;
         }
         return incomingDamage;

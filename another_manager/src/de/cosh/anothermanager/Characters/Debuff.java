@@ -70,8 +70,9 @@ public class Debuff {
 			debuffImage.remove();
 			return true;
 		}
-
-		toChar.damage(damagePerTurn);
+        Damage damage = new Damage();
+        damage.damage = damagePerTurn;
+		toChar.damage(damage);
 		debuffBorderImage.addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 		debuffImage.addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 		return false;

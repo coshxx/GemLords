@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
+import de.cosh.anothermanager.Characters.Damage;
 import de.cosh.anothermanager.SwapGame.Board;
 
 import java.util.Random;
@@ -38,10 +39,12 @@ public class ItemBow extends BaseItem {
             return;
         if (currentCooldown <= 0) {
             AnotherManager.soundPlayer.playBow();
-            int damage = random.nextInt( ( 15 - 5 ));
+            int damage = random.nextInt( ( (15 - 5)+1 ));
             damage += 5;
 
-            AnotherManager.getInstance().gameScreen.getBoard().getEnemy().damage(damage);
+            Damage dmg = new Damage();
+            dmg.damage = damage;
+            AnotherManager.getInstance().gameScreen.getBoard().getEnemy().damage(dmg);
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             currentCooldown = cooldown;
 

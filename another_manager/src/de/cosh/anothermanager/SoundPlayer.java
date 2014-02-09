@@ -36,6 +36,8 @@ public class SoundPlayer {
 	private Music loadoutMusic;
 	private Music menuMusic;
 	private Music gameMusic0;
+    private Music gameMusic1;
+    private Music gameMusic2;
 	private float mapMusicVolume;
 	private Sound victorySound, loseSound;
 	private Sound woosh;
@@ -121,10 +123,8 @@ public class SoundPlayer {
 	}
 
 	public void playMapMusic() {
-        /*
 		mapMusic.setVolume(0.2f);
 		mapMusic.play();
-		*/
 	}
 
 	public void playPoisonSound() {
@@ -161,16 +161,25 @@ public class SoundPlayer {
 	}
 
 	public void playGameMusic() {
-        /*
         Random r = new Random();
-        if( r.nextInt(2) == 1 )
+        int choice = r.nextInt(4);
+        if( choice == 0 )
 		    gameMusic0.play();
-        else menuMusic.play();
-        */
+        else if( choice == 1 ) {
+            menuMusic.play();
+        } else if (choice == 2 ) {
+            gameMusic1.play();
+        }
+        else if (choice == 3 ) {
+            gameMusic2.play();
+        }
+        System.out.println(choice);
 	}
 
 	public void stopGameMusic() {
 		gameMusic0.stop();
+		gameMusic1.stop();
+		gameMusic2.stop();
         menuMusic.stop();
 	}
 
@@ -209,17 +218,24 @@ public class SoundPlayer {
 		loot = assets.get("data/sounds/loot.ogg", Sound.class);
 		challenge = assets.get("data/sounds/challenge.ogg", Sound.class);
 		gameMusic0 = assets.get("data/sounds/music0.ogg", Music.class);
+		gameMusic1 = assets.get("data/sounds/music3.ogg", Music.class);
+		gameMusic2 = assets.get("data/sounds/music4.ogg", Music.class);
 		awesome = assets.get("data/sounds/awesome.ogg", Sound.class);
 		smash = assets.get("data/sounds/smash.ogg", Sound.class);
         abilityBite = assets.get("data/sounds/bite.ogg", Sound.class);
         gotItem = assets.get("data/sounds/gotitem.ogg", Sound.class);
+
+        menuMusic.setLooping(true);
+        gameMusic0.setLooping(true);
+        gameMusic1.setLooping(true);
+        gameMusic2.setLooping(true);
 	}
 
 	public void stopLoadoutMusic() {
 		loadoutMusic.stop();
 	}
 	public void playMenuMusic() {
-		menuMusic.setLooping(true);
+
 		menuMusic.setVolume(0.3f);
 		menuMusic.play();
 	}

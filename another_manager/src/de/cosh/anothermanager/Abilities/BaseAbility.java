@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
+import de.cosh.anothermanager.Characters.Damage;
 
 /**
  * Created by cosh on 15.01.14.
@@ -17,12 +18,13 @@ public class BaseAbility implements Ability {
 	private transient BitmapFont bmf;
 	private int cooldown;
 	private int currentCooldown;
-	private int damage;
+	private Damage damage;
     private transient BaseCharacter owner;
 
 	BaseAbility() {
+        damage = new Damage();
 		cooldown = 5;
-		damage = 10;
+		damage.damage = 10;
 		abilityImageLocation = "data/textures/empty.png";
 	}
 
@@ -33,7 +35,7 @@ public class BaseAbility implements Ability {
     public BaseCharacter getOwner() { return owner; }
 
 	public void setAbilityDamage(int damage) {
-		this.damage = damage;
+		this.damage.damage = damage;
 
 	}
 

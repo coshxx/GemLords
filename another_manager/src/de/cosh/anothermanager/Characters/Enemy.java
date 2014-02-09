@@ -162,6 +162,7 @@ public class Enemy extends BaseCharacter {
 
     public void turn(Player player) {
         AnotherManager.getInstance().afterActionReport.setHighestDamageReceivedInOneTurn(player.getLastTurnDamageReceived());
+        System.out.println("Player last turn received damage: " + player.getLastTurnDamageReceived());
         player.clearLastTurnReceivedDamage();
         super.turn();
         for (int i = 0; i < abilities.size; i++) {
@@ -190,10 +191,10 @@ public class Enemy extends BaseCharacter {
     }
 
     @Override
-    public void damage(int damage) {
-        AnotherManager.getInstance().afterActionReport.totalDamgeDealt += damage;
+    public void damage(Damage damage) {
+        AnotherManager.getInstance().afterActionReport.totalDamgeDealt += damage.damage;
         getHealthBar().hit(damage);
-        lastTurnDamageReceived += damage;
+        lastTurnDamageReceived += damage.damage;
     }
 
     public int getLastTurnDamageReceived() {
@@ -236,6 +237,8 @@ public class Enemy extends BaseCharacter {
                 return new ItemBow();
             case 8:
                 return new ItemAmulet();
+            case 9:
+                return new ItemRing();
             default:
                 return null;
         }

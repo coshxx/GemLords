@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Characters.Damage;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIWindow;
@@ -42,12 +43,12 @@ public class Board extends Group {
     private final RespawnRequest respawnRequest;
     private BoardState boardState;
     private Enemy enemy;
+    private Player player;
     private boolean initialized;
     private boolean justSwapped;
     private GridPoint2 lastSwap;
     private int lastX, lastY;
     private int matchesDuringCurrentMove;
-    private Player player;
     private boolean foregroundWindowActive;
     private Array<Gem> uncelledGems;
     private TurnIndicator turnIndicator;
@@ -237,6 +238,7 @@ public class Board extends Group {
             checkPlayerAndEnemyStatus();
             if( justSwapped && !(boardState == BoardState.STATE_INACTIVE)) {
                 justSwapped = false;
+                matchesDuringCurrentMove = 0;
                 turnComplete(0.0f);
                 player.turn();
                 enemy.turn(player);
@@ -257,13 +259,14 @@ public class Board extends Group {
                     myGame.afterActionReport.setLongestCombo(matchesDuringCurrentMove);
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
+                Damage damage = new Damage();
+                damage.damage = result.howMany;
                 if( turnIndicator.isPlayerTurn() ) {
-                    int damageDone = result.howMany;
-                    damageDone += player.getItemDamageBuffs();
-                    enemy.damage(damageDone);
+                    damage.damage += player.getItemDamageBuffs(damage);
+                    enemy.damage(damage);
                 }
                 else {
-                    player.damage(result.howMany);
+                    player.damage(damage);
                 }
                 if (result.specialExplo) {
                     AnotherManager.soundPlayer.playWoosh();
@@ -396,7 +399,7 @@ public class Board extends Group {
     }
 
     public Group getGemGroup() {
-        return foreGround;
+        return gemGroup;
     }
 
     public MatchFinder getMatchFinder() {

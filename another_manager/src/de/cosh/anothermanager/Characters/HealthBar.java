@@ -82,15 +82,15 @@ public class HealthBar extends Actor {
 		return width;
 	}
 
-	public void hit(final int damage) {
-		hp -= damage;
+	public void hit(Damage damage) {
+		hp -= damage.damage;
 		if (hp <= 0) {
 			hp = 0;
 		}
 
 		FloatingNumbers f = new FloatingNumbers();
         floatingNumbers.add(f);
-		f.setup(-damage, left + width/2 + width/4, bot + 100 - (floatingNumbers.size * 25));
+		f.setup(-damage.damage, left + width/2 + width/4, bot + 100 - (floatingNumbers.size * 25), damage.isCrit);
 		f.addAction(Actions.fadeOut(6f));
 		getStage().addActor(f);
 	}
@@ -129,7 +129,7 @@ public class HealthBar extends Actor {
         FloatingNumbers f = new FloatingNumbers();
         f.addAction(Actions.fadeOut(6f));
         floatingNumbers.add(f);
-        f.setup(hp, left + width/4, bot + 100 - (floatingNumbers.size * 25));
+        f.setup(hp, left + width/4, bot + 100 - (floatingNumbers.size * 25), false);
 		if( getStage() != null )
 			getStage().addActor(f);
 	}

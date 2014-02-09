@@ -135,7 +135,7 @@ public class MapTraverseScreen implements Screen {
             AnotherManager.DEBUGITEMSADDED = true;
 
             BaseItem item1, item2, item3, item4, item5,
-                    item6, item7, item8, item9, item10;
+                    item6, item7, item8, item9, item10, item11;
             item1 = new ItemMinorHealthPotion();
             item2 = new ItemApprenticeRobe();
             item3 = new ItemScholarRobe();
@@ -146,6 +146,7 @@ public class MapTraverseScreen implements Screen {
             item8 = new ItemDagger();
             item9 = new ItemBow();
             item10 = new ItemAmulet();
+            item11 = new ItemRing();
 
 			myGame.player.getInventory().addItem(item1);
 			myGame.player.getInventory().addItem(item2);
@@ -157,6 +158,7 @@ public class MapTraverseScreen implements Screen {
             myGame.player.getInventory().addItem(item8);
             myGame.player.getInventory().addItem(item9);
             myGame.player.getInventory().addItem(item10);
+            myGame.player.getInventory().addItem(item11);
 
             myGame.player.getActionBar().addToActionBar(item1);
             myGame.player.getActionBar().addToActionBar(item3);

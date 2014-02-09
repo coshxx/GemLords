@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.Characters.Damage;
 
 /**
  * Created by cosh on 20.01.14.
@@ -47,7 +48,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 		AnotherManager.getInstance().player.getActionBar().removeFromBar(this);
 	}
 
-    public int getAdditionalDamage() {
+    public int getAdditionalDamage(Damage damage) {
         return 0;
     }
 

@@ -8,21 +8,25 @@ import de.cosh.anothermanager.AnotherManager;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.SwapGame.Board;
 
+import java.util.Random;
+
 /**
  * Created by cosh on 20.01.14.
  */
 public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 	private int cooldown;
 	private Integer currentCooldown;
+    private Random random;
 
 	public ItemMinorHealthPotion() {
 		super(AnotherManager.assets.get("data/textures/minorhealthpotion.png", Texture.class));
 		itemNumber = 1;
 		setItemName("Minor potion");
-		setItemText("Recover 16 hp\nCooldown: 10");
+		setItemText("Recover 10-20 hp\nCooldown: 10");
 		setItemSlotType(ItemSlotType.POTION);
 		cooldown = 10;
 		currentCooldown = 0;
+        random = new Random();
 	}
 
 	@Override
@@ -32,7 +36,10 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 		if (currentCooldown <= 0) {
 			AnotherManager.getInstance();
 			AnotherManager.soundPlayer.playGulp();
-			AnotherManager.getInstance().player.increaseHealth(16);
+
+            int healthRegenned = random.nextInt((20 - 10)+1);
+            healthRegenned += 10;
+			AnotherManager.getInstance().player.increaseHealth(healthRegenned);
 			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 			currentCooldown = cooldown;
 		}

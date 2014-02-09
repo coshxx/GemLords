@@ -97,6 +97,7 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/textures/splash.jpg", Texture.class);
 		AnotherManager.assets.load("data/textures/totem.png", Texture.class);
 		AnotherManager.assets.load("data/textures/cell_back.png", Texture.class);
+		AnotherManager.assets.load("data/textures/ring.png", Texture.class);
 		AnotherManager.assets.load("data/textures/star.png", Texture.class);
 		AnotherManager.assets.load("data/textures/treasure.jpg", Texture.class);
 		AnotherManager.assets.load("data/textures/heart.png", Texture.class);
@@ -122,7 +123,10 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/sounds/gotitem.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/bow.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/music.ogg", Music.class);
-		AnotherManager.assets.load("data/sounds/loot.ogg", Sound.class);
+        AnotherManager.assets.load("data/sounds/music0.ogg", Music.class);
+        AnotherManager.assets.load("data/sounds/music3.ogg", Music.class);
+        AnotherManager.assets.load("data/sounds/music4.ogg", Music.class);
+        AnotherManager.assets.load("data/sounds/loot.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/victory.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/boo.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/woosh.ogg", Sound.class);
@@ -135,13 +139,11 @@ public class SplashScreen implements Screen {
 		AnotherManager.assets.load("data/sounds/godlike.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/unstoppable.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/totem.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/music0.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/gulp.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/pocketwatch.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/bite.ogg", Sound.class);
 		AnotherManager.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
 		AnotherManager.assets.load("data/sounds/menumusic.ogg", Music.class);
-
 
 		AnotherManager.assets.load("data/ui/uiskin.json", Skin.class);
 
