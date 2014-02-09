@@ -1,7 +1,7 @@
 {
 enemyImageLocation: data/textures/enemynecro.png,
 enemyName: "Necromancer",
-enemyNumber: 7,
+enemyNumber: 11,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityThink,
@@ -15,12 +15,12 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 420,
-	y: 210
+	x: 220,
+	y: 320
 },
 healthBar: {
-	hp: 255,
+	hp: 1,
 	maxHP: 255
 },
-dropItemID: 7
+dropItemID: -1
 }

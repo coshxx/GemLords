@@ -1,7 +1,7 @@
 {
 enemyImageLocation: data/textures/enemyhuman.png,
 enemyName: "Human",
-enemyNumber: 1,
+enemyNumber: 2,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
@@ -15,7 +15,7 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 220,
+	x: 320,
 	y: 110
 },
 healthBar: {
@@ -23,5 +23,5 @@ healthBar: {
 	maxHP: 50
 },
 
-dropItemID: 1
+dropItemID: 7
 }

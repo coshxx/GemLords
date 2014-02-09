@@ -121,8 +121,10 @@ public class SoundPlayer {
 	}
 
 	public void playMapMusic() {
+        /*
 		mapMusic.setVolume(0.2f);
 		mapMusic.play();
+		*/
 	}
 
 	public void playPoisonSound() {
@@ -159,10 +161,12 @@ public class SoundPlayer {
 	}
 
 	public void playGameMusic() {
+        /*
         Random r = new Random();
         if( r.nextInt(2) == 1 )
 		    gameMusic0.play();
         else menuMusic.play();
+        */
 	}
 
 	public void stopGameMusic() {

@@ -1,7 +1,7 @@
 {
 enemyImageLocation: data/textures/enemybat.png,
 enemyName: "Bat",
-enemyNumber: 3,
+enemyNumber: 5,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityBite,
@@ -15,12 +15,12 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 420,
+	x: 620,
 	y: 110
 },
 healthBar: {
-	hp: 90,
-	maxHP: 90
+	hp: 1,
+	maxHP: 50
 },
-dropItemID: 5
+dropItemID: -1
 }

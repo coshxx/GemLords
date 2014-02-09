@@ -1,7 +1,7 @@
 {
 enemyImageLocation: data/textures/enemyvulture.png,
 enemyName: "Vulture",
-enemyNumber: 8,
+enemyNumber: 12,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityThink,
@@ -20,8 +20,8 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 520,
-	y: 210
+	x: 320,
+	y: 320
 },
 healthBar: {
 	hp: 265,

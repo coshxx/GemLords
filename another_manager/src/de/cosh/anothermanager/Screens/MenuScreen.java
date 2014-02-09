@@ -62,7 +62,6 @@ public class MenuScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();
-		Table.drawDebug(stage);
 	}
 
 	@Override
@@ -84,7 +83,6 @@ public class MenuScreen implements Screen {
 		Image backGround = new Image(AnotherManager.getInstance().assets.get(
 				"data/textures/menu.png", Texture.class));
 		table.setBackground(backGround.getDrawable());
-		table.debug();
 
 		addWobbleToButtons();
 		

@@ -1,7 +1,7 @@
 {
 enemyImageLocation: data/textures/enemyredbat.png,
 enemyName: "Red Bat",
-enemyNumber: 9,
+enemyNumber: 13,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityThink,
@@ -15,11 +15,11 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 620,
-	y: 210
+	x: 420,
+	y: 320
 },
 healthBar: {
-	hp: 150,
+	hp: 1,
 	maxHP: 150
 },
 dropItemID: -1

@@ -244,8 +244,13 @@ public class LootScreen implements Screen {
                 })));
             }
         });
-        button.setBounds(AnotherManager.VIRTUAL_WIDTH / 2 - 100, 0, 200, 100);
-        stage.addActor(table);
+
+        button.setBounds(-200, 0, 200, 100);
+        //button.setBounds(AnotherManager.VIRTUAL_WIDTH / 2 - 100, 0, 200, 100);
+        button.addAction(Actions.sequence(
+                Actions.delay(1.75f),
+                Actions.moveTo(AnotherManager.VIRTUAL_WIDTH / 2 - 100, 0, 0.25f)));
         stage.addActor(button);
+        stage.addActor(table);
     }
 }

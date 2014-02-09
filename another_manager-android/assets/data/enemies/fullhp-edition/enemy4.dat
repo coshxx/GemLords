@@ -1,17 +1,12 @@
 {
-enemyImageLocation: data/textures/enemyscarecrow.png,
-enemyName: "The Scarecrow",
-enemyNumber: 9,
+enemyImageLocation: data/textures/enemysnake.png,
+enemyName: "Snake",
+enemyNumber: 4,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
 		currentCooldown: 1,
 		cooldown: 1
-	},
-	{
-		class: de.cosh.anothermanager.Abilities.AbilityFireball,
-		currentCooldown: 4,
-		cooldown: 4
 	},
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityPoison,
@@ -20,12 +15,12 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 320,
-	y: 220
+	x: 520,
+	y: 110
 },
 healthBar: {
-	hp: 120,
-	maxHP: 120
+	hp: 60,
+	maxHP: 60
 },
-dropItemID: 3
+dropItemID: 2
 }

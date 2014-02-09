@@ -20,7 +20,7 @@ public class ItemBow extends BaseItem {
 		super(AnotherManager.assets.get("data/textures/itembow.png", Texture.class));
 		itemNumber = 7;
 		setItemName("Fox Bow");
-		setItemText("Deal 5 - 20 damage\nCooldown: 5");
+		setItemText("Deal 5 - 15 damage\nCooldown: 5");
 		setItemSlotType(ItemSlotType.ACTIVE);
         cooldown = 5;
         currentCooldown = 0;
@@ -38,7 +38,7 @@ public class ItemBow extends BaseItem {
             return;
         if (currentCooldown <= 0) {
             AnotherManager.soundPlayer.playBow();
-            int damage = random.nextInt( ( 20 - 5 ));
+            int damage = random.nextInt( ( 15 - 5 ));
             damage += 5;
 
             AnotherManager.getInstance().gameScreen.getBoard().getEnemy().damage(damage);

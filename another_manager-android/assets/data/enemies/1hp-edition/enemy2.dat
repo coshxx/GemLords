@@ -19,7 +19,7 @@ locationOnMap: {
 	y: 110
 },
 healthBar: {
-	hp: 50,
+	hp: 1,
 	maxHP: 50
 },
 

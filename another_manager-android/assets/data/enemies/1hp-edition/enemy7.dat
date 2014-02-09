@@ -1,7 +1,7 @@
 {
 enemyImageLocation: data/textures/enemyrat.png,
 enemyName: "Rat",
-enemyNumber: 8,
+enemyNumber: 7,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityClaw,
@@ -10,12 +10,12 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 420,
+	x: 520,
 	y: 220
 },
 healthBar: {
-	hp: 115,
-	maxHP: 115
+	hp: 1,
+	maxHP: 90
 },
-dropItemID: 4
+dropItemID: -1
 }

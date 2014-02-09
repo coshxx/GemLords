@@ -1,7 +1,7 @@
 {
 enemyImageLocation: data/textures/enemyogre.png,
 enemyName: "Ogre",
-enemyNumber: 6,
+enemyNumber: 10,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
@@ -20,7 +20,7 @@ abilities: [
 	}
 ],
 locationOnMap: {
-	x: 320,
+	x: 220,
 	y: 210
 },
 healthBar: {
