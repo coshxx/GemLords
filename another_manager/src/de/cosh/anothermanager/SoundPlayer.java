@@ -38,6 +38,7 @@ public class SoundPlayer {
 	private Music gameMusic0;
     private Music gameMusic1;
     private Music gameMusic2;
+    private Music creditsMusic;
 	private float mapMusicVolume;
 	private Sound victorySound, loseSound;
 	private Sound woosh;
@@ -160,9 +161,13 @@ public class SoundPlayer {
 		loadoutMusic.play();
 	}
 
+    public void playCreditsMusic() {
+        creditsMusic.play();
+    }
+
 	public void playGameMusic() {
         Random r = new Random();
-        int choice = r.nextInt(4);
+        int choice = r.nextInt(5);
         if( choice == 0 )
 		    gameMusic0.play();
         else if( choice == 1 ) {
@@ -173,6 +178,9 @@ public class SoundPlayer {
         else if (choice == 3 ) {
             gameMusic2.play();
         }
+        else if (choice == 4 ) {
+            creditsMusic.play();
+        }
         System.out.println(choice);
 	}
 
@@ -181,6 +189,7 @@ public class SoundPlayer {
 		gameMusic1.stop();
 		gameMusic2.stop();
         menuMusic.stop();
+        creditsMusic.stop();
 	}
 
     public void playBlock() {
@@ -220,6 +229,7 @@ public class SoundPlayer {
 		gameMusic0 = assets.get("data/sounds/music0.ogg", Music.class);
 		gameMusic1 = assets.get("data/sounds/music3.ogg", Music.class);
 		gameMusic2 = assets.get("data/sounds/music4.ogg", Music.class);
+		creditsMusic = assets.get("data/sounds/creditsmusic.ogg", Music.class);
 		awesome = assets.get("data/sounds/awesome.ogg", Sound.class);
 		smash = assets.get("data/sounds/smash.ogg", Sound.class);
         abilityBite = assets.get("data/sounds/bite.ogg", Sound.class);
@@ -229,6 +239,7 @@ public class SoundPlayer {
         gameMusic0.setLooping(true);
         gameMusic1.setLooping(true);
         gameMusic2.setLooping(true);
+        creditsMusic.setLooping(true);
 	}
 
 	public void stopLoadoutMusic() {

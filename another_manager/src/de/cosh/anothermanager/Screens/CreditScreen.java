@@ -50,11 +50,12 @@ public class CreditScreen implements Screen, InputProcessor {
         FileHandle fileHandle = Gdx.files.internal("data/credits.txt");
         credits = fileHandle.readString();
         yHeight = 0f;
+        GemLord.soundPlayer.playCreditsMusic();
     }
 
     @Override
     public void hide() {
-
+        GemLord.soundPlayer.stopGameMusic();
     }
 
     @Override

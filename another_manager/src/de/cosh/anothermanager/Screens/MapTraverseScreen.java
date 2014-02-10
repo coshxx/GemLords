@@ -120,7 +120,7 @@ public class MapTraverseScreen implements Screen {
 		fadeMusic = false;
 		enemyWindowOpen = false;
 
-		mapImage = new Image(GemLord.assets.get("data/textures/map.png", Texture.class));
+		mapImage = new Image(GemLord.assets.get("data/textures/map.jpg", Texture.class));
 		mapImage.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
 		stage.addActor(mapImage);
 

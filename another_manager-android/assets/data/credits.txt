@@ -1,10 +1,13 @@
 Gem Lords
-=========
+==============================
 2014
 by cosh
 
+
+
+
 Art
-===
+==============================
 Menu Background
 Freund von Robi
 
@@ -14,13 +17,30 @@ Valor
 Coastal Area
 rpglabyrinth.blogspot.de
 
+
+
+
 Sounds
-======
-freesound.org
-a lot of them
+==============================
+Ding
+Author: Aiwha
+www.freesound.org
+
+Bang
+Author: twiggles
+www.freesound.org
+
+Bite
+Author: Slave2thelight
+www.freesound.org
+
+WAR 'n' BATTLE sounds
+Author: Robinhood76
+www.freesound.org
+
 
 Music
-=====
+==============================
 Down
 Composer: Marcus Dellicompagni
 www.RedAudioUK.com
@@ -31,4 +51,8 @@ www.freesound.org
 
 EerieAmbienceBeats4
 Composer: RichardCulver
+www.freesound.org
+
+Velatrisx Ambient Music
+Composer: Erokia
 www.freesound.org

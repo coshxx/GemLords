@@ -89,7 +89,8 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/textures/empty.png", Texture.class);
 		GemLord.assets.load("data/textures/full.png", Texture.class);
 		GemLord.assets.load("data/textures/logo.png", Texture.class);
-		GemLord.assets.load("data/textures/map.png", Texture.class);
+		//GemLord.assets.load("data/textures/map.png", Texture.class);
+		GemLord.assets.load("data/textures/map.jpg", Texture.class);
 		GemLord.assets.load("data/textures/point.png", Texture.class);
 		GemLord.assets.load("data/textures/abilityclaw.png", Texture.class);
 		GemLord.assets.load("data/textures/clawfullscreen.png", Texture.class);
@@ -127,6 +128,7 @@ public class SplashScreen implements Screen {
         GemLord.assets.load("data/sounds/music0.ogg", Music.class);
         GemLord.assets.load("data/sounds/music3.ogg", Music.class);
         GemLord.assets.load("data/sounds/music4.ogg", Music.class);
+        GemLord.assets.load("data/sounds/creditsmusic.ogg", Music.class);
         GemLord.assets.load("data/sounds/loot.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/victory.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/boo.ogg", Sound.class);
