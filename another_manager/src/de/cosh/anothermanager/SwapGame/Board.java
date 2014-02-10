@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.Array;
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.Damage;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
@@ -37,7 +37,7 @@ public class Board extends Group {
     private final GemRemover gemRemover;
     private final GemHandler gemHandler;
     private final MatchFinder matchFinder;
-    private final AnotherManager myGame;
+    private final GemLord myGame;
     private final SwapController swapController;
     private final SpecialEffects sfx;
     private final RespawnRequest respawnRequest;
@@ -54,7 +54,7 @@ public class Board extends Group {
     private TurnIndicator turnIndicator;
     private BitmapFont bmf;
 
-    public Board(final AnotherManager myGame) {
+    public Board(final GemLord myGame) {
         this.myGame = myGame;
         cells = new Cell[MAX_SIZE_X][MAX_SIZE_Y];
         swapController = new SwapController(cells);
@@ -65,15 +65,15 @@ public class Board extends Group {
         gemHandler = new GemHandler(cells, respawnRequest);
 
         backGround = new Group();
-        backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+        backGround.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         gemGroup = new Group();
-        gemGroup.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+        gemGroup.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         foreGround = new Group();
-        foreGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+        foreGround.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         effectGroup = new Group();
-        effectGroup.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
-        final Image backImage = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
-        //backImage.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+        effectGroup.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
+        final Image backImage = new Image(GemLord.assets.get("data/textures/background.png", Texture.class));
+        //backImage.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         backImage.setFillParent(true);
         backGround.addActor(backImage);
         addActor(backGround);
@@ -89,7 +89,7 @@ public class Board extends Group {
         sfx = new SpecialEffects();
         foregroundWindowActive = false;
         uncelledGems = new Array<Gem>();
-        Skin s = AnotherManager.getInstance().assets.get("data/ui/uiskin.json", Skin.class);
+        Skin s = GemLord.getInstance().assets.get("data/ui/uiskin.json", Skin.class);
         bmf = s.getFont("default-font");
         turnIndicator = new TurnIndicator();
     }
@@ -108,13 +108,13 @@ public class Board extends Group {
         foreGround.draw(batch, parentAlpha);
 
 		Stage stage = getStage();
-		AnotherManager myGame = AnotherManager.getInstance();
+		GemLord myGame = GemLord.getInstance();
 
-		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 277));
-		final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT - 720));
+		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, GemLord.VIRTUAL_HEIGHT - 277));
+		final Vector2 end = stage.stageToScreenCoordinates(new Vector2(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT - 720));
 		final Rectangle scissor = new Rectangle();
 		final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
-		ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, batch.getTransformMatrix(),
+		ScissorStack.calculateScissors(myGame.camera, 0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT, batch.getTransformMatrix(),
                 clipBounds, scissor);
 		batch.flush();
 		ScissorStack.pushScissors(scissor);
@@ -146,14 +146,14 @@ public class Board extends Group {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 cells[x][y] = new Cell(myGame, x, y);
                 cells[x][y].setColor(1f, 1f, 1f, 0.35f);
-                cells[x][y].setBounds(CELL_PAD_X + (x * CELL_SIZE) + AnotherManager.VIRTUAL_WIDTH, CELL_PAD_Y + (y * CELL_SIZE), 80, 80);
+                cells[x][y].setBounds(CELL_PAD_X + (x * CELL_SIZE) + GemLord.VIRTUAL_WIDTH, CELL_PAD_Y + (y * CELL_SIZE), 80, 80);
                 cells[x][y].addAction(Actions.sequence(Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
                         Actions.moveBy(10f, 0f, 0.1f), Actions.moveBy(-10f, 0f, 0.1f)));
                 cells[x][y].putGem(gemHandler.getGemFactory().newRandomGem());
                 cells[x][y].getGem().addAction(
                         Actions.sequence(Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
                                 Actions.moveBy(10f, 0f, 0.1f), Actions.moveBy(-10f, 0f, 0.1f)));
-                // AnotherManager.soundPlayer.playSlideIn();
+                // GemLord.soundPlayer.playSlideIn();
                 backGround.addActor(cells[x][y]);
                 gemGroup.addActor(cells[x][y].getGem());
             }
@@ -208,7 +208,7 @@ public class Board extends Group {
                 backGround.clear();
                 foreGround.clear();
                 gemGroup.clear();
-                final Image backImage = new Image(AnotherManager.assets.get("data/textures/background.png", Texture.class));
+                final Image backImage = new Image(GemLord.assets.get("data/textures/background.png", Texture.class));
                 backImage.setFillParent(true);
                 backGround.addActor(backImage);
                 fillWithRandomGems();
@@ -251,10 +251,10 @@ public class Board extends Group {
             MatchResult result = matchFinder.markAllMatchingGems();
             if (result.howMany > 0) {
                 if (result.conversion) {
-                    AnotherManager.soundPlayer.playConvert();
+                    GemLord.soundPlayer.playConvert();
                 }
 
-                AnotherManager.soundPlayer.playDing(matchesDuringCurrentMove++);
+                GemLord.soundPlayer.playDing(matchesDuringCurrentMove++);
                 if( turnIndicator.isPlayerTurn() )
                     myGame.afterActionReport.setLongestCombo(matchesDuringCurrentMove);
                 result.howMany = 0;
@@ -269,7 +269,7 @@ public class Board extends Group {
                     player.damage(damage);
                 }
                 if (result.specialExplo) {
-                    AnotherManager.soundPlayer.playWoosh();
+                    GemLord.soundPlayer.playWoosh();
                 }
                 boardState = BoardState.STATE_FADING;
             } else {
@@ -372,16 +372,16 @@ public class Board extends Group {
             effectGroup.setTouchable(Touchable.enabled);
             final GUIWindow guiWindow = new GUIWindow(getStage());
             guiWindow.createVictoryWindow(foreGround, backGround, effectGroup);
-            AnotherManager.soundPlayer.stopGameMusic();
-            AnotherManager.soundPlayer.playVictorySound();
+            GemLord.soundPlayer.stopGameMusic();
+            GemLord.soundPlayer.playVictorySound();
             boardState = BoardState.STATE_INACTIVE;
         } else if (player.getHealth() <= 0) {
             foregroundWindowActive = true;
             effectGroup.setTouchable(Touchable.enabled);
             final GUIWindow guiWindow = new GUIWindow(getStage());
             guiWindow.createDefeatWindow(foreGround, backGround, effectGroup);
-            AnotherManager.soundPlayer.stopGameMusic();
-            AnotherManager.soundPlayer.playLoseSound();
+            GemLord.soundPlayer.stopGameMusic();
+            GemLord.soundPlayer.playLoseSound();
             boardState = BoardState.STATE_INACTIVE;
         }
     }

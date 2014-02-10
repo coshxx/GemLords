@@ -2,7 +2,7 @@ package de.cosh.anothermanager.Characters;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Items.BaseItem;
 
 /**
@@ -16,7 +16,7 @@ public class Player extends BaseCharacter {
     private ActionBar actionBar;
     private int lastTurnDamageReceived;
 
-    public Player(final AnotherManager myGame) {
+    public Player(final GemLord myGame) {
         super();
         levelDone = new boolean[200];
         for (int x = 0; x < 200; x++) {
@@ -35,7 +35,7 @@ public class Player extends BaseCharacter {
     @Override
     public void addToBoard(final Group foreGround) {
         super.addToBoard(foreGround);
-        setHealthBarPosition(0, 0, AnotherManager.VIRTUAL_WIDTH, 50);
+        setHealthBarPosition(0, 0, GemLord.VIRTUAL_WIDTH, 50);
         foreGround.addActor(getHealthBar());
         actionBar.addToBoard(foreGround);
     }
@@ -63,8 +63,8 @@ public class Player extends BaseCharacter {
 
     @Override
     public void turn() {
-        Enemy enemy = AnotherManager.getInstance().gameScreen.getBoard().getEnemy();
-        AnotherManager.getInstance().afterActionReport.setHighestDamageDealtInOneTurn(enemy.getLastTurnDamageReceived());
+        Enemy enemy = GemLord.getInstance().gameScreen.getBoard().getEnemy();
+        GemLord.getInstance().afterActionReport.setHighestDamageDealtInOneTurn(enemy.getLastTurnDamageReceived());
         System.out.println("Enemy dmg received last turn: " + enemy.getLastTurnDamageReceived());
         enemy.clearLastTurnReceivedDamage();
         super.turn();
@@ -104,7 +104,7 @@ public class Player extends BaseCharacter {
         }
         super.damage(damage);
         lastTurnDamageReceived += finalDamage;
-        AnotherManager.getInstance().afterActionReport.totalDamageReceived += finalDamage;
+        GemLord.getInstance().afterActionReport.totalDamageReceived += finalDamage;
     }
 
     public int getLastTurnDamageReceived() {
@@ -129,7 +129,7 @@ public class Player extends BaseCharacter {
 
     public void increaseHealth(int hp) {
         getHealthBar().increaseHealth(hp);
-        AnotherManager.getInstance().afterActionReport.playerTotalHealed += hp;
+        GemLord.getInstance().afterActionReport.playerTotalHealed += hp;
     }
 
     public void preGameIncreaseHealth(int hp) {

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Debuff;
 
@@ -15,7 +15,7 @@ public class AbilityFireball extends BaseAbility {
 
 	public AbilityFireball() {
 		abilityImageLocation = "data/textures/abilityfireball.png";
-		abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
+		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
 	}
 
 	@Override
@@ -25,14 +25,14 @@ public class AbilityFireball extends BaseAbility {
 			final Image projectile = new Image(abilityImage.getDrawable());
 			projectile.setPosition(abilityImage.getX(), abilityImage.getY());
 			abilityImage.getStage().addActor(projectile);
-			projectile.addAction(Actions.sequence(Actions.moveTo(AnotherManager.VIRTUAL_WIDTH / 2, -50, 0.25f),
+			projectile.addAction(Actions.sequence(Actions.moveTo(GemLord.VIRTUAL_WIDTH / 2, -50, 0.25f),
 					Actions.removeActor(projectile)));
 
-			AnotherManager.soundPlayer.playFireballStart();
+			GemLord.soundPlayer.playFireballStart();
 
 			final Debuff fireBallDebuff = new Debuff();
 			fireBallDebuff.setup(10, 2, target);
-			fireBallDebuff.setDebuffImage(new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class)));
+			fireBallDebuff.setDebuffImage(new Image(GemLord.assets.get(abilityImageLocation, Texture.class)));
 			target.addDebuff(fireBallDebuff);
 			return true;
 		}

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Damage;
 import de.cosh.anothermanager.SwapGame.Board;
@@ -18,7 +18,7 @@ public class ItemBow extends BaseItem {
     private Random random;
 
 	public ItemBow() {
-		super(AnotherManager.assets.get("data/textures/itembow.png", Texture.class));
+		super(GemLord.assets.get("data/textures/itembow.png", Texture.class));
 		itemNumber = 7;
 		setItemName("Fox Bow");
 		setItemText("Deal 5 - 15 damage\nCooldown: 5");
@@ -35,24 +35,24 @@ public class ItemBow extends BaseItem {
 
     @Override
     public void onUse() {
-        if( AnotherManager.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
+        if( GemLord.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
             return;
         if (currentCooldown <= 0) {
-            AnotherManager.soundPlayer.playBow();
+            GemLord.soundPlayer.playBow();
             int damage = random.nextInt( ( (15 - 5)+1 ));
             damage += 5;
 
             Damage dmg = new Damage();
             dmg.damage = damage;
-            AnotherManager.getInstance().gameScreen.getBoard().getEnemy().damage(dmg);
+            GemLord.getInstance().gameScreen.getBoard().getEnemy().damage(dmg);
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             currentCooldown = cooldown;
 
-            Image projectile = new Image(AnotherManager.assets.get("data/textures/itemarrow.png", Texture.class));
+            Image projectile = new Image(GemLord.assets.get("data/textures/itemarrow.png", Texture.class));
             projectile.setPosition(getX(), getY());
 
-            float targetX = AnotherManager.getInstance().gameScreen.getBoard().getEnemy().getImage().getX();
-            float targetY = AnotherManager.getInstance().gameScreen.getBoard().getEnemy().getImage().getY();
+            float targetX = GemLord.getInstance().gameScreen.getBoard().getEnemy().getImage().getX();
+            float targetY = GemLord.getInstance().gameScreen.getBoard().getEnemy().getImage().getY();
 
             projectile.addAction(Actions.sequence(
                     Actions.moveTo(targetX, targetY, 0.25f),
@@ -60,7 +60,7 @@ public class ItemBow extends BaseItem {
                     Actions.removeActor())
             );
 
-            AnotherManager.getInstance().gameScreen.getBoard().getEffectGroup().addActor(projectile);
+            GemLord.getInstance().gameScreen.getBoard().getEffectGroup().addActor(projectile);
         }
     }
 

@@ -11,16 +11,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.SwapGame.Board;
 
 public class GameScreen implements Screen, GestureListener {
 	private Vector2 flingStartPosition;
-	private final AnotherManager myGame;
+	private final GemLord myGame;
 	private Stage stage;
 	private Board swapGame;
 
-	public GameScreen(final AnotherManager myGame) {
+	public GameScreen(final GemLord myGame) {
 		this.myGame = myGame;
 		flingStartPosition = new Vector2();
 	}
@@ -95,7 +95,7 @@ public class GameScreen implements Screen, GestureListener {
 
 	@Override
 	public void resize(final int width, final int height) {
-		AnotherManager.getInstance().stageResize(width, height, stage);
+		GemLord.getInstance().stageResize(width, height, stage);
 	}
 
 	@Override
@@ -105,14 +105,14 @@ public class GameScreen implements Screen, GestureListener {
 
 	@Override
 	public void show() {
-		stage = new Stage(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, false);
+		stage = new Stage(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT, false);
 		stage.setCamera(myGame.camera);
 		swapGame = new Board(myGame);
 		InputMultiplexer input = new InputMultiplexer();
 		input.addProcessor(stage);
 		input.addProcessor(new GestureDetector(this));
 		Gdx.input.setInputProcessor(input);
-		AnotherManager.soundPlayer.playGameMusic();
+		GemLord.soundPlayer.playGameMusic();
 		swapGame.init();
 		swapGame.addAction(Actions.alpha(0.0f));
 		swapGame.addAction(Actions.fadeIn(1));

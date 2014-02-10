@@ -2,7 +2,7 @@ package de.cosh.anothermanager.SwapGame;
 
 import java.util.Random;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 /**
  * Created by cosh on 13.01.14.
@@ -10,7 +10,7 @@ import de.cosh.anothermanager.AnotherManager;
 public class GemFactory {
 	private final Random random;
 
-	public GemFactory(final AnotherManager myGame) {
+	public GemFactory(final GemLord myGame) {
 		random = new Random();
 	}
 

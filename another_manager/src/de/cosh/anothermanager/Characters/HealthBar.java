@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 /**
  * Created by cosh on 27.12.13.
@@ -54,8 +54,8 @@ public class HealthBar extends Actor {
 		final Integer health = hp;
 		final Integer maxhealth = maxHP;
 
-		AnotherManager.getInstance();
-		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class)	;
+		GemLord.getInstance();
+		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
 		bmf = s.getFont("default-font");
 
 		bmf.setColor(0.25f, 0.25f, 1.0f, parentAlpha);

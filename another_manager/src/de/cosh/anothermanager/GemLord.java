@@ -14,13 +14,9 @@ import com.badlogic.gdx.utils.Scaling;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.Characters.Player;
-import de.cosh.anothermanager.Screens.GameScreen;
-import de.cosh.anothermanager.Screens.LootScreen;
-import de.cosh.anothermanager.Screens.MapTraverseScreen;
-import de.cosh.anothermanager.Screens.MenuScreen;
-import de.cosh.anothermanager.Screens.SplashScreen;
+import de.cosh.anothermanager.Screens.*;
 
-public class AnotherManager extends Game {
+public class GemLord extends Game {
 	public static final int VIRTUAL_HEIGHT = 1280;
 	public static final int VIRTUAL_WIDTH = 720;
 	public static final float ASPECT_RATIO = (float) VIRTUAL_WIDTH / (float) VIRTUAL_HEIGHT;
@@ -28,7 +24,7 @@ public class AnotherManager extends Game {
 	public static SoundPlayer soundPlayer;
 	public static boolean DEBUGMODE = false;
     public static boolean DEBUGITEMSADDED = false;
-	private static AnotherManager instance;
+	private static GemLord instance;
 	public OrthographicCamera camera;
 	private OrthographicCamera guiCamera;
 	public Rectangle viewport;
@@ -36,6 +32,7 @@ public class AnotherManager extends Game {
 	public EnemyManager enemyManager;
 	public GameScreen gameScreen;
 	public LootScreen lootScreen;
+    public CreditScreen creditScreen;
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
     public AfterActionReport afterActionReport;
@@ -45,7 +42,7 @@ public class AnotherManager extends Game {
 
 	private BitmapFont bitmapFont;
 
-	public static AnotherManager getInstance() {
+	public static GemLord getInstance() {
         return instance;
 	}
 
@@ -63,6 +60,7 @@ public class AnotherManager extends Game {
 		soundPlayer = new SoundPlayer(this);
 		menuScreen = new MenuScreen(this);
 		gameScreen = new GameScreen(this);
+        creditScreen = new CreditScreen();
 		lootScreen = new LootScreen(this, enemyManager);
 		mapTraverseScreen = new MapTraverseScreen(this);
 		bitmapFont = new BitmapFont();
@@ -106,13 +104,13 @@ public class AnotherManager extends Game {
 	}
 
 	public void stageResize(int width, int height, Stage stage) {
-		Vector2 size = Scaling.fit.apply(AnotherManager.VIRTUAL_WIDTH,
-				AnotherManager.VIRTUAL_HEIGHT, width, height);
+		Vector2 size = Scaling.fit.apply(GemLord.VIRTUAL_WIDTH,
+				GemLord.VIRTUAL_HEIGHT, width, height);
 		
 		float ratio = (float) width / (float) height;
 		if (ratio < 0.66f && ratio > 0.55f) {
-			stage.setViewport(AnotherManager.VIRTUAL_WIDTH,
-					AnotherManager.VIRTUAL_HEIGHT);
+			stage.setViewport(GemLord.VIRTUAL_WIDTH,
+					GemLord.VIRTUAL_HEIGHT);
 			return;
 		}
 		int viewportX = (int) (width - size.x) / 2;
@@ -120,8 +118,8 @@ public class AnotherManager extends Game {
 		int viewportWidth = (int) size.x;
 		int viewportHeight = (int) size.y;
 		Gdx.gl.glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
-		stage.setViewport(AnotherManager.VIRTUAL_WIDTH,
-				AnotherManager.VIRTUAL_HEIGHT, true, viewportX, viewportY,
+		stage.setViewport(GemLord.VIRTUAL_WIDTH,
+				GemLord.VIRTUAL_HEIGHT, true, viewportX, viewportY,
 				viewportWidth, viewportHeight);
 	}
 }

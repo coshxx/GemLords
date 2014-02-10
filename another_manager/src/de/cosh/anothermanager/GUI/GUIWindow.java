@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 /**
  * Created by cosh on 10.01.14.
@@ -23,13 +23,13 @@ import de.cosh.anothermanager.AnotherManager;
 public class GUIWindow {
 	private Skin skin;
 	private final Stage stage;
-	private AnotherManager myGame;
+	private GemLord myGame;
 	
 	private Window window;
 
 	public GUIWindow( final Stage stage) {
 		this.stage = stage;
-		this.myGame = AnotherManager.getInstance();
+		this.myGame = GemLord.getInstance();
 		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
 	}
 

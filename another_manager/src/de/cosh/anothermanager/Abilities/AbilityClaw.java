@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Debuff;
 
@@ -14,7 +14,7 @@ import de.cosh.anothermanager.Characters.Debuff;
 public class AbilityClaw extends BaseAbility {
 	public AbilityClaw() {
 		abilityImageLocation = "data/textures/abilityclaw.png";
-		abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
+		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
 	}
 
 	@Override
@@ -24,16 +24,16 @@ public class AbilityClaw extends BaseAbility {
 			final Image projectile = new Image(abilityImage.getDrawable());
 			projectile.setPosition(abilityImage.getX(), abilityImage.getY());
 			abilityImage.getStage().addActor(projectile);
-			projectile.addAction(Actions.sequence(Actions.moveTo(AnotherManager.VIRTUAL_WIDTH / 2, -50, 0.25f),
+			projectile.addAction(Actions.sequence(Actions.moveTo(GemLord.VIRTUAL_WIDTH / 2, -50, 0.25f),
 					Actions.removeActor(projectile)));
-			AnotherManager.soundPlayer.playClawSound();
+			GemLord.soundPlayer.playClawSound();
 
 			final Debuff clawDebuff = new Debuff();
 			clawDebuff.setup(10, 10, target);
-			clawDebuff.setDebuffImage(new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class)));
+			clawDebuff.setDebuffImage(new Image(GemLord.assets.get(abilityImageLocation, Texture.class)));
 
-			final Image fullscreenEffect = new Image(AnotherManager.assets.get("data/textures/clawfullscreen.png", Texture.class));
-			fullscreenEffect.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);;
+			final Image fullscreenEffect = new Image(GemLord.assets.get("data/textures/clawfullscreen.png", Texture.class));
+			fullscreenEffect.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);;
 			fullscreenEffect.addAction(Actions.alpha(0f));
 			fullscreenEffect.addAction(Actions.sequence(
 					Actions.alpha(0.75f, 0.25f),

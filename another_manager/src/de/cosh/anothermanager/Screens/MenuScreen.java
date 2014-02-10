@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -17,11 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 public class MenuScreen implements Screen {
 
-	private final AnotherManager myGame;
+	private final GemLord myGame;
 	private Stage stage;
 	private Table table;
 
@@ -30,16 +28,22 @@ public class MenuScreen implements Screen {
 	private TextButton newGameButton;
 	private TextButton optionsButton;
 	private TextButton exitGameButton;
-
+	private TextButton creditsButton;
+    private TextButton returnFromOptions;
+    private Image backGround;
     private BitmapFont test;
 
-	public MenuScreen(final AnotherManager myGame) {
+    private boolean stageShiftingRight, stageShiftingLeft;
+
+	public MenuScreen(final GemLord myGame) {
 		this.myGame = myGame;
 		table = new Table();
 		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
 		newGameButton = new TextButton("New game", skin);
 		optionsButton = new TextButton("Options", skin);
 		exitGameButton = new TextButton("Exit game", skin);
+		creditsButton = new TextButton("Credits", skin);
+        returnFromOptions = new TextButton("Back", skin);
 	}
 
 	@Override
@@ -66,7 +70,7 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void resize(final int width, final int height) {
-		AnotherManager.getInstance().stageResize(width, height, stage);
+		GemLord.getInstance().stageResize(width, height, stage);
 	}
 
 	@Override
@@ -77,40 +81,57 @@ public class MenuScreen implements Screen {
 	@Override
 	public void show() {
 		this.stage = new Stage();
-		AnotherManager.getInstance().soundPlayer.playMenuMusic();
+		GemLord.getInstance().soundPlayer.playMenuMusic();
 		Gdx.input.setInputProcessor(stage);
 		table.setFillParent(true);
-		Image backGround = new Image(AnotherManager.getInstance().assets.get(
+		backGround = new Image(GemLord.getInstance().assets.get(
 				"data/textures/menu.png", Texture.class));
+        Image titleImage = new Image(GemLord.assets.get("data/textures/title.png", Texture.class));
+        titleImage.setPosition(0, GemLord.VIRTUAL_HEIGHT-titleImage.getHeight());
+
 		table.setBackground(backGround.getDrawable());
 
 		addWobbleToButtons();
-		
+		titleImage.addAction(Actions.forever(Actions.sequence(
+                Actions.moveBy(0, 5f, 1f), Actions.moveBy(0, -5f, 1f))));
+
 		addButtonListeners();
 
-		backGround.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
-		newGameButton.setBounds(265, 450, 200, 80);
+		backGround.setBounds(0, 0, GemLord.VIRTUAL_WIDTH*2, GemLord.VIRTUAL_HEIGHT);
+		newGameButton.setBounds(265, 500, 200, 80);
 		newGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		newGameButton.getStyle().font.setScale(1f);
 		
-		optionsButton.setBounds(265, 350, 200, 80);
+		optionsButton.setBounds(265, 400, 200, 80);
 		optionsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		optionsButton.getStyle().font.setScale(1f);
-		
-		exitGameButton.setBounds(265, 250, 200, 80);
+
+        creditsButton.setBounds(265, 300, 200, 80);
+        creditsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        creditsButton.getStyle().font.setScale(1f);
+        
+        exitGameButton.setBounds(265, 200, 200, 80);
 		exitGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		exitGameButton.getStyle().font.setScale(1f);
-		
-		stage.setCamera(AnotherManager.getInstance().camera);
+
+        returnFromOptions.setBounds(990, GemLord.VIRTUAL_HEIGHT - 80, 200, 80);
+        returnFromOptions.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        returnFromOptions.getStyle().font.setScale(1f);
+
+		stage.setCamera(GemLord.getInstance().camera);
 		stage.addActor(backGround);
+        stage.addActor(titleImage);
 		stage.addActor(newGameButton);
 		stage.addActor(optionsButton);
+        stage.addActor(creditsButton);
 		stage.addActor(exitGameButton);
+        stage.addActor(returnFromOptions);
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(0.5f));
 	}
 
-	private void addWobbleToButtons() {
+
+    private void addWobbleToButtons() {
 		newGameButton.addAction(Actions.forever(Actions.sequence(
 				Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
 
@@ -119,6 +140,12 @@ public class MenuScreen implements Screen {
 
 		exitGameButton.addAction(Actions.forever(Actions.sequence(
 				Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
+
+        creditsButton.addAction(Actions.forever(Actions.sequence(
+                Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
+
+        returnFromOptions.addAction(Actions.forever(Actions.sequence(
+                Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
 	}
 
 	private void addButtonListeners() {
@@ -148,5 +175,43 @@ public class MenuScreen implements Screen {
 						})));
 			}
 		});
+
+        optionsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if( !stageShiftingRight ) {
+                stage.addAction(Actions.moveBy(-stage.getWidth(), 0, 0.5f));
+                    stageShiftingLeft = false;
+                    stageShiftingRight = true;
+                }
+
+            }
+        });
+
+        returnFromOptions.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (!stageShiftingLeft) {
+                    stage.addAction(Actions.moveBy(stage.getWidth(), 0, 0.5f));
+                    stageShiftingLeft = true;
+                    stageShiftingRight = false;
+                }
+            }
+        });
+
+        creditsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                stage.addAction(Actions.sequence(Actions.fadeOut(0.5f),
+                        Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                myGame.soundPlayer.stopMenuMusic();
+                                myGame.setScreen(myGame.creditScreen);
+                            }
+                        })));
+            }
+        });
+
 	}
 }

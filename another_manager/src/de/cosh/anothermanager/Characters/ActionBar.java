@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.SwapGame.ParticleActor;
 
@@ -31,27 +31,27 @@ public class ActionBar {
     }
 
     public void addToLoadoutScreen(final Stage stage) {
-        actionBarImage = new Image(AnotherManager.assets.get("data/textures/actionbar.png", Texture.class));
+        actionBarImage = new Image(GemLord.assets.get("data/textures/actionbar.png", Texture.class));
         actionBarImage.setPosition(0, 150);
         stage.addActor(actionBarImage);
 
         for (int i = 0; i < BARLENGTH; i++) {
             final int index = i;
-            itemBorders[i] = new Image(AnotherManager.assets.get("data/textures/item_border.png", Texture.class));
+            itemBorders[i] = new Image(GemLord.assets.get("data/textures/item_border.png", Texture.class));
             itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), 170);
             itemBorders[i].clearListeners();
             itemBorders[i].addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    ArrayList<BaseItem> baseItems = AnotherManager.getInstance().player.getInventory().getAllItems();
+                    ArrayList<BaseItem> baseItems = GemLord.getInstance().player.getInventory().getAllItems();
                     for (BaseItem item : baseItems) {
                         if (item.isSelected()) {
                             if (itemsInBar[index] == null) {
                                 itemsInBar[index] = item;
                                 itemsInBar[index].setPosition(itemBorders[index].getX(), itemBorders[index].getY());
                                 ParticleActor p = new ParticleActor(itemBorders[index].getX() + (itemBorders[index].getWidth() / 2), itemBorders[index].getY() + itemBorders[index].getHeight() / 2);
-                                AnotherManager.getInstance();
-                                AnotherManager.soundPlayer.playWoosh();
+                                GemLord.getInstance();
+                                GemLord.soundPlayer.playWoosh();
                                 stage.addActor(p);
                                 item.addedToActionBar(true);
                                 item.unselect();
@@ -81,13 +81,13 @@ public class ActionBar {
     }
 
     public void addToBoard(Group foreGround) {
-        actionBarImage = new Image(AnotherManager.assets.get("data/textures/actionbar.png", Texture.class));
+        actionBarImage = new Image(GemLord.assets.get("data/textures/actionbar.png", Texture.class));
         actionBarImage.setPosition(0, 80);
         foreGround.addActor(actionBarImage);
 
         for (int i = 0; i < BARLENGTH; i++) {
             final int index = i;
-            itemBorders[i] = new Image(AnotherManager.assets.get("data/textures/item_border.png", Texture.class));
+            itemBorders[i] = new Image(GemLord.assets.get("data/textures/item_border.png", Texture.class));
             itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), 95);
             itemBorders[i].clearListeners();
             foreGround.addActor(itemBorders[i]);
@@ -123,7 +123,7 @@ public class ActionBar {
                 item.addedToActionBar(true);
                 item.setDrawText(false);
                 if (itemBorders[i] == null) {
-                    itemBorders[i] = new Image(AnotherManager.assets.get("data/textures/item_border.png", Texture.class));
+                    itemBorders[i] = new Image(GemLord.assets.get("data/textures/item_border.png", Texture.class));
                     itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), 95);
                     itemBorders[i].clearListeners();
                 }

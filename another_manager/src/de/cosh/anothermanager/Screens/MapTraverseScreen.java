@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Json;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIButton;
@@ -24,12 +24,12 @@ public class MapTraverseScreen implements Screen {
 	public boolean enemyWindowOpen;
 	private boolean fadeMusic;
 	private Image mapImage;
-	private final AnotherManager myGame;
+	private final GemLord myGame;
 	private Json json;
 	private Stage stage;
 
-	public MapTraverseScreen(final AnotherManager anotherManager) {
-		myGame = anotherManager;
+	public MapTraverseScreen(final GemLord gemLord) {
+		myGame = gemLord;
 		json = new Json();
 	}
 
@@ -44,12 +44,12 @@ public class MapTraverseScreen implements Screen {
 
 	@Override
 	public void hide() {
-		AnotherManager.soundPlayer.stopMapMusic();
+		GemLord.soundPlayer.stopMapMusic();
 		enemyWindowOpen = false;
 	}
 
 	private void initEnemyLocations() {
-		Player player = AnotherManager.getInstance().player;
+		Player player = GemLord.getInstance().player;
 		int counter = 0;
 		while( true ) {
 			FileHandle handle = Gdx.files.internal("data/enemies/enemy" + counter + ".dat");
@@ -58,7 +58,7 @@ public class MapTraverseScreen implements Screen {
 			Enemy e = json.fromJson(Enemy.class, handle.readString());
 			e.setDefeated(player.levelDone[e.getEnemyNumber()]);
 			e.loadImage();
-			if( e.getEnemyNumber() == 0 || AnotherManager.DEBUGMODE) {
+			if( e.getEnemyNumber() == 0 || GemLord.DEBUGMODE) {
 				e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
 			} else {
 				int previous = e.getEnemyNumber() - 1;
@@ -71,7 +71,7 @@ public class MapTraverseScreen implements Screen {
 			counter++;
 		}
 
-		if( AnotherManager.DEBUGMODE ) {
+		if( GemLord.DEBUGMODE ) {
 			Enemy e = new Enemy();
 			e.setLocationOnMap(250,  250);
 			e.setHealth(999);
@@ -96,13 +96,13 @@ public class MapTraverseScreen implements Screen {
 		Table.drawDebug(stage);
 
 		if (fadeMusic) {
-			AnotherManager.soundPlayer.fadeOutMapMusic(delta);
+			GemLord.soundPlayer.fadeOutMapMusic(delta);
 		}
 	}
 
 	@Override
 	public void resize(final int width, final int height) {
-		AnotherManager.getInstance().stageResize(width, height, stage);
+		GemLord.getInstance().stageResize(width, height, stage);
 	}
 
 	@Override
@@ -116,23 +116,23 @@ public class MapTraverseScreen implements Screen {
 		fadeMusic = false;
 		enemyWindowOpen = false;
 
-		mapImage = new Image(AnotherManager.assets.get("data/textures/map.png", Texture.class));
-		mapImage.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+		mapImage = new Image(GemLord.assets.get("data/textures/map.png", Texture.class));
+		mapImage.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
 		stage.addActor(mapImage);
 
 		initEnemyLocations();
 
 		GUIButton guiButton = new GUIButton();
-		guiButton.createLoadoutButton(stage, AnotherManager.VIRTUAL_WIDTH-100, 0);
-		AnotherManager.soundPlayer.playMapMusic();
+		guiButton.createLoadoutButton(stage, GemLord.VIRTUAL_WIDTH-100, 0);
+		GemLord.soundPlayer.playMapMusic();
 
 		Gdx.input.setInputProcessor(stage);
 		
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));
 
-		if( AnotherManager.DEBUGMODE && !AnotherManager.DEBUGITEMSADDED) {
-            AnotherManager.DEBUGITEMSADDED = true;
+		if( GemLord.DEBUGMODE && !GemLord.DEBUGITEMSADDED) {
+            GemLord.DEBUGITEMSADDED = true;
 
             BaseItem item1, item2, item3, item4, item5,
                     item6, item7, item8, item9, item10, item11;

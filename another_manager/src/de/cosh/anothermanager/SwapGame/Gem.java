@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 /**
  * Created by cosh on 13.01.14.
@@ -43,7 +43,7 @@ public class Gem extends Image {
 	private float speed, totalTranslated;
 
 	public Gem(GemType g) {
-		super(AnotherManager.assets.get(g.getTexturePath(), Texture.class));
+		super(GemLord.assets.get(g.getTexturePath(), Texture.class));
 		super.setWidth(80);
 		super.setHeight(80);
 		this.gemType = g;
@@ -58,7 +58,7 @@ public class Gem extends Image {
 		this.isFalling = false;
 		this.speed = 0f;
 		this.totalTranslated = 0f;
-		this.cells = AnotherManager.getInstance().gameScreen.getBoard().getCells();
+		this.cells = GemLord.getInstance().gameScreen.getBoard().getCells();
 		specialTypeHorizontal = GemTypeSpecialHorizontal.TYPE_NONE;
 		specialTypeVertical = GemTypeSpecialVertical.TYPE_NONE;
 		specialSuperSpecial = GemTypeSuperSpecial.TYPE_NONE;
@@ -79,7 +79,7 @@ public class Gem extends Image {
 			cells[cellX][cellY].setEmpty(true);
 			setFalling(true);
 			setMoving(MoveDirection.DIRECTION_VERTICAL);
-			AnotherManager.getInstance().gameScreen.getBoard().addToUncelledGems(this);
+			GemLord.getInstance().gameScreen.getBoard().addToUncelledGems(this);
 			fall(delta);
 		} else {
 			setFalling(false);
@@ -129,12 +129,12 @@ public class Gem extends Image {
 			return;
 		if (convertHorizontal) {
 			specialTypeHorizontal = GemTypeSpecialHorizontal.values()[gemType.ordinal()];
-			setDrawable(new TextureRegionDrawable(new TextureRegion(AnotherManager.assets.get(specialTypeHorizontal.getTexturePath(), Texture.class))));
+			setDrawable(new TextureRegionDrawable(new TextureRegion(GemLord.assets.get(specialTypeHorizontal.getTexturePath(), Texture.class))));
 			isMarkedForSpecialConversion = false;
 			isSpecialHorizontalGem = true;
 		} else {
 			specialTypeVertical = GemTypeSpecialVertical.values()[gemType.ordinal()];
-			setDrawable(new TextureRegionDrawable(new TextureRegion(AnotherManager.assets.get(specialTypeVertical.getTexturePath(), Texture.class))));
+			setDrawable(new TextureRegionDrawable(new TextureRegion(GemLord.assets.get(specialTypeVertical.getTexturePath(), Texture.class))));
 			isMarkedForSpecialConversion = false;
 			isSpecialVerticalGem = true;
 		}
@@ -150,13 +150,13 @@ public class Gem extends Image {
 
         /*
 		Stage stage = getStage();
-		AnotherManager myGame = AnotherManager.getInstance();
+		GemLord myGame = GemLord.getInstance();
 
-		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, AnotherManager.VIRTUAL_HEIGHT - 277));
-		final Vector2 end = stage.stageToScreenCoordinates(new Vector2(AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT - 720));
+		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, GemLord.VIRTUAL_HEIGHT - 277));
+		final Vector2 end = stage.stageToScreenCoordinates(new Vector2(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT - 720));
 		final Rectangle scissor = new Rectangle();
 		final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
-		ScissorStack.calculateScissors(myGame.camera, 0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT, batch.getTransformMatrix(),
+		ScissorStack.calculateScissors(myGame.camera, 0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT, batch.getTransformMatrix(),
 				clipBounds, scissor);
 		batch.flush();
 		ScissorStack.pushScissors(scissor);
@@ -250,7 +250,7 @@ public class Gem extends Image {
 
 	public void convertToSuperSpecial() {
 		specialSuperSpecial = GemTypeSuperSpecial.TYPE_SPECIAL_5;
-		setDrawable(new TextureRegionDrawable(new TextureRegion(AnotherManager.assets.get(specialSuperSpecial.getTexturePath(), Texture.class))));
+		setDrawable(new TextureRegionDrawable(new TextureRegion(GemLord.assets.get(specialSuperSpecial.getTexturePath(), Texture.class))));
 		isMarkedForSuperSpecialConversion = false;
 		isSuperSpecialGem = true;
 	}

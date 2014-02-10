@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.cosh.anothermanager.AfterActionReport;
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.CustomActions.PlayGotItemSoundAction;
 import de.cosh.anothermanager.Items.BaseItem;
@@ -19,14 +19,14 @@ import de.cosh.anothermanager.CustomActions.PlayConvertSoundAction;
  * Created by cosh on 07.01.14.
  */
 public class LootScreen implements Screen {
-    private final AnotherManager myGame;
+    private final GemLord myGame;
     private final EnemyManager enemyManager;
     private Stage stage;
     private Skin skin;
     private Table table;
 
-    public LootScreen(final AnotherManager anotherManager, final EnemyManager enemyManager) {
-        this.myGame = anotherManager;
+    public LootScreen(final GemLord gemLord, final EnemyManager enemyManager) {
+        this.myGame = gemLord;
         this.enemyManager = enemyManager;
         skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
     }
@@ -57,7 +57,7 @@ public class LootScreen implements Screen {
 
     @Override
     public void resize(final int width, final int height) {
-        AnotherManager.getInstance().stageResize(width, height, stage);
+        GemLord.getInstance().stageResize(width, height, stage);
     }
 
     @Override
@@ -72,8 +72,8 @@ public class LootScreen implements Screen {
         table.setFillParent(true);
         Gdx.input.setInputProcessor(stage);
 
-        AfterActionReport aar = AnotherManager.getInstance().afterActionReport;
-        AnotherManager.soundPlayer.playLootMusic();
+        AfterActionReport aar = GemLord.getInstance().afterActionReport;
+        GemLord.soundPlayer.playLootMusic();
 
         Table leftSide = table.top().left();
 
@@ -222,7 +222,7 @@ public class LootScreen implements Screen {
                     Actions.fadeIn(0.25f)));
 
             leftSide.add(label15).left();
-            item.setPosition(AnotherManager.VIRTUAL_WIDTH/2 - item.getWidth()/2, 800);
+            item.setPosition(GemLord.VIRTUAL_WIDTH/2 - item.getWidth()/2, 800);
             myGame.player.getInventory().addItem(item);
             stage.addActor(item);
 
@@ -235,7 +235,7 @@ public class LootScreen implements Screen {
                 stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        AnotherManager.soundPlayer.stopLootMusic();
+                        GemLord.soundPlayer.stopLootMusic();
                         myGame.player.levelDone(myGame.enemyManager.getSelectedEnemy().getEnemyNumber());
                         if (item != null)
                             myGame.player.getActionBar().addToActionBar(item);
@@ -246,10 +246,10 @@ public class LootScreen implements Screen {
         });
 
         button.setBounds(-200, 0, 200, 100);
-        //button.setBounds(AnotherManager.VIRTUAL_WIDTH / 2 - 100, 0, 200, 100);
+        //button.setBounds(GemLord.VIRTUAL_WIDTH / 2 - 100, 0, 200, 100);
         button.addAction(Actions.sequence(
                 Actions.delay(1.75f),
-                Actions.moveTo(AnotherManager.VIRTUAL_WIDTH / 2 - 100, 0, 0.25f)));
+                Actions.moveTo(GemLord.VIRTUAL_WIDTH / 2 - 100, 0, 0.25f)));
         stage.addActor(button);
         stage.addActor(table);
     }

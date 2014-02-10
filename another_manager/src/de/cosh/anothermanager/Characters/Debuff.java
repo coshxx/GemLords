@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 /**
  * Created by cosh on 15.01.14.
@@ -28,9 +28,9 @@ public class Debuff {
 	private int turnsComplete;
 
 	public Debuff() {
-		this.debuffBorderImage = new Image(AnotherManager.assets.get("data/textures/debuff_border.png", Texture.class));
-		AnotherManager.getInstance();
-		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class)	;
+		this.debuffBorderImage = new Image(GemLord.assets.get("data/textures/debuff_border.png", Texture.class));
+		GemLord.getInstance();
+		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
 		bmf = s.getFont("default-font");
 
 	}

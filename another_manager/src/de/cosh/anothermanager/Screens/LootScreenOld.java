@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.EnemyManager;
 import de.cosh.anothermanager.Items.BaseItem;
 
@@ -21,15 +21,15 @@ import de.cosh.anothermanager.Items.BaseItem;
  * Created by cosh on 07.01.14.
  */
 public class LootScreenOld implements Screen {
-    private final AnotherManager myGame;
+    private final GemLord myGame;
     private final EnemyManager enemyManager;
     private Image chestImage;
     private Stage stage;
     private Skin skin;
     private Label addedToBarLabel, couldNotAddLabel;
 
-    public LootScreenOld(final AnotherManager anotherManager, final EnemyManager enemyManager) {
-        this.myGame = anotherManager;
+    public LootScreenOld(final GemLord gemLord, final EnemyManager enemyManager) {
+        this.myGame = gemLord;
         this.enemyManager = enemyManager;
         skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
         addedToBarLabel = new Label("The item will be added to your Actionbar", skin);
@@ -64,7 +64,7 @@ public class LootScreenOld implements Screen {
 
     @Override
     public void resize(final int width, final int height) {
-        AnotherManager.getInstance().stageResize(width, height, stage);
+        GemLord.getInstance().stageResize(width, height, stage);
     }
 
     @Override
@@ -75,8 +75,8 @@ public class LootScreenOld implements Screen {
     @Override
     public void show() {
         stage = new Stage();
-        chestImage = new Image(AnotherManager.assets.get("data/textures/treasure.jpg", Texture.class));
-        chestImage.setPosition(AnotherManager.VIRTUAL_WIDTH / 2 - chestImage.getWidth() / 2, 800);
+        chestImage = new Image(GemLord.assets.get("data/textures/treasure.jpg", Texture.class));
+        chestImage.setPosition(GemLord.VIRTUAL_WIDTH / 2 - chestImage.getWidth() / 2, 800);
         stage.addActor(chestImage);
 
         BitmapFont.TextBounds boundsAdded = addedToBarLabel.getStyle().font.getBounds(addedToBarLabel.getText());
@@ -84,11 +84,11 @@ public class LootScreenOld implements Screen {
         BitmapFont.TextBounds boundsCouldNot = couldNotAddLabel.getStyle().font.getBounds(couldNotAddLabel.getText());
         couldNotAddLabel.setPosition(-boundsCouldNot.width, 350);
 
-        AnotherManager.getInstance().soundPlayer.playLootMusic();
+        GemLord.getInstance().soundPlayer.playLootMusic();
 
         final BaseItem i = enemyManager.getSelectedEnemy().getDroppedItem();
         if (i != null) {
-            i.setPosition(AnotherManager.VIRTUAL_WIDTH, 500);
+            i.setPosition(GemLord.VIRTUAL_WIDTH, 500);
             i.addAction(Actions.moveBy(-400, 0, 0.25f));
             stage.addActor(i);
         }
@@ -111,7 +111,7 @@ public class LootScreenOld implements Screen {
                 stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        AnotherManager.soundPlayer.stopLootMusic();
+                        GemLord.soundPlayer.stopLootMusic();
                         myGame.player.levelDone(myGame.enemyManager.getSelectedEnemy().getEnemyNumber());
                         if (i != null)
                             myGame.player.getActionBar().addToActionBar(i);
@@ -120,7 +120,7 @@ public class LootScreenOld implements Screen {
                 })));
             }
         });
-        button.setBounds(AnotherManager.VIRTUAL_WIDTH / 2 - 100, 200, 200, 100);
+        button.setBounds(GemLord.VIRTUAL_WIDTH / 2 - 100, 200, 200, 100);
         stage.addActor(button);
         Gdx.input.setInputProcessor(stage);
     }

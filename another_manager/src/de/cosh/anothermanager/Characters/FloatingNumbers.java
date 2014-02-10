@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 class FloatingNumbers extends Actor {
     private BitmapFont bmf;
@@ -13,8 +13,8 @@ class FloatingNumbers extends Actor {
     private boolean isCrit;
 
     public FloatingNumbers() {
-        AnotherManager.getInstance();
-        Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
+        GemLord.getInstance();
+        Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
         bmf = s.getFont("default-font");
         bmf.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
     }

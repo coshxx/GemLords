@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.SwapGame.Board;
 
@@ -19,7 +19,7 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
     private Random random;
 
 	public ItemMinorHealthPotion() {
-		super(AnotherManager.assets.get("data/textures/minorhealthpotion.png", Texture.class));
+		super(GemLord.assets.get("data/textures/minorhealthpotion.png", Texture.class));
 		itemNumber = 1;
 		setItemName("Minor potion");
 		setItemText("Recover 10-20 hp\nCooldown: 10");
@@ -31,15 +31,15 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 
 	@Override
 	public void onUse() {
-        if( AnotherManager.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
+        if( GemLord.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
             return;
 		if (currentCooldown <= 0) {
-			AnotherManager.getInstance();
-			AnotherManager.soundPlayer.playGulp();
+			GemLord.getInstance();
+			GemLord.soundPlayer.playGulp();
 
             int healthRegenned = random.nextInt((20 - 10)+1);
             healthRegenned += 10;
-			AnotherManager.getInstance().player.increaseHealth(healthRegenned);
+			GemLord.getInstance().player.increaseHealth(healthRegenned);
 			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 			currentCooldown = cooldown;
 		}

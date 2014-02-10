@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 public class SplashScreen implements Screen {
 	private NinePatch empty;
@@ -23,13 +23,13 @@ public class SplashScreen implements Screen {
 	private NinePatch full;
 
 	private Texture fullT;
-	private final AnotherManager myGame;
+	private final GemLord myGame;
 	private Image splashImage;
 	private Texture splashTexture;
 
 	private Stage stage;
 
-	public SplashScreen(final AnotherManager myGame) {
+	public SplashScreen(final GemLord myGame) {
 		this.myGame = myGame;
 	}
 
@@ -44,116 +44,117 @@ public class SplashScreen implements Screen {
 	}
 
 	private void loadAllAssets() {
-		AnotherManager.assets.load("data/textures/background.png", Texture.class);
+		GemLord.assets.load("data/textures/background.png", Texture.class);
 
-		AnotherManager.assets.load("data/textures/ball_blue.png", Texture.class);
-		AnotherManager.assets.load("data/textures/ball_green.png", Texture.class);
-		AnotherManager.assets.load("data/textures/ball_purple.png", Texture.class);
-		AnotherManager.assets.load("data/textures/ball_red.png", Texture.class);
-		AnotherManager.assets.load("data/textures/ball_white.png", Texture.class);
-		AnotherManager.assets.load("data/textures/ball_yellow.png", Texture.class);
+		GemLord.assets.load("data/textures/ball_blue.png", Texture.class);
+		GemLord.assets.load("data/textures/ball_green.png", Texture.class);
+		GemLord.assets.load("data/textures/ball_purple.png", Texture.class);
+		GemLord.assets.load("data/textures/ball_red.png", Texture.class);
+		GemLord.assets.load("data/textures/ball_white.png", Texture.class);
+		GemLord.assets.load("data/textures/ball_yellow.png", Texture.class);
 
-		AnotherManager.assets.load("data/textures/special_blueh.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_greenh.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_purpleh.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_redh.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_whiteh.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_yellowh.png", Texture.class);
+		GemLord.assets.load("data/textures/special_blueh.png", Texture.class);
+		GemLord.assets.load("data/textures/special_greenh.png", Texture.class);
+		GemLord.assets.load("data/textures/special_purpleh.png", Texture.class);
+		GemLord.assets.load("data/textures/special_redh.png", Texture.class);
+		GemLord.assets.load("data/textures/special_whiteh.png", Texture.class);
+		GemLord.assets.load("data/textures/special_yellowh.png", Texture.class);
 
-		AnotherManager.assets.load("data/textures/special_bluev.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_greenv.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_purplev.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_redv.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_whitev.png", Texture.class);
-		AnotherManager.assets.load("data/textures/special_yellowv.png", Texture.class);
+		GemLord.assets.load("data/textures/special_bluev.png", Texture.class);
+		GemLord.assets.load("data/textures/special_greenv.png", Texture.class);
+		GemLord.assets.load("data/textures/special_purplev.png", Texture.class);
+		GemLord.assets.load("data/textures/special_redv.png", Texture.class);
+		GemLord.assets.load("data/textures/special_whitev.png", Texture.class);
+		GemLord.assets.load("data/textures/special_yellowv.png", Texture.class);
 
-		AnotherManager.assets.load("data/textures/special_5.png", Texture.class);
+		GemLord.assets.load("data/textures/special_5.png", Texture.class);
 
-		AnotherManager.assets.load("data/textures/abilityattack.png", Texture.class);
-		AnotherManager.assets.load("data/textures/abilityfireball.png", Texture.class);
-		AnotherManager.assets.load("data/textures/abilitypoison.png", Texture.class);
-		AnotherManager.assets.load("data/textures/abilitypetrify.png", Texture.class);
-		AnotherManager.assets.load("data/textures/abilitysmashblue.png", Texture.class);
-		AnotherManager.assets.load("data/textures/abilitysmashred.png", Texture.class);
-		AnotherManager.assets.load("data/textures/abilitythink.png", Texture.class);
-		AnotherManager.assets.load("data/textures/abilitybite.png", Texture.class);
+		GemLord.assets.load("data/textures/abilityattack.png", Texture.class);
+		GemLord.assets.load("data/textures/abilityfireball.png", Texture.class);
+		GemLord.assets.load("data/textures/abilitypoison.png", Texture.class);
+		GemLord.assets.load("data/textures/abilitypetrify.png", Texture.class);
+		GemLord.assets.load("data/textures/abilitysmashblue.png", Texture.class);
+		GemLord.assets.load("data/textures/abilitysmashred.png", Texture.class);
+		GemLord.assets.load("data/textures/abilitythink.png", Texture.class);
+		GemLord.assets.load("data/textures/abilitybite.png", Texture.class);
 
-        AnotherManager.assets.load("data/textures/actionbar.png", Texture.class);
+        GemLord.assets.load("data/textures/actionbar.png", Texture.class);
 
-		AnotherManager.assets.load("data/textures/debuff_border.png", Texture.class);
-		AnotherManager.assets.load("data/textures/buff_border.png", Texture.class);
-		AnotherManager.assets.load("data/textures/item_border.png", Texture.class);
-		AnotherManager.assets.load("data/textures/minorhealthpotion.png", Texture.class);
-		AnotherManager.assets.load("data/textures/pocketwatch.png", Texture.class);
+		GemLord.assets.load("data/textures/debuff_border.png", Texture.class);
+		GemLord.assets.load("data/textures/buff_border.png", Texture.class);
+		GemLord.assets.load("data/textures/item_border.png", Texture.class);
+		GemLord.assets.load("data/textures/minorhealthpotion.png", Texture.class);
+		GemLord.assets.load("data/textures/pocketwatch.png", Texture.class);
 
-		AnotherManager.assets.load("data/textures/empty.png", Texture.class);
-		AnotherManager.assets.load("data/textures/full.png", Texture.class);
-		AnotherManager.assets.load("data/textures/logo.png", Texture.class);
-		AnotherManager.assets.load("data/textures/map.png", Texture.class);
-		AnotherManager.assets.load("data/textures/point.png", Texture.class);
-		AnotherManager.assets.load("data/textures/abilityclaw.png", Texture.class);
-		AnotherManager.assets.load("data/textures/clawfullscreen.png", Texture.class);
-		AnotherManager.assets.load("data/textures/pointdone.png", Texture.class);
-		AnotherManager.assets.load("data/textures/splash.jpg", Texture.class);
-		AnotherManager.assets.load("data/textures/totem.png", Texture.class);
-		AnotherManager.assets.load("data/textures/cell_back.png", Texture.class);
-		AnotherManager.assets.load("data/textures/ring.png", Texture.class);
-		AnotherManager.assets.load("data/textures/star.png", Texture.class);
-		AnotherManager.assets.load("data/textures/treasure.jpg", Texture.class);
-		AnotherManager.assets.load("data/textures/heart.png", Texture.class);
-		AnotherManager.assets.load("data/textures/heartempty.png", Texture.class);
-		AnotherManager.assets.load("data/textures/robe.png", Texture.class);
-		AnotherManager.assets.load("data/textures/itemdagger.png", Texture.class);
-		AnotherManager.assets.load("data/textures/itembow.png", Texture.class);
-		AnotherManager.assets.load("data/textures/itemarrow.png", Texture.class);
-		AnotherManager.assets.load("data/textures/itemamulet.png", Texture.class);
-		AnotherManager.assets.load("data/textures/robe_scholar.png", Texture.class);
-		AnotherManager.assets.load("data/textures/awesome.png", Texture.class);
-		AnotherManager.assets.load("data/textures/loadout.jpg", Texture.class);
-		AnotherManager.assets.load("data/textures/menu.png", Texture.class);
-		AnotherManager.assets.load("data/textures/shield.png", Texture.class);
+		GemLord.assets.load("data/textures/empty.png", Texture.class);
+		GemLord.assets.load("data/textures/full.png", Texture.class);
+		GemLord.assets.load("data/textures/logo.png", Texture.class);
+		GemLord.assets.load("data/textures/map.png", Texture.class);
+		GemLord.assets.load("data/textures/point.png", Texture.class);
+		GemLord.assets.load("data/textures/abilityclaw.png", Texture.class);
+		GemLord.assets.load("data/textures/clawfullscreen.png", Texture.class);
+		GemLord.assets.load("data/textures/pointdone.png", Texture.class);
+		GemLord.assets.load("data/textures/splash.jpg", Texture.class);
+		GemLord.assets.load("data/textures/totem.png", Texture.class);
+		GemLord.assets.load("data/textures/cell_back.png", Texture.class);
+		GemLord.assets.load("data/textures/ring.png", Texture.class);
+		GemLord.assets.load("data/textures/star.png", Texture.class);
+		GemLord.assets.load("data/textures/treasure.jpg", Texture.class);
+		GemLord.assets.load("data/textures/heart.png", Texture.class);
+		GemLord.assets.load("data/textures/heartempty.png", Texture.class);
+		GemLord.assets.load("data/textures/robe.png", Texture.class);
+		GemLord.assets.load("data/textures/itemdagger.png", Texture.class);
+		GemLord.assets.load("data/textures/itembow.png", Texture.class);
+		GemLord.assets.load("data/textures/itemarrow.png", Texture.class);
+		GemLord.assets.load("data/textures/itemamulet.png", Texture.class);
+		GemLord.assets.load("data/textures/robe_scholar.png", Texture.class);
+		GemLord.assets.load("data/textures/awesome.png", Texture.class);
+		GemLord.assets.load("data/textures/loadout.jpg", Texture.class);
+		GemLord.assets.load("data/textures/menu.png", Texture.class);
+		GemLord.assets.load("data/textures/title.png", Texture.class);
+		GemLord.assets.load("data/textures/shield.png", Texture.class);
 
-		AnotherManager.assets.load("data/sounds/blub1.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/blub2.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/blub3.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/blub1.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/blub2.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/blub3.ogg", Sound.class);
 
-		AnotherManager.assets.load("data/sounds/bang.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/block.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/smash.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/gotitem.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/bow.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/music.ogg", Music.class);
-        AnotherManager.assets.load("data/sounds/music0.ogg", Music.class);
-        AnotherManager.assets.load("data/sounds/music3.ogg", Music.class);
-        AnotherManager.assets.load("data/sounds/music4.ogg", Music.class);
-        AnotherManager.assets.load("data/sounds/loot.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/victory.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/boo.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/woosh.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/abilityclaw.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/convert.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/ding.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/challenge.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/slidein.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/impressive.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/godlike.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/unstoppable.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/totem.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/gulp.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/pocketwatch.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/bite.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
-		AnotherManager.assets.load("data/sounds/menumusic.ogg", Music.class);
+		GemLord.assets.load("data/sounds/bang.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/block.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/smash.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/gotitem.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/bow.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/music.ogg", Music.class);
+        GemLord.assets.load("data/sounds/music0.ogg", Music.class);
+        GemLord.assets.load("data/sounds/music3.ogg", Music.class);
+        GemLord.assets.load("data/sounds/music4.ogg", Music.class);
+        GemLord.assets.load("data/sounds/loot.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/victory.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/boo.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/woosh.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/abilityclaw.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/convert.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/ding.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/challenge.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/slidein.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/impressive.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/godlike.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/unstoppable.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/totem.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/gulp.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/pocketwatch.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/bite.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
+		GemLord.assets.load("data/sounds/menumusic.ogg", Music.class);
 
-		AnotherManager.assets.load("data/ui/uiskin.json", Skin.class);
+		GemLord.assets.load("data/ui/uiskin.json", Skin.class);
 
-		AnotherManager.assets.load("data/sounds/abilityattack_fire.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/abilityfireball_fire.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/abilitypoison_fire.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/abilitypetrify.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/abilityattack_fire.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/abilityfireball_fire.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/abilitypoison_fire.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/abilitypetrify.ogg", Sound.class);
 
-		AnotherManager.assets.load("data/sounds/awesome.ogg", Sound.class);
-		AnotherManager.assets.load("data/sounds/error.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/awesome.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/error.ogg", Sound.class);
 
 	}
 
@@ -170,24 +171,25 @@ public class SplashScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 
-		if (AnotherManager.assets.update()) {
-			AnotherManager.soundPlayer.touchSounds();
-			AnotherManager.soundPlayer.PlayBlub2();
+		if (GemLord.assets.update()) {
+			GemLord.soundPlayer.touchSounds();
+			GemLord.soundPlayer.PlayBlub2();
 			// set font texture scaling to linear
-			AnotherManager.assets.get("data/ui/uiskin.json", Skin.class).getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			GemLord.assets.get("data/ui/uiskin.json", Skin.class).getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+            GemLord.assets.get("data/ui/uiskin.json", Skin.class).getFont("credit-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			myGame.setScreen(myGame.menuScreen);
 		}
-		final float left = AnotherManager.VIRTUAL_WIDTH * 0.3f;
-		final float bot = AnotherManager.VIRTUAL_HEIGHT * 0.5f;
+		final float left = GemLord.VIRTUAL_WIDTH * 0.3f;
+		final float bot = GemLord.VIRTUAL_HEIGHT * 0.5f;
 		final float width = 300;
-		final float done = AnotherManager.assets.getProgress() * width;
+		final float done = GemLord.assets.getProgress() * width;
 
 		final SpriteBatch sb = stage.getSpriteBatch();
 		sb.begin();
 		empty.draw(sb, left, bot, 300, 30);
 		full.draw(sb, left, bot, done, 30);
 		/*
-		.drawMultiLine(sb, (int) (AnotherManager.assets.getProgress() * 100) + "% loaded", width / 2 + 60, bot + 20, 0,
+		.drawMultiLine(sb, (int) (GemLord.assets.getProgress() * 100) + "% loaded", width / 2 + 60, bot + 20, 0,
 				BitmapFont.HAlignment.CENTER);
 		 */
 		sb.end();
@@ -196,7 +198,7 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void resize(final int width, final int height) {
-		AnotherManager.getInstance().stageResize(width, height, stage);
+		GemLord.getInstance().stageResize(width, height, stage);
 	}
 
 	@Override
@@ -211,7 +213,7 @@ public class SplashScreen implements Screen {
 		stage.setCamera(myGame.camera);
 		splashImage = new Image(splashTexture);
 
-		splashImage.setBounds(0, 0, AnotherManager.VIRTUAL_WIDTH, AnotherManager.VIRTUAL_HEIGHT);
+		splashImage.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
 		splashImage.addAction(Actions.alpha(0));
 		splashImage.addAction(Actions.fadeIn(0.5f));
 		stage.addActor(splashImage);
@@ -223,7 +225,7 @@ public class SplashScreen implements Screen {
 
 
 		loadAllAssets();
-		AnotherManager.assets.finishLoading();
+		GemLord.assets.finishLoading();
 	}
 
 }

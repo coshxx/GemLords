@@ -43,7 +43,7 @@ public class SoundPlayer {
 	private Sound woosh;
 	private Sound smash;
 
-	public SoundPlayer(final AnotherManager game) {
+	public SoundPlayer(final GemLord game) {
 	}
 
 	public void fadeOutMapMusic(final float delta) {
@@ -188,7 +188,7 @@ public class SoundPlayer {
     }
 
 	public void touchSounds() {
-		AssetManager assets = AnotherManager.assets;
+		AssetManager assets = GemLord.assets;
 		blub1 = assets.get("data/sounds/blub1.ogg", Sound.class);
 		blub2 = assets.get("data/sounds/blub2.ogg", Sound.class);
         bow = assets.get("data/sounds/bow.ogg", Sound.class);

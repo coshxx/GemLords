@@ -1,12 +1,11 @@
 package de.cosh.anothermanager.Items;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Buff;
 import de.cosh.anothermanager.SwapGame.Board;
@@ -19,7 +18,7 @@ public class ItemTotem extends BaseItem implements UseItem {
 	private Integer currentCooldown;
 
 	public ItemTotem() {
-		super(AnotherManager.assets.get("data/textures/totem.png", Texture.class));
+		super(GemLord.assets.get("data/textures/totem.png", Texture.class));
 		itemNumber = 3;
 		setItemName("Alpha Totem");
 		setItemText("Recover 3 hp\neach turn\nCooldown: 99");
@@ -30,15 +29,15 @@ public class ItemTotem extends BaseItem implements UseItem {
 
 	@Override
 	public void onUse() {
-        if( AnotherManager.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
+        if( GemLord.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
             return;
 		if (currentCooldown <= 0) {
-			AnotherManager.getInstance();
-			AnotherManager.soundPlayer.playTotem();
+			GemLord.getInstance();
+			GemLord.soundPlayer.playTotem();
 			Buff totemBuff = new Buff();
-			totemBuff.setBuffImage(new Image(AnotherManager.assets.get("data/textures/totem.png", Texture.class)));
-			totemBuff.setup(3, 99, AnotherManager.getInstance().player);
-			AnotherManager.getInstance().player.addBuff(totemBuff);
+			totemBuff.setBuffImage(new Image(GemLord.assets.get("data/textures/totem.png", Texture.class)));
+			totemBuff.setup(3, 99, GemLord.getInstance().player);
+			GemLord.getInstance().player.addBuff(totemBuff);
 			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 			currentCooldown = cooldown;
 		}

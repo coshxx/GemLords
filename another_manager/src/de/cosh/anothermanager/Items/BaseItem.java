@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.Damage;
 
 /**
@@ -45,7 +45,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 
 	public void removeFromActionBar() {
 		addedToActionBar = false;
-		AnotherManager.getInstance().player.getActionBar().removeFromBar(this);
+		GemLord.getInstance().player.getActionBar().removeFromBar(this);
 	}
 
     public int getAdditionalDamage(Damage damage) {
@@ -64,13 +64,13 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 
 	BaseItem(Texture t) {
 		super(t);
-		itemBorder = new Image(AnotherManager.assets.get("data/textures/item_border.png", Texture.class));
+		itemBorder = new Image(GemLord.assets.get("data/textures/item_border.png", Texture.class));
 		selected = false;
 		drawText = true;
 		addedToActionBar = false;
 		actionBarSlot = -1;
-		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
-		bmf = s.getFont("default-font");
+		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
+		bmf = s.getFont("credit-font");
 	}
 
 	void setItemSlotType(ItemSlotType type) {
@@ -90,7 +90,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 		if (selected)
 			itemBorder.setColor(1f, 0f, 0f, parentAlpha * getColor().a);
 		else itemBorder.setColor(1f, 1f, 1f, parentAlpha * getColor().a);
-		AnotherManager.getInstance();
+		GemLord.getInstance();
         BitmapFont.TextBounds bounds;
 		itemBorder.setPosition(getX(), getY());
 		itemBorder.draw(batch, parentAlpha);

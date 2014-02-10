@@ -23,6 +23,6 @@ class Main {
         cfg.resizable = true;
         cfg.foregroundFPS = 100;
         
-		new LwjglApplication(new AnotherManager(), cfg);
+		new LwjglApplication(new GemLord(), cfg);
 	}
 }

@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 /**
  * Created by cosh on 06.01.14.
@@ -15,13 +15,13 @@ import de.cosh.anothermanager.AnotherManager;
 public class StarEffect {
 	private final Random r;
 
-	public StarEffect(final AnotherManager myGame) {
+	public StarEffect(final GemLord myGame) {
 		r = new Random();
 	}
 
 	public void spawnStars(final float x, final float y, final Group foreGround) {
 		for (int d = 0; d < 5; d++) {
-			final Image star = new Image(AnotherManager.assets.get("data/textures/star.png", Texture.class));
+			final Image star = new Image(GemLord.assets.get("data/textures/star.png", Texture.class));
 			final boolean left = r.nextBoolean();
 			float duration = 800 + r.nextInt(1400);
 			float xAmount = r.nextInt(1000);

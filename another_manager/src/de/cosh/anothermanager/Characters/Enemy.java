@@ -13,15 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.XmlReader;
-import com.badlogic.gdx.utils.XmlWriter;
 import de.cosh.anothermanager.Abilities.Ability;
 import de.cosh.anothermanager.Abilities.BaseAbility;
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.GUI.GUIWindow;
 import de.cosh.anothermanager.Items.*;
-
-import java.io.IOException;
 
 /**
  * Created by cosh on 10.01.14.
@@ -52,8 +48,8 @@ public class Enemy extends BaseCharacter {
         super();
         dropItemID = -1;
         this.isDefeated = false;
-        pointTexture = new TextureRegion(AnotherManager.assets.get("data/textures/point.png", Texture.class));
-        pointDoneTexture = new TextureRegion(AnotherManager.assets.get("data/textures/pointdone.png", Texture.class));
+        pointTexture = new TextureRegion(GemLord.assets.get("data/textures/point.png", Texture.class));
+        pointDoneTexture = new TextureRegion(GemLord.assets.get("data/textures/pointdone.png", Texture.class));
 
         style = new ImageButton.ImageButtonStyle();
         style.up = new TextureRegionDrawable(pointTexture);
@@ -105,7 +101,7 @@ public class Enemy extends BaseCharacter {
 
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
-                AnotherManager.soundPlayer.playChallenge();
+                GemLord.soundPlayer.playChallenge();
                 final GUIWindow guiWindow = new GUIWindow(stage);
                 guiWindow.showMapEnemyWindow(enemyHP, enemyImage, enemyName);
                 enemyManager.setSelectedEnemy(e);
@@ -118,18 +114,18 @@ public class Enemy extends BaseCharacter {
     public void addToBoard(final Group foreGround) {
         super.addToBoard(foreGround);
 
-        //enemyImage.setPosition(AnotherManager.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), AnotherManager.VIRTUAL_HEIGHT - 150);
-        enemyImage.setBounds(AnotherManager.VIRTUAL_WIDTH / 2 - (75), AnotherManager.VIRTUAL_HEIGHT - 150, 150, 150);
-        setHealthBarPosition(0, AnotherManager.VIRTUAL_HEIGHT - (230 + 50), AnotherManager.VIRTUAL_WIDTH, 50);
+        //enemyImage.setPosition(GemLord.VIRTUAL_WIDTH / 2 - (enemyImage.getWidth() / 2), GemLord.VIRTUAL_HEIGHT - 150);
+        enemyImage.setBounds(GemLord.VIRTUAL_WIDTH / 2 - (75), GemLord.VIRTUAL_HEIGHT - 150, 150, 150);
+        setHealthBarPosition(0, GemLord.VIRTUAL_HEIGHT - (230 + 50), GemLord.VIRTUAL_WIDTH, 50);
 
         foreGround.addActor(enemyImage);
         foreGround.addActor(getHealthBar());
 
-        float startX = AnotherManager.VIRTUAL_WIDTH/2 - (abilities.size * 95);
+        float startX = GemLord.VIRTUAL_WIDTH/2 - (abilities.size * 95);
 
         for (int i = 0; i < abilities.size; i++) {
             final Ability current = abilities.get(i);
-            current.getImage().setBounds(enemyImage.getX() + (i * 95), AnotherManager.VIRTUAL_HEIGHT - 230, 70, 70);
+            current.getImage().setBounds(enemyImage.getX() + (i * 95), GemLord.VIRTUAL_HEIGHT - 230, 70, 70);
             foreGround.addActor(current.getImage());
         }
 
@@ -161,7 +157,7 @@ public class Enemy extends BaseCharacter {
     }
 
     public void turn(Player player) {
-        AnotherManager.getInstance().afterActionReport.setHighestDamageReceivedInOneTurn(player.getLastTurnDamageReceived());
+        GemLord.getInstance().afterActionReport.setHighestDamageReceivedInOneTurn(player.getLastTurnDamageReceived());
         System.out.println("Player last turn received damage: " + player.getLastTurnDamageReceived());
         player.clearLastTurnReceivedDamage();
         super.turn();
@@ -192,7 +188,7 @@ public class Enemy extends BaseCharacter {
 
     @Override
     public void damage(Damage damage) {
-        AnotherManager.getInstance().afterActionReport.totalDamgeDealt += damage.damage;
+        GemLord.getInstance().afterActionReport.totalDamgeDealt += damage.damage;
         getHealthBar().hit(damage);
         lastTurnDamageReceived += damage.damage;
     }
@@ -207,7 +203,7 @@ public class Enemy extends BaseCharacter {
 
     public void increaseHealth(int hp) {
         getHealthBar().increaseHealth(hp);
-        AnotherManager.getInstance().afterActionReport.enemyTotalHealed += hp;
+        GemLord.getInstance().afterActionReport.enemyTotalHealed += hp;
     }
 
 

@@ -3,7 +3,7 @@ package de.cosh.anothermanager.SwapGame;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 public class GemHandler {
 	private GemFactory gemFactory;
@@ -13,7 +13,7 @@ public class GemHandler {
 	private final RespawnRequest respawnRequest;
 
 	public GemHandler(Cell[][] cells, RespawnRequest respawnRequest) {
-		gemFactory = new GemFactory(AnotherManager.getInstance());
+		gemFactory = new GemFactory(GemLord.getInstance());
 		this.cells = cells;
 		this.respawnRequest = respawnRequest;
 		lastShiftRight = false;
@@ -33,7 +33,7 @@ public class GemHandler {
 				newGem.setPosition(Board.CELL_PAD_X + Board.CELL_SIZE * x, Board.CELL_PAD_Y + Board.CELL_SIZE * (Board.MAX_SIZE_Y + i));
 				foreGround.addActor(newGem);
 				newGem.setCell(x, Board.MAX_SIZE_Y + i);
-				AnotherManager.getInstance().gameScreen.getBoard().addToUncelledGems(newGem);
+				GemLord.getInstance().gameScreen.getBoard().addToUncelledGems(newGem);
 				//newGem.setFalling(true);
 			}
 		}

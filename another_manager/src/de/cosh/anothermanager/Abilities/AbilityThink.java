@@ -3,7 +3,7 @@ package de.cosh.anothermanager.Abilities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.SwapGame.*;
 
@@ -16,14 +16,14 @@ public class AbilityThink extends BaseAbility {
 
 	public AbilityThink() {
 		abilityImageLocation = "data/textures/abilitythink.png";
-		abilityImage = new Image(AnotherManager.assets.get(abilityImageLocation, Texture.class));
+		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
         setAbilityDamage(0);
 	}
 
 	@Override
 	public boolean fire(final BaseCharacter target) {
 		if (super.fire(target)) {
-            board = AnotherManager.getInstance().gameScreen.getBoard();
+            board = GemLord.getInstance().gameScreen.getBoard();
             cells = board.getCells();
 
             SwapCommand swapCommand = board.getMatchFinder().getFirstSwapPossibility();

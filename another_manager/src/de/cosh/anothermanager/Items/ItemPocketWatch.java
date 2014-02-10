@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.SwapGame.Board;
@@ -21,12 +21,12 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 	private BitmapFont bmf;
 
 	public ItemPocketWatch() {
-		super(AnotherManager.assets.get("data/textures/pocketwatch.png", Texture.class));
+		super(GemLord.assets.get("data/textures/pocketwatch.png", Texture.class));
 		itemNumber = 4;
 		setItemName("Simaohs Pocketwatch");
 		setItemText("Undo 100%\nof received damage\nCooldown: 99");
 		setItemSlotType(ItemSlotType.ACTIVE);
-		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class);
+		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
 		bmf = s.getFont("default-font");
 
 		cooldown = 99;
@@ -36,12 +36,12 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 
 	@Override
 	public void onUse() {
-        if( AnotherManager.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
+        if( GemLord.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
             return;
 		if (currentCooldown <= 0) {
-			AnotherManager.getInstance();
-			AnotherManager.soundPlayer.playPocketwatch();
-			Player player = AnotherManager.getInstance().player;
+			GemLord.getInstance();
+			GemLord.soundPlayer.playPocketwatch();
+			Player player = GemLord.getInstance().player;
 			player.increaseHealth(player.getLastTurnDamageReceived());
 			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 			currentCooldown = cooldown;

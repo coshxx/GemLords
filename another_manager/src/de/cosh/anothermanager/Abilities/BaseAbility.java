@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Damage;
 
@@ -48,8 +48,8 @@ public class BaseAbility implements Ability {
 	public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
 		final Integer cooldown = getCooldown();
 
-		AnotherManager.getInstance();
-		Skin s = AnotherManager.assets.get("data/ui/uiskin.json", Skin.class)	;
+		GemLord.getInstance();
+		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
 		bmf = s.getFont("default-font");
 		bmf.setColor(1f, 1f, 1f, parentAlpha);
 		if (currentCooldown > 0) {

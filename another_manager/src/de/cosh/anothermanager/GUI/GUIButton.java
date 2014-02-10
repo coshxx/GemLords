@@ -7,9 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.Screens.LoadoutScreen;
 import de.cosh.anothermanager.Screens.MapTraverseScreen;
@@ -40,9 +39,9 @@ public class GUIButton {
 						Actions.run(new Runnable() {
 							@Override
 							public void run() {
-                                final AnotherManager myGame = AnotherManager.getInstance();
+                                final GemLord myGame = GemLord.getInstance();
                                 myGame.mapTraverseScreen.enemyWindowOpen = false;
-								AnotherManager.getInstance().setScreen(new LoadoutScreen());
+								GemLord.getInstance().setScreen(new LoadoutScreen());
 							}
 						}))));
 			}
@@ -63,9 +62,9 @@ public class GUIButton {
 						Actions.run(new Runnable() {
 							@Override
 							public void run() {
-								AnotherManager.getInstance();
-								AnotherManager.soundPlayer.stopLoadoutMusic();
-								AnotherManager.getInstance().setScreen(new MapTraverseScreen(AnotherManager.getInstance()));
+								GemLord.getInstance();
+								GemLord.soundPlayer.stopLoadoutMusic();
+								GemLord.getInstance().setScreen(new MapTraverseScreen(GemLord.getInstance()));
 							}
 						}))));
 			}
@@ -84,14 +83,14 @@ public class GUIButton {
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(final com.badlogic.gdx.scenes.scene2d.InputEvent event, final float x, final float y) {
-				ArrayList<BaseItem> items = AnotherManager.getInstance().player.getInventory().getAllItems();
+				ArrayList<BaseItem> items = GemLord.getInstance().player.getInventory().getAllItems();
 				for (BaseItem item : items) {
 					if (item.isAddedToActionBar()) {
 						if (item.isSelected()) {
 							item.removeFromActionBar();
 							item.unselect();
 							item.setDrawText(true);
-							AnotherManager.getInstance().player.getInventory().resortItems();
+							GemLord.getInstance().player.getInventory().resortItems();
 						}
 					}
 				}

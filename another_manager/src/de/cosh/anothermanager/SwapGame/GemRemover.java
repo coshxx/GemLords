@@ -3,7 +3,7 @@ package de.cosh.anothermanager.SwapGame;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-import de.cosh.anothermanager.AnotherManager;
+import de.cosh.anothermanager.GemLord;
 
 /**
  * Created by cosh on 13.01.14.
@@ -108,7 +108,7 @@ class GemRemover {
 		}
 	}
 
-	public void removeFadedGems(final AnotherManager myGame, final Group effectGroup) {
+	public void removeFadedGems(final GemLord myGame, final Group effectGroup) {
 		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
 			for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
 				final Gem rem = cells[x][y].getGem();
