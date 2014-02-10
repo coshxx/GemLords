@@ -94,8 +94,8 @@ public class Enemy extends BaseCharacter {
                                          final Stage stage, final EnemyManager enemyManager) {
         this.enemyImage = enemyImage;
         final Enemy e = this;
-        pointButton.setBounds(mapPos.x, mapPos.y, 60, 60);
-        pointButtonDone.setBounds(mapPos.x, mapPos.y, 60, 60);
+        pointButton.setBounds(mapPos.x, mapPos.y, 30, 30);
+        pointButtonDone.setBounds(mapPos.x, mapPos.y, 30, 30);
         setHealth(enemyHP);
         pointButton.addListener(new ClickListener() {
 

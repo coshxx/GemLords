@@ -13,8 +13,8 @@ bite, claw;
 uncommon snake
 bite, bite, poison
 
-inventoy = 3 standard slots (healthpotion, armor, weapons)
-+ bags ( 1 - x slots )
+inventoy = 3 standard slots (healthpotion, armor, weapons) // 6 slots
++ bags ( 1 - x slots ) // canned
 
 items / abilities
 =====
@@ -22,10 +22,10 @@ minor/common/major
 health potion
 armor (increases hp by ...)
 
-bags
-( 1 - x slots)
-broken bow (deal x damage - cooldown)
-broken sword ( deal x damage - cooldown)
+bags // canned
+( 1 - x slots) // canned
+broken bow (deal x damage - cooldown) // done
+broken sword ( deal x damage - cooldown) // changed-done
 
 simaohs shield of the defender (block next attack)
 icys old watch (undo last damage)
@@ -46,15 +46,15 @@ a lot of one use damage items
 (250 - 500)
 
 ===================================================
-records (loot screen?)
-highest damage in one turn
-damage dealt
-damage received
-"longest" combo
+records (loot screen?) // done
+highest damage in one turn // done
+damage dealt // done
+damage received // done
+"longest" combo // done
 
-board-slide-in
-gem-aufprall-"swing"
-5er gems
+board-slide-in // done
+gem-aufprall-"swing" // nope
+5er gems // done
 
 === fixed
 addi bug -> anstatt cancel oder fight direkt loadout -> bugged to hell

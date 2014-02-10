@@ -20,12 +20,12 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 320,
-	y: 320
+	x: 437,
+	y: 422
 },
 healthBar: {
-	hp: 265,
-	maxHP: 265
+	hp: 215,
+	maxHP: 215
 },
 dropItemID: 8
 }

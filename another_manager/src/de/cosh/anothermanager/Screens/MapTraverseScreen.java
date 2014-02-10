@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -73,7 +74,7 @@ public class MapTraverseScreen implements Screen {
 
 		if( GemLord.DEBUGMODE ) {
 			Enemy e = new Enemy();
-			e.setLocationOnMap(250,  250);
+			e.setLocationOnMap(0,  0);
 			e.setHealth(999);
 			e.setDropItemID(-1);
 			e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(new Texture("data/textures/enemy.png")), 999, stage, myGame.enemyManager);
@@ -92,7 +93,10 @@ public class MapTraverseScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
-		
+
+        Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+        coords = stage.screenToStageCoordinates(coords);
+        System.out.println(coords.x + ", "+ coords.y);
 		Table.drawDebug(stage);
 
 		if (fadeMusic) {

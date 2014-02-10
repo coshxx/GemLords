@@ -1,9 +1,6 @@
 package de.cosh.anothermanager.Screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
@@ -14,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.SwapGame.Board;
 
-public class GameScreen implements Screen, GestureListener {
+public class GameScreen implements Screen, GestureListener, InputProcessor {
 	private Vector2 flingStartPosition;
 	private final GemLord myGame;
 	private Stage stage;
@@ -87,10 +84,7 @@ public class GameScreen implements Screen, GestureListener {
 		stage.act(delta);
 		stage.draw();
 
-        // TODO: crap
-        if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE ) ) {
-            swapGame.pressedBack();
-        }
+
 	}
 
 	@Override
@@ -110,8 +104,9 @@ public class GameScreen implements Screen, GestureListener {
 		swapGame = new Board(myGame);
 		InputMultiplexer input = new InputMultiplexer();
 		input.addProcessor(stage);
-		input.addProcessor(new GestureDetector(this));
+        input.addProcessor(new GestureDetector(this));
 		Gdx.input.setInputProcessor(input);
+        Gdx.input.setCatchBackKey(true);
 		GemLord.soundPlayer.playGameMusic();
 		swapGame.init();
 		swapGame.addAction(Actions.alpha(0.0f));
@@ -138,5 +133,49 @@ public class GameScreen implements Screen, GestureListener {
 
     public Board getBoard() {
         return swapGame;
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if( keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK ) {
+            swapGame.pressedBack();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

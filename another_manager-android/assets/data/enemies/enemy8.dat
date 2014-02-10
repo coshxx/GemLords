@@ -10,8 +10,8 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 420,
-	y: 220
+	x: 346,
+	y: 296
 },
 healthBar: {
 	hp: 115,
