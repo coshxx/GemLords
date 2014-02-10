@@ -15,7 +15,7 @@ class FloatingNumbers extends Actor {
     public FloatingNumbers() {
         GemLord.getInstance();
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
-        bmf = s.getFont("default-font");
+        bmf = s.getFont("credit-font");
         bmf.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
     }
 

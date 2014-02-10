@@ -19,6 +19,7 @@ public class SoundPlayer {
 	private Sound ding;
 	private Sound error;
 	private Sound fireball_start;
+    private Sound critical;
 	private Sound loot;
 	private Sound gulp;
 	private Sound challenge;
@@ -192,6 +193,10 @@ public class SoundPlayer {
         creditsMusic.stop();
 	}
 
+    public void playCritical() {
+        critical.play();
+    }
+
     public void playBlock() {
         block.play();
     }
@@ -203,6 +208,7 @@ public class SoundPlayer {
         bow = assets.get("data/sounds/bow.ogg", Sound.class);
 		bang = assets.get("data/sounds/bang.ogg", Sound.class);
         block = assets.get("data/sounds/block.ogg", Sound.class);
+        critical = assets.get("data/sounds/critical.ogg", Sound.class);
 		mapMusic = assets.get("data/sounds/music.ogg", Music.class);
 		woosh = assets.get("data/sounds/woosh.ogg", Sound.class);
 		convert = assets.get("data/sounds/convert.ogg", Sound.class);

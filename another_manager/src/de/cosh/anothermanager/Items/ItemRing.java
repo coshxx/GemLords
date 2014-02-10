@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Damage;
+import de.cosh.anothermanager.SoundPlayer;
 
 import java.util.Random;
 
@@ -39,7 +40,7 @@ public class ItemRing extends BaseItem {
         if( randChance <= 10 ) {
             additionalDamage = originalDamage.damage;
             originalDamage.isCrit = true;
-            System.out.println("The ring crits: " + additionalDamage);
+            GemLord.soundPlayer.playCritical();
         }
         return additionalDamage;
     }

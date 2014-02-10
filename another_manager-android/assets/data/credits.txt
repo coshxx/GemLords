@@ -9,7 +9,7 @@ by cosh
 Art
 ==============================
 Menu Background
-Freund von Robi
+Daniel Simon
 
 Gems
 Valor
@@ -39,6 +39,10 @@ Author: Robinhood76
 www.freesound.org
 
 
+Glass Ding
+Author: hihirex
+www.freesound.org
+
 Music
 ==============================
 Down
@@ -55,4 +59,8 @@ www.freesound.org
 
 Velatrisx Ambient Music
 Composer: Erokia
+www.freesound.org
+
+Addin Extra
+Composer: Wrylytucker
 www.freesound.org
