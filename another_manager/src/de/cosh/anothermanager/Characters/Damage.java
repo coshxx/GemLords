@@ -6,4 +6,5 @@ package de.cosh.anothermanager.Characters;
 public class Damage {
     public int damage;
     public boolean isCrit;
+    public int originX, originY;
 }

@@ -91,6 +91,8 @@ public class HealthBar extends Actor {
 		FloatingNumbers f = new FloatingNumbers();
         floatingNumbers.add(f);
 		f.setup(-damage.damage, left + width/2 + width/4, bot + 100 - (floatingNumbers.size * 25), damage.isCrit);
+        if( damage.isCrit ) {
+        }
 		f.addAction(Actions.fadeOut(6f));
 		getStage().addActor(f);
 	}

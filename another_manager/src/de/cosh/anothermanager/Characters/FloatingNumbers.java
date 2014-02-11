@@ -41,6 +41,7 @@ class FloatingNumbers extends Actor {
         } else if (value < 0) {
             bmf.setColor(1f, 0f, 0f, parentAlpha * this.getColor().a);
             if( isCrit ) {
+                bmf.setColor(1f, 1f, 1f, parentAlpha * this.getColor().a);
                 bmf.draw(batch, "*" + value.toString() + "*", getX(), getY());
             }
             else {
