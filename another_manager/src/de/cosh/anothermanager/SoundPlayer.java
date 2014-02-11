@@ -27,6 +27,7 @@ public class SoundPlayer {
 	private Sound totem;
 	private Sound slideIn;
     private Sound petrify;
+    private Sound turnSwitch;
     private Sound pocketwatch;
     private Sound block;
     private Sound bow;
@@ -206,6 +207,7 @@ public class SoundPlayer {
 		blub1 = assets.get("data/sounds/blub1.ogg", Sound.class);
 		blub2 = assets.get("data/sounds/blub2.ogg", Sound.class);
         bow = assets.get("data/sounds/bow.ogg", Sound.class);
+        turnSwitch = assets.get("data/sounds/turn.ogg", Sound.class);
 		bang = assets.get("data/sounds/bang.ogg", Sound.class);
         block = assets.get("data/sounds/block.ogg", Sound.class);
         critical = assets.get("data/sounds/critical.ogg", Sound.class);
@@ -283,5 +285,9 @@ public class SoundPlayer {
 
     public void playAbilityBite() {
         abilityBite.play();
+    }
+
+    public void playTurnSwitch() {
+        turnSwitch.play();
     }
 }

@@ -1,5 +1,6 @@
 package de.cosh.anothermanager.SwapGame;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -215,7 +216,7 @@ public class Board extends Group {
             }
             prepareEnemy();
             preparePlayer();
-            addActor(turnIndicator);
+            turnIndicator.addToBoard(foreGround);
             boardState = BoardState.STATE_CHECK;
             matchesDuringCurrentMove = 0;
         }
@@ -274,6 +275,7 @@ public class Board extends Group {
                 boardState = BoardState.STATE_FADING;
             } else {
                 boardState = BoardState.STATE_IDLE;
+                // TODO: meh
                 if( !turnIndicator.isPlayerTurn()) {
                     addAction(Actions.run(new Runnable() {
 

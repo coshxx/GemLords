@@ -22,25 +22,36 @@ rpglabyrinth.blogspot.de
 
 Sounds
 ==============================
-Ding
+Ding (Gem Match)
 Author: Aiwha
 www.freesound.org
 
-Bang
+Bang (Explosion)
 Author: twiggles
 www.freesound.org
 
-Bite
+Bite (Ability)
 Author: Slave2thelight
 www.freesound.org
 
-WAR 'n' BATTLE sounds
+Woosh (Conversion)
+Author: toyoto
+www.freesound.org
+
+WAR 'n' BATTLE sounds (Block)
 Author: Robinhood76
 www.freesound.org
 
-
-Glass Ding
+Glass Ding (Crit)
 Author: hihirex
+www.freesound.org
+
+Electric Wooshes (Totem)
+Author: Glaneur de sons
+www.freesound.org
+
+Swosh42 (Turn)
+Author: qubodup
 www.freesound.org
 
 Music
