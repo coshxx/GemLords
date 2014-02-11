@@ -12,6 +12,8 @@ class Main {
 		cfg.height = 921;
         cfg.x = 300;
         cfg.y = 0;
+        cfg.foregroundFPS = 0;
+        cfg.vSyncEnabled = false;
 		/*
 		cfg.width = 900;
 		cfg.height = 900;
@@ -21,8 +23,7 @@ class Main {
         cfg.height = 768;
         */
         cfg.resizable = true;
-        cfg.foregroundFPS = 100;
-        
+
 		new LwjglApplication(new GemLord(), cfg);
 	}
 }

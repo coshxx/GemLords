@@ -19,7 +19,7 @@ public class Gem extends Image {
 	};
 
 	private final float SWAP_SPEED = 0.20f;
-	private final float ACCEL_FACTOR = 20f;
+	private final float ACCEL_FACTOR = 2f;
 
 	private GemType gemType;
 	private GemTypeSpecialHorizontal specialTypeHorizontal;
@@ -90,9 +90,9 @@ public class Gem extends Image {
 	}
 
 	boolean fall(float delta) {
-		speed += delta * ACCEL_FACTOR;
-		translate(0, -speed);
-		totalTranslated += speed;
+		speed += ACCEL_FACTOR;
+        translate(0, -speed * delta);
+		totalTranslated += speed * delta;
 		if (totalTranslated >= Board.CELL_SIZE) {
 			translate(0, totalTranslated - Board.CELL_SIZE);
 			totalTranslated = 0;
