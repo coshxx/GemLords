@@ -8,6 +8,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.Shader;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.cosh.anothermanager.GemLord;
 
@@ -21,23 +24,7 @@ public class CreditScreen implements Screen, InputProcessor {
     private SpriteBatch batch;
     private float yHeight;
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-        yHeight += delta * 75;
-
-        batch.setProjectionMatrix(GemLord.getInstance().camera.combined);
-        batch.begin();
-        bmf.drawMultiLine(batch, credits, 0, yHeight, GemLord.VIRTUAL_WIDTH, BitmapFont.HAlignment.CENTER);
-        batch.end();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
+    private ShaderProgram shader;
 
     @Override
     public void show() {
@@ -51,6 +38,37 @@ public class CreditScreen implements Screen, InputProcessor {
         credits = fileHandle.readString();
         yHeight = 0f;
         GemLord.soundPlayer.playCreditsMusic();
+
+        ShaderProgram.pedantic = false;
+        shader = new ShaderProgram(Gdx.files.internal("data/shaders/vignette_vert.glsl"), Gdx.files.internal("data/shaders/vignette_frag.glsl"));
+        if( !shader.isCompiled() ) {
+            System.out.println(shader.getLog());
+        }
+        batch.setShader(shader);
+
+
+    }
+
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+        yHeight += delta * 75;
+
+
+
+        batch.setProjectionMatrix(GemLord.getInstance().camera.combined);
+        batch.begin();
+        bmf.drawMultiLine(batch, credits, 0, yHeight, GemLord.VIRTUAL_WIDTH, BitmapFont.HAlignment.CENTER);
+        batch.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        shader.begin();
+        shader.setUniformf("u_resolution", width, height);
+        shader.end();
     }
 
     @Override

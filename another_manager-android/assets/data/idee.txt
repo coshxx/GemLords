@@ -37,7 +37,6 @@ amulet of cleansing (remove debuffs)
 amulet of warding (prevent x debuffs)
 item irgendwas verdoppeln
 
-
 a lot of one use damage items
 (10 - 20)
 (20 - 50)
@@ -59,3 +58,8 @@ gem-aufprall-"swing" // nope
 === fixed
 addi bug -> anstatt cancel oder fight direkt loadout -> bugged to hell
 === fixed
+====================================================
+
+item-ideen:
+random chance auf 2 züge?
+life leech item
