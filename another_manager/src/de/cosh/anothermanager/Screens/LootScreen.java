@@ -6,14 +6,17 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.cosh.anothermanager.AfterActionReport;
-import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.EnemyManager;
-import de.cosh.anothermanager.CustomActions.PlayGotItemSoundAction;
-import de.cosh.anothermanager.Items.BaseItem;
 import de.cosh.anothermanager.CustomActions.PlayConvertSoundAction;
+import de.cosh.anothermanager.CustomActions.PlayGotItemSoundAction;
+import de.cosh.anothermanager.GemLord;
+import de.cosh.anothermanager.Items.BaseItem;
 
 /**
  * Created by cosh on 07.01.14.
@@ -181,8 +184,8 @@ public class LootScreen implements Screen {
                 Actions.fadeIn(0.25f)));
 
         label12.addAction(Actions.sequence(
-                        Actions.delay(1.25f),
-                        Actions.fadeIn(0.25f)));
+                Actions.delay(1.25f),
+                Actions.fadeIn(0.25f)));
 
         Label label13 = new Label("Longest combo: ", skin);
         Label label14 = new Label(aar.longestCombo.toString(), skin);
@@ -203,12 +206,32 @@ public class LootScreen implements Screen {
                 Actions.fadeIn(0.25f)));
 
 
-
         final BaseItem item = enemyManager.getSelectedEnemy().getDroppedItem();
+        BaseItem oldItem = null;
 
-        //final BaseItem item = new ItemApprenticeRobe();
-        if( item != null ) {
-            Label label15 = new Label("Received Item:", skin);
+        boolean upgradeFound = false;
+        for (BaseItem invItem : myGame.player.getInventory().getAllItems()) {
+            if (item.getItemSlotType() == invItem.getItemSlotType()) {
+                // upgrade
+                oldItem = item;
+                upgradeFound = true;
+                break;
+            }
+        }
+
+        if (item != null) {
+            Label label15 = new Label("", skin);
+            if (upgradeFound) {
+                label15.setText("Upgraded Item:");
+                oldItem.addAction(Actions.sequence(
+                        Actions.delay(1.75f),
+                        Actions.fadeIn(0.25f)));
+                oldItem.setPosition(GemLord.VIRTUAL_WIDTH / 4 - item.getWidth() / 2, 800);
+                stage.addActor(oldItem);
+
+            } else {
+                label15 = new Label("Received Item:", skin);
+            }
             label15.addAction(Actions.alpha(0));
             item.addAction(Actions.alpha(0));
 
@@ -223,7 +246,7 @@ public class LootScreen implements Screen {
                     Actions.fadeIn(0.25f)));
 
             leftSide.add(label15).left();
-            item.setPosition(GemLord.VIRTUAL_WIDTH/2 - item.getWidth()/2, 800);
+            item.setPosition(GemLord.VIRTUAL_WIDTH / 2 + item.getWidth() / 2, 800);
             myGame.player.getInventory().addItem(item);
             stage.addActor(item);
 
