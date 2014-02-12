@@ -139,7 +139,8 @@ public class MapTraverseScreen implements Screen {
             GemLord.DEBUGITEMSADDED = true;
 
             BaseItem item1, item2, item3, item4, item5,
-                    item6, item7, item8, item9, item10, item11;
+                    item6, item7, item8, item9, item10, item11,
+                    item12;
             item1 = new ItemMinorHealthPotion();
             item2 = new ItemApprenticeRobe();
             item3 = new ItemScholarRobe();
@@ -151,6 +152,7 @@ public class MapTraverseScreen implements Screen {
             item9 = new ItemBow();
             item10 = new ItemAmulet();
             item11 = new ItemRing();
+            item12 = new ItemMageRobe();
 
 			myGame.player.getInventory().addItem(item1);
 			myGame.player.getInventory().addItem(item2);
@@ -163,6 +165,7 @@ public class MapTraverseScreen implements Screen {
             myGame.player.getInventory().addItem(item9);
             myGame.player.getInventory().addItem(item10);
             myGame.player.getInventory().addItem(item11);
+            myGame.player.getInventory().addItem(item12);
 
             myGame.player.getActionBar().addToActionBar(item1);
             myGame.player.getActionBar().addToActionBar(item3);

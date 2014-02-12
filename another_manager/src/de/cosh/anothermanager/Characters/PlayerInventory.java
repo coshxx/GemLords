@@ -73,4 +73,14 @@ public class PlayerInventory {
 			}
 		}
 	}
+
+    public void removeItem(BaseItem oldInventoryItem) {
+        for( int i = 0; i < itemsInInventory.size(); i++ ) {
+            BaseItem invItem = itemsInInventory.get(i);
+            if( invItem == oldInventoryItem ) {
+                itemsInInventory.remove(i);
+                i--;
+            }
+        }
+    }
 }

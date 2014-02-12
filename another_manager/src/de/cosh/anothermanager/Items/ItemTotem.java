@@ -21,8 +21,8 @@ public class ItemTotem extends BaseItem implements UseItem {
 		super(GemLord.assets.get("data/textures/totem.png", Texture.class));
 		itemNumber = 3;
 		setItemName("Alpha Totem");
-		setItemText("Recover 3 hp\neach turn\nCooldown: 99");
-		setItemSlotType(ItemSlotType.ACTIVE);
+		setItemText("Recover 1-3 health\neach turn\nCooldown: 99");
+		setItemSlotType(ItemSlotType.TOTEM_ACTIVE);
 		cooldown = 99;
 		currentCooldown = 0;
 	}
@@ -36,7 +36,7 @@ public class ItemTotem extends BaseItem implements UseItem {
 			GemLord.soundPlayer.playTotem();
 			Buff totemBuff = new Buff();
 			totemBuff.setBuffImage(new Image(GemLord.assets.get("data/textures/totem.png", Texture.class)));
-			totemBuff.setup(3, 99, GemLord.getInstance().player);
+			totemBuff.setup(1, 3, 99, GemLord.getInstance().player);
 			GemLord.getInstance().player.addBuff(totemBuff);
 			addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 			currentCooldown = cooldown;

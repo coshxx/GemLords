@@ -1,6 +1,8 @@
 package de.cosh.anothermanager.Items;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
+import de.cosh.anothermanager.Characters.Damage;
 import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 
@@ -15,7 +17,7 @@ public class ItemDagger extends BaseItem {
 		itemNumber = 6;
 		setItemName("Valors Dagger");
 		setItemText("Increases your\ndamage by 1 - 5");
-		setItemSlotType(ItemSlotType.WEAPONPASSIVE);
+		setItemSlotType(ItemSlotType.WEAPON_PASSIVE);
         random = new Random();
 	}
 
@@ -29,9 +31,8 @@ public class ItemDagger extends BaseItem {
         return 0;
 	}
 
-    public int getAdditionalDamage(int originalDamage) {
-        int damage = random.nextInt((5 - 1)+1);
-        damage += 1;
-        return damage;
+    public int getAdditionalDamage(Damage damage) {
+        int additionalDamage = MathUtils.random(1, 5);
+        return additionalDamage;
     }
 }

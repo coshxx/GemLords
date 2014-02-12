@@ -3,6 +3,7 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -15,7 +16,8 @@ import de.cosh.anothermanager.GemLord;
  */
 public class Buff {
 	private final BitmapFont bmf;
-	private int healthPerTurn;
+	private int minHealthPerTurn;
+    private int maxHealthPerTurn;
 	private final Image buffBorderImage;
 
 	private Image buffImage;
@@ -58,8 +60,9 @@ public class Buff {
 		buffImage.setBounds(x + 2.5f, y + 2.5f, width - 5, height - 5);
 	}
 
-	public void setup(int healthPerTurn, int turns, BaseCharacter toChar) {
-		this.healthPerTurn = healthPerTurn;
+	public void setup(int minHealthPerTurn, int maxHealthPerTurn, int turns, BaseCharacter toChar) {
+		this.minHealthPerTurn = minHealthPerTurn;
+        this.maxHealthPerTurn = maxHealthPerTurn;
 		this.turns = turns;
 		this.toChar = toChar;
 		this.turnsComplete = 0;
@@ -74,7 +77,8 @@ public class Buff {
 			return true;
 		}
 
-		toChar.increaseHealth(healthPerTurn);
+        int healthPerTurn = MathUtils.random(minHealthPerTurn, maxHealthPerTurn);
+        toChar.increaseHealth(healthPerTurn);
 		buffBorderImage.addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 		buffImage.addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
 

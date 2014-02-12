@@ -101,6 +101,7 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/textures/ring.png", Texture.class);
 		GemLord.assets.load("data/textures/star.png", Texture.class);
 		GemLord.assets.load("data/textures/treasure.jpg", Texture.class);
+		GemLord.assets.load("data/textures/upgradearrow.png", Texture.class);
 		GemLord.assets.load("data/textures/heart.png", Texture.class);
 		GemLord.assets.load("data/textures/heartempty.png", Texture.class);
 		GemLord.assets.load("data/textures/robe.png", Texture.class);
@@ -110,6 +111,7 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/textures/itemamulet.png", Texture.class);
 		GemLord.assets.load("data/textures/turnindicator.png", Texture.class);
 		GemLord.assets.load("data/textures/robe_scholar.png", Texture.class);
+		GemLord.assets.load("data/textures/robe_mage.png", Texture.class);
 		GemLord.assets.load("data/textures/awesome.png", Texture.class);
 		GemLord.assets.load("data/textures/loadout.jpg", Texture.class);
 		GemLord.assets.load("data/textures/menu.png", Texture.class);

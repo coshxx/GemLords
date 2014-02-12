@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Damage;
-import de.cosh.anothermanager.SoundPlayer;
 
 import java.util.Random;
 
@@ -17,8 +16,8 @@ public class ItemRing extends BaseItem {
 		super(GemLord.assets.get("data/textures/ring.png", Texture.class));
 		itemNumber = 9;
 		setItemName("Basic Ring");
-		setItemText("Grants 10% crit chance\nfor basic swaps");
-		setItemSlotType(ItemSlotType.WEAPONPASSIVE);
+		setItemText("Increases crit chance\nby 5% for swaps");
+		setItemSlotType(ItemSlotType.RING_PASSIVE);
         random = new Random();
 	}
 
@@ -32,16 +31,7 @@ public class ItemRing extends BaseItem {
         return 0;
 	}
 
-    public int getAdditionalDamage(Damage originalDamage) {
-        int additionalDamage = 0;
-
-        int randChance = random.nextInt(100);
-
-        if( randChance <= 10 ) {
-            additionalDamage = originalDamage.damage;
-            originalDamage.isCrit = true;
-            GemLord.soundPlayer.playCritical();
-        }
-        return additionalDamage;
+    public int getCritChanceIncrease() {
+        return 5;
     }
 }

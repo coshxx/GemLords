@@ -12,8 +12,8 @@ public class ItemApprenticeRobe extends BaseItem {
 		super(GemLord.assets.get("data/textures/robe.png", Texture.class));
 		itemNumber = 0;
 		setItemName("Apprentice Robe");
-		setItemText("Grants an additional\n 25 hp");
-		setItemSlotType(ItemSlotType.ARMOR);
+		setItemText("Grants an additional\n 25 health");
+		setItemSlotType(ItemSlotType.ROBE_ARMOR);
 	}
 
 	@Override

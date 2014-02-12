@@ -88,7 +88,8 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 		stage.act(delta);
 		stage.draw();
 
-
+        if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE ))
+            swapGame.getEnemy().setHealth(0);
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 		itemNumber = 4;
 		setItemName("Simaohs Pocketwatch");
 		setItemText("Undo 100%\nof received damage\nCooldown: 99");
-		setItemSlotType(ItemSlotType.ACTIVE);
+		setItemSlotType(ItemSlotType.WATCH_ACTIVE);
 		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
 		bmf = s.getFont("default-font");
 

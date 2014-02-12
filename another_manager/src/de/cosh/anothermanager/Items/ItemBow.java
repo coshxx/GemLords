@@ -21,8 +21,8 @@ public class ItemBow extends BaseItem {
 		super(GemLord.assets.get("data/textures/itembow.png", Texture.class));
 		itemNumber = 7;
 		setItemName("Fox Bow");
-		setItemText("Deal 5 - 15 damage\nCooldown: 5");
-		setItemSlotType(ItemSlotType.ACTIVE);
+		setItemText("Deal 5 - 12 damage\nCooldown: 5");
+		setItemSlotType(ItemSlotType.BOW_ACTIVE);
         cooldown = 5;
         currentCooldown = 0;
         random = new Random();
@@ -39,7 +39,7 @@ public class ItemBow extends BaseItem {
             return;
         if (currentCooldown <= 0) {
             GemLord.soundPlayer.playBow();
-            int damage = random.nextInt( ( (15 - 5)+1 ));
+            int damage = random.nextInt( ( (12 - 5)+1 ));
             damage += 5;
 
             Damage dmg = new Damage();

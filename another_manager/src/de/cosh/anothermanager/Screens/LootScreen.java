@@ -3,13 +3,11 @@ package de.cosh.anothermanager.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.cosh.anothermanager.AfterActionReport;
 import de.cosh.anothermanager.Characters.EnemyManager;
@@ -208,26 +206,34 @@ public class LootScreen implements Screen {
 
         final BaseItem item = enemyManager.getSelectedEnemy().getDroppedItem();
         BaseItem oldItem = null;
-
-        boolean upgradeFound = false;
-        for (BaseItem invItem : myGame.player.getInventory().getAllItems()) {
-            if (item.getItemSlotType() == invItem.getItemSlotType()) {
-                // upgrade
-                oldItem = item;
-                upgradeFound = true;
-                break;
-            }
-        }
-
         if (item != null) {
+            boolean upgradeFound = false;
+            for (BaseItem invItem : myGame.player.getInventory().getAllItems()) {
+                if (item.getItemSlotType() == invItem.getItemSlotType()) {
+                    // upgrade
+                    oldItem = invItem;
+                    upgradeFound = true;
+                    break;
+                }
+            }
             Label label15 = new Label("", skin);
             if (upgradeFound) {
                 label15.setText("Upgraded Item:");
+                oldItem.addAction(Actions.alpha(0));
                 oldItem.addAction(Actions.sequence(
                         Actions.delay(1.75f),
                         Actions.fadeIn(0.25f)));
                 oldItem.setPosition(GemLord.VIRTUAL_WIDTH / 4 - item.getWidth() / 2, 800);
+                oldItem.setDrawText(true);
                 stage.addActor(oldItem);
+
+                Image upgradeArrow = new Image(GemLord.assets.get("data/textures/upgradearrow.png", Texture.class));
+                upgradeArrow.setBounds(270, 780, 200, 100);
+                upgradeArrow.addAction(Actions.alpha(0));
+                upgradeArrow.addAction(Actions.sequence(
+                        Actions.delay(1.75f),
+                        Actions.fadeIn(0.25f)));
+                stage.addActor(upgradeArrow);
 
             } else {
                 label15 = new Label("Received Item:", skin);
@@ -246,12 +252,12 @@ public class LootScreen implements Screen {
                     Actions.fadeIn(0.25f)));
 
             leftSide.add(label15).left();
-            item.setPosition(GemLord.VIRTUAL_WIDTH / 2 + item.getWidth() / 2, 800);
+            item.setPosition(GemLord.VIRTUAL_WIDTH / 2 + item.getWidth() + 60, 800);
             myGame.player.getInventory().addItem(item);
             stage.addActor(item);
 
         }
-
+        final BaseItem oldInventoryItem = oldItem;
         TextButton button = new TextButton("Return to map", skin);
         button.addListener(new ClickListener() {
             @Override
@@ -261,8 +267,13 @@ public class LootScreen implements Screen {
                     public void run() {
                         GemLord.soundPlayer.stopLootMusic();
                         myGame.player.levelDone(myGame.enemyManager.getSelectedEnemy().getEnemyNumber());
-                        if (item != null)
+                        if (item != null) {
+                            if (oldInventoryItem != null) {
+                                myGame.player.getActionBar().removeFromBar(oldInventoryItem);
+                                myGame.player.getInventory().removeItem(oldInventoryItem);
+                            }
                             myGame.player.getActionBar().addToActionBar(item);
+                        }
                         myGame.setScreen(myGame.mapTraverseScreen);
                     }
                 })));
@@ -271,9 +282,14 @@ public class LootScreen implements Screen {
 
         button.setBounds(-200, 0, 200, 100);
         //button.setBounds(GemLord.VIRTUAL_WIDTH / 2 - 100, 0, 200, 100);
+        button.addAction(Actions.moveTo(GemLord.VIRTUAL_WIDTH / 2 - 100, 0, 0.25f));
+
+        // TODO: ENABLE BEFORE RLZ
+        /*
         button.addAction(Actions.sequence(
                 Actions.delay(1.75f),
                 Actions.moveTo(GemLord.VIRTUAL_WIDTH / 2 - 100, 0, 0.25f)));
+        */
         stage.addActor(button);
         stage.addActor(table);
     }

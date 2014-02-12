@@ -13,7 +13,7 @@ public class ItemScholarRobe extends BaseItem {
 		itemNumber = 2;
 		setItemName("Scholars Robe");
 		setItemText("Grants an additional\n 50 hp");
-		setItemSlotType(ItemSlotType.ARMOR);
+		setItemSlotType(ItemSlotType.ROBE_ARMOR);
 	}
 
 	@Override

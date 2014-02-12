@@ -22,7 +22,7 @@ public class GemLord extends Game {
 	public static final float ASPECT_RATIO = (float) VIRTUAL_WIDTH / (float) VIRTUAL_HEIGHT;
 	public static AssetManager assets;
 	public static SoundPlayer soundPlayer;
-	public static boolean DEBUGMODE = true;
+	public static boolean DEBUGMODE = false;
     public static boolean DEBUGITEMSADDED = false;
 	private static GemLord instance;
 	public OrthographicCamera camera;

@@ -16,7 +16,7 @@ public class ItemAmulet extends BaseItem {
 		itemNumber = 8;
 		setItemName("Amulet of Evasion");
 		setItemText("10% chance to\ncompletely avoid\nall damage");
-		setItemSlotType(ItemSlotType.SHIELD);
+		setItemSlotType(ItemSlotType.AMULET_PASSIVE);
         r = new Random();
 	}
 

@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Characters;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Items.BaseItem;
@@ -55,7 +56,7 @@ public class Player extends BaseCharacter {
         for (int i = 0; i < playerInventory.getAllItems().size(); i++) {
             BaseItem item = playerInventory.getAllItems().get(i);
             if (item.isAddedToActionBar()) {
-                if (item.getItemSlotType() == BaseItem.ItemSlotType.POTION || item.getItemSlotType() == BaseItem.ItemSlotType.ACTIVE)
+                if (item.getItemSlotType() == BaseItem.ItemSlotType.POTION || item.getItemSlotType() == BaseItem.ItemSlotType.BOW_ACTIVE)
                     item.drawCooldown(batch, parentAlpha);
             }
         }
@@ -72,7 +73,7 @@ public class Player extends BaseCharacter {
             BaseItem currentItem = playerInventory.getAllItems().get(i);
             if (currentItem.isAddedToActionBar()) {
                 if (currentItem.getItemSlotType() == BaseItem.ItemSlotType.POTION ||
-                        currentItem.getItemSlotType() == BaseItem.ItemSlotType.ACTIVE) {
+                        currentItem.getItemSlotType() == BaseItem.ItemSlotType.BOW_ACTIVE) {
                     currentItem.turn();
                 }
             }
@@ -97,7 +98,8 @@ public class Player extends BaseCharacter {
         for( BaseItem i : getInventory().getAllItems() ) {
             if( !i.isAddedToActionBar() )
                 continue;
-            if( i.getItemSlotType() == BaseItem.ItemSlotType.SHIELD ) {
+            if( i.getItemSlotType() == BaseItem.ItemSlotType.SHIELD ||
+                    i.getItemSlotType() == BaseItem.ItemSlotType.AMULET_PASSIVE) {
                 finalDamage = i.tryToReduceDamage(damage.damage);
                 damage.damage = finalDamage;
             }
@@ -119,7 +121,7 @@ public class Player extends BaseCharacter {
         int count = 0;
         for (BaseItem i : playerInventory.getAllItems()) {
             if (i.isAddedToActionBar()) {
-                if (i.getItemSlotType() == BaseItem.ItemSlotType.ARMOR) {
+                if (i.getItemSlotType() == BaseItem.ItemSlotType.ROBE_ARMOR) {
                     count += i.preFirstTurnBuff(this);
                 }
             }
@@ -146,12 +148,27 @@ public class Player extends BaseCharacter {
 
     public int getItemDamageBuffs(Damage damage) {
         int damageIncrease = 0;
-        for( BaseItem i : playerInventory.getAllItems() ) {
-            if( i.isAddedToActionBar() ) {
-                if( i.getItemSlotType() == BaseItem.ItemSlotType.WEAPONPASSIVE) {
-                    damageIncrease += i.getAdditionalDamage(damage);
+
+        // first the weapons
+        for( BaseItem item : playerInventory.getAllItems() ) {
+            if( item.isAddedToActionBar() ) {
+                if(item.getItemSlotType() == BaseItem.ItemSlotType.WEAPON_PASSIVE ) {
+                    damageIncrease += item.getAdditionalDamage(damage);
                 }
             }
+        }
+
+        // then crits
+        int critIncrease = 0;
+        for( BaseItem item : playerInventory.getAllItems() ) {
+            if( item.isAddedToActionBar() ) {
+                critIncrease += item.getCritChanceIncrease();
+            }
+        }
+        System.out.println(critIncrease);
+        if(MathUtils.random(1, 100) <= critIncrease ) {
+            damageIncrease = damageIncrease + damage.damage;
+            damage.isCrit = true;
         }
         return damageIncrease;
     }

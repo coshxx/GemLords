@@ -21,7 +21,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 	private transient boolean addedToActionBar;
 	private transient int actionBarSlot;
 	
-	BitmapFont bmf;
+	protected BitmapFont bmf;
 
 	protected int itemNumber = -1;
 
@@ -40,8 +40,11 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 
 	@Override
 	public void turn() {
-
 	}
+
+    public int getCritChanceIncrease() {
+        return 0;
+    }
 
 	public void removeFromActionBar() {
 		addedToActionBar = false;
@@ -53,11 +56,15 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
     }
 
     public enum ItemSlotType {
-		ARMOR,
+        ROBE_ARMOR,
 		POTION,
-		ACTIVE,
+        BOW_ACTIVE,
+        WATCH_ACTIVE,
+        TOTEM_ACTIVE,
         SHIELD,
-        WEAPONPASSIVE
+        WEAPON_PASSIVE,
+        RING_PASSIVE,
+        AMULET_PASSIVE
 	}
 
 	private ItemSlotType itemSlotType;
@@ -98,7 +105,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
 		float imgCenterX = getX() + (getWidth() / 2);
 		if (drawText) {
             bmf.setScale(0.75f);
-			if (itemSlotType == ItemSlotType.ACTIVE )
+			if (itemSlotType == ItemSlotType.BOW_ACTIVE)
 				bmf.setColor(0.4f, 0.4f, 1f, parentAlpha * getColor().a);
 			else if( itemSlotType == ItemSlotType.POTION ) 
 				bmf.setColor(1f, 1f, 0f, parentAlpha * getColor().a);
