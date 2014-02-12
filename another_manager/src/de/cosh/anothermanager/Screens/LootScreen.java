@@ -205,6 +205,7 @@ public class LootScreen implements Screen {
 
 
         final BaseItem item = enemyManager.getSelectedEnemy().getDroppedItem();
+
         //final BaseItem item = new ItemApprenticeRobe();
         if( item != null ) {
             Label label15 = new Label("Received Item:", skin);

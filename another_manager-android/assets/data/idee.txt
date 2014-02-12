@@ -63,3 +63,35 @@ addi bug -> anstatt cancel oder fight direkt loadout -> bugged to hell
 item-ideen:
 random chance auf 2 züge?
 life leech item
+
+Valors Dagger
+2 - 6 Damage before crit  >>>
+
+Magic Ring
+5% crit chance >>>
++50% crit damage>>>
+(Life leech)
+
+Shield
+Block 1 - 10 damage >>>
+Return blocked dmg as heal
+
+Simaohs Pocketwatch
+<50%> as heal over <x> turns
+
+healthpotion
+heal <5-15 / 10-25 / 15-35>
+
+amulet of evasion
+<5/6/7%> chance to evade
+5/6/7% lifeleech
+
+robe
+increase hp by <10><25><50><100><200>
+
+Robsis Mace
+<10%> chance to stun enemy for <1/2/3> turns
+
+
+alpha totem
+return <1-3 / 2-4 / 3-6> hp each turn
