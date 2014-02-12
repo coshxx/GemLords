@@ -165,7 +165,6 @@ public class Player extends BaseCharacter {
                 critIncrease += item.getCritChanceIncrease();
             }
         }
-        System.out.println(critIncrease);
         if(MathUtils.random(1, 100) <= critIncrease ) {
             damageIncrease = damageIncrease + damage.damage;
             damage.isCrit = true;

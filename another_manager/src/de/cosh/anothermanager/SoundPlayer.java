@@ -40,6 +40,8 @@ public class SoundPlayer {
 	private Music gameMusic0;
     private Music gameMusic1;
     private Music gameMusic2;
+    private Music DONOTUSE;
+    private Music gameMusic3;
     private Music creditsMusic;
 	private float mapMusicVolume;
 	private Sound victorySound, loseSound;
@@ -68,6 +70,10 @@ public class SoundPlayer {
 	public void playTotem() {
 		totem.play();
 	}
+
+    public void playDONOTUSE() {
+        DONOTUSE.play();
+    }
 
 	public void playImpressive() {
 		impressive.play(0.3f);
@@ -169,7 +175,7 @@ public class SoundPlayer {
 
 	public void playGameMusic() {
         Random r = new Random();
-        int choice = r.nextInt(5);
+        int choice = r.nextInt(6);
         if( choice == 0 )
 		    gameMusic0.play();
         else if( choice == 1 ) {
@@ -183,13 +189,20 @@ public class SoundPlayer {
         else if (choice == 4 ) {
             creditsMusic.play();
         }
-        System.out.println(choice);
+        else if (choice == 5 ) {
+            gameMusic3.play();
+        }
 	}
+
+    public void playIntroMusic() {
+        gameMusic3.play();
+    }
 
 	public void stopGameMusic() {
 		gameMusic0.stop();
 		gameMusic1.stop();
 		gameMusic2.stop();
+        gameMusic3.stop();
         menuMusic.stop();
         creditsMusic.stop();
 	}
@@ -237,11 +250,13 @@ public class SoundPlayer {
 		gameMusic0 = assets.get("data/sounds/music0.ogg", Music.class);
 		gameMusic1 = assets.get("data/sounds/music3.ogg", Music.class);
 		gameMusic2 = assets.get("data/sounds/music4.ogg", Music.class);
+		gameMusic3 = assets.get("data/sounds/music5.ogg", Music.class);
 		creditsMusic = assets.get("data/sounds/creditsmusic.ogg", Music.class);
 		awesome = assets.get("data/sounds/awesome.ogg", Sound.class);
 		smash = assets.get("data/sounds/smash.ogg", Sound.class);
         abilityBite = assets.get("data/sounds/bite.ogg", Sound.class);
         gotItem = assets.get("data/sounds/gotitem.ogg", Sound.class);
+        DONOTUSE = assets.get("data/sounds/DONOTUSE.ogg", Music.class);
 
         menuMusic.setLooping(true);
         gameMusic0.setLooping(true);
@@ -289,5 +304,9 @@ public class SoundPlayer {
 
     public void playTurnSwitch() {
         turnSwitch.play();
+    }
+
+    public void stopDONOTUSE() {
+        DONOTUSE.stop();
     }
 }

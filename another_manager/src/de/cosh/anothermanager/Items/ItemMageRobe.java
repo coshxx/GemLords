@@ -21,7 +21,7 @@ public class ItemMageRobe extends BaseItem {
 	}
 
     public int getCritChanceIncrease() {
-        return 30;
+        return 3;
     }
 
 	@Override

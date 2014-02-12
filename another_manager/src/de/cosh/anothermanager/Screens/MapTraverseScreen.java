@@ -96,7 +96,6 @@ public class MapTraverseScreen implements Screen {
 
         Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
         coords = stage.screenToStageCoordinates(coords);
-        System.out.println(coords.x + ", "+ coords.y);
 		Table.drawDebug(stage);
 
 		if (fadeMusic) {

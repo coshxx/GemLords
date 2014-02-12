@@ -234,6 +234,8 @@ public class Enemy extends BaseCharacter {
                 return new ItemAmulet();
             case 9:
                 return new ItemRing();
+            case 10:
+                return new ItemMageRobe();
             default:
                 return null;
         }

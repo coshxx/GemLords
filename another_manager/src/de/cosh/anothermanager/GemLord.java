@@ -32,6 +32,7 @@ public class GemLord extends Game {
 	public EnemyManager enemyManager;
 	public GameScreen gameScreen;
 	public LootScreen lootScreen;
+    public ShadyIntroScreen shadyIntroScreen;
     public CreditScreen creditScreen;
 	public MapTraverseScreen mapTraverseScreen;
 	public MenuScreen menuScreen;
@@ -59,6 +60,7 @@ public class GemLord extends Game {
 		splashScreen = new SplashScreen(this);
 		soundPlayer = new SoundPlayer(this);
 		menuScreen = new MenuScreen(this);
+        shadyIntroScreen = new ShadyIntroScreen();
 		gameScreen = new GameScreen(this);
         creditScreen = new CreditScreen();
 		lootScreen = new LootScreen(this, enemyManager);
