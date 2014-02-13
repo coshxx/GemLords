@@ -118,6 +118,8 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/textures/title.png", Texture.class);
 		GemLord.assets.load("data/textures/shield.png", Texture.class);
 		GemLord.assets.load("data/textures/bettershield.png", Texture.class);
+		GemLord.assets.load("data/textures/lightningrod.png", Texture.class);
+
 
 		GemLord.assets.load("data/sounds/blub1.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/blub2.ogg", Sound.class);

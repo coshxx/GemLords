@@ -16,6 +16,7 @@ public class AbilityFireball extends BaseAbility {
 	public AbilityFireball() {
 		abilityImageLocation = "data/textures/abilityfireball.png";
 		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+        setAbilityDamage(8);
 	}
 
 	@Override

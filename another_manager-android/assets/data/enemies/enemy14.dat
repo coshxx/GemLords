@@ -9,9 +9,9 @@ abilities: [
 		cooldown: 0
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityBite,
-		currentCooldown: 1,
-		cooldown: 1
+		class: de.cosh.anothermanager.Abilities.AbilityLightningRod,
+		currentCooldown: 5,
+		cooldown: 5
 	},
 ],
 locationOnMap: {

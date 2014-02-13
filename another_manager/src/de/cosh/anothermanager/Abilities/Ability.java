@@ -15,7 +15,7 @@ public abstract interface Ability {
 	// use ability
 	public abstract boolean fire(BaseCharacter target);
 
-	public abstract int getCooldown();
+	public abstract int getCurrentCooldown();
 
 	// mhh
 	public abstract Image getImage();

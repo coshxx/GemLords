@@ -15,7 +15,7 @@ import de.cosh.anothermanager.Characters.Damage;
 public class BaseAbility implements Ability {
 	transient Image abilityImage;
 	String abilityImageLocation;
-	private transient BitmapFont bmf;
+	protected transient BitmapFont bmf;
 	private int cooldown;
 	private int currentCooldown;
 	private Damage damage;
@@ -46,7 +46,7 @@ public class BaseAbility implements Ability {
 
 	@Override
 	public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
-		final Integer cooldown = getCooldown();
+		final Integer cooldown = getCurrentCooldown();
 
 		GemLord.getInstance();
 		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
@@ -72,7 +72,7 @@ public class BaseAbility implements Ability {
 	}
 
 	@Override
-	public int getCooldown() {
+	public int getCurrentCooldown() {
 		return currentCooldown;
 	}
 
