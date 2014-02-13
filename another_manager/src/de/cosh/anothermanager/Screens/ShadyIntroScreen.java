@@ -98,7 +98,6 @@ public class ShadyIntroScreen implements Screen {
 
     @Override
     public void hide() {
-        GemLord.soundPlayer.stopDONOTUSE();
     }
 
     @Override

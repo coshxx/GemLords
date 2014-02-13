@@ -1,0 +1,18 @@
+id, item
+
+0, apprentice robe
+1, minor potion
+2, scholar robe
+3, alpha totem
+4, simaohs pocketwatch
+5, terrible shield
+6, valors dagger
+7, fox bow
+8, amulet
+9, basic ring
+10, mages robe
+11, decent shield
+
+1337, devrobe
+
+

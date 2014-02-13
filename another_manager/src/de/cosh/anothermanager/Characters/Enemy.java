@@ -120,11 +120,12 @@ public class Enemy extends BaseCharacter {
         foreGround.addActor(enemyImage);
         foreGround.addActor(getHealthBar());
 
-        float startX = GemLord.VIRTUAL_WIDTH/2 - (abilities.size * 95);
+        // don't ask
+        float startX = (enemyImage.getX() + enemyImage.getWidth()/2) - ((abilities.size * 105)/2) + 25;
 
         for (int i = 0; i < abilities.size; i++) {
             final Ability current = abilities.get(i);
-            current.getImage().setBounds(enemyImage.getX() + (i * 95), GemLord.VIRTUAL_HEIGHT - 230, 70, 70);
+            current.getImage().setBounds(startX + (i * 105), GemLord.VIRTUAL_HEIGHT - 230, 70, 70);
             foreGround.addActor(current.getImage());
         }
 
@@ -236,6 +237,8 @@ public class Enemy extends BaseCharacter {
                 return new ItemRing();
             case 10:
                 return new ItemMageRobe();
+            case 11:
+                return new ItemBetterShield();
             default:
                 return null;
         }

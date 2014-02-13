@@ -1,7 +1,7 @@
 {
-enemyImageLocation: data/textures/enemyredbat.png,
-enemyName: "Red Bat",
-enemyNumber: 13,
+enemyImageLocation: data/textures/enemykingcrab.png,
+enemyName: "King Crab",
+enemyNumber: 14,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityThink,
@@ -15,12 +15,12 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 478,
-	y: 450
+	x: 538,
+	y: 480
 },
 healthBar: {
-	hp: 150,
-	maxHP: 150
+	hp: 180,
+	maxHP: 180
 },
-dropItemID: 11
+dropItemID: -1
 }
