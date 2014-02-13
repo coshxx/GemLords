@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.Abilities.Ability;
+import de.cosh.anothermanager.Abilities.AbilityLightningRod;
 import de.cosh.anothermanager.Abilities.AbilityPetrify;
 import de.cosh.anothermanager.Abilities.BaseAbility;
 import de.cosh.anothermanager.GemLord;
@@ -77,15 +78,21 @@ public class Enemy extends BaseCharacter {
 		abilityPoison.setAbilityDamage(0);
 		abilityPoison.setCooldown(5);
 */
+        /*
         final AbilityPetrify abilityPetrify = new AbilityPetrify();
         abilityPetrify.setAbilityDamage(0);
         abilityPetrify.setCooldown(3);
+        */
+
+        final AbilityLightningRod abilityLightningRod = new AbilityLightningRod();
+        abilityLightningRod.setAbilityDamage(0);
+
 /*
 		abilities.add(abilityAttack);
 		abilities.add(abilityFireball);
 		abilities.add(abilityPoison);
 */
-        abilities.add(abilityPetrify);
+        abilities.add(abilityLightningRod);
         locationOnMap = new Vector2(0, 0);
     }
 

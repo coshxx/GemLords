@@ -36,7 +36,7 @@ public class ShadyIntroScreen implements Screen {
 
         totalTimePassed += delta;
 
-        if( totalTimePassed >= 5f ) {
+        if( totalTimePassed >= 10f ) {
             logoAlpha += alphaIncrease * delta;
             if (logoAlpha >= 1f) {
                 logoAlpha = 1f;
@@ -46,6 +46,7 @@ public class ShadyIntroScreen implements Screen {
 
         if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE )) {
             GemLord.getInstance().setScreen(GemLord.getInstance().mapTraverseScreen);
+            GemLord.soundPlayer.stopDONOTUSE();
         }
 
         GemLord.getInstance().camera.zoom = 0.3f;
@@ -98,6 +99,7 @@ public class ShadyIntroScreen implements Screen {
 
     @Override
     public void hide() {
+
     }
 
     @Override

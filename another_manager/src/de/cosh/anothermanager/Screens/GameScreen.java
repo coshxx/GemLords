@@ -2,6 +2,7 @@ package de.cosh.anothermanager.Screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
@@ -105,6 +106,7 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 	@Override
 	public void show() {
 		stage = new Stage(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT, false);
+        myGame.camera.zoom = 1f;
 		stage.setCamera(myGame.camera);
 		swapGame = new Board(myGame);
 		InputMultiplexer input = new InputMultiplexer();
@@ -182,5 +184,9 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    public SpriteBatch getBatch() {
+        return stage.getSpriteBatch();
     }
 }
