@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * Created by cosh on 20.01.14.
  */
 public class ActionBar {
+    public static final int BARLENGTH = 6;
     private final float ACTION_PAD_X = 20;
     private final float ACTION_SPACEING_X = 31;
     private BaseItem[] itemsInBar;
@@ -23,7 +24,7 @@ public class ActionBar {
 
     private Image actionBarImage;
 
-    private final int BARLENGTH = 6;
+
 
     public ActionBar() {
         itemBorders = new Image[BARLENGTH];
@@ -47,6 +48,10 @@ public class ActionBar {
                     for (BaseItem item : baseItems) {
                         if (item.isSelected()) {
                             if (itemsInBar[index] == null) {
+                                if( item.getActionBarSlot() != -1 ) {
+                                    itemsInBar[item.getActionBarSlot()] = null;
+                                }
+                                item.setActionBarSlot(index);
                                 itemsInBar[index] = item;
                                 itemsInBar[index].setPosition(itemBorders[index].getX(), itemBorders[index].getY());
                                 ParticleActor p = new ParticleActor(itemBorders[index].getX() + (itemBorders[index].getWidth() / 2), itemBorders[index].getY() + itemBorders[index].getHeight() / 2);
@@ -120,6 +125,7 @@ public class ActionBar {
         for (int i = 0; i < BARLENGTH; i++) {
             if (itemsInBar[i] == null) {
                 itemsInBar[i] = item;
+                item.setActionBarSlot(i);
                 item.addedToActionBar(true);
                 item.setDrawText(false);
                 if (itemBorders[i] == null) {
@@ -131,5 +137,29 @@ public class ActionBar {
                 break;
             }
         }
+    }
+
+    public BaseItem getItemInSlot(int i) {
+        if( itemsInBar[i] == null )
+            return null;
+        else return itemsInBar[i];
+    }
+
+    public void addToActionBarAt(BaseItem actionBarItem, int slot) {
+        itemsInBar[slot] = actionBarItem;
+        itemsInBar[slot].setDrawText(false);
+        itemsInBar[slot].addedToActionBar(true);
+        itemsInBar[slot].setActionBarSlot(slot);
+        if (itemBorders[slot] == null) {
+            itemBorders[slot] = new Image(GemLord.assets.get("data/textures/item_border.png", Texture.class));
+            itemBorders[slot].setPosition((ACTION_PAD_X + ((slot) * itemBorders[slot].getWidth())) + ((slot) * ACTION_SPACEING_X), 95);
+            itemBorders[slot].clearListeners();
+        }
+        itemsInBar[slot].setPosition(itemBorders[slot].getX(), itemBorders[slot].getY());
+    }
+
+    public void clear() {
+        for( int i = 0; i < BARLENGTH; i++ )
+            itemsInBar[i] = null;
     }
 }

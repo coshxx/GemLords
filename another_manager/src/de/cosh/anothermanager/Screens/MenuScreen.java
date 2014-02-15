@@ -30,6 +30,7 @@ public class MenuScreen implements Screen {
 	private TextButton exitGameButton;
 	private TextButton creditsButton;
     private TextButton returnFromOptions;
+    private TextButton continueButton;
     private Image backGround;
     private BitmapFont test;
 
@@ -39,6 +40,7 @@ public class MenuScreen implements Screen {
 		this.myGame = myGame;
 		table = new Table();
 		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
+        continueButton = new TextButton("Continue", skin);
 		newGameButton = new TextButton("New game", skin);
 		optionsButton = new TextButton("Options", skin);
 		exitGameButton = new TextButton("Exit game", skin);
@@ -98,19 +100,24 @@ public class MenuScreen implements Screen {
 		addButtonListeners();
 
 		backGround.setBounds(0, 0, GemLord.VIRTUAL_WIDTH*2, GemLord.VIRTUAL_HEIGHT);
-		newGameButton.setBounds(265, 500, 200, 80);
+
+        continueButton.setBounds(265, 500, 200, 50);
+        continueButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        continueButton.getStyle().font.setScale(1f);
+
+		newGameButton.setBounds(265, 440, 200, 50);
 		newGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		newGameButton.getStyle().font.setScale(1f);
 		
-		optionsButton.setBounds(265, 400, 200, 80);
+		optionsButton.setBounds(265, 380, 200, 50);
 		optionsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		optionsButton.getStyle().font.setScale(1f);
 
-        creditsButton.setBounds(265, 300, 200, 80);
+        creditsButton.setBounds(265, 320, 200, 50);
         creditsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         creditsButton.getStyle().font.setScale(1f);
         
-        exitGameButton.setBounds(265, 200, 200, 80);
+        exitGameButton.setBounds(265, 260, 200, 50);
 		exitGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		exitGameButton.getStyle().font.setScale(1f);
 
@@ -121,6 +128,7 @@ public class MenuScreen implements Screen {
 		stage.setCamera(GemLord.getInstance().camera);
 		stage.addActor(backGround);
         stage.addActor(titleImage);
+        stage.addActor(continueButton);
 		stage.addActor(newGameButton);
 		stage.addActor(optionsButton);
         stage.addActor(creditsButton);
@@ -132,6 +140,9 @@ public class MenuScreen implements Screen {
 
 
     private void addWobbleToButtons() {
+        continueButton.addAction(Actions.forever(Actions.sequence(
+                Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
+
 		newGameButton.addAction(Actions.forever(Actions.sequence(
 				Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
 
@@ -149,6 +160,22 @@ public class MenuScreen implements Screen {
 	}
 
 	private void addButtonListeners() {
+		continueButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				stage.addAction(Actions.sequence(Actions.fadeOut(0.5f),
+						Actions.run(new Runnable() {
+							@Override
+							public void run() {
+								myGame.soundPlayer.stopMenuMusic();
+								myGame.player.loadPreferences();
+								myGame.setScreen(myGame.mapTraverseScreen);
+							}
+						})));
+			}
+		});
+
+		
 		newGameButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {

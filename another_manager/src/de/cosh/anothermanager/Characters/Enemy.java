@@ -219,35 +219,6 @@ public class Enemy extends BaseCharacter {
     }
 
     public BaseItem getDroppedItem() {
-        switch (dropItemID) {
-            case -1:
-                return null;
-            case 0:
-                return new ItemApprenticeRobe();
-            case 1:
-                return new ItemMinorHealthPotion();
-            case 2:
-                return new ItemScholarRobe();
-            case 3:
-                return new ItemTotem();
-            case 4:
-                return new ItemPocketWatch();
-            case 5:
-                return new ItemTerribleShield();
-            case 6:
-                return new ItemDagger();
-            case 7:
-                return new ItemBow();
-            case 8:
-                return new ItemAmulet();
-            case 9:
-                return new ItemRing();
-            case 10:
-                return new ItemMageRobe();
-            case 11:
-                return new ItemBetterShield();
-            default:
-                return null;
-        }
+        return BaseItem.getNewItemByID(dropItemID);
     }
 }

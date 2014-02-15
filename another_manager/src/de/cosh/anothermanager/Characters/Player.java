@@ -1,5 +1,7 @@
 package de.cosh.anothermanager.Characters;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -95,10 +97,10 @@ public class Player extends BaseCharacter {
     @Override
     public void damage(Damage damage) {
         int finalDamage = damage.damage;
-        for( BaseItem i : getInventory().getAllItems() ) {
-            if( !i.isAddedToActionBar() )
+        for (BaseItem i : getInventory().getAllItems()) {
+            if (!i.isAddedToActionBar())
                 continue;
-            if( i.getItemSlotType() == BaseItem.ItemSlotType.SHIELD ||
+            if (i.getItemSlotType() == BaseItem.ItemSlotType.SHIELD ||
                     i.getItemSlotType() == BaseItem.ItemSlotType.AMULET_PASSIVE) {
                 finalDamage = i.tryToReduceDamage(damage.damage);
                 damage.damage = finalDamage;
@@ -150,9 +152,9 @@ public class Player extends BaseCharacter {
         int damageIncrease = 0;
 
         // first the weapons
-        for( BaseItem item : playerInventory.getAllItems() ) {
-            if( item.isAddedToActionBar() ) {
-                if(item.getItemSlotType() == BaseItem.ItemSlotType.WEAPON_PASSIVE ) {
+        for (BaseItem item : playerInventory.getAllItems()) {
+            if (item.isAddedToActionBar()) {
+                if (item.getItemSlotType() == BaseItem.ItemSlotType.WEAPON_PASSIVE) {
                     damageIncrease += item.getAdditionalDamage(damage);
                 }
             }
@@ -160,15 +162,76 @@ public class Player extends BaseCharacter {
 
         // then crits
         int critIncrease = 0;
-        for( BaseItem item : playerInventory.getAllItems() ) {
-            if( item.isAddedToActionBar() ) {
+        for (BaseItem item : playerInventory.getAllItems()) {
+            if (item.isAddedToActionBar()) {
                 critIncrease += item.getCritChanceIncrease();
             }
         }
-        if(MathUtils.random(1, 100) <= critIncrease ) {
+        if (MathUtils.random(1, 100) <= critIncrease) {
             damageIncrease = damageIncrease + damage.damage;
             damage.isCrit = true;
         }
         return damageIncrease;
+    }
+
+    public void loadPreferences() {
+        Preferences prefs = Gdx.app.getPreferences("GemLords.pref");
+
+        playerInventory.getAllItems().clear();
+        getActionBar().clear();
+
+        for (int i = 0; i < levelDone.length; i++) {
+            levelDone[i] = prefs.getBoolean("Level" + i);
+        }
+
+        for (int i = 0; i < ActionBar.BARLENGTH; i++) {
+            int itemID = prefs.getInteger("ABIS" + i);
+
+            if (itemID == -1)
+                continue;
+
+            BaseItem actionBarItem = BaseItem.getNewItemByID(itemID);
+            playerInventory.addItem(actionBarItem);
+            getActionBar().addToActionBarAt(actionBarItem, i);
+        }
+
+        for (int i = 0; i < BaseItem.MAXIDS; i++) {
+            if (prefs.getBoolean("Item ID: " + i)) {
+                BaseItem item = BaseItem.getNewItemByID(i);
+                playerInventory.addItem(item);
+            }
+        }
+    }
+
+    public void savePreferences() {
+        Preferences prefs = Gdx.app.getPreferences("GemLords.pref");
+        prefs.clear();
+        for (int i = 0; i < levelDone.length; i++) {
+            if (levelDone[i]) {
+                prefs.putBoolean("Level" + i, true);
+            }
+        }
+        prefs.flush();
+
+        for (int i = 0; i < ActionBar.BARLENGTH; i++) {
+            BaseItem item = getActionBar().getItemInSlot(i);
+            if (item == null)
+                prefs.putInteger("ABIS" + i, -1);
+            else {
+                if( !item.isAddedToActionBar() ) {
+                    prefs.putInteger("ABIS" + i, -1);
+                } else {
+                    prefs.putInteger("ABIS" + i, item.getID());
+                }
+            }
+        }
+
+        prefs.flush();
+
+        for (BaseItem item : playerInventory.getAllNotAddedItems()) {
+            prefs.putBoolean("Item ID: " + item.getID(), true);
+        }
+
+        prefs.flush();
     }
 }

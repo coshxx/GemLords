@@ -64,6 +64,7 @@ public class GUIButton {
 							public void run() {
 								GemLord.getInstance();
 								GemLord.soundPlayer.stopLoadoutMusic();
+                                GemLord.getInstance().player.savePreferences();
 								GemLord.getInstance().setScreen(new MapTraverseScreen(GemLord.getInstance()));
 							}
 						}))));

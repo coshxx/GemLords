@@ -274,6 +274,7 @@ public class LootScreen implements Screen {
                             }
                             myGame.player.getActionBar().addToActionBar(item);
                         }
+                        myGame.player.savePreferences();
                         myGame.setScreen(myGame.mapTraverseScreen);
                     }
                 })));

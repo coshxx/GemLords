@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
@@ -93,6 +94,10 @@ public class MapTraverseScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
+
+        if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            myGame.setScreen(myGame.menuScreen);
+        }
 
         Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
         coords = stage.screenToStageCoordinates(coords);

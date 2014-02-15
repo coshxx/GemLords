@@ -83,4 +83,15 @@ public class PlayerInventory {
             }
         }
     }
+
+    public ArrayList<BaseItem> getAllNotAddedItems() {
+        ArrayList<BaseItem> returnItems = new ArrayList<BaseItem>();
+
+        for( BaseItem item : itemsInInventory ) {
+            if( item.isAddedToActionBar() )
+                continue;
+            returnItems.add(item);
+        }
+        return returnItems;
+    }
 }
