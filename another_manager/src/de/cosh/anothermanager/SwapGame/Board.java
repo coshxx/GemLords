@@ -237,7 +237,7 @@ public class Board extends Group {
     public void update(float delta) {
         if( boardState == BoardState.STATE_IDLE ) {
             checkPlayerAndEnemyStatus();
-            if( justSwapped && !(boardState == BoardState.STATE_INACTIVE)) {
+            if( justSwapped && boardState == BoardState.STATE_IDLE) {
                 justSwapped = false;
                 matchesDuringCurrentMove = 0;
                 turnComplete(0.0f);
@@ -417,6 +417,6 @@ public class Board extends Group {
     }
 
     public enum BoardState {
-        STATE_CHECK, STATE_EMPTY, STATE_FADING, STATE_IDLE, STATE_INACTIVE, STATE_MOVING, STATE_SWAPPING
+        STATE_CHECK, STATE_EMPTY, STATE_FADING, STATE_IDLE, STATE_INACTIVE, STATE_MOVING, STATE_ENEMYTURN, STATE_SWAPPING
     }
 }

@@ -13,38 +13,45 @@ import java.util.ArrayList;
 public class LightningBolt {
     private Vector2 start;
     private Vector2 end;
-
     private ArrayList<LightningLine> lightningLines;
 
     public LightningBolt(Vector2 start, Vector2 end) {
+        this.start = start;
+        this.end = end;
         lightningLines = new ArrayList<LightningLine>();
-
         lightningLines.add(new LightningLine(start, end, 1f));
         float maxPerpOffset = 200f;
         float curOffset = maxPerpOffset;
 
-        int subDivisions = 2;
-        for( int i = 0; i < subDivisions; i++ ) {
-            curOffset = maxPerpOffset;
-            int startSize = lightningLines.size();
-            for( int j = 0; j < startSize; j++ ) {
-                Vector2 startPoint = new Vector2(lightningLines.get(j).getStart());
-                Vector2 endPoint = new Vector2(lightningLines.get(j).getEnd());
-                lightningLines.remove(j);
+        int subDivisions = 5;
 
-                Vector2 midPoint = new Vector2(endPoint.sub(startPoint)).div(2f);
-                Vector2 dirVec = new Vector2(endPoint.sub(startPoint)).nor();
+        for( int i = 0; i < subDivisions; i++ ) {
+            int currentDivisions = lightningLines.size();
+            for( int j = 0; j < currentDivisions; j++ ) {
+                Vector2 segmentStart =  lightningLines.get(0).getStart();
+                Vector2 segmentEnd =  lightningLines.get(0).getEnd();
+                lightningLines.remove(0);
+
+                Vector2 tempStart = new Vector2(segmentStart);
+                Vector2 middlePoint = new Vector2(tempStart.add(segmentEnd)).div(2);
+
+                Vector2 tempMid = new Vector2(middlePoint);
+                Vector2 dirVec = new Vector2(tempMid.sub(segmentStart)).nor();
 
                 if( MathUtils.randomBoolean() )
                     dirVec.rotate(90f);
                 else dirVec.rotate(-90f);
 
                 dirVec.scl(curOffset);
-                midPoint.add(dirVec);
-                curOffset /= 2f;
+                curOffset /= 2;
+                middlePoint.add(dirVec);
 
-                lightningLines.add(new LightningLine(startPoint, midPoint, 1f));
-                lightningLines.add(new LightningLine(midPoint, endPoint, 1f));
+
+                LightningLine l1 = new LightningLine(new Vector2(segmentStart), new Vector2(middlePoint), 1f);
+                LightningLine l2 = new LightningLine(new Vector2(middlePoint), new Vector2(segmentEnd), 1f);
+
+                lightningLines.add(l1);
+                lightningLines.add(l2);
             }
         }
 
@@ -53,5 +60,13 @@ public class LightningBolt {
     public void draw(SpriteBatch batch, float parentAlpha) {
         for( LightningLine l : lightningLines )
             l.draw(batch, parentAlpha);
+    }
+
+    public Vector2 getStart() {
+        return start;
+    }
+
+    public Vector2 getEnd() {
+        return end;
     }
 }

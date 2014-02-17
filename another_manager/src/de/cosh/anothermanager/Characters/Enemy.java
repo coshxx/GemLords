@@ -140,10 +140,12 @@ public class Enemy extends BaseCharacter {
 
     public void draw(final SpriteBatch batch, final float parentAlpha) {
         for (int i = 0; i < abilities.size; i++) {
-            final Ability current = abilities.get(i);
+            final BaseAbility current = abilities.get(i);
             current.drawCooldown(batch, parentAlpha);
-        }
 
+            if( current.needsDraw() )
+                current.drawFire(batch, parentAlpha);
+        }
     }
 
     public Image getImage() {

@@ -9,8 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-import de.cosh.anothermanager.Abilities.LightningBolt;
-import de.cosh.anothermanager.Abilities.LightningLine;
 import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.SwapGame.Board;
 
@@ -19,7 +17,6 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 	private final GemLord myGame;
 	private Stage stage;
 	private Board swapGame;
-    private LightningBolt testBolt;
 
 	public GameScreen(final GemLord myGame) {
 		this.myGame = myGame;
@@ -94,7 +91,6 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 		stage.draw();
 
         stage.getSpriteBatch().begin();
-        testBolt.draw(stage.getSpriteBatch(), 1f);
         stage.getSpriteBatch().end();
 
         if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE ))
@@ -127,8 +123,6 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 		swapGame.addAction(Actions.alpha(0.0f));
 		swapGame.addAction(Actions.fadeIn(1));
         stage.addActor(swapGame);
-
-        testBolt = new LightningBolt(new Vector2(0, 0), new Vector2(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT));
 	}
 
 	@Override

@@ -15,18 +15,19 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.SwapGame.*;
 
+import java.util.ArrayList;
+
 /**
  * Created by cosh on 15.01.14.
  */
 public class AbilityLightningRod extends BaseAbility {
-
-    private Timer timer1;
+    private ArrayList<LightningBolt> lightningsBolts;
 
 	public AbilityLightningRod() {
 		abilityImageLocation = "data/textures/lightningrod.png";
 		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
         setAbilityDamage(0);
-        timer1 = new Timer();
+        lightningsBolts = new ArrayList<LightningBolt>();
 	}
 
 	@Override
@@ -44,7 +45,9 @@ public class AbilityLightningRod extends BaseAbility {
                 System.out.println(shader.getLog());
             }
             GemLord.getInstance().gameScreen.getBatch().setShader(shader);
-                    timer1.scheduleTask(new AbilityLightningRodTimer(shader, new Vector2(abilityImage.getX(), abilityImage.getY())), 0f, 0.05f, 20);
+
+            Vector2 start = new Vector2(getImage().getX() + getImage().getWidth(), getImage().getY() + getImage().getHeight());
+
             int damageCount = 0;
             for( int x = 0; x < Board.MAX_SIZE_X; x++ ) {
                 for( int y = 0; y < Board.MAX_SIZE_Y; y++ ) {
@@ -52,12 +55,19 @@ public class AbilityLightningRod extends BaseAbility {
                     if( gem.getGemType() == GemType.TYPE_BLUE ) {
                         StarEffect effect = new StarEffect(GemLord.getInstance());
                         effect.spawnStars(gem.getX(), gem.getY(), group);
+                        Vector2 end = new Vector2(cells[x][y].getX() + cells[x][y].getWidth()/2, cells[x][y].getY() + cells[x][y].getHeight()/2);
+                        LightningBolt bolt = new LightningBolt(start, end);
+                        lightningsBolts.add(bolt);
+                        isFiring = true;
+                        /*
                         cells[x][y].setEmpty(true);
                         gem.remove();
                         gem.unmarkRemoval();
                         gem.setToNone();
                         damageCount++;
+
                         GemLord.getInstance().gameScreen.getBoard().getRespawnRequest().addOne(x);
+                        */
                     }
                 }
             }
@@ -66,4 +76,20 @@ public class AbilityLightningRod extends BaseAbility {
 		}
 		return false;
 	}
+
+    public boolean needsDraw() {
+        if (isFiring )
+            return true;
+        else return false;
+    }
+
+    public void update(float delta) {
+        super.update(delta);
+    }
+
+    public void drawFire(SpriteBatch batch, float parentAlpha) {
+        for( LightningBolt bolt : lightningsBolts ) {
+            bolt.draw(batch, parentAlpha);
+        }
+    }
 }

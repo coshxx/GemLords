@@ -21,12 +21,18 @@ public class BaseAbility implements Ability {
 	private Damage damage;
     private transient BaseCharacter owner;
 
+    protected boolean isFiring = false;
+    protected float fireTime = 0f;
+    protected float fireDuration = 250f;
+
 	BaseAbility() {
         damage = new Damage();
 		cooldown = 5;
 		damage.damage = 10;
 		abilityImageLocation = "data/textures/empty.png";
+        isFiring = false;
 	}
+
 
     public void setOwner(BaseCharacter owner) {
         this.owner = owner;
@@ -39,10 +45,27 @@ public class BaseAbility implements Ability {
 
 	}
 
+    public void drawFire(SpriteBatch batch, float parentAlpha) {
+        return;
+    }
+
+    public void update(float delta) {
+        if( isFiring ) {
+            fireTime += delta;
+            if( fireTime > fireDuration ) {
+                isFiring = false;
+            }
+        }
+    }
+
 	public void setCooldown(int cd) {
 		cooldown = cd;
 		currentCooldown = cd;
 	}
+
+    public boolean needsDraw() {
+        return false;
+    }
 
 	@Override
 	public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {

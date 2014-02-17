@@ -16,23 +16,19 @@ import java.util.*;
 public class LightningLine {
     private Vector2 start;
     private Vector2 end;
-    private float thickness;
 
     private Sprite lightningSegment;
-    private Sprite halfCircle;
 
     public void init() {
         start = new Vector2();
         end = new Vector2();
         lightningSegment = new Sprite(GemLord.assets.get("data/textures/lightningmid.png", Texture.class));
-        halfCircle = new Sprite(GemLord.assets.get("data/textures/lightningbot.png", Texture.class));
     }
 
     public LightningLine(Vector2 a, Vector2 b, float thickness) {
         init();
         this.start = a;
         this.end = b;
-        this.thickness = thickness;
     }
 
     public Vector2 getStart() { return start; }
