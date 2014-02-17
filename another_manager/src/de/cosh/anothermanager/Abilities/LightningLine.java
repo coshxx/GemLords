@@ -35,18 +35,16 @@ public class LightningLine {
         this.thickness = thickness;
     }
 
+    public Vector2 getStart() { return start; }
+    public Vector2 getEnd() { return end; }
+
     public void draw(SpriteBatch batch, float parentAlpha) {
-        Vector2 tangent = new Vector2(end.sub(start));
+        Vector2 oldEnd = new Vector2(end);
+        Vector2 tangent = new Vector2(oldEnd.sub(start));
         float rotation = (float)Math.toDegrees(Math.atan2(tangent.y, tangent.x));
 
-        float imageThickness = 4;
-        float thicknessScale = thickness / imageThickness;
-
-        Vector2 capOrigin = new Vector2(halfCircle.getWidth(), halfCircle.getHeight() / 2f);
-        Vector2 middleOrigin = new Vector2(0, lightningSegment.getHeight() / 2f);
-        Vector2 middleScale = new Vector2(tangent.len(), thicknessScale);
-        batch.draw(lightningSegment, start.x, start.y, middleOrigin.x, middleOrigin.y,
-                lightningSegment.getWidth(), lightningSegment.getHeight(), middleScale.x, middleScale.y,
+        batch.draw(lightningSegment, start.x, start.y, 0, 0,
+                lightningSegment.getWidth(), lightningSegment.getHeight(), tangent.len(), 1f,
                 rotation);
     }
 }
