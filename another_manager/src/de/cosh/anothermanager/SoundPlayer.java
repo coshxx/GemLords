@@ -17,6 +17,7 @@ public class SoundPlayer {
 	private Sound blub1, blub2;
 	private Sound convert;
 	private Sound ding;
+    private Sound lightningRod;
 	private Sound error;
 	private Sound fireball_start;
     private Sound critical;
@@ -94,6 +95,10 @@ public class SoundPlayer {
 	public void playAwesome() {
 		awesome.play();
 	}
+
+    public void playLightningRod() {
+        lightningRod.play();
+    }
 
 	public void playBang() {
 		bang.play();
@@ -237,6 +242,7 @@ public class SoundPlayer {
 		clawSound = assets.get("data/sounds/abilityclaw.ogg", Sound.class);
 		loadoutMusic = assets.get("data/sounds/loadoutmusic.ogg", Music.class);
 		error = assets.get("data/sounds/error.ogg", Sound.class);
+        lightningRod = assets.get("data/sounds/lightningrod.ogg", Sound.class);
 		slideIn = assets.get("data/sounds/slidein.ogg", Sound.class);
         petrify = assets.get("data/sounds/abilitypetrify.ogg");
 		impressive = assets.get("data/sounds/impressive.ogg", Sound.class);
