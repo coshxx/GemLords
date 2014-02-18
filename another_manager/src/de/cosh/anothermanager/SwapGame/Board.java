@@ -1,6 +1,5 @@
 package de.cosh.anothermanager.SwapGame;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -237,6 +236,8 @@ public class Board extends Group {
     public void update(float delta) {
         if( boardState == BoardState.STATE_IDLE ) {
             checkPlayerAndEnemyStatus();
+            if( enemy.allAbilitiesDone() )
+                boardState = BoardState.STATE_MOVING;
             if( justSwapped && boardState == BoardState.STATE_IDLE) {
                 justSwapped = false;
                 matchesDuringCurrentMove = 0;
@@ -278,9 +279,12 @@ public class Board extends Group {
                 boardState = BoardState.STATE_FADING;
             } else {
                 boardState = BoardState.STATE_IDLE;
+                /*
                 if( !turnIndicator.isPlayerTurn() ) {
-                    if( enemy.allAbilitiesDone() )
+                    if( enemy.allAbilitiesDone() ) {
                         turnComplete(0f);
+                        boardState = BoardState.STATE_CHECK;
+                    }
                 }
                 /*
                 // TODO: meh
@@ -312,7 +316,7 @@ public class Board extends Group {
         } else if (boardState == BoardState.STATE_FADING) {
             if (gemRemover.doneFading()) {
                 gemRemover.removeFadedGems(myGame, effectGroup);
-                gemHandler.respawnAndApplyGravity(gemGroup);
+                gemHandler.respawn(gemGroup);
                 boardState = BoardState.STATE_MOVING;
             }
         }

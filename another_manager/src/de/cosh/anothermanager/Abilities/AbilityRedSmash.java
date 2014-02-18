@@ -45,11 +45,10 @@ public class AbilityRedSmash extends BaseAbility {
         				gem.setToNone();
         				damageCount++;
         				GemLord.getInstance().gameScreen.getBoard().getRespawnRequest().addOne(x);
-        				
             		}
             	}
             }
-            GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawnAndApplyGravity(foreGround);
+            GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawn(foreGround);
             return true;
 		}
 		return false;

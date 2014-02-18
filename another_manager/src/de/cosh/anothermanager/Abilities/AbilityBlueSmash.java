@@ -44,7 +44,7 @@ public class AbilityBlueSmash extends BaseAbility {
             		}
             	}
             }
-            GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawnAndApplyGravity(foreGround);
+            GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawn(foreGround);
             return true;
 		}
 		return false;

@@ -25,7 +25,7 @@ public class GemHandler {
 		return gemFactory;
 	}
 
-	void respawn(final Group foreGround) {
+    public void respawn(Group foreGround) {
 		for( int x = 0; x < Board.MAX_SIZE_X; x++ ) {
 			int numSpawns = respawnRequest.howManyForCol(x);
 			for( int i = 0; i < numSpawns; i++ ) {
@@ -38,18 +38,6 @@ public class GemHandler {
 			}
 		}
 		respawnRequest.clear();
-	}
-
-	public void respawnAndApplyGravity(Group foreGround) {
-		/*
-		fall();
-		if (shift())
-			respawnAndApplyGravity(foreGround); // loop until no more shifts
-		respawn(foreGround);
-		delay = 0f;
-		*/
-		
-		respawn(foreGround);
 	}
 
 	private boolean shift() {

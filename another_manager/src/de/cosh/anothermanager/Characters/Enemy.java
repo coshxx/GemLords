@@ -19,6 +19,7 @@ import de.cosh.anothermanager.Abilities.BaseAbility;
 import de.cosh.anothermanager.GUI.GUIWindow;
 import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Items.BaseItem;
+import de.cosh.anothermanager.SwapGame.Board;
 
 /**
  * Created by cosh on 10.01.14.
@@ -157,6 +158,9 @@ public class Enemy extends BaseCharacter {
     }
 
     public void update(float delta) {
+        if (!(GemLord.getInstance().gameScreen.getBoard().getBoardState() == Board.BoardState.STATE_IDLE)) {
+            return;
+        }
         boolean allDone = true;
         for (int i = 0; i < abilities.size; i++) {
             BaseAbility ability = abilities.get(i);

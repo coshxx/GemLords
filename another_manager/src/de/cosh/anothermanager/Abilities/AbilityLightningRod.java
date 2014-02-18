@@ -66,7 +66,7 @@ public class AbilityLightningRod extends BaseAbility {
                 }
             }
         }
-        GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawnAndApplyGravity(foreGround);
+        GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawn(foreGround);
         return false;
     }
 
@@ -99,7 +99,7 @@ public class AbilityLightningRod extends BaseAbility {
             fire(GemLord.getInstance().player);
         }
 
-        if (shot == 5) {
+        if (shot == 10) {
             shot = 0;
             needsUpdate = false;
             lightningsBolts.clear();
@@ -132,9 +132,9 @@ public class AbilityLightningRod extends BaseAbility {
             }
             GemLord.getInstance().player.damage(damageCount);
             Group gemGroup = GemLord.getInstance().gameScreen.getBoard().getGemGroup();
-            GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawnAndApplyGravity(gemGroup);
             setCooldown(5);
             needsUpdate = false;
+            GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawn(gemGroup);
         }
     }
 
