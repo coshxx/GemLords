@@ -123,9 +123,9 @@ public class Board extends Group {
 		batch.flush();
 		ScissorStack.popScissors();
 
-        effectGroup.draw(batch, parentAlpha);
         player.draw(batch, parentAlpha);
         enemy.draw(batch, parentAlpha);
+        effectGroup.draw(batch, parentAlpha);
     }
 
     public Group getEffectGroup() {
@@ -248,6 +248,9 @@ public class Board extends Group {
             }
         }
 
+        if( !turnIndicator.isPlayerTurn())
+            enemy.update(delta);
+
         if (boardState == BoardState.STATE_CHECK) {
             MatchResult result = matchFinder.markAllMatchingGems();
             if (result.howMany > 0) {
@@ -275,6 +278,11 @@ public class Board extends Group {
                 boardState = BoardState.STATE_FADING;
             } else {
                 boardState = BoardState.STATE_IDLE;
+                if( !turnIndicator.isPlayerTurn() ) {
+                    if( enemy.allAbilitiesDone() )
+                        turnComplete(0f);
+                }
+                /*
                 // TODO: meh
                 if( !turnIndicator.isPlayerTurn()) {
                     addAction(Actions.run(new Runnable() {
@@ -285,6 +293,7 @@ public class Board extends Group {
                         }
                     }));
                 }
+                */
             }
         } else if (boardState == BoardState.STATE_MOVING) {
             updateGems(delta);

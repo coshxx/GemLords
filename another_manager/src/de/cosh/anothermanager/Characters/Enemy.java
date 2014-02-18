@@ -15,36 +15,30 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import de.cosh.anothermanager.Abilities.Ability;
 import de.cosh.anothermanager.Abilities.AbilityLightningRod;
-import de.cosh.anothermanager.Abilities.AbilityPetrify;
 import de.cosh.anothermanager.Abilities.BaseAbility;
-import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.GUI.GUIWindow;
-import de.cosh.anothermanager.Items.*;
+import de.cosh.anothermanager.GemLord;
+import de.cosh.anothermanager.Items.BaseItem;
 
 /**
  * Created by cosh on 10.01.14.
  */
 public class Enemy extends BaseCharacter {
+    private final Array<BaseAbility> abilities;
     private boolean isDefeated;
     private transient Image enemyImage;
     private transient TextureRegion pointTexture, pointDoneTexture;
     private transient ImageButton.ImageButtonStyle style, styleDone;
-
     private Image pointButton;
     private Image pointButtonDone;
-
     private Integer enemyNumber;
     private String enemyImageLocation;
-    private final Array<BaseAbility> abilities;
     private Vector2 locationOnMap;
     private Integer dropItemID;
     private String enemyName;
+    private boolean allAbilitiesDone;
 
     private int lastTurnDamageReceived;
-
-    public void setDropItemID(int id) {
-        dropItemID = id;
-    }
 
     public Enemy() {
         super();
@@ -65,35 +59,18 @@ public class Enemy extends BaseCharacter {
         pointButtonDone = new Image(styleDone.up);
 
         abilities = new Array<BaseAbility>();
-/*
-        final AbilityAttack abilityAttack = new AbilityAttack();
-		abilityAttack.setAbilityDamage(10);
-		abilityAttack.setCooldown(2);
-
-		final AbilityFireball abilityFireball = new AbilityFireball();
-		abilityFireball.setAbilityDamage(12);
-		abilityFireball.setCooldown(4);
-
-		final AbilityPoison abilityPoison = new AbilityPoison();
-		abilityPoison.setAbilityDamage(0);
-		abilityPoison.setCooldown(5);
-*/
-        /*
-        final AbilityPetrify abilityPetrify = new AbilityPetrify();
-        abilityPetrify.setAbilityDamage(0);
-        abilityPetrify.setCooldown(3);
-        */
-
         final AbilityLightningRod abilityLightningRod = new AbilityLightningRod();
-        abilityLightningRod.setAbilityDamage(0);
 
-/*
-		abilities.add(abilityAttack);
-		abilities.add(abilityFireball);
-		abilities.add(abilityPoison);
-*/
+        abilityLightningRod.setAbilityDamage(0);
         abilities.add(abilityLightningRod);
+
         locationOnMap = new Vector2(0, 0);
+
+        allAbilitiesDone = false;
+    }
+
+    public void setDropItemID(int id) {
+        dropItemID = id;
     }
 
     public void addPositionalButtonToMap(final Vector2 mapPos, final Image enemyImage, final int enemyHP,
@@ -128,7 +105,7 @@ public class Enemy extends BaseCharacter {
         foreGround.addActor(getHealthBar());
 
         // don't ask
-        float startX = (enemyImage.getX() + enemyImage.getWidth()/2) - ((abilities.size * 105)/2) + 25;
+        float startX = (enemyImage.getX() + enemyImage.getWidth() / 2) - ((abilities.size * 105) / 2) + 25;
 
         for (int i = 0; i < abilities.size; i++) {
             final Ability current = abilities.get(i);
@@ -138,12 +115,12 @@ public class Enemy extends BaseCharacter {
 
     }
 
-    public void draw(final SpriteBatch batch, final float parentAlpha) {
+    public void draw(final SpriteBatch batch, float parentAlpha) {
         for (int i = 0; i < abilities.size; i++) {
             final BaseAbility current = abilities.get(i);
             current.drawCooldown(batch, parentAlpha);
 
-            if( current.needsDraw() )
+            if (current.needsDraw())
                 current.drawFire(batch, parentAlpha);
         }
     }
@@ -169,22 +146,40 @@ public class Enemy extends BaseCharacter {
         GemLord.getInstance().afterActionReport.setHighestDamageReceivedInOneTurn(player.getLastTurnDamageReceived());
         System.out.println("Player last turn received damage: " + player.getLastTurnDamageReceived());
         player.clearLastTurnReceivedDamage();
-        super.turn();
         for (int i = 0; i < abilities.size; i++) {
-            final BaseAbility current = abilities.get(i);
-            current.setOwner(this);
-            if (!current.fire(player)) {
-                current.turn();
-            }
+            BaseAbility ability = abilities.get(i);
+            ability.setNeedsUpdate(true);
+            ability.setOwner(this);
+            ability.turn();
         }
+        super.turn();
+        allAbilitiesDone = false;
     }
 
-    public void setEnemyNumber(int n) {
-        enemyNumber = n;
+    public void update(float delta) {
+        boolean allDone = true;
+        for (int i = 0; i < abilities.size; i++) {
+            BaseAbility ability = abilities.get(i);
+            if (ability.getCurrentCooldown() <= 0) {
+                if (ability.needsUpdate()) {
+                    ability.update(delta);
+                    allDone = false;
+                    break;
+                }
+            }
+        }
+
+        if (allDone) {
+            allAbilitiesDone = true;
+        }
     }
 
     public int getEnemyNumber() {
         return enemyNumber;
+    }
+
+    public void setEnemyNumber(int n) {
+        enemyNumber = n;
     }
 
     public void loadImage() {
@@ -222,5 +217,9 @@ public class Enemy extends BaseCharacter {
 
     public BaseItem getDroppedItem() {
         return BaseItem.getNewItemByID(dropItemID);
+    }
+
+    public boolean allAbilitiesDone() {
+        return allAbilitiesDone;
     }
 }

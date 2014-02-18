@@ -4,110 +4,129 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Damage;
+import de.cosh.anothermanager.GemLord;
 
 /**
  * Created by cosh on 15.01.14.
  */
 public class BaseAbility implements Ability {
-	transient Image abilityImage;
-	String abilityImageLocation;
-	protected transient BitmapFont bmf;
-	private int cooldown;
-	private int currentCooldown;
-	private Damage damage;
-    private transient BaseCharacter owner;
-
-    protected boolean isFiring = false;
+    protected transient BitmapFont bmf;
     protected float fireTime = 0f;
     protected float fireDuration = 250f;
+    transient Image abilityImage;
+    String abilityImageLocation;
+    private int cooldown;
+    private int currentCooldown;
+    private Damage damage;
+    private transient BaseCharacter owner;
 
-	BaseAbility() {
+    protected boolean needsUpdate;
+    protected float abilityPreDelay = 1f;
+    protected float abilityPostDelay = 1f;
+    protected float passedTime;
+    protected boolean executedAbility;
+
+    BaseAbility() {
         damage = new Damage();
-		cooldown = 5;
-		damage.damage = 10;
-		abilityImageLocation = "data/textures/empty.png";
-        isFiring = false;
-	}
+        cooldown = 5;
+        damage.damage = 10;
+        abilityImageLocation = "data/textures/empty.png";
+        needsUpdate = false;
+        executedAbility = false;
+        passedTime = 0f;
+    }
 
+    public BaseCharacter getOwner() {
+        return owner;
+    }
 
     public void setOwner(BaseCharacter owner) {
         this.owner = owner;
     }
 
-    public BaseCharacter getOwner() { return owner; }
+    public void setAbilityDamage(int damage) {
+        this.damage.damage = damage;
 
-	public void setAbilityDamage(int damage) {
-		this.damage.damage = damage;
-
-	}
+    }
 
     public void drawFire(SpriteBatch batch, float parentAlpha) {
         return;
     }
 
     public void update(float delta) {
-        if( isFiring ) {
-            fireTime += delta;
-            if( fireTime > fireDuration ) {
-                isFiring = false;
-            }
+        passedTime += delta;
+        if (passedTime > abilityPreDelay && !executedAbility) {
+            executedAbility = true;
+            passedTime = 0f;
+            fire(GemLord.getInstance().player);
+        }
+        if( passedTime > abilityPostDelay && executedAbility ) {
+            executedAbility = false;
+            needsUpdate = false;
+            passedTime = 0f;
         }
     }
 
-	public void setCooldown(int cd) {
-		cooldown = cd;
-		currentCooldown = cd;
-	}
+    public void setCooldown(int cd) {
+        cooldown = cd;
+        currentCooldown = cd;
+    }
 
     public boolean needsDraw() {
         return false;
     }
 
-	@Override
-	public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
-		final Integer cooldown = getCurrentCooldown();
+    @Override
+    public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
+        final Integer cooldown = getCurrentCooldown();
 
-		GemLord.getInstance();
-		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
-		bmf = s.getFont("default-font");
-		bmf.setColor(1f, 1f, 1f, parentAlpha);
-		if (currentCooldown > 0) {
-			//bmf.draw(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY());
-			bmf.drawMultiLine(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY()+45, 70, BitmapFont.HAlignment.CENTER);
-		} else {
-			//bmf.draw(batch, "Ready", abilityImage.getX(), abilityImage.getY());
-			bmf.drawMultiLine(batch, "Ready", abilityImage.getX(), abilityImage.getY()+45, 70, BitmapFont.HAlignment.CENTER);
-		}
-	}
+        GemLord.getInstance();
+        Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
+        bmf = s.getFont("default-font");
+        bmf.setColor(1f, 1f, 1f, parentAlpha);
+        if (currentCooldown > 0) {
+            //bmf.draw(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY());
+            bmf.drawMultiLine(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY() + 45, 70, BitmapFont.HAlignment.CENTER);
+        } else {
+            //bmf.draw(batch, "Ready", abilityImage.getX(), abilityImage.getY());
+            bmf.drawMultiLine(batch, "Ready", abilityImage.getX(), abilityImage.getY() + 45, 70, BitmapFont.HAlignment.CENTER);
+        }
+    }
 
-	@Override
-	public boolean fire(final BaseCharacter target) {
-		if (currentCooldown == 0) {
-			target.damage(damage);
-			currentCooldown = cooldown;
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean fire(final BaseCharacter target) {
+        if (currentCooldown == 0) {
+            target.damage(damage);
+            currentCooldown = cooldown;
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public int getCurrentCooldown() {
-		return currentCooldown;
-	}
+    @Override
+    public int getCurrentCooldown() {
+        return currentCooldown;
+    }
 
-	@Override
-	public Image getImage() {
-		return abilityImage;
-	}
+    @Override
+    public Image getImage() {
+        return abilityImage;
+    }
 
-	@Override
-	public void turn() {
-		if (currentCooldown > 0) {
-			currentCooldown--;
-		}
-	}
+    @Override
+    public void turn() {
+        if (currentCooldown > 0) {
+            currentCooldown--;
+        }
+    }
+
+    public void setNeedsUpdate(boolean b) {
+        needsUpdate = b;
+    }
+
+    public boolean needsUpdate() {
+        return needsUpdate;
+    }
 }
