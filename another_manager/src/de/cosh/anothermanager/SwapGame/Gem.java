@@ -43,7 +43,9 @@ public class Gem extends Image {
 	private float speed, totalTranslated;
 
 	public Gem(GemType g) {
-		super(GemLord.assets.get(g.getTexturePath(), Texture.class));
+        Texture texture = GemLord.assets.get(g.getTexturePath(), Texture.class);
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        this.setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
 		super.setWidth(80);
 		super.setHeight(80);
 		this.gemType = g;

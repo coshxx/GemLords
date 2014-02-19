@@ -41,7 +41,6 @@ public class Board extends Group {
     private final SwapController swapController;
     private final SpecialEffects sfx;
     private final RespawnRequest respawnRequest;
-    int tempX = 0;
     private BoardState boardState;
     private Enemy enemy;
     private Player player;
@@ -227,12 +226,6 @@ public class Board extends Group {
     }
 
     public void update(float delta) {
-        tempX++;
-        if (tempX >= 200) {
-            System.out.println(boardState.toString());
-            tempX = 0;
-        }
-
         if (boardState == BoardState.STATE_IDLE) {
             checkPlayerAndEnemyStatus();
 

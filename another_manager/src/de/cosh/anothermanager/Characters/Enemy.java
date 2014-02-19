@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import de.cosh.anothermanager.Abilities.Ability;
 import de.cosh.anothermanager.Abilities.AbilityLightningRod;
 import de.cosh.anothermanager.Abilities.BaseAbility;
 import de.cosh.anothermanager.GUI.GUIWindow;
@@ -199,6 +198,14 @@ public class Enemy extends BaseCharacter {
 
     @Override
     public void damage(Damage damage) {
+        for( int i = 0; i < abilities.size; i++ ) {
+            BaseAbility ability = abilities.get(i);
+
+            if( ability.tryDodge() ) {
+                return;
+            }
+        }
+
         GemLord.getInstance().afterActionReport.totalDamgeDealt += damage.damage;
         getHealthBar().hit(damage);
         lastTurnDamageReceived += damage.damage;

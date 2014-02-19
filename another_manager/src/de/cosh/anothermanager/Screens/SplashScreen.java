@@ -71,6 +71,7 @@ public class SplashScreen implements Screen {
 
 		GemLord.assets.load("data/textures/abilityattack.png", Texture.class);
 		GemLord.assets.load("data/textures/abilityfireball.png", Texture.class);
+		GemLord.assets.load("data/textures/abilityflydodge.png", Texture.class);
 		GemLord.assets.load("data/textures/abilitypoison.png", Texture.class);
 		GemLord.assets.load("data/textures/abilitypetrify.png", Texture.class);
 		GemLord.assets.load("data/textures/abilitysmashblue.png", Texture.class);

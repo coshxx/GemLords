@@ -17,7 +17,7 @@ public class ItemBetterShield extends BaseItem {
 		super(GemLord.assets.get("data/textures/bettershield.png", Texture.class));
 		itemNumber = 11;
 		setItemName("Decent Shield");
-		setItemText("20% chance to block\n5-10 damage\n5% chance to heal for\nthe blocked amount");
+		setItemText("20% chance to block\n5-10 damage\n10% chance to heal for\nthe blocked amount");
 		setItemSlotType(ItemSlotType.SHIELD);
         r = new Random();
 	}
@@ -39,7 +39,7 @@ public class ItemBetterShield extends BaseItem {
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             GemLord.getInstance().soundPlayer.playBlock();
             int reduce = MathUtils.random(5, 10);
-            if( MathUtils.random(1, 100) <= 5 ) {
+            if( MathUtils.random(1, 100) <= 10 ) {
                 System.out.println("The shield heals:" + reduce);
                 GemLord.getInstance().player.increaseHealth(reduce);
             }

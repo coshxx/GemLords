@@ -123,6 +123,10 @@ public class BaseAbility implements Ability {
         }
     }
 
+    public boolean tryDodge() {
+        return false;
+    }
+
     public void setNeedsUpdate(boolean b) {
         needsUpdate = b;
         executedAbility = false;
