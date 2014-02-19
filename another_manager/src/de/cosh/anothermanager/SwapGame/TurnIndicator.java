@@ -42,28 +42,27 @@ class TurnIndicator {
         GemLord.soundPlayer.playTurnSwitch();
         if (playerTurn) {
             turnSign.addAction(Actions.sequence(
-                    Actions.moveBy(0, turnSign.getHeight(), 0.15f),
-                    Actions.delay(0.15f), //switch sign
-                    Actions.moveBy(0, -turnSign.getHeight(), 0.15f)));
+                    Actions.moveBy(0, turnSign.getHeight(), 0.1f),
+                    Actions.delay(0.1f), //switch sign
+                    Actions.moveBy(0, -turnSign.getHeight(), 0.1f)));
 
-            yourTurnLabel.addAction(Actions.moveBy(0, turnSign.getHeight(), 0.15f));
+            yourTurnLabel.addAction(Actions.moveBy(0, turnSign.getHeight(), 0.1f));
 
             enemyTurnLabel.addAction(Actions.sequence(
-                    Actions.delay(0.3f),
-                    Actions.moveBy(0, -turnSign.getHeight(), 0.15f)));
+                    Actions.delay(0.2f),
+                    Actions.moveBy(0, -turnSign.getHeight(), 0.1f)));
         } else {
             turnSign.addAction(Actions.sequence(
-                    Actions.moveBy(0, turnSign.getHeight(), 0.15f),
-                    Actions.delay(0.15f), //switch sign
-                    Actions.moveBy(0, -turnSign.getHeight(), 0.15f)));
+                    Actions.moveBy(0, turnSign.getHeight(), 0.1f),
+                    Actions.delay(0.1f), //switch sign
+                    Actions.moveBy(0, -turnSign.getHeight(), 0.1f)));
 
-            enemyTurnLabel.addAction(Actions.moveBy(0, turnSign.getHeight(), 0.15f));
+            enemyTurnLabel.addAction(Actions.moveBy(0, turnSign.getHeight(), 0.1f));
 
             yourTurnLabel.addAction(Actions.sequence(
-                    Actions.delay(0.3f),
-                    Actions.moveBy(0, -turnSign.getHeight(), 0.15f)));
+                    Actions.delay(0.2f),
+                    Actions.moveBy(0, -turnSign.getHeight(), 0.1f)));
         }
-
         playerTurn = !playerTurn;
     }
 

@@ -6,7 +6,7 @@ abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
 		currentCooldown: 2,
-		cooldown: 2
+		cooldown: 3
 	},
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityRedSmash,

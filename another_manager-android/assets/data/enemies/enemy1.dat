@@ -6,7 +6,7 @@ abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
 		currentCooldown: 1,
-		cooldown: 1
+		cooldown: 2
 	},
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityThink,

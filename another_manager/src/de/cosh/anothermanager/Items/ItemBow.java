@@ -37,6 +37,9 @@ public class ItemBow extends BaseItem {
     public void onUse() {
         if( GemLord.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
             return;
+        if( !GemLord.getInstance().gameScreen.getBoard().isPlayerTurn() )
+            return;
+
         if (currentCooldown <= 0) {
             GemLord.soundPlayer.playBow();
             int damage = random.nextInt( ( (12 - 5)+1 ));

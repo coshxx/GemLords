@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.cosh.anothermanager.Characters.BaseCharacter;
 import de.cosh.anothermanager.Characters.Damage;
+import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.GemLord;
 
 /**
@@ -20,11 +21,11 @@ public class BaseAbility implements Ability {
     private int cooldown;
     private int currentCooldown;
     private Damage damage;
-    private transient BaseCharacter owner;
+    protected transient Enemy owner;
 
     protected boolean needsUpdate;
-    protected float abilityPreDelay = 1f;
-    protected float abilityPostDelay = 1f;
+    protected float abilityPreDelay = 0.5f;
+    protected float abilityPostDelay = 0.25f;
     protected float passedTime;
     protected boolean executedAbility;
 
@@ -33,7 +34,7 @@ public class BaseAbility implements Ability {
         cooldown = 5;
         damage.damage = 10;
         abilityImageLocation = "data/textures/empty.png";
-        needsUpdate = false;
+        needsUpdate = true;
         executedAbility = false;
         passedTime = 0f;
     }
@@ -42,7 +43,7 @@ public class BaseAbility implements Ability {
         return owner;
     }
 
-    public void setOwner(BaseCharacter owner) {
+    public void setOwner(Enemy owner) {
         this.owner = owner;
     }
 
@@ -62,7 +63,7 @@ public class BaseAbility implements Ability {
             passedTime = 0f;
             fire(GemLord.getInstance().player);
         }
-        if( passedTime > abilityPostDelay && executedAbility ) {
+        else if( passedTime > abilityPostDelay && executedAbility ) {
             executedAbility = false;
             needsUpdate = false;
             passedTime = 0f;
@@ -124,6 +125,7 @@ public class BaseAbility implements Ability {
 
     public void setNeedsUpdate(boolean b) {
         needsUpdate = b;
+        executedAbility = false;
     }
 
     public boolean needsUpdate() {

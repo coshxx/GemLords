@@ -31,6 +31,9 @@ public class ItemTotem extends BaseItem implements UseItem {
 	public void onUse() {
         if( GemLord.getInstance().gameScreen.getBoard().getBoardState() != Board.BoardState.STATE_IDLE )
             return;
+        if( !GemLord.getInstance().gameScreen.getBoard().isPlayerTurn() )
+            return;
+
 		if (currentCooldown <= 0) {
 			GemLord.getInstance();
 			GemLord.soundPlayer.playTotem();

@@ -6,12 +6,12 @@ abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
 		currentCooldown: 1,
-		cooldown: 1
+		cooldown: 2
 	},
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityPoison,
 		currentCooldown: 0,
-		cooldown: 5
+		cooldown: 6
 	},
 ],
 locationOnMap: {

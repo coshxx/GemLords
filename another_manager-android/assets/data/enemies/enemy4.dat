@@ -5,13 +5,13 @@ enemyNumber: 4,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityAttack,
-		currentCooldown: 1,
-		cooldown: 1
+		currentCooldown: 0,
+		cooldown: 0
 	},
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityPoison,
 		currentCooldown: 0,
-		cooldown: 5
+		cooldown: 10
 	},
 ],
 locationOnMap: {

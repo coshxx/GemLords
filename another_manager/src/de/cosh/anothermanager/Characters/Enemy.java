@@ -38,6 +38,7 @@ public class Enemy extends BaseCharacter {
     private Integer dropItemID;
     private String enemyName;
     private boolean allAbilitiesDone;
+    private boolean boardNeedsMovementUpdate;
 
     private int lastTurnDamageReceived;
 
@@ -63,6 +64,7 @@ public class Enemy extends BaseCharacter {
         final AbilityLightningRod abilityLightningRod = new AbilityLightningRod();
 
         abilityLightningRod.setAbilityDamage(0);
+        abilityLightningRod.setOwner(this);
         abilities.add(abilityLightningRod);
 
         locationOnMap = new Vector2(0, 0);
@@ -109,9 +111,10 @@ public class Enemy extends BaseCharacter {
         float startX = (enemyImage.getX() + enemyImage.getWidth() / 2) - ((abilities.size * 105) / 2) + 25;
 
         for (int i = 0; i < abilities.size; i++) {
-            final Ability current = abilities.get(i);
+            BaseAbility current = abilities.get(i);
             current.getImage().setBounds(startX + (i * 105), GemLord.VIRTUAL_HEIGHT - 230, 70, 70);
             foreGround.addActor(current.getImage());
+            current.setOwner(this);
         }
 
     }
@@ -150,7 +153,6 @@ public class Enemy extends BaseCharacter {
         for (int i = 0; i < abilities.size; i++) {
             BaseAbility ability = abilities.get(i);
             ability.setNeedsUpdate(true);
-            ability.setOwner(this);
             ability.turn();
         }
         super.turn();
@@ -162,6 +164,7 @@ public class Enemy extends BaseCharacter {
             return;
         }
         boolean allDone = true;
+
         for (int i = 0; i < abilities.size; i++) {
             BaseAbility ability = abilities.get(i);
             if (ability.getCurrentCooldown() <= 0) {
@@ -225,5 +228,13 @@ public class Enemy extends BaseCharacter {
 
     public boolean allAbilitiesDone() {
         return allAbilitiesDone;
+    }
+
+    public boolean requestBoardMovementUpdate() {
+        return boardNeedsMovementUpdate;
+    }
+
+    public void setRequestMovementUpdate(boolean b) {
+        boardNeedsMovementUpdate = b;
     }
 }

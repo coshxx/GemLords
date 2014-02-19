@@ -1,9 +1,12 @@
 package de.cosh.anothermanager.Abilities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import javafx.scene.effect.Light;
+import de.cosh.anothermanager.GemLord;
 
 import java.util.ArrayList;
 
@@ -25,11 +28,11 @@ public class LightningBolt {
 
         int subDivisions = 5;
 
-        for( int i = 0; i < subDivisions; i++ ) {
+        for (int i = 0; i < subDivisions; i++) {
             int currentDivisions = lightningLines.size();
-            for( int j = 0; j < currentDivisions; j++ ) {
-                Vector2 segmentStart =  lightningLines.get(0).getStart();
-                Vector2 segmentEnd =  lightningLines.get(0).getEnd();
+            for (int j = 0; j < currentDivisions; j++) {
+                Vector2 segmentStart = lightningLines.get(0).getStart();
+                Vector2 segmentEnd = lightningLines.get(0).getEnd();
                 lightningLines.remove(0);
 
                 Vector2 tempStart = new Vector2(segmentStart);
@@ -38,7 +41,7 @@ public class LightningBolt {
                 Vector2 tempMid = new Vector2(middlePoint);
                 Vector2 dirVec = new Vector2(tempMid.sub(segmentStart)).nor();
 
-                if( MathUtils.randomBoolean() )
+                if (MathUtils.randomBoolean())
                     dirVec.rotate(90f);
                 else dirVec.rotate(-90f);
 
@@ -58,7 +61,7 @@ public class LightningBolt {
     }
 
     public void draw(SpriteBatch batch, float parentAlpha) {
-        for( LightningLine l : lightningLines )
+        for (LightningLine l : lightningLines)
             l.draw(batch, parentAlpha);
     }
 

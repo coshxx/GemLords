@@ -32,6 +32,7 @@ public class AbilityThink extends BaseAbility {
 
             board.getSwapController().swap(swapCommand.swapStart, swapCommand.x, swapCommand.y);
             abilityImage.addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
+            owner.setRequestMovementUpdate(true);
             return true;
 		}
 		return false;

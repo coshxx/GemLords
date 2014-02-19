@@ -49,6 +49,7 @@ public class AbilityRedSmash extends BaseAbility {
             	}
             }
             GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawn(foreGround);
+            owner.setRequestMovementUpdate(true);
             return true;
 		}
 		return false;

@@ -14,11 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.Array;
-import de.cosh.anothermanager.GemLord;
 import de.cosh.anothermanager.Characters.Damage;
 import de.cosh.anothermanager.Characters.Enemy;
 import de.cosh.anothermanager.Characters.Player;
 import de.cosh.anothermanager.GUI.GUIWindow;
+import de.cosh.anothermanager.GemLord;
 
 /**
  * Created by cosh on 13.01.14.
@@ -41,6 +41,7 @@ public class Board extends Group {
     private final SwapController swapController;
     private final SpecialEffects sfx;
     private final RespawnRequest respawnRequest;
+    int tempX = 0;
     private BoardState boardState;
     private Enemy enemy;
     private Player player;
@@ -107,20 +108,20 @@ public class Board extends Group {
         backGround.draw(batch, parentAlpha);
         foreGround.draw(batch, parentAlpha);
 
-		Stage stage = getStage();
-		GemLord myGame = GemLord.getInstance();
+        Stage stage = getStage();
+        GemLord myGame = GemLord.getInstance();
 
-		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, GemLord.VIRTUAL_HEIGHT - 277));
-		final Vector2 end = stage.stageToScreenCoordinates(new Vector2(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT - 720));
-		final Rectangle scissor = new Rectangle();
-		final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
-		ScissorStack.calculateScissors(myGame.camera, 0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT, batch.getTransformMatrix(),
+        final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, GemLord.VIRTUAL_HEIGHT - 277));
+        final Vector2 end = stage.stageToScreenCoordinates(new Vector2(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT - 720));
+        final Rectangle scissor = new Rectangle();
+        final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
+        ScissorStack.calculateScissors(myGame.camera, 0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT, batch.getTransformMatrix(),
                 clipBounds, scissor);
-		batch.flush();
-		ScissorStack.pushScissors(scissor);
+        batch.flush();
+        ScissorStack.pushScissors(scissor);
         gemGroup.draw(batch, parentAlpha);
-		batch.flush();
-		ScissorStack.popScissors();
+        batch.flush();
+        ScissorStack.popScissors();
 
         player.draw(batch, parentAlpha);
         enemy.draw(batch, parentAlpha);
@@ -175,7 +176,7 @@ public class Board extends Group {
     public void swapTo(final Vector2 flingStartPosition, final int x, final int y) {
         if (boardState != BoardState.STATE_IDLE)
             return;
-        if( !turnIndicator.isPlayerTurn() )
+        if (!turnIndicator.isPlayerTurn())
             return;
 
         lastX = x;
@@ -221,27 +222,29 @@ public class Board extends Group {
         }
     }
 
-    void turnComplete(float delay) {
-        addAction(Actions.sequence(
-                Actions.delay(delay),
-                Actions.run(new Runnable() {
-
-            @Override
-            public void run() {
-                turnIndicator.switchPlayers();
-            }
-        })));
+    void turnComplete() {
+        turnIndicator.switchPlayers();
     }
 
     public void update(float delta) {
-        if( boardState == BoardState.STATE_IDLE ) {
+        tempX++;
+        if (tempX >= 200) {
+            System.out.println(boardState.toString());
+            tempX = 0;
+        }
+
+        if (boardState == BoardState.STATE_IDLE) {
             checkPlayerAndEnemyStatus();
-            if( enemy.allAbilitiesDone() )
+
+            if (enemy.requestBoardMovementUpdate()) {
+                enemy.setRequestMovementUpdate(false);
                 boardState = BoardState.STATE_MOVING;
-            if( justSwapped && boardState == BoardState.STATE_IDLE) {
+            }
+
+            if (justSwapped && boardState == BoardState.STATE_IDLE) {
                 justSwapped = false;
                 matchesDuringCurrentMove = 0;
-                turnComplete(0.0f);
+                turnComplete();
                 player.turn();
                 enemy.turn(player);
                 boardState = BoardState.STATE_MOVING;
@@ -249,8 +252,12 @@ public class Board extends Group {
             }
         }
 
-        if( !turnIndicator.isPlayerTurn())
+        if (!turnIndicator.isPlayerTurn()) {
             enemy.update(delta);
+            if (enemy.allAbilitiesDone()) {
+                turnComplete();
+            }
+        }
 
         if (boardState == BoardState.STATE_CHECK) {
             MatchResult result = matchFinder.markAllMatchingGems();
@@ -260,17 +267,16 @@ public class Board extends Group {
                 }
 
                 GemLord.soundPlayer.playDing(matchesDuringCurrentMove++);
-                if( turnIndicator.isPlayerTurn() )
+                if (turnIndicator.isPlayerTurn())
                     myGame.afterActionReport.setLongestCombo(matchesDuringCurrentMove);
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
                 Damage damage = new Damage();
                 damage.damage = result.howMany;
-                if( turnIndicator.isPlayerTurn() ) {
+                if (turnIndicator.isPlayerTurn()) {
                     damage.damage += player.getItemDamageBuffs(damage);
                     enemy.damage(damage);
-                }
-                else {
+                } else {
                     player.damage(damage);
                 }
                 if (result.specialExplo) {
@@ -279,25 +285,6 @@ public class Board extends Group {
                 boardState = BoardState.STATE_FADING;
             } else {
                 boardState = BoardState.STATE_IDLE;
-                /*
-                if( !turnIndicator.isPlayerTurn() ) {
-                    if( enemy.allAbilitiesDone() ) {
-                        turnComplete(0f);
-                        boardState = BoardState.STATE_CHECK;
-                    }
-                }
-                /*
-                // TODO: meh
-                if( !turnIndicator.isPlayerTurn()) {
-                    addAction(Actions.run(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            turnComplete(0.5f);
-                        }
-                    }));
-                }
-                */
             }
         } else if (boardState == BoardState.STATE_MOVING) {
             updateGems(delta);
@@ -306,8 +293,8 @@ public class Board extends Group {
             }
         } else if (boardState == BoardState.STATE_SWAPPING) {
             if (!gemsHaveWork()) {
-                if( justSwapped ) {
-                    if( !matchFinder.hasMatches() ) {
+                if (justSwapped) {
+                    if (!matchFinder.hasMatches()) {
                         swapController.swap(lastSwap, lastX, lastY);
                     }
                 }
@@ -321,6 +308,7 @@ public class Board extends Group {
             }
         }
     }
+
     private void updateGems(float delta) {
         if (boardState == BoardState.STATE_MOVING) {
             for (int i = 0; i < uncelledGems.size; i++) {
@@ -427,6 +415,10 @@ public class Board extends Group {
 
     public Enemy getEnemy() {
         return enemy;
+    }
+
+    public boolean isPlayerTurn() {
+        return turnIndicator.isPlayerTurn();
     }
 
     public enum BoardState {

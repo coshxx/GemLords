@@ -84,9 +84,6 @@ public class HealthBar extends Actor {
 
 	public void hit(Damage damage) {
 		hp -= damage.damage;
-		if (hp <= 0) {
-			hp = 0;
-		}
 
 		FloatingNumbers f = new FloatingNumbers();
         floatingNumbers.add(f);

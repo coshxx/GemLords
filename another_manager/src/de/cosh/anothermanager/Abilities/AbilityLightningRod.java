@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Abilities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class AbilityLightningRod extends BaseAbility {
     private ArrayList<LightningBolt> lightningsBolts;
     private int shot;
+    private int chosenGem;
 
     public AbilityLightningRod() {
         abilityImageLocation = "data/textures/lightningrod.png";
@@ -33,20 +35,12 @@ public class AbilityLightningRod extends BaseAbility {
     @Override
     public boolean fire(final BaseCharacter target) {
         Cell cells[][] = GemLord.getInstance().gameScreen.getBoard().getCells();
-
         Group foreGround = GemLord.getInstance().gameScreen.getBoard().getGemGroup();
-        ShaderProgram shader = new ShaderProgram(Gdx.files.internal("data/shaders/lightningrod.vert"), Gdx.files.internal("data/shaders/lightningrod.frag"));
-        shader.pedantic = false;
-        if (!shader.isCompiled()) {
-            System.out.println(shader.getLog());
-        }
-        GemLord.getInstance().gameScreen.getBatch().setShader(shader);
-
         Vector2 start = new Vector2(getImage().getX() + getImage().getWidth(), getImage().getY() + getImage().getHeight());
         for (int x = 0; x < Board.MAX_SIZE_X; x++) {
             for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
                 Gem gem = cells[x][y].getGem();
-                if (gem.getGemType() == GemType.TYPE_BLUE) {
+                if (gem.getGemType() == GemType.values()[chosenGem]) {
                         /*
                         StarEffect effect = new StarEffect(GemLord.getInstance());
                         effect.spawnStars(gem.getX(), gem.getY(), group);
@@ -84,15 +78,12 @@ public class AbilityLightningRod extends BaseAbility {
 
 
     public void update(float delta) {
-        if( getCurrentCooldown() != -1 ) {
-            needsUpdate = false;
-            return;
-        }
         passedTime += delta;
         if (passedTime > 0.1f) {
             passedTime = 0;
             if( shot == 0 ) {
                 GemLord.soundPlayer.playLightningRod();
+                chosenGem = MathUtils.random(0, 5);
             }
             shot++;
             lightningsBolts.clear();
@@ -111,7 +102,7 @@ public class AbilityLightningRod extends BaseAbility {
             for (int x = 0; x < Board.MAX_SIZE_X; x++) {
                 for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
                     Gem gem = cells[x][y].getGem();
-                    if (gem.getGemType() == GemType.TYPE_BLUE) {
+                    if (gem.getGemType() == GemType.values()[chosenGem]) {
                         StarEffect effect = new StarEffect(GemLord.getInstance());
                         effect.spawnStars(gem.getX(), gem.getY(), group);
                         cells[x][y].setEmpty(true);
@@ -120,8 +111,6 @@ public class AbilityLightningRod extends BaseAbility {
                         gem.setToNone();
                         GemLord.getInstance().gameScreen.getBoard().getRespawnRequest().addOne(x);
                         damageCount.damage++;
-
-
                     }
                 }
             }
@@ -135,12 +124,39 @@ public class AbilityLightningRod extends BaseAbility {
             setCooldown(5);
             needsUpdate = false;
             GemLord.getInstance().gameScreen.getBoard().getGemHandler().respawn(gemGroup);
+            owner.setRequestMovementUpdate(true);
         }
     }
 
     public void drawFire(SpriteBatch batch, float parentAlpha) {
+        Color color = new Color(1, 1, 1, parentAlpha);
+        switch (chosenGem ) {
+            case 0:
+                color = new Color(0, 0, 1, parentAlpha);
+                break;
+            case 1:
+                color = new Color(0, 1, 0, parentAlpha);
+                break;
+            case 2:
+                color = new Color(0.7f, 0, 1f, parentAlpha);
+                break;
+            case 3:
+                color = new Color(1, 0, 0, parentAlpha);
+                break;
+            case 4:
+                color = new Color(1, 1, 1, parentAlpha);
+                break;
+            case 5:
+                color = new Color(1, 1, 0, parentAlpha);
+                break;
+        }
+
+        batch.setColor(color);
+
         for (LightningBolt bolt : lightningsBolts) {
             bolt.draw(batch, parentAlpha);
         }
+
+        batch.setColor(1, 1, 1, parentAlpha);
     }
 }
