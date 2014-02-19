@@ -1,7 +1,7 @@
 {
-enemyImageLocation: data/textures/enemykingcrab.png,
-enemyName: "King Crab",
-enemyNumber: 14,
+enemyImageLocation: data/textures/enemyfly.png,
+enemyName: "Giant Fly",
+enemyNumber: 15,
 abilities: [
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityThink,
@@ -10,17 +10,17 @@ abilities: [
 	},
 	{
 		class: de.cosh.anothermanager.Abilities.AbilityLightningRod,
-		currentCooldown: 5,
-		cooldown: 5
+		currentCooldown: 3,
+		cooldown: 3
 	},
 ],
 locationOnMap: {
-	x: 538,
-	y: 480
+	x: 598,
+	y: 440
 },
 healthBar: {
-	hp: 180,
-	maxHP: 180
+	hp: 280,
+	maxHP: 280
 },
-dropItemID: 12
+dropItemID: -1
 }

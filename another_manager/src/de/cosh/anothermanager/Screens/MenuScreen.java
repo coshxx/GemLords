@@ -184,6 +184,7 @@ public class MenuScreen implements Screen {
 							@Override
 							public void run() {
 								myGame.soundPlayer.stopMenuMusic();
+                                myGame.player.clearPreferences();
 								myGame.setScreen(myGame.mapTraverseScreen);
 							}
 						})));

@@ -95,3 +95,19 @@ Robsis Mace
 
 alpha totem
 return <1-3 / 2-4 / 3-6> hp each turn
+
+
+
+episode 2
+swamp lands
+
+bog/swamp/mud - rat/bat/etc
+
+mud splash 
+all gems appear brownish to you...
+swamp dive
+50% evasion for the next <x> attacks
+mud bomb
+<20-50> direct damage...
+swamp rise
+bottom row of gems drowns bla damage...

@@ -94,4 +94,8 @@ public class PlayerInventory {
         }
         return returnItems;
     }
+
+    public void clearInventory() {
+        itemsInInventory.clear();
+    }
 }
