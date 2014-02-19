@@ -12,6 +12,7 @@ id, item
 9, basic ring
 10, mages robe
 11, decent shield
+12, hunting bow
 
 1337, devrobe
 

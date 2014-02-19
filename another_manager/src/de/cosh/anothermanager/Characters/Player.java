@@ -234,4 +234,13 @@ public class Player extends BaseCharacter {
 
         prefs.flush();
     }
+
+    public void clearPreferences() {
+        for( int i = 0; i < 200; i++ ) {
+            levelDone[i] = false;
+        }
+        getInventory().clearInventory();
+        getActionBar().clear();
+
+    }
 }
