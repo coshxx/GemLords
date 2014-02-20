@@ -96,12 +96,14 @@ public class MapTraverseScreen implements Screen {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+        /*
         OrthographicCamera camera = GemLord.getInstance().camera;
         zoomLevel -= zoomSpeed * delta;
         camera.zoom = zoomLevel;
         camera.update();
-
         stage.setCamera(camera);
+        */
+
 		stage.act(delta);
 		stage.draw();
 
