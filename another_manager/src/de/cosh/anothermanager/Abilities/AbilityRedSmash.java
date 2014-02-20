@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Abilities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -19,7 +20,8 @@ import de.cosh.anothermanager.SwapGame.StarEffect;
 public class AbilityRedSmash extends BaseAbility {
 	public AbilityRedSmash() {
 		abilityImageLocation = "data/textures/abilitysmashred.png";
-		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+		abilityImage = new Image(atlas.findRegion("abilitysmashred"));
 	}
 
 	@Override

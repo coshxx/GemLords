@@ -1,12 +1,12 @@
 package de.cosh.anothermanager.SwapGame;
 
 public enum GemType {
-	TYPE_BLUE("data/textures/ball_blue.png"),
-	TYPE_GREEN("data/textures/ball_green.png"),
-	TYPE_PURPLE("data/textures/ball_purple.png"),
-	TYPE_RED("data/textures/ball_red.png"),
-	TYPE_WHITE("data/textures/ball_white.png"),
-	TYPE_YELLOW("data/textures/ball_yellow.png"),
+	TYPE_BLUE("ball_blue"),
+	TYPE_GREEN("ball_green"),
+	TYPE_PURPLE("ball_purple"),
+	TYPE_RED("ball_red"),
+	TYPE_WHITE("ball_white"),
+	TYPE_YELLOW("ball_yellow"),
 	TYPE_NONE("");
 
 	private String texturePath;

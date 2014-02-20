@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -25,8 +26,9 @@ public class AbilityLightningRod extends BaseAbility {
     private int chosenGem;
 
     public AbilityLightningRod() {
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
         abilityImageLocation = "data/textures/lightningrod.png";
-        abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+        abilityImage = new Image(atlas.findRegion("lightningrod"));
         setAbilityDamage(0);
         lightningsBolts = new ArrayList<LightningBolt>();
         shot = 0;

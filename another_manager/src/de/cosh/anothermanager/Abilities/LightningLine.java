@@ -3,6 +3,7 @@ package de.cosh.anothermanager.Abilities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import de.cosh.anothermanager.GemLord;
@@ -22,7 +23,8 @@ public class LightningLine {
     public void init() {
         start = new Vector2();
         end = new Vector2();
-        lightningSegment = new Sprite(GemLord.assets.get("data/textures/lightningmid.png", Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        lightningSegment = new Sprite(atlas.findRegion("lightningmid"));
     }
 
     public LightningLine(Vector2 a, Vector2 b, float thickness) {

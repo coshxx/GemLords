@@ -3,6 +3,7 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -29,7 +30,8 @@ public class Buff {
 	private final int width = 30;
 
 	public Buff() {
-		this.buffBorderImage = new Image(GemLord.assets.get("data/textures/buff_border.png", Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+		this.buffBorderImage = new Image(atlas.findRegion("buff_border"));
 		GemLord.getInstance();
 		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
 		bmf = s.getFont("default-font");

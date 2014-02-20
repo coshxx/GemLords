@@ -8,7 +8,7 @@ import de.cosh.anothermanager.GemLord;
 public class ItemMageRobe extends BaseItem {
 
 	public ItemMageRobe() {
-		super(GemLord.assets.get("data/textures/robe_mage.png", Texture.class));
+		super("robe_mage");
 		itemNumber = 10;
 		setItemName("Mages Robe");
 		setItemText("Grants an additional\n 75 health\nIncreases crit chance\nby 3%");

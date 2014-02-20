@@ -13,10 +13,10 @@ public class ItemDagger extends BaseItem {
     private Random random;
 
 	public ItemDagger() {
-		super(GemLord.assets.get("data/textures/itemdagger.png", Texture.class));
+		super("itemdagger");
 		itemNumber = 6;
 		setItemName("Valors Dagger");
-		setItemText("Increases your\ndamage by 1 - 5");
+		setItemText("Increases your\ndamage by 2 - 5");
 		setItemSlotType(ItemSlotType.WEAPON_PASSIVE);
         random = new Random();
 	}
@@ -32,7 +32,9 @@ public class ItemDagger extends BaseItem {
 	}
 
     public int getAdditionalDamage(Damage damage) {
-        int additionalDamage = MathUtils.random(1, 5);
+        int additionalDamage = MathUtils.random(2, 5);
         return additionalDamage;
+
+
     }
 }

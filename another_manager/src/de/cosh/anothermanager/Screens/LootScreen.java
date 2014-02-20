@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -226,8 +227,8 @@ public class LootScreen implements Screen {
                 oldItem.setPosition(GemLord.VIRTUAL_WIDTH / 4 - item.getWidth() / 2, 800);
                 oldItem.setDrawText(true);
                 stage.addActor(oldItem);
-
-                Image upgradeArrow = new Image(GemLord.assets.get("data/textures/upgradearrow.png", Texture.class));
+                TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+                Image upgradeArrow = new Image(atlas.findRegion("upgradearrow"));
                 upgradeArrow.setBounds(270, 780, 200, 100);
                 upgradeArrow.addAction(Actions.alpha(0));
                 upgradeArrow.addAction(Actions.sequence(

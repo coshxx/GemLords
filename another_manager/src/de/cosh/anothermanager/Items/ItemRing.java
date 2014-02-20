@@ -13,7 +13,7 @@ public class ItemRing extends BaseItem {
     private Random random;
 
 	public ItemRing() {
-		super(GemLord.assets.get("data/textures/ring.png", Texture.class));
+		super("ring");
 		itemNumber = 9;
 		setItemName("Basic Ring");
 		setItemText("Increases crit chance\nby 5% for swaps");

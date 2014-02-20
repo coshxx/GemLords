@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -43,87 +44,15 @@ public class SplashScreen implements Screen {
 
 	}
 
+    public TextureAtlas getAtlas() {
+        return GemLord.assets.get("data/texture/pack.atlas", TextureAtlas.class);
+    }
+
 	private void loadAllAssets() {
-		GemLord.assets.load("data/textures/background.png", Texture.class);
-
-		GemLord.assets.load("data/textures/ball_blue.png", Texture.class);
-		GemLord.assets.load("data/textures/ball_green.png", Texture.class);
-		GemLord.assets.load("data/textures/ball_purple.png", Texture.class);
-		GemLord.assets.load("data/textures/ball_red.png", Texture.class);
-		GemLord.assets.load("data/textures/ball_white.png", Texture.class);
-		GemLord.assets.load("data/textures/ball_yellow.png", Texture.class);
-
-		GemLord.assets.load("data/textures/special_blueh.png", Texture.class);
-		GemLord.assets.load("data/textures/special_greenh.png", Texture.class);
-		GemLord.assets.load("data/textures/special_purpleh.png", Texture.class);
-		GemLord.assets.load("data/textures/special_redh.png", Texture.class);
-		GemLord.assets.load("data/textures/special_whiteh.png", Texture.class);
-		GemLord.assets.load("data/textures/special_yellowh.png", Texture.class);
-
-		GemLord.assets.load("data/textures/special_bluev.png", Texture.class);
-		GemLord.assets.load("data/textures/special_greenv.png", Texture.class);
-		GemLord.assets.load("data/textures/special_purplev.png", Texture.class);
-		GemLord.assets.load("data/textures/special_redv.png", Texture.class);
-		GemLord.assets.load("data/textures/special_whitev.png", Texture.class);
-		GemLord.assets.load("data/textures/special_yellowv.png", Texture.class);
-
-		GemLord.assets.load("data/textures/special_5.png", Texture.class);
-
-		GemLord.assets.load("data/textures/abilityattack.png", Texture.class);
-		GemLord.assets.load("data/textures/abilityfireball.png", Texture.class);
-		GemLord.assets.load("data/textures/abilityflydodge.png", Texture.class);
-		GemLord.assets.load("data/textures/abilitypoison.png", Texture.class);
-		GemLord.assets.load("data/textures/abilitypetrify.png", Texture.class);
-		GemLord.assets.load("data/textures/abilitysmashblue.png", Texture.class);
-		GemLord.assets.load("data/textures/abilitysmashred.png", Texture.class);
-		GemLord.assets.load("data/textures/abilitythink.png", Texture.class);
-		GemLord.assets.load("data/textures/abilitybite.png", Texture.class);
-
-        GemLord.assets.load("data/textures/actionbar.png", Texture.class);
-
-		GemLord.assets.load("data/textures/debuff_border.png", Texture.class);
-		GemLord.assets.load("data/textures/buff_border.png", Texture.class);
-		GemLord.assets.load("data/textures/item_border.png", Texture.class);
-		GemLord.assets.load("data/textures/minorhealthpotion.png", Texture.class);
-		GemLord.assets.load("data/textures/pocketwatch.png", Texture.class);
-
-		GemLord.assets.load("data/textures/empty.png", Texture.class);
-		GemLord.assets.load("data/textures/full.png", Texture.class);
-		GemLord.assets.load("data/textures/logo.png", Texture.class);
-		//GemLord.assets.load("data/textures/map.png", Texture.class);
 		GemLord.assets.load("data/textures/map.jpg", Texture.class);
-		GemLord.assets.load("data/textures/point.png", Texture.class);
-		GemLord.assets.load("data/textures/abilityclaw.png", Texture.class);
-		GemLord.assets.load("data/textures/clawfullscreen.png", Texture.class);
-		GemLord.assets.load("data/textures/pointdone.png", Texture.class);
 		GemLord.assets.load("data/textures/splash.jpg", Texture.class);
-		GemLord.assets.load("data/textures/totem.png", Texture.class);
-		GemLord.assets.load("data/textures/cell_back.png", Texture.class);
-		GemLord.assets.load("data/textures/ring.png", Texture.class);
-		GemLord.assets.load("data/textures/star.png", Texture.class);
-		GemLord.assets.load("data/textures/treasure.jpg", Texture.class);
-		GemLord.assets.load("data/textures/upgradearrow.png", Texture.class);
-		GemLord.assets.load("data/textures/heart.png", Texture.class);
-		GemLord.assets.load("data/textures/heartempty.png", Texture.class);
-		GemLord.assets.load("data/textures/robe.png", Texture.class);
-		GemLord.assets.load("data/textures/itemdagger.png", Texture.class);
-		GemLord.assets.load("data/textures/itembow.png", Texture.class);
-		GemLord.assets.load("data/textures/itemhuntingbow.png", Texture.class);
-		GemLord.assets.load("data/textures/itemarrow.png", Texture.class);
-		GemLord.assets.load("data/textures/itemamulet.png", Texture.class);
-		GemLord.assets.load("data/textures/turnindicator.png", Texture.class);
-		GemLord.assets.load("data/textures/robe_scholar.png", Texture.class);
-		GemLord.assets.load("data/textures/lightningmid.png", Texture.class);
-		GemLord.assets.load("data/textures/lightningbot.png", Texture.class);
-		GemLord.assets.load("data/textures/robe_mage.png", Texture.class);
-		GemLord.assets.load("data/textures/awesome.png", Texture.class);
-		GemLord.assets.load("data/textures/loadout.jpg", Texture.class);
 		GemLord.assets.load("data/textures/menu.png", Texture.class);
-		GemLord.assets.load("data/textures/title.png", Texture.class);
-		GemLord.assets.load("data/textures/shield.png", Texture.class);
-		GemLord.assets.load("data/textures/bettershield.png", Texture.class);
-		GemLord.assets.load("data/textures/lightningrod.png", Texture.class);
-
+        GemLord.assets.load("data/textures/pack.atlas", TextureAtlas.class);
 
 		GemLord.assets.load("data/sounds/blub1.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/blub2.ogg", Sound.class);

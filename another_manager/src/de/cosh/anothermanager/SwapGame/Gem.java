@@ -2,6 +2,7 @@ package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -43,9 +44,8 @@ public class Gem extends Image {
 	private float speed, totalTranslated;
 
 	public Gem(GemType g) {
-        Texture texture = GemLord.assets.get(g.getTexturePath(), Texture.class);
-        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        this.setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        this.setDrawable(new TextureRegionDrawable(new TextureRegion(atlas.findRegion(g.getTexturePath()))));
 		super.setWidth(80);
 		super.setHeight(80);
 		this.gemType = g;
@@ -128,16 +128,17 @@ public class Gem extends Image {
 	}
 
 	public void convertToSpecialGem() {
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
 		if (isSuperSpecialGem)
 			return;
 		if (convertHorizontal) {
 			specialTypeHorizontal = GemTypeSpecialHorizontal.values()[gemType.ordinal()];
-			setDrawable(new TextureRegionDrawable(new TextureRegion(GemLord.assets.get(specialTypeHorizontal.getTexturePath(), Texture.class))));
+			setDrawable(new TextureRegionDrawable(new TextureRegion(atlas.findRegion(specialTypeHorizontal.getTexturePath()))));
 			isMarkedForSpecialConversion = false;
 			isSpecialHorizontalGem = true;
 		} else {
 			specialTypeVertical = GemTypeSpecialVertical.values()[gemType.ordinal()];
-			setDrawable(new TextureRegionDrawable(new TextureRegion(GemLord.assets.get(specialTypeVertical.getTexturePath(), Texture.class))));
+			setDrawable(new TextureRegionDrawable(new TextureRegion(atlas.findRegion(specialTypeVertical.getTexturePath()))));
 			isMarkedForSpecialConversion = false;
 			isSpecialVerticalGem = true;
 		}
@@ -253,7 +254,8 @@ public class Gem extends Image {
 
 	public void convertToSuperSpecial() {
 		specialSuperSpecial = GemTypeSuperSpecial.TYPE_SPECIAL_5;
-		setDrawable(new TextureRegionDrawable(new TextureRegion(GemLord.assets.get(specialSuperSpecial.getTexturePath(), Texture.class))));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+		setDrawable(new TextureRegionDrawable(new TextureRegion(atlas.findRegion(specialSuperSpecial.getTexturePath()))));
 		isMarkedForSuperSpecialConversion = false;
 		isSuperSpecialGem = true;
 	}

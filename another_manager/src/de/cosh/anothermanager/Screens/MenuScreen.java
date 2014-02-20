@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -88,7 +89,9 @@ public class MenuScreen implements Screen {
 		table.setFillParent(true);
 		backGround = new Image(GemLord.getInstance().assets.get(
 				"data/textures/menu.png", Texture.class));
-        Image titleImage = new Image(GemLord.assets.get("data/textures/title.png", Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        Image titleImage = new Image(atlas.findRegion("title"));
+
         titleImage.setPosition(0, GemLord.VIRTUAL_HEIGHT-titleImage.getHeight());
 
 		table.setBackground(backGround.getDrawable());

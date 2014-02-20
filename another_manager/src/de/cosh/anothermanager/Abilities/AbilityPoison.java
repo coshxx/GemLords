@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Abilities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -13,8 +14,9 @@ import de.cosh.anothermanager.Characters.Debuff;
  */
 public class AbilityPoison extends BaseAbility {
 	public AbilityPoison() {
-		abilityImageLocation = "data/textures/abilitypoison.png";
-		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+		abilityImageLocation = "abilitypoison";
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+		abilityImage = new Image(atlas.findRegion(abilityImageLocation));
 	}
 
 	@Override
@@ -30,7 +32,8 @@ public class AbilityPoison extends BaseAbility {
 
 			final Debuff poisonDebuff = new Debuff();
 			poisonDebuff.setup(5, 5, target);
-			poisonDebuff.setDebuffImage(new Image(GemLord.assets.get(abilityImageLocation, Texture.class)));
+            TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+			poisonDebuff.setDebuffImage(new Image(atlas.findRegion(abilityImageLocation)));
 			target.addDebuff(poisonDebuff);
 			return true;
 		}

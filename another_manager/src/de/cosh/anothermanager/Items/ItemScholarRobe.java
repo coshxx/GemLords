@@ -9,7 +9,7 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
 public class ItemScholarRobe extends BaseItem {
 
 	public ItemScholarRobe() {
-		super(GemLord.assets.get("data/textures/robe_scholar.png", Texture.class));
+		super("robe_scholar");
 		itemNumber = 2;
 		setItemName("Scholars Robe");
 		setItemText("Grants an additional\n 50 hp");

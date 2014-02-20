@@ -3,6 +3,7 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -45,8 +46,9 @@ public class Enemy extends BaseCharacter {
         super();
         dropItemID = -1;
         this.isDefeated = false;
-        pointTexture = new TextureRegion(GemLord.assets.get("data/textures/point.png", Texture.class));
-        pointDoneTexture = new TextureRegion(GemLord.assets.get("data/textures/pointdone.png", Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        pointTexture = new TextureRegion(atlas.findRegion("point"));
+        pointDoneTexture = new TextureRegion(atlas.findRegion("pointdone"));
 
         style = new ImageButton.ImageButtonStyle();
         style.up = new TextureRegionDrawable(pointTexture);

@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Abilities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -22,8 +23,9 @@ public class AbilityFireball extends BaseAbility {
     private boolean fireballInTheAir;
 
     public AbilityFireball() {
-        abilityImageLocation = "data/textures/abilityfireball.png";
-        abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+        abilityImageLocation = "abilityfireball";
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        abilityImage = new Image(atlas.findRegion(abilityImageLocation));
         setAbilityDamage(0);
         fireballInTheAir = false;
     }
@@ -49,7 +51,8 @@ public class AbilityFireball extends BaseAbility {
             y -= abilityImage.getWidth() / 4;
 
             fireballInTheAir = true;
-            Image fireBall = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+            TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+            Image fireBall = new Image(atlas.findRegion(abilityImageLocation));
             fireBall.setPosition(abilityImage.getX(), abilityImage.getY());
             fireBall.addAction(Actions.sequence(
                     Actions.moveTo(x, y, 0.5f),

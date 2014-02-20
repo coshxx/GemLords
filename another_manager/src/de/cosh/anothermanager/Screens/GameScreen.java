@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
@@ -77,6 +78,10 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 		return false;
 	}
 
+    int tempX = 0;
+    int avgRenderCalls;
+    FPSLogger fpsLogger = new FPSLogger();
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
@@ -90,8 +95,14 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 		stage.act(delta);
 		stage.draw();
 
-        stage.getSpriteBatch().begin();
-        stage.getSpriteBatch().end();
+        tempX++;
+        avgRenderCalls += stage.getSpriteBatch().renderCalls;
+        if( tempX >= 30 ) {
+            tempX = 0;
+            avgRenderCalls /= 30;
+            System.out.println("Avg Render Calls" + avgRenderCalls);
+            fpsLogger.log();
+        }
 
         if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE ))
             swapGame.getEnemy().setHealth(0);

@@ -2,6 +2,7 @@ package de.cosh.anothermanager.Items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.anothermanager.Characters.BaseCharacter;
@@ -18,8 +19,8 @@ public class ItemHuntingBow extends BaseItem {
     private Random random;
 
 	public ItemHuntingBow() {
-		super(GemLord.assets.get("data/textures/itemhuntingbow.png", Texture.class));
-		itemNumber = 7;
+		super("itemhuntingbow");
+		itemNumber = 12;
 		setItemName("Hunting Bow");
 		setItemText("Deal 10 - 25 damage\nCooldown: 5");
 		setItemSlotType(ItemSlotType.BOW_ACTIVE);
@@ -50,8 +51,8 @@ public class ItemHuntingBow extends BaseItem {
             GemLord.getInstance().gameScreen.getBoard().getEnemy().damage(dmg);
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             currentCooldown = cooldown;
-
-            Image projectile = new Image(GemLord.assets.get("data/textures/itemarrow.png", Texture.class));
+            TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+            Image projectile = new Image(atlas.findRegion("item_arrow"));
             projectile.setPosition(getX(), getY());
 
             float targetX = GemLord.getInstance().gameScreen.getBoard().getEnemy().getImage().getX();

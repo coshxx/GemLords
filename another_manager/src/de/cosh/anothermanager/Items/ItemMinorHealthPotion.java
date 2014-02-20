@@ -19,7 +19,7 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
     private Random random;
 
 	public ItemMinorHealthPotion() {
-		super(GemLord.assets.get("data/textures/minorhealthpotion.png", Texture.class));
+		super("minorhealthpotion");
 		itemNumber = 1;
 		setItemName("Minor potion");
 		setItemText("Recover 10-20 hp\nCooldown: 10");

@@ -1,7 +1,7 @@
 package de.cosh.anothermanager.SwapGame;
 
 public enum GemTypeSuperSpecial {
-	TYPE_SPECIAL_5("data/textures/special_5.png"),
+	TYPE_SPECIAL_5("special"),
 	TYPE_NONE("");
 
 	private String texturePath;

@@ -21,7 +21,7 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 	private BitmapFont bmf;
 
 	public ItemPocketWatch() {
-		super(GemLord.assets.get("data/textures/pocketwatch.png", Texture.class));
+		super("pocketwatch");
 		itemNumber = 4;
 		setItemName("Simaohs Pocketwatch");
 		setItemText("Undo 100%\nof received damage\nCooldown: 99");

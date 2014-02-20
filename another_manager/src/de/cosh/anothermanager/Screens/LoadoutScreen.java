@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -18,7 +19,6 @@ import de.cosh.anothermanager.GUI.GUIButton;
  */
 public class LoadoutScreen implements Screen {
 	private Stage stage;
-    private Table table;
 
 	public LoadoutScreen() {
 	}
@@ -44,8 +44,6 @@ public class LoadoutScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
-
-        Table.drawDebug(stage);
 	}
 
 	@Override
@@ -62,8 +60,8 @@ public class LoadoutScreen implements Screen {
 	public void show() {
 		stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
-		Image background = new Image(GemLord.assets.get("data/textures/background.png", Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+		Image background = new Image(atlas.findRegion("background"));
 		background.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
 		stage.addActor(background);
 

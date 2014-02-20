@@ -1,8 +1,10 @@
 package de.cosh.anothermanager.SwapGame;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import de.cosh.anothermanager.GemLord;
 
 /**
@@ -14,7 +16,8 @@ public class Cell extends Image {
 	private boolean isEmpty;
 
 	public Cell(GemLord myGame, int cellX, int cellY) {
-		super(GemLord.assets.get("data/textures/cell_back.png", Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+		setDrawable(new TextureRegionDrawable(atlas.findRegion("cell_back")));
 		this.cellX = cellX;
 		this.cellY = cellY;
 		this.isEmpty = false;

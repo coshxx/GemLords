@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Abilities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.anothermanager.GemLord;
@@ -12,7 +13,8 @@ import de.cosh.anothermanager.Characters.BaseCharacter;
 public class AbilityBite extends BaseAbility {
 	public AbilityBite() {
 		abilityImageLocation = "data/textures/abilitybite.png";
-		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+		abilityImage = new Image(atlas.findRegion("abilitybite"));
         setAbilityDamage(10);
 	}
 

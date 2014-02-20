@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Abilities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.anothermanager.GemLord;
@@ -16,7 +17,8 @@ public class AbilityThink extends BaseAbility {
 
 	public AbilityThink() {
 		abilityImageLocation = "data/textures/abilitythink.png";
-		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+		abilityImage = new Image(atlas.findRegion("abilitythink"));
         setAbilityDamage(0);
 	}
 

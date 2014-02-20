@@ -3,6 +3,7 @@ package de.cosh.anothermanager.SwapGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -72,7 +73,8 @@ public class Board extends Group {
         foreGround.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         effectGroup = new Group();
         effectGroup.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
-        final Image backImage = new Image(GemLord.assets.get("data/textures/background.png", Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        final Image backImage = new Image(atlas.findRegion("background"));
         //backImage.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         backImage.setFillParent(true);
         backGround.addActor(backImage);
@@ -208,7 +210,8 @@ public class Board extends Group {
                 backGround.clear();
                 foreGround.clear();
                 gemGroup.clear();
-                final Image backImage = new Image(GemLord.assets.get("data/textures/background.png", Texture.class));
+                TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+                final Image backImage = new Image(atlas.findRegion("background"));
                 backImage.setFillParent(true);
                 backGround.addActor(backImage);
                 fillWithRandomGems();

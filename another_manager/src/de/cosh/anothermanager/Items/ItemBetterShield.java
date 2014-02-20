@@ -14,7 +14,7 @@ public class ItemBetterShield extends BaseItem {
     private Random r;
 
 	public ItemBetterShield() {
-		super(GemLord.assets.get("data/textures/bettershield.png", Texture.class));
+		super("bettershield");
 		itemNumber = 11;
 		setItemName("Decent Shield");
 		setItemText("20% chance to block\n5-10 damage\n10% chance to heal for\nthe blocked amount");

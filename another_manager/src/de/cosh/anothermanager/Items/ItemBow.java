@@ -2,6 +2,7 @@ package de.cosh.anothermanager.Items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.anothermanager.GemLord;
@@ -18,7 +19,7 @@ public class ItemBow extends BaseItem {
     private Random random;
 
 	public ItemBow() {
-		super(GemLord.assets.get("data/textures/itembow.png", Texture.class));
+		super("itembow");
 		itemNumber = 7;
 		setItemName("Fox Bow");
 		setItemText("Deal 5 - 12 damage\nCooldown: 5");
@@ -50,8 +51,8 @@ public class ItemBow extends BaseItem {
             GemLord.getInstance().gameScreen.getBoard().getEnemy().damage(dmg);
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             currentCooldown = cooldown;
-
-            Image projectile = new Image(GemLord.assets.get("data/textures/itemarrow.png", Texture.class));
+            TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+            Image projectile = new Image(atlas.findRegion("itemarrow"));
             projectile.setPosition(getX(), getY());
 
             float targetX = GemLord.getInstance().gameScreen.getBoard().getEnemy().getImage().getX();

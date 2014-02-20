@@ -1,6 +1,7 @@
 package de.cosh.anothermanager.Abilities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -13,8 +14,9 @@ import de.cosh.anothermanager.Characters.Debuff;
  */
 public class AbilityClaw extends BaseAbility {
 	public AbilityClaw() {
-		abilityImageLocation = "data/textures/abilityclaw.png";
-		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+		abilityImageLocation = "abilityclaw";
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+		abilityImage = new Image(atlas.findRegion(abilityImageLocation));
 	}
 
 	@Override
@@ -29,10 +31,10 @@ public class AbilityClaw extends BaseAbility {
 			GemLord.soundPlayer.playClawSound();
 
 			final Debuff clawDebuff = new Debuff();
+            TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
 			clawDebuff.setup(10, 10, target);
-			clawDebuff.setDebuffImage(new Image(GemLord.assets.get(abilityImageLocation, Texture.class)));
-
-			final Image fullscreenEffect = new Image(GemLord.assets.get("data/textures/clawfullscreen.png", Texture.class));
+			clawDebuff.setDebuffImage(new Image(atlas.findRegion(abilityImageLocation)));
+			final Image fullscreenEffect = new Image(atlas.findRegion("clawfullscreen"));
 			fullscreenEffect.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);;
 			fullscreenEffect.addAction(Actions.alpha(0f));
 			fullscreenEffect.addAction(Actions.sequence(

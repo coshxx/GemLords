@@ -3,6 +3,7 @@ package de.cosh.anothermanager.SwapGame;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -20,8 +21,9 @@ public class StarEffect {
 	}
 
 	public void spawnStars(final float x, final float y, final Group foreGround) {
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
 		for (int d = 0; d < 5; d++) {
-			final Image star = new Image(GemLord.assets.get("data/textures/star.png", Texture.class));
+			final Image star = new Image(atlas.findRegion("star"));
 			final boolean left = r.nextBoolean();
 			float duration = 800 + r.nextInt(1400);
 			float xAmount = r.nextInt(1000);

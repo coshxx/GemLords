@@ -3,8 +3,11 @@ package de.cosh.anothermanager.Items;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import de.cosh.anothermanager.Characters.Damage;
 import de.cosh.anothermanager.GemLord;
 
@@ -25,9 +28,10 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
     private transient int actionBarSlot;
     private ItemSlotType itemSlotType;
 
-    BaseItem(Texture t) {
-        super(t);
-        itemBorder = new Image(GemLord.assets.get("data/textures/item_border.png", Texture.class));
+    BaseItem(String t) {
+        super(GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class).findRegion(t));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        itemBorder = new Image(atlas.findRegion("item_border"));
         selected = false;
         drawText = true;
         addedToActionBar = false;

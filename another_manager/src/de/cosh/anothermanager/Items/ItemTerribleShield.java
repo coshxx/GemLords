@@ -14,7 +14,7 @@ public class ItemTerribleShield extends BaseItem {
     private Random r;
 
 	public ItemTerribleShield() {
-		super(GemLord.assets.get("data/textures/shield.png", Texture.class));
+		super("shield");
 		itemNumber = 5;
 		setItemName("Terrible Shield");
 		setItemText("20% chance to block\n1-5 damage");

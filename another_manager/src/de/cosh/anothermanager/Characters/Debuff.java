@@ -3,6 +3,7 @@ package de.cosh.anothermanager.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -28,7 +29,8 @@ public class Debuff {
 	private int turnsComplete;
 
 	public Debuff() {
-		this.debuffBorderImage = new Image(GemLord.assets.get("data/textures/debuff_border.png", Texture.class));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        this.debuffBorderImage = new Image(atlas.findRegion("debuff_border"));
 		GemLord.getInstance();
 		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
 		bmf = s.getFont("default-font");
@@ -46,7 +48,7 @@ public class Debuff {
 		bmf.draw(batch, cooldown.toString(), debuffImage.getX()+6, debuffImage.getY()+20);
 	}
 
-	public void setDebuffImage(final Image img) {
+	public void setDebuffImage(Image img) {
 		debuffImage = img;
 	}
 

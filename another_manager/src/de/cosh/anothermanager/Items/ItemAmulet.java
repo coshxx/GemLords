@@ -12,7 +12,7 @@ public class ItemAmulet extends BaseItem {
     private Random r;
 
 	public ItemAmulet() {
-		super(GemLord.assets.get("data/textures/itemamulet.png", Texture.class));
+		super("itemamulet");
 		itemNumber = 8;
 		setItemName("Amulet of Evasion");
 		setItemText("10% chance to\ncompletely avoid\nall damage");
