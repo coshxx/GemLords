@@ -52,7 +52,7 @@ public class ItemHuntingBow extends BaseItem {
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             currentCooldown = cooldown;
             TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
-            Image projectile = new Image(atlas.findRegion("item_arrow"));
+            Image projectile = new Image(atlas.findRegion("itemarrow"));
             projectile.setPosition(getX(), getY());
 
             float targetX = GemLord.getInstance().gameScreen.getBoard().getEnemy().getImage().getX();

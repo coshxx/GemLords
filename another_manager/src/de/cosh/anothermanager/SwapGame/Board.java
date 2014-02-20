@@ -273,6 +273,7 @@ public class Board extends Group {
                     damage.damage += player.getItemDamageBuffs(damage);
                     enemy.damage(damage);
                 } else {
+                    enemy.tryIncreaseDamage(damage);
                     player.damage(damage);
                 }
                 if (result.specialExplo) {

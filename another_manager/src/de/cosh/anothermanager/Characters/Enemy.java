@@ -246,4 +246,11 @@ public class Enemy extends BaseCharacter {
     public void setRequestMovementUpdate(boolean b) {
         boardNeedsMovementUpdate = b;
     }
+
+    public void tryIncreaseDamage(Damage damage) {
+        for( int i = 0; i < abilities.size; i++ ) {
+            BaseAbility current = abilities.get(i);
+            damage.damage += current.tryIncreaseDamage();
+        }
+    }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -29,6 +30,9 @@ public class MapTraverseScreen implements Screen {
 	private final GemLord myGame;
 	private Json json;
 	private Stage stage;
+
+    private float zoomLevel = 1f;
+    private float zoomSpeed = 0.1f;
 
 	public MapTraverseScreen(final GemLord gemLord) {
 		myGame = gemLord;
@@ -92,6 +96,12 @@ public class MapTraverseScreen implements Screen {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+        OrthographicCamera camera = GemLord.getInstance().camera;
+        zoomLevel -= zoomSpeed * delta;
+        camera.zoom = zoomLevel;
+        camera.update();
+
+        stage.setCamera(camera);
 		stage.act(delta);
 		stage.draw();
 
@@ -138,6 +148,11 @@ public class MapTraverseScreen implements Screen {
 		
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));
+
+
+
+
+
 
 		if( GemLord.DEBUGMODE && !GemLord.DEBUGITEMSADDED) {
             GemLord.DEBUGITEMSADDED = true;

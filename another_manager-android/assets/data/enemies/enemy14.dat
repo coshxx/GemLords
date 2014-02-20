@@ -13,6 +13,11 @@ abilities: [
 		currentCooldown: 5,
 		cooldown: 5
 	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityFlyDagger,
+		currentCooldown: 0,
+		cooldown: 0
+	},
 ],
 locationOnMap: {
 	x: 538,

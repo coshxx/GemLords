@@ -18,6 +18,11 @@ abilities: [
 		currentCooldown: 99,
 		cooldown: 99
 	},
+	{
+		class: de.cosh.anothermanager.Abilities.AbilityFireball,
+		currentCooldown: 5,
+		cooldown: 15
+	},
 ],
 locationOnMap: {
 	x: 598,

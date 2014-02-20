@@ -127,6 +127,10 @@ public class BaseAbility implements Ability {
         return false;
     }
 
+    public int tryIncreaseDamage() {
+        return 0;
+    }
+
     public void setNeedsUpdate(boolean b) {
         needsUpdate = b;
         executedAbility = false;
