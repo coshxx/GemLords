@@ -4,12 +4,12 @@ enemyName: "Snake",
 enemyNumber: 3,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		class: de.cosh.gemlords.Abilities.AbilityAttack,
 		currentCooldown: 1,
 		cooldown: 2
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityPoison,
+		class: de.cosh.gemlords.Abilities.AbilityPoison,
 		currentCooldown: 0,
 		cooldown: 6
 	},

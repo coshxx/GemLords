@@ -4,17 +4,17 @@ enemyName: "King Crab",
 enemyNumber: 14,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		class: de.cosh.gemlords.Abilities.AbilityThink,
 		currentCooldown: 0,
 		cooldown: 0
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityLightningRod,
+		class: de.cosh.gemlords.Abilities.AbilityLightningRod,
 		currentCooldown: 5,
 		cooldown: 5
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityFlyDagger,
+		class: de.cosh.gemlords.Abilities.AbilityFlyDagger,
 		currentCooldown: 0,
 		cooldown: 0
 	},

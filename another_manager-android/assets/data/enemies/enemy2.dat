@@ -4,12 +4,12 @@ enemyName: "Crab",
 enemyNumber: 2,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		class: de.cosh.gemlords.Abilities.AbilityAttack,
 		currentCooldown: 1,
 		cooldown: 2
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		class: de.cosh.gemlords.Abilities.AbilityThink,
 		currentCooldown: 0,
 		cooldown: 2
 	},

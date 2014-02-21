@@ -4,7 +4,7 @@ enemyName: "Rat",
 enemyNumber: 8,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityClaw,
+		class: de.cosh.gemlords.Abilities.AbilityClaw,
 		currentCooldown: 0,
 		cooldown: 10
 	},

@@ -1,6 +1,6 @@
 id, item
 
-0, apprentice robe
+
 1, minor potion
 2, scholar robe
 3, alpha totem
@@ -13,6 +13,7 @@ id, item
 10, mages robe
 11, decent shield
 12, hunting bow
+13, apprentice robe
 
 1337, devrobe
 

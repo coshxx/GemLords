@@ -4,22 +4,22 @@ enemyName: "Giant Fly",
 enemyNumber: 15,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		class: de.cosh.gemlords.Abilities.AbilityThink,
 		currentCooldown: 0,
 		cooldown: 0
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityLightningRod,
+		class: de.cosh.gemlords.Abilities.AbilityLightningRod,
 		currentCooldown: 3,
 		cooldown: 3
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityFlyDodge,
+		class: de.cosh.gemlords.Abilities.AbilityFlyDodge,
 		currentCooldown: 99,
 		cooldown: 99
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityFireball,
+		class: de.cosh.gemlords.Abilities.AbilityFireball,
 		currentCooldown: 5,
 		cooldown: 15
 	},

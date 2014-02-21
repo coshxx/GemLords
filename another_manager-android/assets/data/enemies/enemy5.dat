@@ -4,12 +4,12 @@ enemyName: "Bat",
 enemyNumber: 5,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityBite,
+		class: de.cosh.gemlords.Abilities.AbilityBite,
 		currentCooldown: 2,
 		cooldown: 3
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		class: de.cosh.gemlords.Abilities.AbilityThink,
 		currentCooldown: 0,
 		cooldown: 0
 	},

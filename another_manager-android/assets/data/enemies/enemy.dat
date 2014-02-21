@@ -3,7 +3,7 @@ enemyImageLocation: data/textures/enemy.png,
 enemyNumber: 0,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityAttack,
+		class: de.cosh.gemlords.Abilities.AbilityAttack,
 		currentCooldown: 2,
 		cooldown: 2
 	},

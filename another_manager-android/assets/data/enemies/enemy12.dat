@@ -4,17 +4,17 @@ enemyName: "Vulture",
 enemyNumber: 12,
 abilities: [
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityThink,
+		class: de.cosh.gemlords.Abilities.AbilityThink,
 		currentCooldown: 0,
 		cooldown: 0
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityClaw,
+		class: de.cosh.gemlords.Abilities.AbilityClaw,
 		currentCooldown: 0,
 		cooldown: 19
 	},
 	{
-		class: de.cosh.anothermanager.Abilities.AbilityBite,
+		class: de.cosh.gemlords.Abilities.AbilityBite,
 		currentCooldown: 5,
 		cooldown: 5
 	},
