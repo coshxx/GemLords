@@ -1,11 +1,7 @@
 package de.cosh.gemlords.Characters;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,17 +16,32 @@ public class HealthBar extends Actor {
     private transient BitmapFont bmf;
     private transient float done;
 
-    private transient NinePatch empty, full;
-    private transient Texture emptyT, fullT;
-
     private int hp, maxHP;
     private transient float left, bot, width, height;
-
     private transient Array<FloatingNumbers> floatingNumbers;
 
+    private Sprite emptyBar;
+    private TextureRegion fullBar;
+    private float shrinkRate = 150f;
+    private float last = 1f;
+
+
     @Override
-    public void act(final float delta) {
-        done = (float) hp / (float) maxHP;
+    public void act(float delta) {
+        float target = (float) hp / (float) maxHP;
+        target *= width;
+
+        if( target < last ) {
+            last -= delta * shrinkRate;
+            fullBar.setRegionWidth((int) last);
+        }
+
+        if( target > last ) {
+            last += delta * shrinkRate;
+            fullBar.setRegionWidth((int) last);
+        }
+
+        //fullBar.setBounds(left, bot, done*width, height);
 
         for( int i = 0; i < floatingNumbers.size; i++ ) {
             FloatingNumbers f = floatingNumbers.get(i);
@@ -45,20 +56,20 @@ public class HealthBar extends Actor {
 
     @Override
     public void draw(SpriteBatch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        empty.draw(batch, left, bot, width, height);
-        if (hp > 0) {
-            full.draw(batch, left, bot, done * width, height);
-        }
+        //super.draw(batch, parentAlpha);
 
         final Integer health = hp;
         final Integer maxhealth = maxHP;
+
+        emptyBar.draw(batch, parentAlpha);
+        //fullBar.draw(batch, parentAlpha);
+        batch.draw(fullBar, left, bot+2); // +2 why????????
 
         GemLord.getInstance();
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
         bmf = s.getFont("default-font");
 
-        bmf.setColor(0.25f, 0.25f, 1.0f, parentAlpha);
+        bmf.setColor(1, 1, 1, parentAlpha);
         String text = health.toString() + " / " + maxhealth.toString();
         bmf.draw(batch, text, left + (width / 2) - bmf.getBounds(text).width/2, bot + 25 + bmf.getBounds(text).height/2);
 
@@ -97,16 +108,13 @@ public class HealthBar extends Actor {
     public void init(final int hp) {
         this.hp = hp;
         this.maxHP = hp;
-
-
-
-        emptyT = new Texture(Gdx.files.internal("data/textures/empty.png"));
-        fullT = new Texture(Gdx.files.internal("data/textures/full.png"));
-
-        empty = new NinePatch(new TextureRegion(emptyT, 24, 24), 8, 8, 8, 8);
-        full = new NinePatch(new TextureRegion(fullT, 24, 24), 8, 8, 8, 8);
         done = 1f;
 
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        emptyBar = new Sprite(atlas.findRegion("emptyhp"));
+        fullBar = new TextureRegion(atlas.findRegion("fullhp"));
+        emptyBar.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        fullBar.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         floatingNumbers = new Array<FloatingNumbers>();
     }
 
@@ -115,6 +123,11 @@ public class HealthBar extends Actor {
         this.bot = bot;
         this.width = width;
         this.height = height;
+
+        emptyBar.setBounds(left, bot, width, height);
+
+        last = done * width;
+        fullBar = new TextureRegion(fullBar.getTexture(), (int)last, (int)height);
     }
 
     public void increaseHealth(int hp) {
