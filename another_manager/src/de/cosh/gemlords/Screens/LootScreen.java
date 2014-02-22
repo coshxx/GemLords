@@ -13,6 +13,7 @@ import de.cosh.gemlords.AfterActionReport;
 import de.cosh.gemlords.Characters.EnemyManager;
 import de.cosh.gemlords.CustomActions.PlayConvertSoundAction;
 import de.cosh.gemlords.CustomActions.PlayGotItemSoundAction;
+import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Items.BaseItem;
 import de.cosh.gemlords.LanguageManager;
@@ -261,6 +262,7 @@ public class LootScreen implements Screen {
         }
         final BaseItem oldInventoryItem = oldItem;
         TextButton button = new TextButton(lm.getString("Return to map"), skin);
+        button.setStyle(CustomStyle.getInstance().getStyle());
         button.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {

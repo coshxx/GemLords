@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.LanguageManager;
 
@@ -48,6 +49,7 @@ public class GUIWindow {
 
 		TextButton button;
 		button = new TextButton(lm.getString("Map"), skin);
+        button.setStyle(CustomStyle.getInstance().getStyle());
 		button.setPosition(50, 50);
 		button.setSize(100, 100);
 		Gdx.input.setInputProcessor(stage);
@@ -76,6 +78,7 @@ public class GUIWindow {
 
 		TextButton button;
 		button = new TextButton(lm.getString("Continue"), skin);
+        button.setStyle(CustomStyle.getInstance().getStyle());
 		button.setPosition(50, 50);
 		button.setSize(100, 100);
 		Gdx.input.setInputProcessor(stage);
@@ -155,10 +158,12 @@ public class GUIWindow {
 			window.row();
 
 			TextButton fightButton = new TextButton(lm.getString("Fight"), skin);
+            fightButton.setStyle(CustomStyle.getInstance().getStyle());
 			fightButton.getLabel().setFontScale(1f);
 			window.add(fightButton).size(250, 75);
 			window.row();
 			TextButton cancelButton = new TextButton(lm.getString("Cancel"), skin);
+            cancelButton.setStyle(CustomStyle.getInstance().getStyle());
 			cancelButton.getLabel().setFontScale(1f);
 			window.add(cancelButton).size(250, 75);
 

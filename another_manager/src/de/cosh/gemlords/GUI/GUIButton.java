@@ -1,13 +1,17 @@
 package de.cosh.gemlords.GUI;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Items.BaseItem;
 import de.cosh.gemlords.LanguageManager;
@@ -31,8 +35,7 @@ public class GUIButton {
 	public void createLoadoutButton(final Stage stage, float x, float y) {
         LanguageManager lm = LanguageManager.getInstance();
 		button = new TextButton(lm.getString("Loadout"), skin);
-		button.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		button.getStyle().font.setScale(1f);
+        button.setStyle(CustomStyle.getInstance().getStyle());
 		button.setBounds(x-100, y, 200, 100);
 		button.addListener(new ClickListener() {
 			@Override
@@ -56,6 +59,7 @@ public class GUIButton {
 		skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         LanguageManager lm = LanguageManager.getInstance();
 		button = new TextButton(lm.getString("Back to map"), skin);
+        button.setStyle(CustomStyle.getInstance().getStyle());
 		button.getLabel().setFontScale(1f);
 		button.setBounds(x, y, 200, 100);
 		button.addListener(new ClickListener() {
@@ -80,6 +84,8 @@ public class GUIButton {
 		skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         LanguageManager lm = LanguageManager.getInstance();
 		button = new TextButton(lm.getString("Remove"), skin);
+        button = new TextButton(lm.getString("Loadout"), skin);
+        button.setStyle(CustomStyle.getInstance().getStyle());
 		button.getLabel().setFontScale(1f);
 		button.setPosition(x, y);
 		button.setLayoutEnabled(true);

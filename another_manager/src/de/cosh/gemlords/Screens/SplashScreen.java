@@ -7,28 +7,22 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import de.cosh.gemlords.CustomActions.EndSplashScreenAction;
 import de.cosh.gemlords.GemLord;
 
 public class SplashScreen implements Screen {
-	private NinePatch empty;
-	private Texture emptyT;
-	private NinePatch full;
-
-	private Texture fullT;
 	private final GemLord myGame;
 	private Image splashImage;
 	private Texture splashTexture;
-
 	private Stage stage;
+    private SpriteBatch batch;
+    private BitmapFont bmf;
 
 	public SplashScreen(final GemLord myGame) {
 		this.myGame = myGame;
@@ -44,19 +38,11 @@ public class SplashScreen implements Screen {
 
 	}
 
-    public TextureAtlas getAtlas() {
-        return GemLord.assets.get("data/texture/pack.atlas", TextureAtlas.class);
-    }
-
 	private void loadAllAssets() {
 		GemLord.assets.load("data/textures/map.jpg", Texture.class);
 		GemLord.assets.load("data/textures/splash.jpg", Texture.class);
 		GemLord.assets.load("data/textures/menu.png", Texture.class);
         GemLord.assets.load("data/textures/pack.atlas", TextureAtlas.class);
-
-		GemLord.assets.load("data/sounds/blub1.ogg", Sound.class);
-		GemLord.assets.load("data/sounds/blub2.ogg", Sound.class);
-		GemLord.assets.load("data/sounds/blub3.ogg", Sound.class);
 
 		GemLord.assets.load("data/sounds/bang.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/lightningrod.ogg", Sound.class);
@@ -114,29 +100,15 @@ public class SplashScreen implements Screen {
 		stage.draw();
 
 		if (GemLord.assets.update()) {
-			GemLord.soundPlayer.touchSounds();
-			GemLord.soundPlayer.PlayBlub2();
-			// set font texture scaling to linear
-			GemLord.assets.get("data/ui/uiskin.json", Skin.class).getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-            GemLord.assets.get("data/ui/uiskin.json", Skin.class).getFont("credit-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-			myGame.setScreen(myGame.menuScreen);
-		}
-		final float left = GemLord.VIRTUAL_WIDTH * 0.3f;
-		final float bot = GemLord.VIRTUAL_HEIGHT * 0.5f;
-		final float width = 300;
-		final float done = GemLord.assets.getProgress() * width;
-
-		final SpriteBatch sb = stage.getSpriteBatch();
-		sb.begin();
-		empty.draw(sb, left, bot, 300, 30);
-		full.draw(sb, left, bot, done, 30);
-		/*
-		.drawMultiLine(sb, (int) (GemLord.assets.getProgress() * 100) + "% loaded", width / 2 + 60, bot + 20, 0,
-				BitmapFont.HAlignment.CENTER);
-		 */
-		sb.end();
-
-	}
+            stage.addAction(Actions.sequence(
+                    Actions.fadeOut(0.5f),
+                    new EndSplashScreenAction()
+            ));}
+        batch.begin();
+        bmf.setColor(0.5f, 0.5f, 0.5f, 1f);
+        bmf.draw(batch, "Loading...", Gdx.graphics.getWidth()/2, 200);
+        batch.end();
+    }
 
 	@Override
 	public void resize(final int width, final int height) {
@@ -159,15 +131,11 @@ public class SplashScreen implements Screen {
 		splashImage.addAction(Actions.alpha(0));
 		splashImage.addAction(Actions.fadeIn(0.5f));
 		stage.addActor(splashImage);
+        bmf = new BitmapFont();
+        batch = new SpriteBatch();
 
-		emptyT = new Texture(Gdx.files.internal("data/textures/empty.png"));
-		fullT = new Texture(Gdx.files.internal("data/textures/full.png"));
-		empty = new NinePatch(new TextureRegion(emptyT, 24, 24), 8, 8, 8, 8);
-		full = new NinePatch(new TextureRegion(fullT, 24, 24), 8, 8, 8, 8);
-
-
-		loadAllAssets();
-		GemLord.assets.finishLoading();
+        GemLord.soundPlayer.playSplash();
+        loadAllAssets();
 	}
 
 }

@@ -1,5 +1,6 @@
 package de.cosh.gemlords;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -14,7 +15,6 @@ public class SoundPlayer {
 	private Sound abilityPoison;
 	private Sound awesome;
 	private Sound bang;
-	private Sound blub1, blub2;
 	private Sound convert;
 	private Sound ding;
     private Sound lightningRod;
@@ -47,6 +47,7 @@ public class SoundPlayer {
 	private Sound victorySound, loseSound;
 	private Sound woosh;
 	private Sound smash;
+    private Sound splash;
 
 	public SoundPlayer(final GemLord game) {
 	}
@@ -98,14 +99,6 @@ public class SoundPlayer {
 
 	public void playBang() {
 		bang.play();
-	}
-
-	public void PlayBlub1() {
-		blub1.play();
-	}
-
-	public void PlayBlub2() {
-		blub2.play();
 	}
 
 	public void playConvert() {
@@ -218,8 +211,6 @@ public class SoundPlayer {
 
 	public void touchSounds() {
 		AssetManager assets = GemLord.assets;
-		blub1 = assets.get("data/sounds/blub1.ogg", Sound.class);
-		blub2 = assets.get("data/sounds/blub2.ogg", Sound.class);
         bow = assets.get("data/sounds/bow.ogg", Sound.class);
         turnSwitch = assets.get("data/sounds/turn.ogg", Sound.class);
 		bang = assets.get("data/sounds/bang.ogg", Sound.class);
@@ -303,4 +294,14 @@ public class SoundPlayer {
     public void playTurnSwitch() {
         turnSwitch.play();
     }
+
+    public void playSplash() {
+        splash = Gdx.audio.newSound(Gdx.files.internal("data/sounds/splash.ogg"));
+        splash.play();
+    }
+
+    public void stopSplash() {
+        splash.stop();
+    }
+
 }

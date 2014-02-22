@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Scaling;
 
 import de.cosh.gemlords.Characters.Enemy;
@@ -41,7 +43,6 @@ public class GemLord extends Game {
     public LanguageManager languageManager;
 	private SplashScreen splashScreen;
 	private SpriteBatch batch;
-
 	private BitmapFont bitmapFont;
 
 	public static GemLord getInstance() {
