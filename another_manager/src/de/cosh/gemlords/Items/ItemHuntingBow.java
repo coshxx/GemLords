@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.gemlords.Characters.BaseCharacter;
 import de.cosh.gemlords.Characters.Damage;
 import de.cosh.gemlords.GemLord;
+import de.cosh.gemlords.LanguageManager;
 import de.cosh.gemlords.SwapGame.Board;
 
 import java.util.Random;
@@ -19,6 +20,7 @@ public class ItemHuntingBow extends BaseItem {
 
 	public ItemHuntingBow() {
 		super("itemhuntingbow");
+        LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 12;
 		setItemName("Hunting Bow");
 		setItemText("Deal 10 - 25 damage\nCooldown: 5");

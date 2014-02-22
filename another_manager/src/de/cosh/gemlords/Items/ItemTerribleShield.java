@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Characters.BaseCharacter;
+import de.cosh.gemlords.LanguageManager;
 
 import java.util.Random;
 
@@ -14,6 +15,7 @@ public class ItemTerribleShield extends BaseItem {
 
 	public ItemTerribleShield() {
 		super("shield");
+        LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 5;
 		setItemName("Terrible Shield");
 		setItemText("20% chance to block\n1-5 damage");

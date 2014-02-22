@@ -15,8 +15,8 @@ abilities: [
 	},
 	{
 		class: de.cosh.gemlords.Abilities.AbilityBite,
-		currentCooldown: 5,
-		cooldown: 5
+		currentCooldown: 8,
+		cooldown: 8
 	},
 ],
 locationOnMap: {
@@ -24,8 +24,8 @@ locationOnMap: {
 	y: 422
 },
 healthBar: {
-	hp: 215,
-	maxHP: 215
+	hp: 175,
+	maxHP: 175
 },
 dropItemID: 8
 }

@@ -1,6 +1,7 @@
 package de.cosh.gemlords.Items;
 
 import de.cosh.gemlords.Characters.BaseCharacter;
+import de.cosh.gemlords.LanguageManager;
 
 import java.util.Random;
 
@@ -11,9 +12,10 @@ public class ItemRing extends BaseItem {
 
 	public ItemRing() {
 		super("ring");
+        LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 9;
-		setItemName("Basic Ring");
-		setItemText("Increases crit chance\nby 5% for swaps");
+		setItemName(lm.getString("Basic Ring"));
+		setItemText(lm.getString("Increases crit chance\nby 5% for swaps"));
 		setItemSlotType(ItemSlotType.RING_PASSIVE);
         random = new Random();
 	}

@@ -206,6 +206,8 @@ public class Enemy extends BaseCharacter {
             if( ability.tryDodge() ) {
                 return;
             }
+
+            ability.tryReduce(damage);
         }
 
         GemLord.getInstance().afterActionReport.totalDamgeDealt += damage.damage;

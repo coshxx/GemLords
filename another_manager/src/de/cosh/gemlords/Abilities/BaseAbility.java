@@ -80,6 +80,10 @@ public class BaseAbility implements Ability {
         return false;
     }
 
+    public void tryReduce(Damage damage) {
+        return;
+    }
+
     @Override
     public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
         final Integer cooldown = getCurrentCooldown();

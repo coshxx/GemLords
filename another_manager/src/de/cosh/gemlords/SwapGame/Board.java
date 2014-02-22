@@ -269,8 +269,10 @@ public class Board extends Group {
         if (boardState == BoardState.STATE_CHECK) {
             MatchResult result = matchFinder.markAllMatchingGems();
             if (result.howMany > 0) {
+                boolean wasConverted = false;
                 if (result.conversion) {
                     GemLord.soundPlayer.playConvert();
+                    wasConverted = true;
                 }
 
                 GemLord.soundPlayer.playDing(matchesDuringCurrentMove++);
@@ -278,6 +280,8 @@ public class Board extends Group {
                     myGame.afterActionReport.setLongestCombo(matchesDuringCurrentMove);
                 result.howMany = 0;
                 result = gemRemover.fadeMarkedGems(effectGroup);
+                if( wasConverted )
+                    result.howMany++;
                 Damage damage = new Damage();
                 damage.damage = result.howMany;
                 if (turnIndicator.isPlayerTurn()) {

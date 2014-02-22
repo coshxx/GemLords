@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <languages>
 <language name="en_uk">
     // key == value
 </language>
 
 <language name="de_DE">
+    //menu etc
     <string key="Continue" value="Weiter"/>
     <string key="New Game" value="Neues Spiel"/>
     <string key="Options" value="Optionen"/>
@@ -27,9 +28,47 @@
     <string key="Your turn" value="Dein Zug"/>
     <string key="Enemy turn" value="Gegner Zug"/>
     <string key="Ready" value="Bereit"/>
+    <string key="Return to map" value="Zur Karte"/>
+
+    /lootscreen
+    <string key="Total damage dealt: " value="Schaden ausgeteilt insgesamt: " />
+    <string key="Total damage received: " value="Schaden bekommen insgesamt: " />
+    <string key="Highest damage dealt in one turn: " value="Hoechster Schaden ausgeteilt in einem Zug: " />
+    <string key="Highest damage received in one turn: " value="Hoechster Schaden bekommen in einem Zug: " />
+    <string key="Player total healed: " value="Spieler Heilung: "/>
+    <string key="Enemy total healed: " value="Gegner Heilung: "/>
+    <string key="Longest combo: " value="Laengste Combo: "/>
+    <string key="Upgraded Item:" value="Gegenstand aufgewertet:"/>
+    <string key="Received Item:" value="Gegenstand erhalten:" />
+
+    //sfx
+    <string key="Awesome" value="Atemberaubend"/>
+    <string key="Great" value="Grossartig"/>
+    <string key="Good" value="Gut"/>
 
     //items
-    // nope
+    <string key="Bow of the Fox" value="Bogen des Fuchses"/>
+    <string key="Deal 5 - 12 damage&#10;Cooldown: 5" value="Macht 5 - 12 Schaden&#10;Abklingzeit: 5"/>
+    <string key="Amulet of Evasion" value="Amulet des Ausweichens"/>
+    <string key="10% chance to&#10;completely avoid&#10;all damage" value="10% chance&#10;jeglichen Schaden&#10;zu vermeiden"/>
+    <string key="Apprentice Robe" value="Starter Robe"/>
+    <string key="Grants an additional&#10; 25 health" value="25 Leben mehr"/>
+    <string key="Basic Ring" value="Starter Ring"/>
+    <string key="Increases crit chance&#10;by 5% for swaps" value="5% mehr kritische&#10;Trefferchance für swaps" />
+    <string key="Decent Shield" value="Dezentes Schild"/>
+    <string key="20% chance to block&#10;5-10 damage&#10;50% chance to heal for&#10;the blocked amount" value="20% Chance 5-10 Schaden&#10;zu blocken. 50% chance&#10;diesen Schaden zu heilen"/>
+    <string key="Valors Dagger" value="Valors Degen"/>
+    <string key="Increases your&#10;damage by 2 - 5" value="Erhoeht den Schaden&#10;um 2 - 5"/>
+    <string key="Hunting Bow" value="Jagd Bogen"/>
+    <string key="Deal 10 - 25 damage&#10;Cooldown: 5" value="Fuegt 10-25 Schaden zu&#10;Abklingzeit: 5"/>
+    <string key="Mages Robe" value="Robe des Magiers"/>
+    <string key="Grants an additional&#10; 75 health&#10;Increases crit chance&#10;by 3%" value="75 Leben mehr&#10;3% erhoehte Crit Chance"/>
+    <string key="Minor potion" value="Geringer Heiltrank" />
+    <string key="Recover 10-20 hp&#10;Cooldown: 10" value="Stellt 10-20 Leben her&#10;Abklingzeit: 10"/>
+    <string key="Alpha Totem" value="Alpha Totem"/>
+    <string key="Recover 1-3 health&#10;each turn&#10;Cooldown: 99" value="Stellt 1-3 Leben&#10;wieder her pro Zug&#10;Abklingzeit: 99" />
+    <string key="Scholars Robe" value="Robe des Gelehrten"/>
+    <string key="Grants an additional&#10; 50 hp" value="50 Leben mehr" />
 
     // enemies
     <string key="Scarecrow" value="Vogelscheuche"/>
@@ -37,6 +76,7 @@
     <string key="Another Snail" value="Andere Schnecke"/>
     <string key="Crab" value="Krabbe"/>
     <string key="Snake" value="Schlange"/>
+    <string key="Wizard" value="Zauberer"/>
     <string key="Bat" value="Fledermaus"/>
     <string key="Rat" value="Ratte"/>
     <string key="Ogre" value="Oger"/>

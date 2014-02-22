@@ -21,6 +21,10 @@ public class AbilityFlyDagger extends BaseAbility {
 	public boolean fire(final BaseCharacter target) {
         return false;
 	}
+    
+    public void update(float delta) {
+        needsUpdate = false;
+    }
 
     public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
         return;

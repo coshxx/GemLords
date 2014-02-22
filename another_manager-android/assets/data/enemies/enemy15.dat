@@ -23,14 +23,19 @@ abilities: [
 		currentCooldown: 5,
 		cooldown: 15
 	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilityDecentShield,
+		currentCooldown: 99,
+		cooldown: 99
+	},
 ],
 locationOnMap: {
 	x: 598,
 	y: 440
 },
 healthBar: {
-	hp: 280,
-	maxHP: 280
+	hp: 240,
+	maxHP: 240
 },
 dropItemID: -1
 }

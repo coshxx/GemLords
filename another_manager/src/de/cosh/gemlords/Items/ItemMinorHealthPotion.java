@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Characters.BaseCharacter;
+import de.cosh.gemlords.LanguageManager;
 import de.cosh.gemlords.SwapGame.Board;
 
 import java.util.Random;
@@ -19,9 +20,10 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 
 	public ItemMinorHealthPotion() {
 		super("minorhealthpotion");
+        LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 1;
-		setItemName("Minor potion");
-		setItemText("Recover 10-20 hp\nCooldown: 10");
+		setItemName(lm.getString("Minor potion"));
+		setItemText(lm.getString("Recover 10-20 hp\nCooldown: 10"));
 		setItemSlotType(ItemSlotType.POTION);
 		cooldown = 10;
 		currentCooldown = 0;
@@ -49,8 +51,9 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
 	@Override
 	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
         bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
+        LanguageManager lm = LanguageManager.getInstance();
         if( currentCooldown <= 0 )
-            bmf.draw(batch, "Ready", getX(), getY()+50 );
+            bmf.draw(batch, lm.getString("Ready"), getX(), getY()+50 );
         else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
 	}
 

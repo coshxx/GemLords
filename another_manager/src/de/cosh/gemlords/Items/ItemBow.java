@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Characters.BaseCharacter;
 import de.cosh.gemlords.Characters.Damage;
+import de.cosh.gemlords.LanguageManager;
 import de.cosh.gemlords.SwapGame.Board;
 
 import java.util.Random;
@@ -19,9 +20,10 @@ public class ItemBow extends BaseItem {
 
 	public ItemBow() {
 		super("itembow");
+        LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 7;
-		setItemName("Fox Bow");
-		setItemText("Deal 5 - 12 damage\nCooldown: 5");
+		setItemName(lm.getString("Bow of the Fox"));
+		setItemText(lm.getString("Deal 5 - 12 damage\nCooldown: 5"));
 		setItemSlotType(ItemSlotType.BOW_ACTIVE);
         cooldown = 5;
         currentCooldown = 0;
@@ -80,8 +82,9 @@ public class ItemBow extends BaseItem {
     @Override
     public void drawCooldown(SpriteBatch batch, float parentAlpha) {
         bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
+        LanguageManager lm = LanguageManager.getInstance();
         if( currentCooldown <= 0 )
-            bmf.draw(batch, "Ready", getX(), getY()+50 );
+            bmf.draw(batch, lm.getString("Ready"), getX(), getY()+50 );
         else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
     }
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Characters.BaseCharacter;
 import de.cosh.gemlords.Characters.Buff;
+import de.cosh.gemlords.LanguageManager;
 import de.cosh.gemlords.SwapGame.Board;
 
 /**
@@ -19,9 +20,10 @@ public class ItemTotem extends BaseItem implements UseItem {
 
 	public ItemTotem() {
 		super("totem");
+        LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 3;
-		setItemName("Alpha Totem");
-		setItemText("Recover 1-3 health\neach turn\nCooldown: 99");
+		setItemName(lm.getString("Alpha Totem"));
+		setItemText(lm.getString("Recover 1-3 health\neach turn\nCooldown: 99"));
 		setItemSlotType(ItemSlotType.TOTEM_ACTIVE);
 		cooldown = 99;
 		currentCooldown = 0;

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Characters.BaseCharacter;
 import de.cosh.gemlords.Characters.Player;
+import de.cosh.gemlords.LanguageManager;
 import de.cosh.gemlords.SwapGame.Board;
 
 /**
@@ -21,6 +22,7 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 
 	public ItemPocketWatch() {
 		super("pocketwatch");
+        LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 4;
 		setItemName("Simaohs Pocketwatch");
 		setItemText("Undo 100%\nof received damage\nCooldown: 99");

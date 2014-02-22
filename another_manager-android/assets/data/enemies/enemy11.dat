@@ -1,6 +1,6 @@
 {
 enemyImageLocation: data/textures/enemynecro.png,
-enemyName: "Necromancer",
+enemyName: "Wizard",
 enemyNumber: 11,
 abilities: [
 	{
@@ -19,8 +19,8 @@ locationOnMap: {
 	y: 401
 },
 healthBar: {
-	hp: 255,
-	maxHP: 255
+	hp: 225,
+	maxHP: 225
 },
 dropItemID: 10
 }

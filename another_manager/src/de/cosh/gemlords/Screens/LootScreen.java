@@ -15,6 +15,7 @@ import de.cosh.gemlords.CustomActions.PlayConvertSoundAction;
 import de.cosh.gemlords.CustomActions.PlayGotItemSoundAction;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Items.BaseItem;
+import de.cosh.gemlords.LanguageManager;
 
 /**
  * Created by cosh on 07.01.14.
@@ -75,10 +76,11 @@ public class LootScreen implements Screen {
 
         AfterActionReport aar = GemLord.getInstance().afterActionReport;
         GemLord.soundPlayer.playLootMusic();
+        LanguageManager lm = LanguageManager.getInstance();
 
         Table leftSide = table.top().left();
 
-        Label label1 = new Label("Total damage dealt: ", skin);
+        Label label1 = new Label(lm.getString("Total damage dealt: "), skin);
         Label label2 = new Label(aar.totalDamgeDealt.toString(), skin);
         leftSide.add(label1).left();
         leftSide.add(label2);
@@ -96,7 +98,7 @@ public class LootScreen implements Screen {
                 Actions.delay(0.0f),
                 Actions.fadeIn(0.25f)));
 
-        Label label3 = new Label("Total damage received: ", skin);
+        Label label3 = new Label(lm.getString("Total damage received: "), skin);
         Label label4 = new Label(aar.totalDamageReceived.toString(), skin);
         leftSide.add(label3).left();
         leftSide.add(label4);
@@ -114,7 +116,7 @@ public class LootScreen implements Screen {
                 Actions.delay(0.25f),
                 Actions.fadeIn(0.25f)));
 
-        Label label5 = new Label("Highest damage dealt in one turn: ", skin);
+        Label label5 = new Label(lm.getString("Highest damage dealt in one turn: "), skin);
         Label label6 = new Label(aar.highestDamageDealtInOneTurn.toString(), skin);
         leftSide.add(label5).left();
         leftSide.add(label6);
@@ -132,7 +134,7 @@ public class LootScreen implements Screen {
                 Actions.delay(0.5f),
                 Actions.fadeIn(0.25f)));
 
-        Label label7 = new Label("Highest damage received in one turn: ", skin);
+        Label label7 = new Label(lm.getString("Highest damage received in one turn: "), skin);
         Label label8 = new Label(aar.highestDamageReceivedInOneTurn.toString(), skin);
         leftSide.add(label7).left();
         leftSide.add(label8);
@@ -150,7 +152,7 @@ public class LootScreen implements Screen {
                 Actions.delay(0.75f),
                 Actions.fadeIn(0.25f)));
 
-        Label label9 = new Label("Player total healed: ", skin);
+        Label label9 = new Label(lm.getString("Player total healed: "), skin);
         Label label10 = new Label(aar.playerTotalHealed.toString(), skin);
         leftSide.add(label9).left();
         leftSide.add(label10);
@@ -168,7 +170,7 @@ public class LootScreen implements Screen {
                 Actions.delay(1f),
                 Actions.fadeIn(0.25f)));
 
-        Label label11 = new Label("Enemy total healed: ", skin);
+        Label label11 = new Label(lm.getString("Enemy total healed: "), skin);
         Label label12 = new Label(aar.enemyTotalHealed.toString(), skin);
         leftSide.add(label11).left();
         leftSide.add(label12);
@@ -185,7 +187,7 @@ public class LootScreen implements Screen {
                 Actions.delay(1.25f),
                 Actions.fadeIn(0.25f)));
 
-        Label label13 = new Label("Longest combo: ", skin);
+        Label label13 = new Label(lm.getString("Longest combo: "), skin);
         Label label14 = new Label(aar.longestCombo.toString(), skin);
         leftSide.add(label13).left();
         leftSide.add(label14);
@@ -218,7 +220,7 @@ public class LootScreen implements Screen {
             }
             Label label15 = new Label("", skin);
             if (upgradeFound) {
-                label15.setText("Upgraded Item:");
+                label15.setText(lm.getString("Upgraded Item:"));
                 oldItem.addAction(Actions.alpha(0));
                 oldItem.addAction(Actions.sequence(
                         Actions.delay(1.75f),
@@ -236,7 +238,7 @@ public class LootScreen implements Screen {
                 stage.addActor(upgradeArrow);
 
             } else {
-                label15 = new Label("Received Item:", skin);
+                label15 = new Label(lm.getString("Received Item:"), skin);
             }
             label15.addAction(Actions.alpha(0));
             item.addAction(Actions.alpha(0));
@@ -258,7 +260,7 @@ public class LootScreen implements Screen {
 
         }
         final BaseItem oldInventoryItem = oldItem;
-        TextButton button = new TextButton("Return to map", skin);
+        TextButton button = new TextButton(lm.getString("Return to map"), skin);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {

@@ -2,6 +2,7 @@ package de.cosh.gemlords.Items;
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import de.cosh.gemlords.Characters.BaseCharacter;
+import de.cosh.gemlords.LanguageManager;
 
 import java.util.Random;
 
@@ -11,9 +12,10 @@ public class ItemAmulet extends BaseItem {
 
 	public ItemAmulet() {
 		super("itemamulet");
+        LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 8;
-		setItemName("Amulet of Evasion");
-		setItemText("10% chance to\ncompletely avoid\nall damage");
+		setItemName(lm.getString("Amulet of Evasion"));
+		setItemText(lm.getString("10% chance to\ncompletely avoid\nall damage"));
 		setItemSlotType(ItemSlotType.AMULET_PASSIVE);
         r = new Random();
 	}

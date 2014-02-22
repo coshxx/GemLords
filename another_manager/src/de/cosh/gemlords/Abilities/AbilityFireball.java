@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import de.cosh.gemlords.Characters.BaseCharacter;
 import de.cosh.gemlords.Characters.Damage;
+import de.cosh.gemlords.CustomActions.PlayFireBallEndAction;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.SwapGame.Board;
 import de.cosh.gemlords.SwapGame.Cell;
@@ -48,13 +49,14 @@ public class AbilityFireball extends BaseAbility {
             y = Board.CELL_PAD_Y + (yTarget * Board.CELL_SIZE);
             y += Board.CELL_SIZE / 2;
             y -= abilityImage.getWidth() / 4;
-
+            GemLord.soundPlayer.playFireballStart();
             fireballInTheAir = true;
             TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
             Image fireBall = new Image(atlas.findRegion(abilityImageLocation));
             fireBall.setPosition(abilityImage.getX(), abilityImage.getY());
             fireBall.addAction(Actions.sequence(
                     Actions.moveTo(x, y, 0.5f),
+                    new PlayFireBallEndAction(),
                     Actions.fadeOut(0.15f),
                     Actions.removeActor()));
 

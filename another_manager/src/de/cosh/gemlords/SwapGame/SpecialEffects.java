@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.cosh.gemlords.GemLord;
+import de.cosh.gemlords.LanguageManager;
 
 class SpecialEffects {
     private BitmapFont bmf;
@@ -21,9 +22,9 @@ class SpecialEffects {
         GemLord.soundPlayer.playAwesome();
         bmf = s.getFont("sfx-font");
 		float halfScreen = GemLord.VIRTUAL_WIDTH/2;
-
+        LanguageManager lm = LanguageManager.getInstance();
         Label.LabelStyle sfxStyle = new Label.LabelStyle(bmf, new Color(1, 1, 1, 1));
-        Label label = new Label("Good", sfxStyle);
+        Label label = new Label(lm.getString("Good"), sfxStyle);
 
         label.setPosition(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT/2);
         label.addAction(Actions.sequence(
@@ -42,9 +43,9 @@ class SpecialEffects {
         GemLord.soundPlayer.playAwesome();
         bmf = s.getFont("sfx-font");
         float halfScreen = GemLord.VIRTUAL_WIDTH/2;
-
+        LanguageManager lm = LanguageManager.getInstance();
         Label.LabelStyle sfxStyle = new Label.LabelStyle(bmf, new Color(1, 1, 1, 1));
-        Label label = new Label("Great", sfxStyle);
+        Label label = new Label(lm.getString("Great"), sfxStyle);
 
         label.setPosition(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT/2);
         label.addAction(Actions.sequence(
@@ -61,9 +62,9 @@ class SpecialEffects {
         GemLord.soundPlayer.playAwesome();
         bmf = s.getFont("sfx-font");
         float halfScreen = GemLord.VIRTUAL_WIDTH/2;
-
+        LanguageManager lm = LanguageManager.getInstance();
         Label.LabelStyle sfxStyle = new Label.LabelStyle(bmf, new Color(1, 1, 1, 1));
-        Label label = new Label("Awesome", sfxStyle);
+        Label label = new Label(lm.getString("Awesome"), sfxStyle);
 
         label.setPosition(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT/2);
         label.addAction(Actions.sequence(

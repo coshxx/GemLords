@@ -66,7 +66,7 @@ public class HealthBar extends Actor {
 
         emptyBar.draw(batch, parentAlpha);
         //fullBar.draw(batch, parentAlpha);
-        batch.draw(fullBar, left, bot); // +2 why????????
+        batch.draw(fullBar, left, bot+2); // +2 why????????
 
         GemLord.getInstance();
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
