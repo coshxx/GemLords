@@ -1,7 +1,6 @@
 package de.cosh.gemlords.Screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,7 +14,7 @@ import de.cosh.gemlords.GUI.GUIButton;
 /**
  * Created by cosh on 07.01.14.
  */
-public class LoadoutScreen implements Screen {
+public class LoadoutScreen implements Screen, InputProcessor {
 	private Stage stage;
 
 	public LoadoutScreen() {
@@ -57,7 +56,10 @@ public class LoadoutScreen implements Screen {
 	@Override
 	public void show() {
 		stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+        InputMultiplexer plex = new InputMultiplexer();
+        plex.addProcessor(stage);
+        plex.addProcessor(this);
+        Gdx.input.setInputProcessor(plex);
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
 		Image background = new Image(atlas.findRegion("background"));
 		background.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
@@ -77,4 +79,48 @@ public class LoadoutScreen implements Screen {
 		stage.addAction(Actions.alpha(0.0f));
         stage.addAction(Actions.fadeIn(1.0f));
 	}
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if( keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK ) {
+            GemLord.getInstance().soundPlayer.stopLoadoutMusic();
+            GemLord.getInstance().setScreen(GemLord.getInstance().mapTraverseScreen);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
+    }
 }

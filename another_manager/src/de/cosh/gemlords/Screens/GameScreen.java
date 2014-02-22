@@ -17,6 +17,7 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 	private final GemLord myGame;
 	private Stage stage;
 	private Board swapGame;
+    private InputMultiplexer plex;
 
 	public GameScreen(final GemLord myGame) {
 		this.myGame = myGame;
@@ -89,9 +90,6 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 		swapGame.update(delta);
 		stage.act(delta);
 		stage.draw();
-
-        if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE ))
-            swapGame.getEnemy().setHealth(0);
 	}
 
 	@Override
@@ -110,11 +108,13 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
         myGame.camera.zoom = 1f;
 		stage.setCamera(myGame.camera);
 		swapGame = new Board(myGame);
-		InputMultiplexer input = new InputMultiplexer();
-		input.addProcessor(stage);
-        input.addProcessor(new GestureDetector(this));
-		Gdx.input.setInputProcessor(input);
+        plex = new InputMultiplexer();
+		plex.addProcessor(stage);
+        plex.addProcessor(new GestureDetector(this));
+        plex.addProcessor(this);
         Gdx.input.setCatchBackKey(true);
+		Gdx.input.setInputProcessor(plex);
+
 		GemLord.soundPlayer.playGameMusic();
 		swapGame.init();
 		swapGame.addAction(Actions.alpha(0.0f));
@@ -189,5 +189,9 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 
     public SpriteBatch getBatch() {
         return stage.getSpriteBatch();
+    }
+
+    public void setInputPlexer() {
+        Gdx.input.setInputProcessor(plex);
     }
 }

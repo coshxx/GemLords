@@ -41,7 +41,6 @@ public class SoundPlayer {
 	private Music gameMusic0;
     private Music gameMusic1;
     private Music gameMusic2;
-    private Music DONOTUSE;
     private Music gameMusic3;
     private Music creditsMusic;
 	private float mapMusicVolume;
@@ -72,9 +71,6 @@ public class SoundPlayer {
 		totem.play();
 	}
 
-    public void playDONOTUSE() {
-        DONOTUSE.play();
-    }
 
 	public void playImpressive() {
 		impressive.play(0.3f);
@@ -245,9 +241,6 @@ public class SoundPlayer {
         lightningRod = assets.get("data/sounds/lightningrod.ogg", Sound.class);
 		slideIn = assets.get("data/sounds/slidein.ogg", Sound.class);
         petrify = assets.get("data/sounds/abilitypetrify.ogg");
-		impressive = assets.get("data/sounds/impressive.ogg", Sound.class);
-		godlike = assets.get("data/sounds/godlike.ogg", Sound.class);
-		unstoppable = assets.get("data/sounds/unstoppable.ogg", Sound.class);
 		pocketwatch = assets.get("data/sounds/pocketwatch.ogg", Sound.class);
 		menuMusic = assets.get("data/sounds/menumusic.ogg", Music.class);
 		gulp = assets.get("data/sounds/gulp.ogg", Sound.class);
@@ -262,7 +255,6 @@ public class SoundPlayer {
 		smash = assets.get("data/sounds/smash.ogg", Sound.class);
         abilityBite = assets.get("data/sounds/bite.ogg", Sound.class);
         gotItem = assets.get("data/sounds/gotitem.ogg", Sound.class);
-        DONOTUSE = assets.get("data/sounds/DONOTUSE.ogg", Music.class);
 
         menuMusic.setLooping(true);
         gameMusic0.setLooping(true);
@@ -310,9 +302,5 @@ public class SoundPlayer {
 
     public void playTurnSwitch() {
         turnSwitch.play();
-    }
-
-    public void stopDONOTUSE() {
-        DONOTUSE.stop();
     }
 }

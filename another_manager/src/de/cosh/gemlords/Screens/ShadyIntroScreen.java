@@ -45,7 +45,6 @@ public class ShadyIntroScreen implements Screen {
 
         if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE )) {
             GemLord.getInstance().setScreen(GemLord.getInstance().mapTraverseScreen);
-            GemLord.soundPlayer.stopDONOTUSE();
         }
 
         GemLord.getInstance().camera.zoom = 0.3f;
@@ -81,7 +80,6 @@ public class ShadyIntroScreen implements Screen {
     public void show() {
         batch = new SpriteBatch();
         batch2 = new SpriteBatch();
-        GemLord.soundPlayer.playDONOTUSE();
         ShaderProgram.pedantic = false;
         shader = new ShaderProgram(Gdx.files.internal("data/shaders/vignette_vert.glsl"), Gdx.files.internal("data/shaders/vignette_frag.glsl"));
         if( !shader.isCompiled() ) {

@@ -1,5 +1,6 @@
 package de.cosh.gemlords.SwapGame;
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -238,6 +239,17 @@ public class Board extends Group {
 
             if (justSwapped && boardState == BoardState.STATE_IDLE) {
                 justSwapped = false;
+
+                if( turnIndicator.isPlayerTurn() ) {
+                    if( matchesDuringCurrentMove >= 7 ) {
+                        sfx.playAwesome(effectGroup);
+                    } else if ( matchesDuringCurrentMove >= 5 ) {
+                        sfx.playGreat(effectGroup );
+                    } else if ( matchesDuringCurrentMove >= 3 ) {
+                        sfx.playGood(effectGroup);
+                    }
+                }
+
                 matchesDuringCurrentMove = 0;
                 turnComplete();
                 player.turn();
@@ -358,9 +370,16 @@ public class Board extends Group {
     }
 
     public void pressedBack() {
-        // TODO
-        // add giveupQuestion......
-        player.setHealth(0);
+        GUIWindow guiWindow = new GUIWindow(getStage());
+        guiWindow.createAskGiveUpWindow(foreGround, backGround, effectGroup);
+        effectGroup.setTouchable(Touchable.enabled);
+        foregroundWindowActive = true;
+    }
+
+    public void removedForeGroundWindow() {
+        foregroundWindowActive = false;
+        effectGroup.setTouchable(Touchable.disabled);
+        myGame.gameScreen.setInputPlexer();
     }
 
     private void checkPlayerAndEnemyStatus() {
@@ -416,6 +435,8 @@ public class Board extends Group {
     public boolean isPlayerTurn() {
         return turnIndicator.isPlayerTurn();
     }
+
+
 
     public enum BoardState {
         STATE_CHECK, STATE_EMPTY, STATE_FADING, STATE_IDLE, STATE_INACTIVE, STATE_MOVING, STATE_ENEMYTURN, STATE_SWAPPING

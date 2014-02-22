@@ -176,4 +176,49 @@ public class GUIWindow {
 			});
 		}
 	}
+
+    public void createAskGiveUpWindow(final Group foreGround, final Group backGround, final Group effectGroup) {
+        final Window window = new Window("Give up?", skin);
+        window.setPosition(200, 200);
+        window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
+        window.setMovable(true);
+        window.pad(20, 0, 0, 0);
+        window.setModal(false);
+        window.align(Align.center);
+        window.setTitleAlignment(Align.center);
+        window.setSize(300, 300);
+
+        TextButton buttonYes;
+        buttonYes = new TextButton("Yes", skin);
+        buttonYes.setPosition(00, 50);
+        buttonYes.setSize(150, 100);
+
+        buttonYes.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, final float x, final float y) {
+                GemLord.soundPlayer.stopGameMusic();
+                fadeToMapScreen();
+            }
+        });
+        window.addActor(buttonYes);
+
+
+        TextButton buttonNo;
+        buttonNo = new TextButton("No", skin);
+        buttonNo.setPosition(150, 50);
+        buttonNo.setSize(150, 100);
+        buttonNo.addListener(new ClickListener() {
+            public void clicked(InputEvent event, final float x, final float y) {
+                window.remove();
+                backGround.addAction(Actions.alpha(1f, 1.0f));
+                foreGround.addAction(Actions.alpha(1f, 1.0f));
+                GemLord.getInstance().gameScreen.getBoard().removedForeGroundWindow();
+            }
+        });
+        window.addActor(buttonNo);
+        Gdx.input.setInputProcessor(stage);
+        backGround.addAction(Actions.alpha(0.5f, 1.0f));
+        foreGround.addAction(Actions.alpha(0.5f, 1.0f));
+        effectGroup.addActor(window);
+    }
 }

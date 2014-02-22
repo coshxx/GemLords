@@ -170,6 +170,7 @@ public class Player extends BaseCharacter {
         if (MathUtils.random(1, 100) <= critIncrease) {
             damageIncrease = damageIncrease + damage.damage;
             damage.isCrit = true;
+            GemLord.soundPlayer.playCritical();
         }
         return damageIncrease;
     }
@@ -210,6 +211,9 @@ public class Player extends BaseCharacter {
     public void savePreferences() {
         Preferences prefs = Gdx.app.getPreferences("GemLords.pref");
         prefs.clear();
+
+        prefs.putBoolean("Exist_v01", true);
+
         for (int i = 0; i < levelDone.length; i++) {
             if (levelDone[i]) {
                 prefs.putBoolean("Level" + i, true);
@@ -246,5 +250,10 @@ public class Player extends BaseCharacter {
         getInventory().clearInventory();
         getActionBar().clear();
 
+    }
+
+    public boolean existsPreferences() {
+        Preferences prefs = Gdx.app.getPreferences("GemLords.pref");
+        return prefs.getBoolean("Exist_v01");
     }
 }

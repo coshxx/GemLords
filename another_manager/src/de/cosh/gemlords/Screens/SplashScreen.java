@@ -71,7 +71,6 @@ public class SplashScreen implements Screen {
         GemLord.assets.load("data/sounds/music3.ogg", Music.class);
         GemLord.assets.load("data/sounds/music4.ogg", Music.class);
         GemLord.assets.load("data/sounds/music5.ogg", Music.class);
-        GemLord.assets.load("data/sounds/DONOTUSE.ogg", Music.class);
         GemLord.assets.load("data/sounds/creditsmusic.ogg", Music.class);
         GemLord.assets.load("data/sounds/loot.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/victory.ogg", Sound.class);
@@ -82,9 +81,6 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/sounds/ding.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/challenge.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/slidein.ogg", Sound.class);
-		GemLord.assets.load("data/sounds/impressive.ogg", Sound.class);
-		GemLord.assets.load("data/sounds/godlike.ogg", Sound.class);
-		GemLord.assets.load("data/sounds/unstoppable.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/totem.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/gulp.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/pocketwatch.ogg", Sound.class);

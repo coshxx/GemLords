@@ -1,8 +1,6 @@
 package de.cosh.gemlords.Screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,7 +21,7 @@ import de.cosh.gemlords.Items.*;
 /**
  * Created by cosh on 10.12.13.
  */
-public class MapTraverseScreen implements Screen {
+public class MapTraverseScreen implements Screen, InputProcessor {
 	public boolean enemyWindowOpen;
 	private boolean fadeMusic;
 	private Image mapImage;
@@ -106,10 +104,6 @@ public class MapTraverseScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 
-        if( Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            myGame.setScreen(myGame.menuScreen);
-        }
-
         Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
         coords = stage.screenToStageCoordinates(coords);
 		Table.drawDebug(stage);
@@ -145,15 +139,13 @@ public class MapTraverseScreen implements Screen {
 		guiButton.createLoadoutButton(stage, GemLord.VIRTUAL_WIDTH-100, 0);
 		GemLord.soundPlayer.playMapMusic();
 
-		Gdx.input.setInputProcessor(stage);
+        InputMultiplexer plex = new InputMultiplexer();
+        plex.addProcessor(stage);
+        plex.addProcessor(this);
+		Gdx.input.setInputProcessor(plex);
 		
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));
-
-
-
-
-
 
 		if( GemLord.DEBUGMODE && !GemLord.DEBUGITEMSADDED) {
             GemLord.DEBUGITEMSADDED = true;
@@ -199,4 +191,46 @@ public class MapTraverseScreen implements Screen {
             myGame.player.getActionBar().addToActionBar(item8);
 		}
 	}
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if( keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK )
+            GemLord.getInstance().setScreen(GemLord.getInstance().menuScreen);
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
+    }
 }
