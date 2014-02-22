@@ -1,5 +1,6 @@
 package de.cosh.gemlords.Characters;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -33,6 +34,8 @@ public class HealthBar extends Actor {
 
         if( target < last ) {
             last -= delta * shrinkRate;
+            if( last < 0 )
+                last = 0;
             fullBar.setRegionWidth((int) last);
         }
 
@@ -63,7 +66,7 @@ public class HealthBar extends Actor {
 
         emptyBar.draw(batch, parentAlpha);
         //fullBar.draw(batch, parentAlpha);
-        batch.draw(fullBar, left, bot+2); // +2 why????????
+        batch.draw(fullBar, left, bot); // +2 why????????
 
         GemLord.getInstance();
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
@@ -113,8 +116,13 @@ public class HealthBar extends Actor {
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
         emptyBar = new Sprite(atlas.findRegion("emptyhp"));
         fullBar = new TextureRegion(atlas.findRegion("fullhp"));
+        /*
+        emptyBar = new Sprite(new Texture(Gdx.files.internal("data/textures/raw-atlas/emptyhp.png")));
+        fullBar = new TextureRegion(new Texture(Gdx.files.internal("data/textures/raw-atlas/fullhp.png")));
+        */
         emptyBar.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         fullBar.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
         floatingNumbers = new Array<FloatingNumbers>();
     }
 

@@ -4,7 +4,6 @@ import de.cosh.gemlords.Characters.BaseCharacter;
 
 
 public class ItemApprenticeRobe extends BaseItem {
-
 	public ItemApprenticeRobe() {
 		super("robe");
 		itemNumber = 13;
