@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Items.BaseItem;
+import de.cosh.gemlords.LanguageManager;
 import de.cosh.gemlords.Screens.LoadoutScreen;
 import de.cosh.gemlords.Screens.MapTraverseScreen;
 
@@ -28,7 +29,8 @@ public class GUIButton {
 	}
 
 	public void createLoadoutButton(final Stage stage, float x, float y) {
-		button = new TextButton("Loadout", skin);
+        LanguageManager lm = LanguageManager.getInstance();
+		button = new TextButton(lm.getString("Loadout"), skin);
 		button.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		button.getStyle().font.setScale(1f);
 		button.setBounds(x-100, y, 200, 100);
@@ -52,7 +54,8 @@ public class GUIButton {
 
 	public void createBacktoMapButton(final Stage stage, float x, float y) {
 		skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		button = new TextButton("Back to map", skin);
+        LanguageManager lm = LanguageManager.getInstance();
+		button = new TextButton(lm.getString("Back to map"), skin);
 		button.getLabel().setFontScale(1f);
 		button.setBounds(x, y, 200, 100);
 		button.addListener(new ClickListener() {
@@ -75,7 +78,8 @@ public class GUIButton {
 
 	public void createRemoveFromBarButton(final Stage stage, float x, float y) {
 		skin.getFont("default-font").getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		button = new TextButton("Remove", skin);
+        LanguageManager lm = LanguageManager.getInstance();
+		button = new TextButton(lm.getString("Remove"), skin);
 		button.getLabel().setFontScale(1f);
 		button.setPosition(x, y);
 		button.setLayoutEnabled(true);

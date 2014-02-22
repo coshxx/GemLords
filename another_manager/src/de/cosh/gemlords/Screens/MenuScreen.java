@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.cosh.gemlords.GemLord;
+import de.cosh.gemlords.LanguageManager;
 
 public class MenuScreen implements Screen {
 
@@ -40,12 +41,13 @@ public class MenuScreen implements Screen {
         this.myGame = myGame;
         table = new Table();
         skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
-        continueButton = new TextButton("Continue", skin);
-        newGameButton = new TextButton("New game", skin);
-        optionsButton = new TextButton("Options", skin);
-        exitGameButton = new TextButton("Exit game", skin);
-        creditsButton = new TextButton("Credits", skin);
-        returnFromOptions = new TextButton("Back", skin);
+        LanguageManager lm = LanguageManager.getInstance();
+        continueButton = new TextButton(lm.getString("Continue"), skin);
+        newGameButton = new TextButton(lm.getString("New Game"), skin);
+        optionsButton = new TextButton(lm.getString("Options"), skin);
+        exitGameButton = new TextButton(lm.getString("Exit Game"), skin);
+        creditsButton = new TextButton(lm.getString("Credits"), skin);
+        returnFromOptions = new TextButton(lm.getString("Back"), skin);
     }
 
     @Override

@@ -38,6 +38,7 @@ public class GemLord extends Game {
 	public MenuScreen menuScreen;
     public AfterActionReport afterActionReport;
 	public Player player;
+    public LanguageManager languageManager;
 	private SplashScreen splashScreen;
 	private SpriteBatch batch;
 
@@ -67,6 +68,7 @@ public class GemLord extends Game {
 		mapTraverseScreen = new MapTraverseScreen(this);
 		bitmapFont = new BitmapFont();
         afterActionReport = new AfterActionReport();
+        languageManager = LanguageManager.getInstance();
 		setScreen(splashScreen);
 	}
 

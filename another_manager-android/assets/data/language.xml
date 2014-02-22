@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <languages>
 <language name="en_uk">
-    <string key="Start" value="Start"/>
-    <string key="Options" value="Options"/>
-    <string key="Exit" value="Exit"/>
+    // key == value
 </language>
 
 <language name="de_DE">
-    <string key="Start" value="Start"/>
+    <string key="Continue" value="Weiter"/>
+    <string key="New Game" value="Neues Spiel"/>
     <string key="Options" value="Optionen"/>
-    <string key="Exit" value="Ende"/>
+    <string key="Credits" value="Ueber"/>
+    <string key="Exit Game" value="Beenden"/>
+    <string key="Back" value="Zurueck"/>
+    <string key="Loadout" value="Inventar"/>
+    <string key="Back to map" value="Zur Karte"/>
+    <string key="Remove" value="Entfernen"/>
+    <string key="Challenge:" value="Herausforderung:"/>
+    <string key="Fight" value="Kampf"/>
+    <string key="Cancel" value="Abbruch"/>
+    <string key="Give up?" value="Aufgabe?"/>
+    <string key="Yes" value="Ja"/>
+    <string key="No" value="Nein"/>
+    <string key="You lose" value="Niederlage"/>
+    <string key="Map" value="Karte"/>
+    <string key="You win" value="Sieg"/>
+    <string key="Continue" value="Weiter"/>
+    <string key="Your turn" value="Dein Zug"/>
+    <string key="Enemy turn" value="Gegner Zug"/>
+    <string key="Ready" value="Bereit"/>
+
+    //items
+    // nope
+
+    // enemies
+    <string key="Scarecrow" value="Vogelscheuche"/>
+    <string key="Snail" value="Schnecke"/>
+    <string key="Another Snail" value="Andere Schnecke"/>
+    <string key="Crab" value="Krabbe"/>
+    <string key="Snake" value="Schlange"/>
+    <string key="Bat" value="Fledermaus"/>
+    <string key="Rat" value="Ratte"/>
+    <string key="Ogre" value="Oger"/>
+    <string key="Vulture" value="Geier"/>
+    <string key="Red Bat" value="Rote Fledermaus"/>
+    <string key="King Crab" value="Riesenkrabbe"/>
+    <string key="Giant Fly" value="Riesenfliege" />
 </language>
 
 </languages>

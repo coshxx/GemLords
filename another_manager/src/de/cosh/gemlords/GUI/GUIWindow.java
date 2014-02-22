@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.cosh.gemlords.GemLord;
+import de.cosh.gemlords.LanguageManager;
 
 /**
  * Created by cosh on 10.01.14.
@@ -34,7 +35,8 @@ public class GUIWindow {
 	}
 
 	public void createDefeatWindow(final Group foreGround, final Group backGround, final Group windowGroup) {
-		final Window window = new Window("You lose", skin);
+        LanguageManager lm = LanguageManager.getInstance();
+		final Window window = new Window(lm.getString("You lose"), skin);
 		window.setPosition(200, 200);
 		window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
 		window.setMovable(true);
@@ -45,7 +47,7 @@ public class GUIWindow {
 		window.setSize(200, 200);
 
 		TextButton button;
-		button = new TextButton("Map", skin);
+		button = new TextButton(lm.getString("Map"), skin);
 		button.setPosition(50, 50);
 		button.setSize(100, 100);
 		Gdx.input.setInputProcessor(stage);
@@ -62,7 +64,8 @@ public class GUIWindow {
 	}
 
 	public void createVictoryWindow(final Group foreGround, final Group backGround, final Group windowGroup) {
-		final Window window = new Window("You win!", skin);
+        LanguageManager lm = LanguageManager.getInstance();
+		final Window window = new Window(lm.getString("You win"), skin);
 		window.setPosition(200, 200);
 		window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
 		window.setMovable(true);
@@ -72,7 +75,7 @@ public class GUIWindow {
 		window.setSize(200, 200);
 
 		TextButton button;
-		button = new TextButton("Continue", skin);
+		button = new TextButton(lm.getString("Continue"), skin);
 		button.setPosition(50, 50);
 		button.setSize(100, 100);
 		Gdx.input.setInputProcessor(stage);
@@ -129,7 +132,8 @@ public class GUIWindow {
 		if (!myGame.mapTraverseScreen.enemyWindowOpen) {
 			myGame.mapTraverseScreen.enemyWindowOpen = true;
 
-			window = new Window("Challenge:", skin);
+            LanguageManager lm = LanguageManager.getInstance();
+			window = new Window(lm.getString("Challenge:"), skin);
 			window.setKeepWithinStage(false);
 			window.setBounds(-400, 400, 300, 550);
 			window.setMovable(false);
@@ -138,7 +142,7 @@ public class GUIWindow {
 			window.add(enemyImage).size(250, 250);
 			window.row();
 
-            Label enemyNameLabel = new Label(enemyName, skin);
+            Label enemyNameLabel = new Label(lm.getString(enemyName), skin);
             enemyNameLabel.setFontScale(1f);
             window.add(enemyNameLabel);
             window.row();
@@ -150,11 +154,11 @@ public class GUIWindow {
 			window.add(hpLabel);
 			window.row();
 
-			TextButton fightButton = new TextButton("Fight", skin);
+			TextButton fightButton = new TextButton(lm.getString("Fight"), skin);
 			fightButton.getLabel().setFontScale(1f);
 			window.add(fightButton).size(250, 75);
 			window.row();
-			TextButton cancelButton = new TextButton("Cancel", skin);
+			TextButton cancelButton = new TextButton(lm.getString("Cancel"), skin);
 			cancelButton.getLabel().setFontScale(1f);
 			window.add(cancelButton).size(250, 75);
 
@@ -178,7 +182,8 @@ public class GUIWindow {
 	}
 
     public void createAskGiveUpWindow(final Group foreGround, final Group backGround, final Group effectGroup) {
-        final Window window = new Window("Give up?", skin);
+        LanguageManager lm = LanguageManager.getInstance();
+        final Window window = new Window(lm.getString("Give up?"), skin);
         window.setPosition(200, 200);
         window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
         window.setMovable(true);
@@ -189,7 +194,7 @@ public class GUIWindow {
         window.setSize(300, 300);
 
         TextButton buttonYes;
-        buttonYes = new TextButton("Yes", skin);
+        buttonYes = new TextButton(lm.getString("Yes"), skin);
         buttonYes.setPosition(00, 50);
         buttonYes.setSize(150, 100);
 
@@ -204,7 +209,7 @@ public class GUIWindow {
 
 
         TextButton buttonNo;
-        buttonNo = new TextButton("No", skin);
+        buttonNo = new TextButton(lm.getString("No"), skin);
         buttonNo.setPosition(150, 50);
         buttonNo.setSize(150, 100);
         buttonNo.addListener(new ClickListener() {

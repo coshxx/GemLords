@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.cosh.gemlords.GemLord;
+import de.cosh.gemlords.LanguageManager;
 
 class TurnIndicator {
 
@@ -21,8 +22,9 @@ class TurnIndicator {
 
     public TurnIndicator() {
         skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
-        yourTurnLabel = new Label("Your turn", skin, "credit-font", Color.WHITE);
-        enemyTurnLabel = new Label("Enemy turn", skin, "credit-font", Color.WHITE);
+        LanguageManager lm = LanguageManager.getInstance();
+        yourTurnLabel = new Label(lm.getString("Your turn"), skin, "credit-font", Color.WHITE);
+        enemyTurnLabel = new Label(lm.getString("Enemy turn"), skin, "credit-font", Color.WHITE);
         playerTurn = true;
 
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);

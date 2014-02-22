@@ -8,6 +8,7 @@ import de.cosh.gemlords.Characters.BaseCharacter;
 import de.cosh.gemlords.Characters.Damage;
 import de.cosh.gemlords.Characters.Enemy;
 import de.cosh.gemlords.GemLord;
+import de.cosh.gemlords.LanguageManager;
 
 /**
  * Created by cosh on 15.01.14.
@@ -82,7 +83,6 @@ public class BaseAbility implements Ability {
     @Override
     public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
         final Integer cooldown = getCurrentCooldown();
-
         GemLord.getInstance();
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
         bmf = s.getFont("default-font");
@@ -91,8 +91,8 @@ public class BaseAbility implements Ability {
             //bmf.draw(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY());
             bmf.drawMultiLine(batch, cooldown.toString(), abilityImage.getX(), abilityImage.getY() + 45, 70, BitmapFont.HAlignment.CENTER);
         } else {
-            //bmf.draw(batch, "Ready", abilityImage.getX(), abilityImage.getY());
-            bmf.drawMultiLine(batch, "Ready", abilityImage.getX(), abilityImage.getY() + 45, 70, BitmapFont.HAlignment.CENTER);
+            LanguageManager lm = LanguageManager.getInstance();
+            bmf.drawMultiLine(batch, lm.getString("Ready"), abilityImage.getX(), abilityImage.getY() + 45, 70, BitmapFont.HAlignment.CENTER);
         }
     }
 
