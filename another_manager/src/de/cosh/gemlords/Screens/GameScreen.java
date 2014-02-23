@@ -90,6 +90,10 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 		swapGame.update(delta);
 		stage.act(delta);
 		stage.draw();
+
+        if( Gdx.input.isKeyPressed(Input.Keys.F12 )) {
+            getBoard().getEnemy().setHealth(0);
+        }
 	}
 
 	@Override

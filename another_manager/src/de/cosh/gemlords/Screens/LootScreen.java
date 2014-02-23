@@ -262,7 +262,7 @@ public class LootScreen implements Screen {
         }
         final BaseItem oldInventoryItem = oldItem;
         TextButton button = new TextButton(lm.getString("Return to map"), skin);
-        button.setStyle(CustomStyle.getInstance().getStyle());
+        button.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         button.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {

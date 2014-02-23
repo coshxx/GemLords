@@ -1,13 +1,19 @@
 package de.cosh.gemlords.Characters;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Items.BaseItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by cosh on 21.01.14.
@@ -27,34 +33,52 @@ public class PlayerInventory {
 		return itemsInInventory;
 	}
 
-	public void addToLoadoutScreen(Stage stage) {
-		float x = 0;
-		float y = 0;
-		for( int i = 0; i < itemsInInventory.size(); i++ ) {
-			final BaseItem item = itemsInInventory.get(i);
-			if( !item.isAddedToActionBar() )
-				item.setPosition(50 + ((x * item.getWidth()) + (x * 120)), (GemLord.VIRTUAL_HEIGHT - 80) - (y * 180));
-			x++;
-			if( x >= 3 ) {
-				x = 0;
-				y++;
-			}
-			item.clearListeners();
-			item.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent e, float x, float y) {
-					if (item.isSelected()) {
-						item.unselect();
-						return;
-					}
-					item.selected();
-					for (BaseItem otherItem : itemsInInventory)
-						if (otherItem != item)
-							otherItem.unselect();
-				}
-			});
-			stage.addActor(item);
-		}
+	public void addToLoadoutScreen(final Stage stage) {
+
+        final HashMap<String, Integer> items = new HashMap<String, Integer>();
+
+        for( int i = 0; i < itemsInInventory.size(); i++ ) {
+            final BaseItem item = itemsInInventory.get(i);
+            items.put(item.getName(), item.getID());
+
+            item.clearListeners();
+            item.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent e, float x, float y) {
+                    if (item.isSelected()) {
+                        item.unselect();
+                        return;
+                    }
+                    item.selected();
+                    for (BaseItem otherItem : itemsInInventory)
+                        if (otherItem != item)
+                            otherItem.unselect();
+                }
+            });
+
+        }
+
+        ArrayList<String> strings = new ArrayList<String>();
+        for( String key : items.keySet() ) {
+            strings.add(key);
+        }
+        Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
+
+        final SelectBox box = new SelectBox(strings.toArray(), s);
+        box.getStyle().font = s.getFont("credit-font");
+        box.setBounds(40, GemLord.VIRTUAL_HEIGHT-150, 640, 75);
+
+        box.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                BaseItem itemCenter = BaseItem.getNewItemByID(items.get(box.getSelection()));
+                itemCenter.setPosition(330, 500);
+                itemCenter.setDrawText(true);
+                stage.addActor(itemCenter);
+            }
+        });
+        stage.addActor(box);
+
 	}
 
 	public void resortItems() {

@@ -1,13 +1,12 @@
 package de.cosh.gemlords;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -33,7 +32,7 @@ public class CustomStyle {
         buttonStyle = new TextButton.TextButtonStyle(buttonUp, buttonDown, null, bmf);
     }
 
-    public TextButton.TextButtonStyle getStyle() {
+    public TextButton.TextButtonStyle getTextButtonStyle() {
         return buttonStyle;
     }
 

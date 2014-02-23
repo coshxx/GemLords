@@ -49,7 +49,7 @@ public class GUIWindow {
 
 		TextButton button;
 		button = new TextButton(lm.getString("Map"), skin);
-        button.setStyle(CustomStyle.getInstance().getStyle());
+        button.setStyle(CustomStyle.getInstance().getTextButtonStyle());
 		button.setPosition(50, 50);
 		button.setSize(100, 100);
 		Gdx.input.setInputProcessor(stage);
@@ -78,7 +78,7 @@ public class GUIWindow {
 
 		TextButton button;
 		button = new TextButton(lm.getString("Continue"), skin);
-        button.setStyle(CustomStyle.getInstance().getStyle());
+        button.setStyle(CustomStyle.getInstance().getTextButtonStyle());
 		button.setPosition(50, 50);
 		button.setSize(100, 100);
 		Gdx.input.setInputProcessor(stage);
@@ -158,12 +158,12 @@ public class GUIWindow {
 			window.row();
 
 			TextButton fightButton = new TextButton(lm.getString("Fight"), skin);
-            fightButton.setStyle(CustomStyle.getInstance().getStyle());
+            fightButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
 			fightButton.getLabel().setFontScale(1f);
 			window.add(fightButton).size(250, 75);
 			window.row();
 			TextButton cancelButton = new TextButton(lm.getString("Cancel"), skin);
-            cancelButton.setStyle(CustomStyle.getInstance().getStyle());
+            cancelButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
 			cancelButton.getLabel().setFontScale(1f);
 			window.add(cancelButton).size(250, 75);
 

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -16,8 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.LanguageManager;
@@ -109,12 +106,12 @@ public class MenuScreen implements Screen {
 
         backGround.setBounds(0, 0, GemLord.VIRTUAL_WIDTH * 2, GemLord.VIRTUAL_HEIGHT);
 
-        continueButton.setStyle(CustomStyle.getInstance().getStyle());
-        newGameButton.setStyle(CustomStyle.getInstance().getStyle());
-        optionsButton.setStyle(CustomStyle.getInstance().getStyle());
-        creditsButton.setStyle(CustomStyle.getInstance().getStyle());
-        exitGameButton.setStyle(CustomStyle.getInstance().getStyle());
-        returnFromOptions.setStyle(CustomStyle.getInstance().getStyle());
+        continueButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+        newGameButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+        optionsButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+        creditsButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+        exitGameButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+        returnFromOptions.setStyle(CustomStyle.getInstance().getTextButtonStyle());
 
         continueButton.setBounds(265, 500, 200, 50);
         continueButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);

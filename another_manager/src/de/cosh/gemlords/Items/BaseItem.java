@@ -37,6 +37,11 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
         bmf = s.getFont("credit-font");
     }
 
+    @Override
+    public String getName() {
+        return itemName;
+    }
+
     public static BaseItem getNewItemByID(int id) {
         switch (id) {
             case -1:
