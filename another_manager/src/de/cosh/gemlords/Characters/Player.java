@@ -58,7 +58,10 @@ public class Player extends BaseCharacter {
         for (int i = 0; i < playerInventory.getAllItems().size(); i++) {
             BaseItem item = playerInventory.getAllItems().get(i);
             if (item.isAddedToActionBar()) {
-                if (item.getItemSlotType() == BaseItem.ItemSlotType.POTION || item.getItemSlotType() == BaseItem.ItemSlotType.BOW_ACTIVE)
+                if (item.getItemSlotType() == BaseItem.ItemSlotType.POTION ||
+                        item.getItemSlotType() == BaseItem.ItemSlotType.BOW_ACTIVE ||
+                        item.getItemSlotType() == BaseItem.ItemSlotType.WATCH_ACTIVE ||
+                        item.getItemSlotType() == BaseItem.ItemSlotType.TOTEM_ACTIVE)
                     item.drawCooldown(batch, parentAlpha);
             }
         }

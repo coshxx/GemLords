@@ -33,6 +33,7 @@ public class GUIWindow {
 		this.stage = stage;
 		this.myGame = GemLord.getInstance();
 		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
+        skin.getAtlas().getRegions().get(0).getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	public void createDefeatWindow(final Group foreGround, final Group backGround, final Group windowGroup) {

@@ -71,7 +71,7 @@ public class HealthBar extends Actor {
         GemLord.getInstance();
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
         bmf = s.getFont("default-font");
-
+        bmf.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         bmf.setColor(1, 1, 1, parentAlpha);
         String text = health.toString() + " / " + maxhealth.toString();
         bmf.draw(batch, text, left + (width / 2) - bmf.getBounds(text).width/2, bot + 25 + bmf.getBounds(text).height/2);

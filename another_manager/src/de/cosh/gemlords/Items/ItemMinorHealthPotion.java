@@ -53,12 +53,12 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
         bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
         LanguageManager lm = LanguageManager.getInstance();
         if( currentCooldown <= 0 ) {
-            bmf.setColor(0, 1, 0, 1);
+            bmf.setColor(0, 1, 0, parentAlpha);
             bmf.draw(batch, lm.getString("Ready"), getX() + (getWidth()/2)-(bmf.getBounds(lm.getString("Ready")).width/2), getY()+50 );
         }
         else {
             bmf.setScale(2f);
-            bmf.setColor(1, 0, 0, 1);
+            bmf.setColor(1, 0, 0, parentAlpha);
             bmf.draw(batch, currentCooldown.toString(), getX() + (getWidth()/2)-(bmf.getBounds(currentCooldown.toString()).width/2), getY() + (getHeight()/2+bmf.getBounds(currentCooldown.toString()).height/2));
             bmf.setScale(1f);
         }

@@ -33,8 +33,8 @@
     /lootscreen
     <string key="Total damage dealt: " value="Schaden ausgeteilt insgesamt: " />
     <string key="Total damage received: " value="Schaden bekommen insgesamt: " />
-    <string key="Highest damage dealt in one turn: " value="Höchster Schaden ausgeteilt in einem Zug: " />
-    <string key="Highest damage received in one turn: " value="Höchster Schaden bekommen in einem Zug: " />
+    <string key="Highest damage dealt in one turn: " value="Höchster Schaden ausgeteilt in 1 Zug: " />
+    <string key="Highest damage received in one turn: " value="Höchster Schaden bekommen in 1 Zug: " />
     <string key="Player total healed: " value="Spieler Heilung: "/>
     <string key="Enemy total healed: " value="Gegner Heilung: "/>
     <string key="Longest combo: " value="Längste Combo: "/>
