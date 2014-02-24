@@ -3,6 +3,7 @@ package de.cosh.gemlords.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -82,6 +83,7 @@ public class LootScreen implements Screen {
         Table leftSide = table.top().left();
 
         Label label1 = new Label(lm.getString("Total damage dealt: "), skin);
+        label1.getStyle().font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Label label2 = new Label(aar.totalDamgeDealt.toString(), skin);
         leftSide.add(label1).left();
         leftSide.add(label2);

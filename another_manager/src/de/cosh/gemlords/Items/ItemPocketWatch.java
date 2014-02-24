@@ -24,8 +24,8 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 		super("pocketwatch");
         LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 4;
-		setItemName("Simaohs Pocketwatch");
-		setItemText("Undo 100%\nof received damage\nCooldown: 99");
+		setItemName(lm.getString("Simaohs Pocketwatch"));
+		setItemText(lm.getString("Undo 100%\nof received damage\nCooldown: 99"));
 		setItemSlotType(ItemSlotType.WATCH_ACTIVE);
 		Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
 		bmf = s.getFont("default-font");
@@ -53,12 +53,19 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 	}
 
 	@Override
-	public void drawCooldown(SpriteBatch batch, float parentAlpha) {
+    public void drawCooldown(SpriteBatch batch, float parentAlpha) {
         bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
-        if( currentCooldown <= 0 )
-            bmf.draw(batch, "Ready", getX(), getY()+50 );
-        else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
-	}
+        LanguageManager lm = LanguageManager.getInstance();
+        if( currentCooldown <= 0 ) {
+            bmf.setColor(0, 1, 0, 1);
+            bmf.draw(batch, lm.getString("Ready"), getX() + (getWidth()/2)-(bmf.getBounds(lm.getString("Ready")).width/2), getY()+50 );
+        }
+        else {
+            bmf.setScale(2f);
+            bmf.draw(batch, currentCooldown.toString(), getX() + (getWidth()/2)-(bmf.getBounds(currentCooldown.toString()).width/2), getY() + (getHeight()/2+bmf.getBounds(currentCooldown.toString()).height/2));
+            bmf.setScale(1f);
+        }
+    }
 
 	@Override
 	public void turn() {

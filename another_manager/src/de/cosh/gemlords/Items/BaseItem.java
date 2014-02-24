@@ -34,7 +34,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
         addedToActionBar = false;
         actionBarSlot = -1;
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
-        bmf = s.getFont("credit-font");
+        bmf = s.getFont("mytest-font");
     }
 
     @Override
@@ -134,9 +134,8 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
         super.draw(batch, parentAlpha);
         float imgCenterX = getX() + (getWidth() / 2);
         if (drawText) {
-            bmf.setScale(0.75f);
             if (itemSlotType == ItemSlotType.BOW_ACTIVE)
-                bmf.setColor(0.4f, 0.4f, 1f, parentAlpha * getColor().a);
+                bmf.setColor(1f, 0.0f, 1f, parentAlpha * getColor().a);
             else if (itemSlotType == ItemSlotType.POTION)
                 bmf.setColor(1f, 1f, 0f, parentAlpha * getColor().a);
             else bmf.setColor(0f, 1f, 0f, parentAlpha * getColor().a);

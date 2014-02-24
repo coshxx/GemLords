@@ -2,6 +2,7 @@ package de.cosh.gemlords.Screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -96,6 +97,7 @@ public class LoadoutScreen implements Screen, InputProcessor {
             return;
 
         selectBoxInventory = new SelectBox(boxItemList.toArray(), s);
+        selectBoxInventory.getStyle().font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         selectBoxInventory.setBounds(20, GemLord.VIRTUAL_HEIGHT-100, 680, 50);
         selectBoxInventory.addListener(new ChangeListener() {
             @Override
