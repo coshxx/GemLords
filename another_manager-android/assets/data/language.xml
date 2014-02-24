@@ -49,7 +49,7 @@
     //items
     <string key="Bow of the Fox" value="Bogen des Fuchses"/>
     <string key="Deal 5 - 12 damage&#10;Cooldown: 5" value="Fügt dem Gegner 5-12&#10;Schaden zu&#10;Abklingzeit: 5" />
-    <string key="Amulet of Evasion" value="Amulet des Ausweichens"/>
+    <string key="Amulet of Evasion" value="Amulett des Ausweichens"/>
     <string key="10% chance to&#10;completely avoid&#10;all damage" value="10% Chance&#10;jeglichen Schaden&#10;zu vermeiden"/>
     <string key="Apprentice Robe" value="Starter Robe"/>
     <string key="Grants an additional&#10; 25 health" value="25 Leben mehr"/>
