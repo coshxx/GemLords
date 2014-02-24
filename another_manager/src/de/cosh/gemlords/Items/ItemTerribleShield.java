@@ -17,8 +17,8 @@ public class ItemTerribleShield extends BaseItem {
 		super("shield");
         LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 5;
-		setItemName("Terrible Shield");
-		setItemText("20% chance to block\n1-5 damage");
+		setItemName(lm.getString("Terrible Shield"));
+		setItemText(lm.getString("20% chance to block\n1-5 damage"));
 		setItemSlotType(ItemSlotType.SHIELD);
         r = new Random();
 	}

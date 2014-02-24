@@ -3,20 +3,39 @@ package de.cosh.gemlords.Screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Characters.ActionBar;
 import de.cosh.gemlords.GUI.GUIButton;
+import de.cosh.gemlords.Items.BaseItem;
+import de.cosh.gemlords.LanguageManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by cosh on 07.01.14.
  */
 public class LoadoutScreen implements Screen, InputProcessor {
 	private Stage stage;
+    private SelectBox selectBoxInventory;
 
+    private HashMap<String, Integer> itemsHashMap;
+    private ArrayList<String> boxItemList;
+    private BaseItem itemInCenter;
+    private Skin s;
 	public LoadoutScreen() {
 	}
 
@@ -56,6 +75,7 @@ public class LoadoutScreen implements Screen, InputProcessor {
 	@Override
 	public void show() {
 		stage = new Stage();
+        s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
         InputMultiplexer plex = new InputMultiplexer();
         plex.addProcessor(stage);
         plex.addProcessor(this);
@@ -64,21 +84,181 @@ public class LoadoutScreen implements Screen, InputProcessor {
 		Image background = new Image(atlas.findRegion("background"));
 		background.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
 		stage.addActor(background);
-
 		GemLord.soundPlayer.playLoadoutMusic();
 
-		ActionBar actionBar = GemLord.getInstance().player.getActionBar();
-		actionBar.addToLoadoutScreen(stage);
-		GemLord.getInstance().player.getInventory().addToLoadoutScreen(stage);
-		GemLord.getInstance().player.getInventory().resortItems();
-		
-		GUIButton guiButton = new GUIButton();
-		guiButton.createBacktoMapButton(stage, GemLord.VIRTUAL_WIDTH-200, 0);
-		guiButton.createRemoveFromBarButton(stage, 0, 0);
+        itemsHashMap = new HashMap<String, Integer>();
+        boxItemList = fillItemList(itemsHashMap);
+        GemLord.getInstance().player.getActionBar().addToLoadoutScreen(stage);
+        addItemListeners();
+        addButtons();
 
-		stage.addAction(Actions.alpha(0.0f));
-        stage.addAction(Actions.fadeIn(1.0f));
+        if( boxItemList.size() == 0 )
+            return;
+
+        selectBoxInventory = new SelectBox(boxItemList.toArray(), s);
+        selectBoxInventory.setBounds(20, GemLord.VIRTUAL_HEIGHT-100, 680, 50);
+        selectBoxInventory.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                changeCenterItem();
+            }
+        });
+
+        changeCenterItem();
+
+        stage.addActor(selectBoxInventory);
 	}
+
+    private void addButtons() {
+        LanguageManager lm = LanguageManager.getInstance();
+
+        TextButton removeButton = new TextButton(lm.getString("Remove"), s);
+        TextButton returnToMapButton = new TextButton(lm.getString("Back to map"), s);
+
+        removeButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+        returnToMapButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+
+        returnToMapButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GemLord.soundPlayer.stopLoadoutMusic();
+                GemLord.getInstance().setScreen(GemLord.getInstance().mapTraverseScreen);
+            }
+        });
+
+        removeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ArrayList<BaseItem> allItems = GemLord.getInstance().player.getInventory().getAllItems();
+                for( int i = 0; i < allItems.size(); i++ ) {
+                    BaseItem current = allItems.get(i);
+                    if( current.isSelected() ) {
+                        if( current.isAddedToActionBar() ) {
+                            GemLord.getInstance().player.getActionBar().removeFromBar(current);
+                            current.unselect();
+                            current.remove();
+                            refreshItemList();
+                        }
+                    }
+                }
+            }
+        });
+
+        removeButton.setBounds(0, 0, 200, 100);
+        returnToMapButton.setBounds(GemLord.VIRTUAL_WIDTH-200, 0, 200, 100);
+
+        stage.addActor(removeButton);
+        stage.addActor(returnToMapButton);
+    }
+
+    private void refreshItemList() {
+        if( selectBoxInventory == null ) {
+            boxItemList = fillItemList(itemsHashMap);
+            selectBoxInventory = new SelectBox(boxItemList.toArray(), s);
+            selectBoxInventory.setBounds(20, GemLord.VIRTUAL_HEIGHT-100, 680, 50);
+            selectBoxInventory.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    changeCenterItem();
+                }
+            });
+            changeCenterItem();
+        }
+        selectBoxInventory.remove();
+        boxItemList = fillItemList(itemsHashMap);
+        selectBoxInventory = new SelectBox(boxItemList.toArray(), s);
+        selectBoxInventory.setBounds(20, GemLord.VIRTUAL_HEIGHT - 100, 680, 50);
+        selectBoxInventory.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                changeCenterItem();
+            }
+        });
+        changeCenterItem();
+        stage.addActor(selectBoxInventory);
+    }
+
+    private void addItemListeners() {
+        final ArrayList<BaseItem> allItems = GemLord.getInstance().player.getInventory().getAllItems();
+        if( itemInCenter != null ) {
+            itemInCenter.clearListeners();
+            itemInCenter.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if( itemInCenter.isSelected() )
+                        itemInCenter.unselect();
+                    else itemInCenter.selected();
+                }
+            });
+        }
+
+        for( int i = 0; i < allItems.size(); i++ ) {
+            final BaseItem current = allItems.get(i);
+            if( current.isAddedToActionBar() ) {
+                current.clearListeners();
+                current.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        for( int i = 0; i < allItems.size(); i++ ) {
+                            BaseItem testItem = allItems.get(i);
+                            if( testItem == current )
+                                continue;
+                            if (testItem.isSelected() )
+                                testItem.unselect();
+                        }
+                        if( current.isSelected() )
+                            current.unselect();
+                        else current.selected();
+                    }
+                });
+            }
+        }
+    }
+
+    public void refresh() {
+        refreshItemList();
+        changeCenterItem();
+        GemLord.getInstance().player.getActionBar().remove();
+        GemLord.getInstance().player.getActionBar().addToLoadoutScreen(stage);
+    }
+
+    private void changeCenterItem() {
+        if( itemInCenter != null ) {
+            itemInCenter.unselect();
+            itemInCenter.remove();
+            itemInCenter.clearListeners();
+            itemInCenter = null;
+        }
+
+        boxItemList = fillItemList(itemsHashMap);
+        if( boxItemList.size() == 0 ) {
+            if( selectBoxInventory != null ) {
+                selectBoxInventory.remove();
+            }
+            addItemListeners();
+            return;
+        }
+        itemInCenter = GemLord.getInstance().player.getInventory().getItemByID(itemsHashMap.get(selectBoxInventory.getSelection()));
+        itemInCenter.setPosition( (GemLord.VIRTUAL_WIDTH/2)-(itemInCenter.getWidth()/2), 1000);
+        itemInCenter.setDrawText(true);
+        itemInCenter.unselect();
+        addItemListeners();
+        stage.addActor(itemInCenter);
+    }
+
+    private ArrayList<String> fillItemList(HashMap<String, Integer> itemsHashMap) {
+        ArrayList<BaseItem> invItems = GemLord.getInstance().player.getInventory().getAllItems();
+        itemsHashMap.clear();
+        ArrayList<String> theList = new ArrayList<String>();
+        for( int i = 0; i < invItems.size(); i++ ) {
+            BaseItem currentItem = invItems.get(i);
+            if( currentItem.isAddedToActionBar() )
+                continue;
+            itemsHashMap.put(currentItem.getName(), currentItem.getID());
+            theList.add(currentItem.getName());
+        }
+        return theList;
+    }
 
     @Override
     public boolean keyDown(int keycode) {
@@ -123,4 +303,6 @@ public class LoadoutScreen implements Screen, InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
+
+
 }

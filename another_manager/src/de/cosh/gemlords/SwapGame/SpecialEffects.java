@@ -25,12 +25,13 @@ class SpecialEffects {
         LanguageManager lm = LanguageManager.getInstance();
         Label.LabelStyle sfxStyle = new Label.LabelStyle(bmf, new Color(1, 1, 1, 1));
         Label label = new Label(lm.getString("Good"), sfxStyle);
-
-        label.setPosition(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT/2);
+        float targetX = (GemLord.VIRTUAL_WIDTH/2) - (bmf.getBounds(label.getText()).width/2);
+        float targetY = (GemLord.VIRTUAL_HEIGHT/2) - (bmf.getBounds(label.getText()).height/2);
+        label.setPosition(GemLord.VIRTUAL_WIDTH, targetY);
         label.addAction(Actions.sequence(
-                Actions.moveBy(-480, 0, 0.15f),
+                Actions.moveTo(targetX, targetY, 0.15f),
                 Actions.delay(0.5f),
-                Actions.moveBy(-550, 0, 0.15f),
+                Actions.moveTo(0 - bmf.getBounds(label.getText()).width, targetY, 0.15f),
                 Actions.removeActor())
         );
 
@@ -46,12 +47,13 @@ class SpecialEffects {
         LanguageManager lm = LanguageManager.getInstance();
         Label.LabelStyle sfxStyle = new Label.LabelStyle(bmf, new Color(1, 1, 1, 1));
         Label label = new Label(lm.getString("Great"), sfxStyle);
-
-        label.setPosition(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT/2);
+        float targetX = (GemLord.VIRTUAL_WIDTH/2) - (bmf.getBounds(label.getText()).width/2);
+        float targetY = (GemLord.VIRTUAL_HEIGHT/2) - (bmf.getBounds(label.getText()).height/2);
+        label.setPosition(GemLord.VIRTUAL_WIDTH, targetY);
         label.addAction(Actions.sequence(
-                Actions.moveBy(-480, 0, 0.15f),
+                Actions.moveTo(targetX, targetY, 0.15f),
                 Actions.delay(0.5f),
-                Actions.moveBy(-550, 0, 0.15f),
+                Actions.moveTo(0 - bmf.getBounds(label.getText()).width, targetY, 0.15f),
                 Actions.removeActor())
         );
         effectGroup.addActor(label);
@@ -65,12 +67,13 @@ class SpecialEffects {
         LanguageManager lm = LanguageManager.getInstance();
         Label.LabelStyle sfxStyle = new Label.LabelStyle(bmf, new Color(1, 1, 1, 1));
         Label label = new Label(lm.getString("Awesome"), sfxStyle);
-
-        label.setPosition(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT/2);
+        float targetX = (GemLord.VIRTUAL_WIDTH/2) - (bmf.getBounds(label.getText()).width/2);
+        float targetY = (GemLord.VIRTUAL_HEIGHT/2) - (bmf.getBounds(label.getText()).height/2);
+        label.setPosition(GemLord.VIRTUAL_WIDTH, targetY);
         label.addAction(Actions.sequence(
-                Actions.moveBy(-550, 0, 0.15f),
+                Actions.moveTo(targetX, targetY, 0.15f),
                 Actions.delay(0.5f),
-                Actions.moveBy(-550, 0, 0.15f),
+                Actions.moveTo(0 - bmf.getBounds(label.getText()).width, targetY, 0.15f),
                 Actions.removeActor())
         );
         effectGroup.addActor(label);

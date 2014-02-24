@@ -26,7 +26,6 @@ public class ActionBar {
     private Image actionBarImage;
 
 
-
     public ActionBar() {
         itemBorders = new Image[BARLENGTH];
         itemsInBar = new BaseItem[BARLENGTH];
@@ -50,19 +49,19 @@ public class ActionBar {
                     for (BaseItem item : baseItems) {
                         if (item.isSelected()) {
                             if (itemsInBar[index] == null) {
-                                if( item.getActionBarSlot() != -1 ) {
+                                if (item.getActionBarSlot() != -1) {
                                     itemsInBar[item.getActionBarSlot()] = null;
                                 }
                                 item.setActionBarSlot(index);
                                 itemsInBar[index] = item;
                                 itemsInBar[index].setPosition(itemBorders[index].getX(), itemBorders[index].getY());
                                 ParticleActor p = new ParticleActor(itemBorders[index].getX() + (itemBorders[index].getWidth() / 2), itemBorders[index].getY() + itemBorders[index].getHeight() / 2);
-                                GemLord.getInstance();
                                 GemLord.soundPlayer.playWoosh();
                                 stage.addActor(p);
                                 item.addedToActionBar(true);
                                 item.unselect();
                                 item.setDrawText(false);
+                                GemLord.getInstance().loadoutScreen.refresh();
                             }
                         }
                     }
@@ -82,6 +81,7 @@ public class ActionBar {
             if (itemsInBar[i] == null)
                 continue;
             if (itemsInBar[i].equals(baseItem)) {
+                itemsInBar[i].addedToActionBar(false);
                 itemsInBar[i] = null;
             }
         }
@@ -143,7 +143,7 @@ public class ActionBar {
     }
 
     public BaseItem getItemInSlot(int i) {
-        if( itemsInBar[i] == null )
+        if (itemsInBar[i] == null)
             return null;
         else return itemsInBar[i];
     }
@@ -163,7 +163,19 @@ public class ActionBar {
     }
 
     public void clear() {
-        for( int i = 0; i < BARLENGTH; i++ )
+        for (int i = 0; i < BARLENGTH; i++)
             itemsInBar[i] = null;
+    }
+
+    public void remove() {
+        actionBarImage.remove();
+        for (int i = 0; i < itemsInBar.length; i++)
+            if (itemsInBar[i] != null) {
+                itemsInBar[i].remove();
+            }
+        for (int i = 0; i < itemBorders.length; i++)
+            if (itemBorders[i] != null) {
+                itemBorders[i].remove();
+            }
     }
 }

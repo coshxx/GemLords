@@ -5,84 +5,84 @@ filter: Nearest,Nearest
 repeat: none
 abilityattack
   rotate: false
-  xy: 963, 838
+  xy: 784, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 abilitybite
   rotate: false
-  xy: 963, 796
+  xy: 724, 197
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 abilityclaw
   rotate: false
-  xy: 963, 754
+  xy: 826, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 abilityfireball
   rotate: false
-  xy: 888, 252
+  xy: 610, 878
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 abilityflydodge
   rotate: false
-  xy: 878, 163
+  xy: 724, 155
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 abilitypetrify
   rotate: false
-  xy: 878, 121
+  xy: 724, 113
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 abilitypoison
   rotate: false
-  xy: 888, 205
+  xy: 834, 921
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 abilityshell
   rotate: false
-  xy: 878, 79
+  xy: 724, 71
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 abilitysmash
   rotate: false
-  xy: 670, 700
+  xy: 670, 886
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 abilitysmashblue
   rotate: false
-  xy: 964, 712
+  xy: 724, 29
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 abilitysmashred
   rotate: false
-  xy: 964, 670
+  xy: 877, 341
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 abilitythink
   rotate: false
-  xy: 963, 880
+  xy: 724, 239
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
@@ -103,70 +103,70 @@ background
   index: -1
 ball_blue
   rotate: false
-  xy: 752, 700
+  xy: 752, 886
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 ball_green
   rotate: false
-  xy: 636, 618
+  xy: 726, 804
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 ball_purple
   rotate: false
-  xy: 718, 618
+  xy: 661, 700
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 ball_red
   rotate: false
-  xy: 661, 536
+  xy: 661, 618
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 ball_white
   rotate: false
-  xy: 661, 454
+  xy: 661, 536
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 ball_yellow
   rotate: false
-  xy: 743, 536
+  xy: 661, 454
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 bettershield
   rotate: false
-  xy: 690, 875
+  xy: 478, 780
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 buff_border
   rotate: false
-  xy: 524, 384
+  xy: 959, 423
   size: 30, 30
   orig: 30, 30
   offset: 0, 0
   index: -1
 buttondown
   rotate: false
-  xy: 690, 968
+  xy: 388, 873
   size: 220, 50
   orig: 220, 50
   offset: 0, 0
   index: -1
 buttonup
   rotate: false
-  xy: 388, 695
+  xy: 670, 968
   size: 220, 50
   orig: 220, 50
   offset: 0, 0
@@ -180,63 +180,63 @@ cell_back
   index: -1
 clawfullscreen
   rotate: false
-  xy: 878, 205
+  xy: 388, 392
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 corner_blue
   rotate: false
-  xy: 806, 136
+  xy: 907, 527
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 corner_green
   rotate: false
-  xy: 806, 64
+  xy: 907, 455
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 corner_purple
   rotate: false
-  xy: 907, 587
+  xy: 743, 404
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 corner_red
   rotate: false
-  xy: 907, 515
+  xy: 815, 404
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 corner_white
   rotate: false
-  xy: 907, 443
+  xy: 887, 383
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 corner_yellow
   rotate: false
-  xy: 897, 371
+  xy: 733, 332
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 debuff_border
   rotate: false
-  xy: 935, 267
+  xy: 959, 391
   size: 30, 30
   orig: 30, 30
   offset: 0, 0
   index: -1
 empty
   rotate: false
-  xy: 388, 382
+  xy: 983, 986
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -250,84 +250,84 @@ emptyhp
   index: -1
 full
   rotate: false
-  xy: 872, 934
+  xy: 834, 887
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heart
   rotate: false
-  xy: 834, 748
+  xy: 919, 349
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heartempty
   rotate: false
-  xy: 422, 382
+  xy: 983, 952
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 item_border
   rotate: false
-  xy: 388, 602
+  xy: 388, 674
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 item_common_border
   rotate: false
-  xy: 888, 299
+  xy: 805, 332
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 itemamulet
   rotate: false
-  xy: 781, 875
+  xy: 388, 581
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 itemarrow
   rotate: false
-  xy: 388, 509
+  xy: 388, 488
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 itembow
   rotate: false
-  xy: 479, 602
+  xy: 388, 395
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 itemdagger
   rotate: false
-  xy: 388, 416
+  xy: 479, 687
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 itemhuntingbow
   rotate: false
-  xy: 479, 509
+  xy: 479, 594
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 lightningmid
   rotate: false
-  xy: 872, 927
+  xy: 726, 797
   size: 1, 5
   orig: 1, 5
   offset: 0, 0
   index: -1
 lightningrod
   rotate: false
-  xy: 570, 591
+  xy: 660, 782
   size: 64, 102
   orig: 64, 102
   offset: 0, 0
@@ -341,161 +341,161 @@ menuskin
   index: -1
 minorhealthpotion
   rotate: false
-  xy: 479, 416
+  xy: 479, 501
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 pocketwatch
   rotate: false
-  xy: 570, 498
+  xy: 479, 408
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 point
   rotate: false
-  xy: 834, 714
+  xy: 983, 918
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 pointdone
   rotate: false
-  xy: 456, 382
+  xy: 972, 884
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 ring
   rotate: false
-  xy: 570, 405
+  xy: 892, 927
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 robe
   rotate: false
-  xy: 912, 927
+  xy: 569, 780
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 robe_mage
   rotate: false
-  xy: 690, 782
+  xy: 570, 687
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 robe_scholar
   rotate: false
-  xy: 781, 782
+  xy: 570, 594
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 shield
   rotate: false
-  xy: 872, 834
+  xy: 570, 501
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 special
   rotate: false
-  xy: 743, 454
+  xy: 743, 722
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: 5
 special_blueh
   rotate: false
-  xy: 800, 618
+  xy: 743, 640
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_bluev
   rotate: false
-  xy: 825, 536
+  xy: 743, 558
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_greenh
   rotate: false
-  xy: 825, 454
+  xy: 743, 476
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_greenv
   rotate: false
-  xy: 882, 659
+  xy: 808, 804
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_purpleh
   rotate: false
-  xy: 733, 372
+  xy: 825, 722
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_purplev
   rotate: false
-  xy: 815, 372
+  xy: 825, 640
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_redh
   rotate: false
-  xy: 724, 290
+  xy: 825, 558
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_redv
   rotate: false
-  xy: 724, 208
+  xy: 825, 476
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_whiteh
   rotate: false
-  xy: 806, 290
+  xy: 890, 845
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_whitev
   rotate: false
-  xy: 724, 126
+  xy: 907, 763
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_yellowh
   rotate: false
-  xy: 806, 208
+  xy: 907, 681
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 special_yellowv
   rotate: false
-  xy: 724, 44
+  xy: 907, 599
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 star
   rotate: false
-  xy: 490, 382
+  xy: 972, 850
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -509,28 +509,28 @@ title
   index: -1
 totem
   rotate: false
-  xy: 872, 741
+  xy: 570, 408
   size: 89, 91
   orig: 89, 91
   offset: 0, 0
   index: -1
 turnindicator
   rotate: false
-  xy: 388, 747
+  xy: 388, 925
   size: 280, 93
   orig: 280, 93
   offset: 0, 0
   index: -1
 upgradearrow
   rotate: false
-  xy: 388, 842
-  size: 300, 176
-  orig: 300, 176
+  xy: 388, 767
+  size: 88, 104
+  orig: 88, 104
   offset: 0, 0
   index: -1
 wizardhat
   rotate: false
-  xy: 610, 701
+  xy: 724, 286
   size: 58, 44
   orig: 58, 44
   offset: 0, 0

@@ -22,8 +22,8 @@ public class ItemHuntingBow extends BaseItem {
 		super("itemhuntingbow");
         LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 12;
-		setItemName("Hunting Bow");
-		setItemText("Deal 10 - 25 damage\nCooldown: 5");
+		setItemName(lm.getString("Hunting Bow"));
+		setItemText(lm.getString("Deal 10 - 25 damage\nCooldown: 5"));
 		setItemSlotType(ItemSlotType.BOW_ACTIVE);
         cooldown = 5;
         currentCooldown = 0;
@@ -82,8 +82,9 @@ public class ItemHuntingBow extends BaseItem {
     @Override
     public void drawCooldown(SpriteBatch batch, float parentAlpha) {
         bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
+        LanguageManager lm = LanguageManager.getInstance();
         if( currentCooldown <= 0 )
-            bmf.draw(batch, "Ready", getX(), getY()+50 );
+            bmf.draw(batch, lm.getString("Ready"), getX(), getY()+50 );
         else bmf.draw(batch, currentCooldown.toString(), getX()+25, getY()+50);
     }
 }

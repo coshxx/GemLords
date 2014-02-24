@@ -226,12 +226,12 @@ public class LootScreen implements Screen {
                 oldItem.addAction(Actions.sequence(
                         Actions.delay(1.75f),
                         Actions.fadeIn(0.25f)));
-                oldItem.setPosition(GemLord.VIRTUAL_WIDTH / 4 - item.getWidth() / 2, 800);
+                oldItem.setPosition(GemLord.VIRTUAL_WIDTH / 2 - item.getWidth() / 2, 800);
                 oldItem.setDrawText(true);
                 stage.addActor(oldItem);
                 TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
                 Image upgradeArrow = new Image(atlas.findRegion("upgradearrow"));
-                upgradeArrow.setBounds(270, 780, 200, 100);
+                upgradeArrow.setBounds(GemLord.VIRTUAL_WIDTH/2 - upgradeArrow.getWidth()/2, 580, upgradeArrow.getWidth(), upgradeArrow.getHeight());
                 upgradeArrow.addAction(Actions.alpha(0));
                 upgradeArrow.addAction(Actions.sequence(
                         Actions.delay(1.75f),
@@ -255,7 +255,7 @@ public class LootScreen implements Screen {
                     Actions.fadeIn(0.25f)));
 
             leftSide.add(label15).left();
-            item.setPosition(GemLord.VIRTUAL_WIDTH / 2 + item.getWidth() + 60, 800);
+            item.setPosition(GemLord.VIRTUAL_WIDTH / 2 - item.getWidth()/2, 440);
             myGame.player.getInventory().addItem(item);
             stage.addActor(item);
 

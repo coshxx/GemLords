@@ -47,7 +47,7 @@ public class SoundPlayer {
 	private Sound victorySound, loseSound;
 	private Sound woosh;
 	private Sound smash;
-    private Sound splash;
+    private Music splash;
 
 	public SoundPlayer(final GemLord game) {
 	}
@@ -296,7 +296,7 @@ public class SoundPlayer {
     }
 
     public void playSplash() {
-        splash = Gdx.audio.newSound(Gdx.files.internal("data/sounds/splash.ogg"));
+        splash = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/splash.ogg"));
         splash.play();
     }
 

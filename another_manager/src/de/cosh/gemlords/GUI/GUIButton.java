@@ -43,7 +43,7 @@ public class GUIButton {
 							public void run() {
                                 final GemLord myGame = GemLord.getInstance();
                                 myGame.mapTraverseScreen.enemyWindowOpen = false;
-								GemLord.getInstance().setScreen(new LoadoutScreen());
+								GemLord.getInstance().setScreen(GemLord.getInstance().loadoutScreen);
 							}
 						}))));
 			}

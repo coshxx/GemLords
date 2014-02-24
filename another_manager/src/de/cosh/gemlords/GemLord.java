@@ -34,6 +34,7 @@ public class GemLord extends Game {
 	public EnemyManager enemyManager;
 	public GameScreen gameScreen;
 	public LootScreen lootScreen;
+    public LoadoutScreen loadoutScreen;
     public ShadyIntroScreen shadyIntroScreen;
     public CreditScreen creditScreen;
 	public MapTraverseScreen mapTraverseScreen;
@@ -68,6 +69,7 @@ public class GemLord extends Game {
 		lootScreen = new LootScreen(this, enemyManager);
 		mapTraverseScreen = new MapTraverseScreen(this);
 		bitmapFont = new BitmapFont();
+        loadoutScreen = new LoadoutScreen();
         afterActionReport = new AfterActionReport();
         languageManager = LanguageManager.getInstance();
 		setScreen(splashScreen);
