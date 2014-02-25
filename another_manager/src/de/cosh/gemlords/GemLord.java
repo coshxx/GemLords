@@ -46,7 +46,13 @@ public class GemLord extends Game {
 	private SpriteBatch batch;
 	private BitmapFont bitmapFont;
 
-	public static GemLord getInstance() {
+    public IActivityRequestHandler requestHandler;
+
+
+    public GemLord(IActivityRequestHandler requestHandler ) {
+        this.requestHandler = requestHandler;
+    }
+    public static GemLord getInstance() {
         return instance;
 	}
 

@@ -3,15 +3,14 @@ package de.cosh.gemlords.Screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Json;
 
+import de.cosh.gemlords.GUI.GUIWindow;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Characters.Enemy;
 import de.cosh.gemlords.Characters.Player;
@@ -28,9 +27,6 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 	private final GemLord myGame;
 	private Json json;
 	private Stage stage;
-
-    private float zoomLevel = 1f;
-    private float zoomSpeed = 0.1f;
 
 	public MapTraverseScreen(final GemLord gemLord) {
 		myGame = gemLord;
@@ -60,20 +56,29 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 			if( !handle.exists() )
 				break;
 			Enemy e = json.fromJson(Enemy.class, handle.readString());
-			e.setDefeated(player.levelDone[e.getEnemyNumber()]);
+			e.setDefeated(player.levelDoneEpisode1[e.getEnemyNumber()]);
 			e.loadImage();
 			if( e.getEnemyNumber() == 0 || GemLord.DEBUGMODE) {
 				e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+                player.setPositionOnMap(e.getLocationOnMap());
 			} else {
 				int previous = e.getEnemyNumber() - 1;
 				if( previous < 0 )
 					break;
-				if( player.levelDone[previous] ) {
+				if( player.levelDoneEpisode1[previous] ) {
 					e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
+                    player.setPositionOnMap(e.getLocationOnMap());
 				}
 			}
 			counter++;
 		}
+
+        if( player.levelDoneEpisode1[15] ) {
+            if( !player.hasFullVersion() ) {
+                GUIWindow guiWindow = new GUIWindow(stage);
+                guiWindow.createBuyFinalWindow();
+            }
+        }
 
 		if( GemLord.DEBUGMODE ) {
 			Enemy e = new Enemy();
@@ -93,20 +98,9 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 	public void render(final float delta) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-/*
-        OrthographicCamera camera = GemLord.getInstance().camera;
-        zoomLevel -= zoomSpeed * delta;
-        camera.zoom = zoomLevel;
-        camera.update();
 
-        stage.setCamera(camera);
-  */
 		stage.act(delta);
 		stage.draw();
-
-        Vector2 coords = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-        coords = stage.screenToStageCoordinates(coords);
-		Table.drawDebug(stage);
 
 		if (fadeMusic) {
 			GemLord.soundPlayer.fadeOutMapMusic(delta);
@@ -143,7 +137,7 @@ public class MapTraverseScreen implements Screen, InputProcessor {
         plex.addProcessor(stage);
         plex.addProcessor(this);
 		Gdx.input.setInputProcessor(plex);
-		
+
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));
 

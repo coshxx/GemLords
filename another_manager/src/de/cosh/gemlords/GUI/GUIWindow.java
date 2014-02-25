@@ -232,4 +232,30 @@ public class GUIWindow {
         foreGround.addAction(Actions.alpha(0.5f, 1.0f));
         effectGroup.addActor(window);
     }
+
+    public void createBuyFinalWindow() {
+        LanguageManager lm = LanguageManager.getInstance();
+        final Window window = new Window(lm.getString("Buy the full version"), skin);
+        window.getStyle().titleFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        window.setColor(1.0f, 1.0f, 1.0f, 0.95f);
+        window.setMovable(true);
+        window.setModal(false);
+        window.setSize(600, 600);
+        window.setPosition(60, 340);
+
+        Label label1 = new Label(lm.getString("Thank you for playing Gem Lords.\nIf you enjoyed this game,\nplease consider buying\nthe full version. This will allow me\nto keep on developing games and\nwill allow you to keep on playing\nand also remove all ads\nDo you wish to buy the game now?"), skin);
+        label1.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        window.add(label1).expand().top();
+        window.row();
+        TextButton buttonBuy = new TextButton(lm.getString("Buy now"), skin);
+        buttonBuy.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+        window.add(buttonBuy).size(150, 100).left();
+        TextButton buttonCancel = new TextButton(lm.getString("Cancel"), skin);
+        buttonCancel.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+        window.add(buttonCancel).size(150, 100);
+        window.pack();
+
+        Gdx.input.setInputProcessor(stage);
+        stage.addActor(window);
+    }
 }

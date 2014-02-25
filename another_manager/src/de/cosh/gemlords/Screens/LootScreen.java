@@ -42,7 +42,7 @@ public class LootScreen implements Screen {
 
     @Override
     public void hide() {
-
+        GemLord.getInstance().requestHandler.showAds(true);
     }
 
     @Override
@@ -71,6 +71,7 @@ public class LootScreen implements Screen {
 
     @Override
     public void show() {
+        GemLord.getInstance().requestHandler.showAds(false);
         stage = new Stage();
         table = new Table();
         table.setFillParent(true);
@@ -86,7 +87,7 @@ public class LootScreen implements Screen {
         label1.getStyle().font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Label label2 = new Label(aar.totalDamgeDealt.toString(), skin);
         leftSide.add(label1).left();
-        leftSide.add(label2);
+        leftSide.add(label2).expandX().right();
         leftSide.row();
 
         label1.addAction(Actions.alpha(0));
@@ -104,7 +105,7 @@ public class LootScreen implements Screen {
         Label label3 = new Label(lm.getString("Total damage received: "), skin);
         Label label4 = new Label(aar.totalDamageReceived.toString(), skin);
         leftSide.add(label3).left();
-        leftSide.add(label4);
+        leftSide.add(label4).expandX().right();
         leftSide.row();
 
         label3.addAction(Actions.alpha(0));
@@ -122,7 +123,7 @@ public class LootScreen implements Screen {
         Label label5 = new Label(lm.getString("Highest damage dealt in one turn: "), skin);
         Label label6 = new Label(aar.highestDamageDealtInOneTurn.toString(), skin);
         leftSide.add(label5).left();
-        leftSide.add(label6);
+        leftSide.add(label6).expandX().right();
         leftSide.row();
 
         label5.addAction(Actions.alpha(0));
@@ -140,7 +141,7 @@ public class LootScreen implements Screen {
         Label label7 = new Label(lm.getString("Highest damage received in one turn: "), skin);
         Label label8 = new Label(aar.highestDamageReceivedInOneTurn.toString(), skin);
         leftSide.add(label7).left();
-        leftSide.add(label8);
+        leftSide.add(label8).expandX().right();
         leftSide.row();
 
         label7.addAction(Actions.alpha(0));
@@ -158,7 +159,7 @@ public class LootScreen implements Screen {
         Label label9 = new Label(lm.getString("Player total healed: "), skin);
         Label label10 = new Label(aar.playerTotalHealed.toString(), skin);
         leftSide.add(label9).left();
-        leftSide.add(label10);
+        leftSide.add(label10).expandX().right();
         leftSide.row();
 
         label9.addAction(Actions.alpha(0));
@@ -176,7 +177,7 @@ public class LootScreen implements Screen {
         Label label11 = new Label(lm.getString("Enemy total healed: "), skin);
         Label label12 = new Label(aar.enemyTotalHealed.toString(), skin);
         leftSide.add(label11).left();
-        leftSide.add(label12);
+        leftSide.add(label12).expandX().right();
         leftSide.row();
 
         label11.addAction(Actions.alpha(0));
@@ -193,7 +194,7 @@ public class LootScreen implements Screen {
         Label label13 = new Label(lm.getString("Longest combo: "), skin);
         Label label14 = new Label(aar.longestCombo.toString(), skin);
         leftSide.add(label13).left();
-        leftSide.add(label14);
+        leftSide.add(label14).expandX().right();
         leftSide.row();
 
         label13.addAction(Actions.alpha(0));
@@ -210,6 +211,8 @@ public class LootScreen implements Screen {
 
 
         final BaseItem item = enemyManager.getSelectedEnemy().getDroppedItem();
+        //final BaseItem item = BaseItem.getNewItemByID(1);
+
         BaseItem oldItem = null;
         if (item != null) {
             boolean upgradeFound = false;
@@ -233,7 +236,7 @@ public class LootScreen implements Screen {
                 stage.addActor(oldItem);
                 TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
                 Image upgradeArrow = new Image(atlas.findRegion("upgradearrow"));
-                upgradeArrow.setBounds(GemLord.VIRTUAL_WIDTH/2 - upgradeArrow.getWidth()/2, 580, upgradeArrow.getWidth(), upgradeArrow.getHeight());
+                upgradeArrow.setBounds(GemLord.VIRTUAL_WIDTH/2 - upgradeArrow.getWidth()/2, 560, upgradeArrow.getWidth(), upgradeArrow.getHeight());
                 upgradeArrow.addAction(Actions.alpha(0));
                 upgradeArrow.addAction(Actions.sequence(
                         Actions.delay(1.75f),

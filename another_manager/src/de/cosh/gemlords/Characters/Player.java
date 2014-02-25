@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Items.BaseItem;
@@ -12,23 +13,29 @@ import de.cosh.gemlords.Items.BaseItem;
  * Created by cosh on 10.12.13.
  */
 public class Player extends BaseCharacter {
-    public boolean[] levelDone;
+    public boolean[] levelDoneEpisode1;
+    public boolean[] levelDoneEpisode2;
     private Enemy lastEnemey;
-    private int lives;
     private PlayerInventory playerInventory;
     private ActionBar actionBar;
     private int lastTurnDamageReceived;
+    private Vector2 positionOnMap;
+
+    private boolean playerHasFullVersion;
 
     public Player(final GemLord myGame) {
         super();
-        levelDone = new boolean[200];
+        levelDoneEpisode1 = new boolean[200];
+        levelDoneEpisode2 = new boolean[200];
+        playerHasFullVersion = false;
         for (int x = 0; x < 200; x++) {
-            levelDone[x] = false;
+            levelDoneEpisode1[x] = false;
+            levelDoneEpisode2[x] = false;
         }
-        lives = 5;
         lastTurnDamageReceived = 0;
         playerInventory = new PlayerInventory();
         actionBar = new ActionBar();
+        positionOnMap = new Vector2();
     }
 
     public PlayerInventory getInventory() {
@@ -42,11 +49,6 @@ public class Player extends BaseCharacter {
         foreGround.addActor(getHealthBar());
         actionBar.addToBoard(foreGround);
     }
-
-    public void decreaseLife() {
-        lives--;
-    }
-
 
     public void draw(final SpriteBatch batch, final float parentAlpha) {
         for (int i = 0; i < getDebuffs().size; i++) {
@@ -93,10 +95,6 @@ public class Player extends BaseCharacter {
         lastEnemey = e;
     }
 
-    public int getLives() {
-        return lives;
-    }
-
     @Override
     public void damage(Damage damage) {
         int finalDamage = damage.damage;
@@ -119,7 +117,7 @@ public class Player extends BaseCharacter {
     }
 
     public void levelDone(int i) {
-        levelDone[i] = true;
+        levelDoneEpisode1[i] = true;
     }
 
     public int getItemBuffsHP() {
@@ -184,8 +182,8 @@ public class Player extends BaseCharacter {
         playerInventory.getAllItems().clear();
         getActionBar().clear();
 
-            for (int i = 0; i < levelDone.length; i++) {
-            levelDone[i] = prefs.getBoolean("Level" + i);
+            for (int i = 0; i < levelDoneEpisode1.length; i++) {
+            levelDoneEpisode1[i] = prefs.getBoolean("Level" + i);
         }
 
         for (int i = 0; i < ActionBar.BARLENGTH; i++) {
@@ -209,6 +207,9 @@ public class Player extends BaseCharacter {
                 playerInventory.addItem(item);
             }
         }
+
+        positionOnMap.x = prefs.getFloat("POMX:");
+        positionOnMap.y = prefs.getFloat("POMY:");
     }
 
     public void savePreferences() {
@@ -217,8 +218,8 @@ public class Player extends BaseCharacter {
 
         prefs.putBoolean("Exist_v01", true);
 
-        for (int i = 0; i < levelDone.length; i++) {
-            if (levelDone[i]) {
+        for (int i = 0; i < levelDoneEpisode1.length; i++) {
+            if (levelDoneEpisode1[i]) {
                 prefs.putBoolean("Level" + i, true);
             }
         }
@@ -244,11 +245,16 @@ public class Player extends BaseCharacter {
         }
 
         prefs.flush();
+
+        prefs.putFloat("POMX:", positionOnMap.x);
+        prefs.putFloat("POMY:", positionOnMap.y);
+
+        prefs.flush();
     }
 
     public void clearPreferences() {
         for( int i = 0; i < 200; i++ ) {
-            levelDone[i] = false;
+            levelDoneEpisode1[i] = false;
         }
         getInventory().clearInventory();
         getActionBar().clear();
@@ -258,5 +264,18 @@ public class Player extends BaseCharacter {
     public boolean existsPreferences() {
         Preferences prefs = Gdx.app.getPreferences("GemLords.pref");
         return prefs.getBoolean("Exist_v01");
+    }
+
+    public void setPositionOnMap(Vector2 positionOnMap) {
+        this.positionOnMap.x = positionOnMap.x;
+        this.positionOnMap.y = positionOnMap.y;
+    }
+
+    public Vector2 getPositionOnMap() {
+        return positionOnMap;
+    }
+
+    public boolean hasFullVersion() {
+        return playerHasFullVersion;
     }
 }

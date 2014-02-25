@@ -29,6 +29,10 @@
     <string key="Enemy turn" value="Gegner Zug"/>
     <string key="Ready" value="Bereit"/>
     <string key="Return to map" value="Zur Karte"/>
+    <string key="Buy the full version" value="Vollversion kaufen"/>
+    <string key="Thank you for playing Gem Lords.&#10;If you enjoyed this game,&#10;please consider buying&#10;the full version. This will allow me&#10;to keep on developing games and&#10;will allow you to keep on playing&#10;and also remove all ads&#10;Do you wish to buy the game now?"
+            value ="Vielen Dank, dass Du Gem Lords&#10;gespielt hast. Wenn Dir das Spiel &#10;gefallen hat, hast Du jetzt die Möglichkeit&#10;es zu kaufen. Dann kannst Du&#10;weiterspielen, ich weiterentwickeln&#10;und alle sind glücklich.&#10;Also, Spiel kaufen?" />
+    <string key="Buy now" value="Jetzt kaufen" />
 
     /lootscreen
     <string key="Total damage dealt: " value="Schaden ausgeteilt insgesamt: " />
