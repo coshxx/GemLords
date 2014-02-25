@@ -21,13 +21,10 @@ public class Player extends BaseCharacter {
     private int lastTurnDamageReceived;
     private Vector2 positionOnMap;
 
-    private boolean playerHasFullVersion;
-
     public Player(final GemLord myGame) {
         super();
         levelDoneEpisode1 = new boolean[200];
         levelDoneEpisode2 = new boolean[200];
-        playerHasFullVersion = false;
         for (int x = 0; x < 200; x++) {
             levelDoneEpisode1[x] = false;
             levelDoneEpisode2[x] = false;
@@ -276,6 +273,6 @@ public class Player extends BaseCharacter {
     }
 
     public boolean hasFullVersion() {
-        return playerHasFullVersion;
+        return GemLord.getInstance().requestHandler.isFullVersionUser();
     }
 }

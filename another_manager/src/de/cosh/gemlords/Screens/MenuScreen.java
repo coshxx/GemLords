@@ -33,6 +33,7 @@ public class MenuScreen implements Screen {
     private TextButton creditsButton;
     private TextButton returnFromOptions;
     private TextButton continueButton;
+    private TextButton buyGameButton;
     private Image backGround;
     private BitmapFont test;
 
@@ -49,6 +50,7 @@ public class MenuScreen implements Screen {
         exitGameButton = new TextButton(lm.getString("Exit Game"), skin);
         creditsButton = new TextButton(lm.getString("Credits"), skin);
         returnFromOptions = new TextButton(lm.getString("Back"), skin);
+        buyGameButton = new TextButton(lm.getString("Buy"), skin);
     }
 
     @Override
@@ -111,29 +113,28 @@ public class MenuScreen implements Screen {
         optionsButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         creditsButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         exitGameButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
+        buyGameButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         returnFromOptions.setStyle(CustomStyle.getInstance().getTextButtonStyle());
 
         continueButton.setBounds(265, 500, 200, 50);
         continueButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        continueButton.getStyle().font.setScale(1f);
 
         newGameButton.setBounds(265, 440, 200, 50);
         newGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        newGameButton.getStyle().font.setScale(1f);
 
         optionsButton.setBounds(265, 380, 200, 50);
         optionsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        optionsButton.getStyle().font.setScale(1f);
 
         creditsButton.setBounds(265, 320, 200, 50);
         creditsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        creditsButton.getStyle().font.setScale(1f);
 
         exitGameButton.setBounds(265, 260, 200, 50);
         exitGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        exitGameButton.getStyle().font.setScale(1f);
 
-        returnFromOptions.setBounds(990, GemLord.VIRTUAL_HEIGHT - 80, 200, 80);
+        buyGameButton.setBounds(265, 180, 200, 50);
+        buyGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        returnFromOptions.setBounds(990, 260, 200, 50);
         returnFromOptions.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         returnFromOptions.getStyle().font.setScale(1f);
 
@@ -147,6 +148,8 @@ public class MenuScreen implements Screen {
         stage.addActor(optionsButton);
         stage.addActor(creditsButton);
         stage.addActor(exitGameButton);
+        if( !GemLord.getInstance().player.hasFullVersion() )
+            stage.addActor(buyGameButton);
         stage.addActor(returnFromOptions);
         stage.addAction(Actions.alpha(0));
         stage.addAction(Actions.fadeIn(0.5f));
@@ -170,6 +173,9 @@ public class MenuScreen implements Screen {
                 Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
 
         returnFromOptions.addAction(Actions.forever(Actions.sequence(
+                Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
+
+        buyGameButton.addAction(Actions.forever(Actions.sequence(
                 Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
     }
 
@@ -252,6 +258,12 @@ public class MenuScreen implements Screen {
                                 myGame.setScreen(myGame.creditScreen);
                             }
                         })));
+            }
+        });
+
+        buyGameButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GemLord.getInstance().requestHandler.showInAppPurchases();
             }
         });
 

@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="anothermanager" default="all">
+  
+  
+  <property file="anothermanager.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.apk"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.ane"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.android_sdk" value="${jdk.home.android_sdk}/../jdk1.7.0_45/bin"/>
+  <path id="jdk.classpath.android_sdk">
+    <fileset dir="${jdk.home.android_sdk}">
+      <include name="platforms/android-19/android.jar"/>
+      <include name="platforms/android-19/data/res"/>
+      <include name="tools/support/annotations.jar"/>
+      <include name="add-ons/addon-google_apis-google-19/libs/effects.jar"/>
+      <include name="add-ons/addon-google_apis-google-19/libs/usb.jar"/>
+      <include name="add-ons/addon-google_apis-google-19/libs/maps.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="jdk.bin.1.7" value="${jdk.home.1.7}/bin"/>
+  <path id="jdk.classpath.1.7">
+    <fileset dir="${jdk.home.1.7}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxrt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.7}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.7}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.7"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.artemis-src.classpath">
+    <pathelement location="${basedir}/another_manager/libs/artemis.jar"/>
+  </path>
+  
+  <path id="library.gdx-backend-android-sources.classpath">
+    <pathelement location="${basedir}/another_manager-android/libs/gdx-backend-android.jar"/>
+  </path>
+  
+  <path id="library.gdx-backend-lwjgl-sources.classpath">
+    <pathelement location="${basedir}/another_manager-desktop/libs/gdx-backend-lwjgl.jar"/>
+  </path>
+  
+  <path id="library.gdx-sources.classpath">
+    <pathelement location="${basedir}/another_manager/libs/gdx.jar"/>
+  </path>
+  
+  <path id="library.google-play-services1.classpath">
+    <pathelement location="${basedir}/another_manager-android/libs/google-play-services.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm4-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module another_manager -->
+  
+  <dirname property="module.another_manager.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.another_manager" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.another_manager" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.another_manager" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.another_manager" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="another_manager.output.dir" value="${module.another_manager.basedir}/out/production/another_manager"/>
+  <property name="another_manager.testoutput.dir" value="${module.another_manager.basedir}/out/test/another_manager"/>
+  
+  <path id="another_manager.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="another_manager.module.production.classpath">
+    <path refid="${module.jdk.classpath.another_manager}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <path refid="library.artemis-src.classpath"/>
+  </path>
+  
+  <path id="another_manager.runtime.production.module.classpath">
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <path refid="library.artemis-src.classpath"/>
+  </path>
+  
+  <path id="another_manager.module.classpath">
+    <path refid="${module.jdk.classpath.another_manager}"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <path refid="library.artemis-src.classpath"/>
+  </path>
+  
+  <path id="another_manager.runtime.module.classpath">
+    <pathelement location="${another_manager.testoutput.dir}"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <path refid="library.artemis-src.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.another_manager">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.another_manager">
+    <patternset refid="excluded.from.module.another_manager"/>
+  </patternset>
+  
+  <path id="another_manager.module.sourcepath">
+    <dirset dir="${module.another_manager.basedir}/another_manager">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.another_manager" depends="compile.module.another_manager.production,compile.module.another_manager.tests" description="Compile module another_manager"/>
+  
+  <target name="compile.module.another_manager.production" depends="register.custom.compilers" description="Compile module another_manager; production classes">
+    <mkdir dir="${another_manager.output.dir}"/>
+    <javac2 destdir="${another_manager.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.another_manager}/javac">
+      <compilerarg line="${compiler.args.another_manager}"/>
+      <bootclasspath refid="another_manager.module.bootclasspath"/>
+      <classpath refid="another_manager.module.production.classpath"/>
+      <src refid="another_manager.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.another_manager"/>
+    </javac2>
+    
+    <copy todir="${another_manager.output.dir}">
+      <fileset dir="${module.another_manager.basedir}/another_manager/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.another_manager.tests" depends="register.custom.compilers,compile.module.another_manager.production" description="compile module another_manager; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.another_manager" description="cleanup module">
+    <delete dir="${another_manager.output.dir}"/>
+    <delete dir="${another_manager.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module google-play-services_lib -->
+  
+  <dirname property="module.google-play-services_lib.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.google-play-services_lib" value="${jdk.home.android_sdk}"/>
+  <property name="module.jdk.bin.google-play-services_lib" value="${jdk.bin.android_sdk}"/>
+  <property name="module.jdk.classpath.google-play-services_lib" value="jdk.classpath.android_sdk"/>
+  
+  <property name="compiler.args.google-play-services_lib" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="google-play-services_lib.output.dir" value="${module.google-play-services_lib.basedir}/out/production/google-play-services_lib"/>
+  <property name="google-play-services_lib.testoutput.dir" value="${module.google-play-services_lib.basedir}/out/test/google-play-services_lib"/>
+  
+  <path id="google-play-services_lib.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="google-play-services_lib.module.production.classpath">
+    <path refid="${module.jdk.classpath.google-play-services_lib}"/>
+  </path>
+  
+  <path id="google-play-services_lib.runtime.production.module.classpath">
+    <pathelement location="${google-play-services_lib.output.dir}"/>
+  </path>
+  
+  <path id="google-play-services_lib.module.classpath">
+    <path refid="${module.jdk.classpath.google-play-services_lib}"/>
+    <pathelement location="${google-play-services_lib.output.dir}"/>
+  </path>
+  
+  <path id="google-play-services_lib.runtime.module.classpath">
+    <pathelement location="${google-play-services_lib.testoutput.dir}"/>
+    <pathelement location="${google-play-services_lib.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.google-play-services_lib">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.google-play-services_lib">
+    <patternset refid="excluded.from.module.google-play-services_lib"/>
+  </patternset>
+  
+  <path id="google-play-services_lib.module.sourcepath">
+    <dirset dir="${module.google-play-services_lib.basedir}/../sdks/android-sdk/extras/google/google_play_services/libproject/google-play-services_lib">
+      <include name="src"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.google-play-services_lib" depends="compile.module.google-play-services_lib.production,compile.module.google-play-services_lib.tests" description="Compile module google-play-services_lib"/>
+  
+  <target name="compile.module.google-play-services_lib.production" depends="register.custom.compilers" description="Compile module google-play-services_lib; production classes">
+    <mkdir dir="${google-play-services_lib.output.dir}"/>
+    <javac2 destdir="${google-play-services_lib.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.google-play-services_lib}/javac">
+      <compilerarg line="${compiler.args.google-play-services_lib}"/>
+      <bootclasspath refid="google-play-services_lib.module.bootclasspath"/>
+      <classpath refid="google-play-services_lib.module.production.classpath"/>
+      <src refid="google-play-services_lib.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.google-play-services_lib"/>
+    </javac2>
+    
+    <copy todir="${google-play-services_lib.output.dir}">
+      <fileset dir="${module.google-play-services_lib.basedir}/../sdks/android-sdk/extras/google/google_play_services/libproject/google-play-services_lib/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.google-play-services_lib.basedir}/../sdks/android-sdk/extras/google/google_play_services/libproject/google-play-services_lib/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.google-play-services_lib.tests" depends="register.custom.compilers,compile.module.google-play-services_lib.production" description="compile module google-play-services_lib; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.google-play-services_lib" description="cleanup module">
+    <delete dir="${google-play-services_lib.output.dir}"/>
+    <delete dir="${google-play-services_lib.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module another_manager-android -->
+  
+  <dirname property="module.another_manager-android.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.another_manager-android" value="${jdk.home.android_sdk}"/>
+  <property name="module.jdk.bin.another_manager-android" value="${jdk.bin.android_sdk}"/>
+  <property name="module.jdk.classpath.another_manager-android" value="jdk.classpath.android_sdk"/>
+  
+  <property name="compiler.args.another_manager-android" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="another_manager-android.output.dir" value="${module.another_manager-android.basedir}/out/production/another_manager-android"/>
+  <property name="another_manager-android.testoutput.dir" value="${module.another_manager-android.basedir}/out/test/another_manager-android"/>
+  
+  <path id="another_manager-android.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="another_manager-android.module.production.classpath">
+    <path refid="${module.jdk.classpath.another_manager-android}"/>
+    <pathelement location="${google-play-services_lib.output.dir}"/>
+    <path refid="library.google-play-services1.classpath"/>
+    <path refid="library.gdx-backend-android-sources.classpath"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+  </path>
+  
+  <path id="another_manager-android.runtime.production.module.classpath">
+    <pathelement location="${another_manager-android.output.dir}"/>
+    <pathelement location="${google-play-services_lib.output.dir}"/>
+    <path refid="library.google-play-services1.classpath"/>
+    <path refid="library.gdx-backend-android-sources.classpath"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <path refid="library.artemis-src.classpath"/>
+  </path>
+  
+  <path id="another_manager-android.module.classpath">
+    <path refid="${module.jdk.classpath.another_manager-android}"/>
+    <pathelement location="${another_manager-android.output.dir}"/>
+    <pathelement location="${google-play-services_lib.testoutput.dir}"/>
+    <pathelement location="${google-play-services_lib.output.dir}"/>
+    <path refid="library.google-play-services1.classpath"/>
+    <path refid="library.gdx-backend-android-sources.classpath"/>
+    <pathelement location="${another_manager.testoutput.dir}"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+  </path>
+  
+  <path id="another_manager-android.runtime.module.classpath">
+    <pathelement location="${another_manager-android.testoutput.dir}"/>
+    <pathelement location="${another_manager-android.output.dir}"/>
+    <pathelement location="${google-play-services_lib.testoutput.dir}"/>
+    <pathelement location="${google-play-services_lib.output.dir}"/>
+    <path refid="library.google-play-services1.classpath"/>
+    <path refid="library.gdx-backend-android-sources.classpath"/>
+    <pathelement location="${another_manager.testoutput.dir}"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <path refid="library.artemis-src.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.another_manager-android">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.another_manager-android">
+    <patternset refid="excluded.from.module.another_manager-android"/>
+  </patternset>
+  
+  <path id="another_manager-android.module.sourcepath">
+    <dirset dir="${module.another_manager-android.basedir}/another_manager-android">
+      <include name="src"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.another_manager-android" depends="compile.module.another_manager-android.production,compile.module.another_manager-android.tests" description="Compile module another_manager-android"/>
+  
+  <target name="compile.module.another_manager-android.production" depends="register.custom.compilers,compile.module.google-play-services_lib,compile.module.another_manager" description="Compile module another_manager-android; production classes">
+    <mkdir dir="${another_manager-android.output.dir}"/>
+    <javac2 destdir="${another_manager-android.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.another_manager-android}/javac">
+      <compilerarg line="${compiler.args.another_manager-android}"/>
+      <bootclasspath refid="another_manager-android.module.bootclasspath"/>
+      <classpath refid="another_manager-android.module.production.classpath"/>
+      <src refid="another_manager-android.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.another_manager-android"/>
+    </javac2>
+    
+    <copy todir="${another_manager-android.output.dir}">
+      <fileset dir="${module.another_manager-android.basedir}/another_manager-android/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.another_manager-android.basedir}/another_manager-android/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.another_manager-android.tests" depends="register.custom.compilers,compile.module.another_manager-android.production" description="compile module another_manager-android; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.another_manager-android" description="cleanup module">
+    <delete dir="${another_manager-android.output.dir}"/>
+    <delete dir="${another_manager-android.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module another_manager-desktop -->
+  
+  <dirname property="module.another_manager-desktop.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.another_manager-desktop" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.another_manager-desktop" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.another_manager-desktop" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.another_manager-desktop" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="another_manager-desktop.output.dir" value="${module.another_manager-desktop.basedir}/out/production/another_manager-desktop"/>
+  <property name="another_manager-desktop.testoutput.dir" value="${module.another_manager-desktop.basedir}/out/test/another_manager-desktop"/>
+  
+  <path id="another_manager-desktop.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="another_manager-desktop.module.production.classpath">
+    <path refid="${module.jdk.classpath.another_manager-desktop}"/>
+    <path refid="library.gdx-backend-lwjgl-sources.classpath"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <pathelement location="${basedir}/another_manager-desktop/libs/gdx-natives.jar"/>
+    <pathelement location="${basedir}/another_manager-desktop/libs/gdx-backend-lwjgl-natives.jar"/>
+  </path>
+  
+  <path id="another_manager-desktop.runtime.production.module.classpath">
+    <pathelement location="${another_manager-desktop.output.dir}"/>
+    <path refid="library.gdx-backend-lwjgl-sources.classpath"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <path refid="library.artemis-src.classpath"/>
+    <pathelement location="${basedir}/another_manager-desktop/libs/gdx-natives.jar"/>
+    <pathelement location="${basedir}/another_manager-desktop/libs/gdx-backend-lwjgl-natives.jar"/>
+  </path>
+  
+  <path id="another_manager-desktop.module.classpath">
+    <path refid="${module.jdk.classpath.another_manager-desktop}"/>
+    <pathelement location="${another_manager-desktop.output.dir}"/>
+    <path refid="library.gdx-backend-lwjgl-sources.classpath"/>
+    <pathelement location="${another_manager.testoutput.dir}"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <pathelement location="${basedir}/another_manager-desktop/libs/gdx-natives.jar"/>
+    <pathelement location="${basedir}/another_manager-desktop/libs/gdx-backend-lwjgl-natives.jar"/>
+  </path>
+  
+  <path id="another_manager-desktop.runtime.module.classpath">
+    <pathelement location="${another_manager-desktop.testoutput.dir}"/>
+    <pathelement location="${another_manager-desktop.output.dir}"/>
+    <path refid="library.gdx-backend-lwjgl-sources.classpath"/>
+    <pathelement location="${another_manager.testoutput.dir}"/>
+    <pathelement location="${another_manager.output.dir}"/>
+    <path refid="library.gdx-sources.classpath"/>
+    <path refid="library.artemis-src.classpath"/>
+    <pathelement location="${basedir}/another_manager-desktop/libs/gdx-natives.jar"/>
+    <pathelement location="${basedir}/another_manager-desktop/libs/gdx-backend-lwjgl-natives.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.another_manager-desktop">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.another_manager-desktop">
+    <patternset refid="excluded.from.module.another_manager-desktop"/>
+  </patternset>
+  
+  <path id="another_manager-desktop.module.sourcepath">
+    <dirset dir="${module.another_manager-desktop.basedir}/another_manager-desktop">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.another_manager-desktop" depends="compile.module.another_manager-desktop.production,compile.module.another_manager-desktop.tests" description="Compile module another_manager-desktop"/>
+  
+  <target name="compile.module.another_manager-desktop.production" depends="register.custom.compilers,compile.module.another_manager" description="Compile module another_manager-desktop; production classes">
+    <mkdir dir="${another_manager-desktop.output.dir}"/>
+    <javac2 destdir="${another_manager-desktop.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.another_manager-desktop}/javac">
+      <compilerarg line="${compiler.args.another_manager-desktop}"/>
+      <bootclasspath refid="another_manager-desktop.module.bootclasspath"/>
+      <classpath refid="another_manager-desktop.module.production.classpath"/>
+      <src refid="another_manager-desktop.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.another_manager-desktop"/>
+    </javac2>
+    
+    <copy todir="${another_manager-desktop.output.dir}">
+      <fileset dir="${module.another_manager-desktop.basedir}/another_manager-desktop/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.another_manager-desktop.tests" depends="register.custom.compilers,compile.module.another_manager-desktop.production" description="compile module another_manager-desktop; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.another_manager-desktop" description="cleanup module">
+    <delete dir="${another_manager-desktop.output.dir}"/>
+    <delete dir="${another_manager-desktop.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.another_manager, clean.module.google-play-services_lib, clean.module.another_manager-android, clean.module.another_manager-desktop, clean.artifact.another_manager-desktop:jar" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.another_manager, compile.module.google-play-services_lib, compile.module.another_manager-android, compile.module.another_manager-desktop" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.another_manager-desktop:jar" value="${basedir}/out/artifacts/another_manager_desktop_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.another_manager-desktop.jar" value="${artifacts.temp.dir}/another_manager-desktop.jar"/>
+  </target>
+  
+  <target name="clean.artifact.another_manager-desktop:jar" description="clean another_manager-desktop:jar artifact output">
+    <delete dir="${artifact.output.another_manager-desktop:jar}"/>
+  </target>
+  
+  <target name="artifact.another_manager-desktop:jar" depends="init.artifacts, compile.module.another_manager-desktop, compile.module.another_manager" description="Build &#39;another_manager-desktop:jar&#39; artifact">
+    <mkdir dir="${artifact.output.another_manager-desktop:jar}"/>
+    <jar destfile="${temp.jar.path.another_manager-desktop.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${another_manager-desktop.output.dir}"/>
+      <zipfileset dir="${another_manager.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.another_manager-desktop.jar}" tofile="${artifact.output.another_manager-desktop:jar}/another_manager-desktop.jar"/>
+    <copy file="${basedir}/another_manager-desktop/libs/gdx-natives.jar" tofile="${artifact.output.another_manager-desktop:jar}/gdx-natives.jar"/>
+    <copy file="${basedir}/another_manager-desktop/libs/gdx-backend-lwjgl.jar" tofile="${artifact.output.another_manager-desktop:jar}/gdx-backend-lwjgl.jar"/>
+    <copy file="${basedir}/another_manager/libs/gdx.jar" tofile="${artifact.output.another_manager-desktop:jar}/gdx.jar"/>
+    <copy file="${basedir}/another_manager-desktop/libs/gdx-backend-lwjgl-natives.jar" tofile="${artifact.output.another_manager-desktop:jar}/gdx-backend-lwjgl-natives.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.another_manager-desktop:jar" description="Build all artifacts">
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

@@ -28,9 +28,12 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 	private Json json;
 	private Stage stage;
 
+    private boolean showingBuyWindow = false;
+
 	public MapTraverseScreen(final GemLord gemLord) {
 		myGame = gemLord;
 		json = new Json();
+        showingBuyWindow = false;
 	}
 
 	@Override
@@ -74,6 +77,7 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 		}
 
         if( player.levelDoneEpisode1[15] ) {
+            showingBuyWindow = true;
             if( !player.hasFullVersion() ) {
                 GUIWindow guiWindow = new GUIWindow(stage);
                 guiWindow.createBuyFinalWindow();
@@ -98,6 +102,13 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 	public void render(final float delta) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+        if( showingBuyWindow ) {
+            // check for purchase success
+            if( GemLord.getInstance().player.hasFullVersion() ) {
+
+            }
+        }
 
 		stage.act(delta);
 		stage.draw();

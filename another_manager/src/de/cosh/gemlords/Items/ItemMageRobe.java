@@ -26,7 +26,7 @@ public class ItemMageRobe extends BaseItem {
 
 	@Override
 	public int preFirstTurnBuff(BaseCharacter wearer) {
-		wearer.preGameIncreaseHealth(50);
-		return 50;
+		wearer.preGameIncreaseHealth(75);
+		return 75;
 	}
 }

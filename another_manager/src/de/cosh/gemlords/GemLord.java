@@ -45,7 +45,6 @@ public class GemLord extends Game {
 	private SplashScreen splashScreen;
 	private SpriteBatch batch;
 	private BitmapFont bitmapFont;
-
     public IActivityRequestHandler requestHandler;
 
 

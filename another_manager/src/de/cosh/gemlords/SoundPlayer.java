@@ -18,10 +18,9 @@ public class SoundPlayer {
 	private Sound convert;
 	private Sound ding;
     private Sound lightningRod;
-	private Sound error;
 	private Sound fireball_start;
     private Sound critical;
-	private Sound loot;
+
 	private Sound gulp;
 	private Sound challenge;
 	private Sound clawSound;
@@ -35,6 +34,11 @@ public class SoundPlayer {
 	private Sound impressive, godlike, unstoppable;
     private Sound abilityBite;
     private Sound gotItem;
+    private Sound victorySound, loseSound;
+    private Sound woosh;
+    private Sound smash;
+
+    private Music lootMusic;
 	private Music mapMusic;
 	private Music loadoutMusic;
 	private Music menuMusic;
@@ -44,9 +48,8 @@ public class SoundPlayer {
     private Music gameMusic3;
     private Music creditsMusic;
 	private float mapMusicVolume;
-	private Sound victorySound, loseSound;
-	private Sound woosh;
-	private Sound smash;
+
+
     private Music splash;
 
 	public SoundPlayer(final GemLord game) {
@@ -118,7 +121,7 @@ public class SoundPlayer {
 	}
 
 	public void playLootMusic() {
-		loot.play();
+		lootMusic.play();
 	}
 
 	public void playLoseSound() {
@@ -134,9 +137,6 @@ public class SoundPlayer {
 		abilityPoison.play(0.3f);
 	}
 
-	public void playSwapError() {
-		error.play();
-	}
 
     public void playPetrify() {
         petrify.play();
@@ -151,7 +151,7 @@ public class SoundPlayer {
 	}
 
 	public void stopLootMusic() {
-		loot.stop();
+		lootMusic.stop();
 	}
 
 	public void stopMapMusic() {
@@ -228,14 +228,13 @@ public class SoundPlayer {
 		totem = assets.get("data/sounds/totem.ogg", Sound.class);
 		clawSound = assets.get("data/sounds/abilityclaw.ogg", Sound.class);
 		loadoutMusic = assets.get("data/sounds/loadoutmusic.ogg", Music.class);
-		error = assets.get("data/sounds/error.ogg", Sound.class);
         lightningRod = assets.get("data/sounds/lightningrod.ogg", Sound.class);
 		slideIn = assets.get("data/sounds/slidein.ogg", Sound.class);
         petrify = assets.get("data/sounds/abilitypetrify.ogg");
 		pocketwatch = assets.get("data/sounds/pocketwatch.ogg", Sound.class);
 		menuMusic = assets.get("data/sounds/menumusic.ogg", Music.class);
 		gulp = assets.get("data/sounds/gulp.ogg", Sound.class);
-		loot = assets.get("data/sounds/loot.ogg", Sound.class);
+		lootMusic = assets.get("data/sounds/loot.ogg", Music.class);
 		challenge = assets.get("data/sounds/challenge.ogg", Sound.class);
 		gameMusic0 = assets.get("data/sounds/music0.ogg", Music.class);
 		gameMusic1 = assets.get("data/sounds/music3.ogg", Music.class);
