@@ -1,5 +1,5 @@
 {
-enemyImageLocation: data/textures/enemykingcrab.png,
+enemyImageLocation: enemykingcrab,
 enemyName: "King Crab",
 enemyNumber: 14,
 abilities: [

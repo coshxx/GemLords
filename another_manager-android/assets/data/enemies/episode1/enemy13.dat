@@ -1,5 +1,5 @@
 {
-enemyImageLocation: data/textures/enemyredbat.png,
+enemyImageLocation: enemyredbat,
 enemyName: "Red Bat",
 enemyNumber: 13,
 abilities: [

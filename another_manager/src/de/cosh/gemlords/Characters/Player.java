@@ -13,8 +13,7 @@ import de.cosh.gemlords.Items.BaseItem;
  * Created by cosh on 10.12.13.
  */
 public class Player extends BaseCharacter {
-    public boolean[] levelDoneEpisode1;
-    public boolean[] levelDoneEpisode2;
+    public boolean[] levelDone;
     private Enemy lastEnemey;
     private PlayerInventory playerInventory;
     private ActionBar actionBar;
@@ -23,11 +22,9 @@ public class Player extends BaseCharacter {
 
     public Player(final GemLord myGame) {
         super();
-        levelDoneEpisode1 = new boolean[200];
-        levelDoneEpisode2 = new boolean[200];
+        levelDone = new boolean[200];
         for (int x = 0; x < 200; x++) {
-            levelDoneEpisode1[x] = false;
-            levelDoneEpisode2[x] = false;
+            levelDone[x] = false;
         }
         lastTurnDamageReceived = 0;
         playerInventory = new PlayerInventory();
@@ -114,7 +111,7 @@ public class Player extends BaseCharacter {
     }
 
     public void levelDone(int i) {
-        levelDoneEpisode1[i] = true;
+        levelDone[i] = true;
     }
 
     public int getItemBuffsHP() {
@@ -179,8 +176,8 @@ public class Player extends BaseCharacter {
         playerInventory.getAllItems().clear();
         getActionBar().clear();
 
-            for (int i = 0; i < levelDoneEpisode1.length; i++) {
-            levelDoneEpisode1[i] = prefs.getBoolean("Level" + i);
+            for (int i = 0; i < levelDone.length; i++) {
+            levelDone[i] = prefs.getBoolean("Level" + i);
         }
 
         for (int i = 0; i < ActionBar.BARLENGTH; i++) {
@@ -215,8 +212,8 @@ public class Player extends BaseCharacter {
 
         prefs.putBoolean("Exist_v01", true);
 
-        for (int i = 0; i < levelDoneEpisode1.length; i++) {
-            if (levelDoneEpisode1[i]) {
+        for (int i = 0; i < levelDone.length; i++) {
+            if (levelDone[i]) {
                 prefs.putBoolean("Level" + i, true);
             }
         }
@@ -251,7 +248,7 @@ public class Player extends BaseCharacter {
 
     public void clearPreferences() {
         for( int i = 0; i < 200; i++ ) {
-            levelDoneEpisode1[i] = false;
+            levelDone[i] = false;
         }
         getInventory().clearInventory();
         getActionBar().clear();

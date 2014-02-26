@@ -1,5 +1,5 @@
 {
-enemyImageLocation: data/textures/enemysnail.png,
+enemyImageLocation: enemysnail,
 enemyName: "Snail",
 enemyNumber: 0,
 abilities: [

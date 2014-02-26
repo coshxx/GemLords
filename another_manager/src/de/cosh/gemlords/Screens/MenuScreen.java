@@ -189,7 +189,7 @@ public class MenuScreen implements Screen {
                             public void run() {
                                 myGame.soundPlayer.stopMenuMusic();
                                 myGame.player.loadPreferences();
-                                myGame.setScreen(myGame.mapTraverseScreen);
+                                myGame.setScreen(myGame.episode1TraverseScreen);
                             }
                         })));
             }
@@ -205,7 +205,7 @@ public class MenuScreen implements Screen {
                             public void run() {
                                 myGame.soundPlayer.stopMenuMusic();
                                 myGame.player.clearPreferences();
-                                myGame.setScreen(myGame.mapTraverseScreen);
+                                myGame.setScreen(myGame.episode1IntroScreen);
                             }
                         })));
             }

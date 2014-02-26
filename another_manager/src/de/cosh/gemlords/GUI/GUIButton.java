@@ -12,8 +12,7 @@ import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Items.BaseItem;
 import de.cosh.gemlords.LanguageManager;
-import de.cosh.gemlords.Screens.LoadoutScreen;
-import de.cosh.gemlords.Screens.MapTraverseScreen;
+import de.cosh.gemlords.Screens.Episode1TraverseScreen;
 
 import java.util.ArrayList;
 
@@ -42,7 +41,7 @@ public class GUIButton {
 							@Override
 							public void run() {
                                 final GemLord myGame = GemLord.getInstance();
-                                myGame.mapTraverseScreen.enemyWindowOpen = false;
+                                myGame.episode1TraverseScreen.enemyWindowOpen = false;
 								GemLord.getInstance().setScreen(GemLord.getInstance().loadoutScreen);
 							}
 						}))));
@@ -69,7 +68,7 @@ public class GUIButton {
 								GemLord.getInstance();
 								GemLord.soundPlayer.stopLoadoutMusic();
                                 GemLord.getInstance().player.savePreferences();
-								GemLord.getInstance().setScreen(new MapTraverseScreen(GemLord.getInstance()));
+								GemLord.getInstance().setScreen(new Episode1TraverseScreen(GemLord.getInstance()));
 							}
 						}))));
 			}

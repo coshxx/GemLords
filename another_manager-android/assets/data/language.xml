@@ -79,6 +79,8 @@
     <string key="20% chance to block&#10;1-5 damage" value="20% Chance 1-5 Schaden&#10;zu blocken"/>
     <string key="Simaohs Pocketwatch" value="Simaohs Uhrwerk"/>
     <string key="Undo 100%&#10;of received damage&#10;Cooldown: 99" value="Stellt den im letzten Zug&#10;bekommenen Schaden zu 100%&#10;als Leben wieder her"/>
+    <string key="Beta Totem" value="Beta Totem"/>
+    <string key="Recover 1-4 health&#10;each turn&#10;Cooldown: 99" value="Stellt 1-4 Leben&#10;pro Zug wieder her&#10;Abklingzeit: 99"/>
 
     // enemies
     <string key="Scarecrow" value="Vogelscheuche"/>

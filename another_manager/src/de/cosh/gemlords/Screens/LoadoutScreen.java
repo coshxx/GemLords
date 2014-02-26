@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -17,14 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
-import de.cosh.gemlords.Characters.ActionBar;
-import de.cosh.gemlords.GUI.GUIButton;
 import de.cosh.gemlords.Items.BaseItem;
 import de.cosh.gemlords.LanguageManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Created by cosh on 07.01.14.
@@ -124,7 +120,7 @@ public class LoadoutScreen implements Screen, InputProcessor {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GemLord.soundPlayer.stopLoadoutMusic();
-                GemLord.getInstance().setScreen(GemLord.getInstance().mapTraverseScreen);
+                GemLord.getInstance().setScreen(GemLord.getInstance().episode1TraverseScreen);
             }
         });
 
@@ -266,7 +262,7 @@ public class LoadoutScreen implements Screen, InputProcessor {
     public boolean keyDown(int keycode) {
         if( keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK ) {
             GemLord.getInstance().soundPlayer.stopLoadoutMusic();
-            GemLord.getInstance().setScreen(GemLord.getInstance().mapTraverseScreen);
+            GemLord.getInstance().setScreen(GemLord.getInstance().episode1TraverseScreen);
         }
         return false;
     }

@@ -191,7 +191,8 @@ public class Enemy extends BaseCharacter {
     }
 
     public void loadImage() {
-        enemyImage = new Image(new Texture(Gdx.files.internal(enemyImageLocation)));
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        enemyImage = new Image(new TextureRegion(atlas.findRegion(enemyImageLocation)));
     }
 
     public void setLocationOnMap(float x, float y) {

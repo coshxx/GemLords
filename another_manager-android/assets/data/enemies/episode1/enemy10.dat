@@ -1,5 +1,5 @@
 {
-enemyImageLocation: data/textures/enemyogre.png,
+enemyImageLocation: enemyogre,
 enemyName: "Ogre",
 enemyNumber: 10,
 abilities: [

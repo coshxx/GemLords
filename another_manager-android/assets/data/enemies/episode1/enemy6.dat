@@ -1,7 +1,7 @@
 {
-enemyImageLocation: data/textures/enemybat.png,
+enemyImageLocation: enemybat,
 enemyName: "Bat",
-enemyNumber: 5,
+enemyNumber: 6,
 abilities: [
 	{
 		class: de.cosh.gemlords.Abilities.AbilityBite,
@@ -15,12 +15,12 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 235,
-	y: 325
+	x: 270,
+	y: 290
 },
 healthBar: {
-	hp: 60,
-	maxHP: 60
+	hp: 80,
+	maxHP: 80
 },
-dropItemID: -1
+dropItemID: 1
 }

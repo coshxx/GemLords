@@ -14,6 +14,7 @@ id, item
 11, decent shield
 12, hunting bow
 13, apprentice robe
+14, beta totem
 
 1337, devrobe
 

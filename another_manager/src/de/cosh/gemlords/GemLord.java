@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Scaling;
 
 import de.cosh.gemlords.Characters.Enemy;
@@ -35,9 +33,14 @@ public class GemLord extends Game {
 	public GameScreen gameScreen;
 	public LootScreen lootScreen;
     public LoadoutScreen loadoutScreen;
-    public ShadyIntroScreen shadyIntroScreen;
     public CreditScreen creditScreen;
-	public MapTraverseScreen mapTraverseScreen;
+
+    public Episode1IntroScreen episode1IntroScreen;
+    public Episode1TraverseScreen episode1TraverseScreen;
+
+    public Episode2IntroScreen episode2IntroScreen;
+    public Episode2TraverseScreen episode2TraverseScreen;
+
 	public MenuScreen menuScreen;
     public AfterActionReport afterActionReport;
 	public Player player;
@@ -68,11 +71,16 @@ public class GemLord extends Game {
 		splashScreen = new SplashScreen(this);
 		soundPlayer = new SoundPlayer(this);
 		menuScreen = new MenuScreen(this);
-        shadyIntroScreen = new ShadyIntroScreen();
 		gameScreen = new GameScreen(this);
         creditScreen = new CreditScreen();
 		lootScreen = new LootScreen(this, enemyManager);
-		mapTraverseScreen = new MapTraverseScreen(this);
+
+        episode1IntroScreen = new Episode1IntroScreen();
+		episode1TraverseScreen = new Episode1TraverseScreen(this);
+
+        episode2IntroScreen = new Episode2IntroScreen();
+        episode2TraverseScreen = new Episode2TraverseScreen(this);
+
 		bitmapFont = new BitmapFont();
         loadoutScreen = new LoadoutScreen();
         afterActionReport = new AfterActionReport();

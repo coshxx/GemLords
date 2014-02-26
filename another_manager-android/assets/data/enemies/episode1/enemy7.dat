@@ -1,7 +1,7 @@
 {
-enemyImageLocation: data/textures/enemyrat.png,
+enemyImageLocation: enemyrat,
 enemyName: "Rat",
-enemyNumber: 8,
+enemyNumber: 7,
 abilities: [
 	{
 		class: de.cosh.gemlords.Abilities.AbilityClaw,
@@ -10,12 +10,12 @@ abilities: [
 	},
 ],
 locationOnMap: {
-	x: 346,
-	y: 296
+	x: 297,
+	y: 322
 },
 healthBar: {
-	hp: 115,
-	maxHP: 115
+	hp: 100,
+	maxHP: 100
 },
-dropItemID: 4
+dropItemID: -1
 }

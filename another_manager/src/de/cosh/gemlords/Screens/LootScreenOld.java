@@ -115,7 +115,7 @@ public class LootScreenOld implements Screen {
                         myGame.player.levelDone(myGame.enemyManager.getSelectedEnemy().getEnemyNumber());
                         if (i != null)
                             myGame.player.getActionBar().addToActionBar(i);
-                        myGame.setScreen(myGame.mapTraverseScreen);
+                        myGame.setScreen(myGame.episode1TraverseScreen);
                     }
                 })));
             }

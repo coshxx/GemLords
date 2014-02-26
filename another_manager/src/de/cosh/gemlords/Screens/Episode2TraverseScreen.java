@@ -7,20 +7,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Json;
-
-import de.cosh.gemlords.GUI.GUIWindow;
-import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Characters.Enemy;
 import de.cosh.gemlords.Characters.Player;
 import de.cosh.gemlords.GUI.GUIButton;
+import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Items.*;
 
 /**
  * Created by cosh on 10.12.13.
  */
-public class MapTraverseScreen implements Screen, InputProcessor {
+public class Episode2TraverseScreen implements Screen, InputProcessor {
 	public boolean enemyWindowOpen;
 	private boolean fadeMusic;
 	private Image mapImage;
@@ -28,12 +25,9 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 	private Json json;
 	private Stage stage;
 
-    private boolean showingBuyWindow = false;
-
-	public MapTraverseScreen(final GemLord gemLord) {
+	public Episode2TraverseScreen(final GemLord gemLord) {
 		myGame = gemLord;
 		json = new Json();
-        showingBuyWindow = false;
 	}
 
 	@Override
@@ -55,11 +49,11 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 		Player player = GemLord.getInstance().player;
 		int counter = 0;
 		while( true ) {
-			FileHandle handle = Gdx.files.internal("data/enemies/enemy" + counter + ".dat");
+			FileHandle handle = Gdx.files.internal("data/enemies/episode1/enemy" + counter + ".dat");
 			if( !handle.exists() )
 				break;
 			Enemy e = json.fromJson(Enemy.class, handle.readString());
-			e.setDefeated(player.levelDoneEpisode1[e.getEnemyNumber()]);
+			e.setDefeated(player.levelDone[e.getEnemyNumber()]);
 			e.loadImage();
 			if( e.getEnemyNumber() == 0 || GemLord.DEBUGMODE) {
 				e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
@@ -68,7 +62,7 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 				int previous = e.getEnemyNumber() - 1;
 				if( previous < 0 )
 					break;
-				if( player.levelDoneEpisode1[previous] ) {
+				if( player.levelDone[previous] ) {
 					e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
                     player.setPositionOnMap(e.getLocationOnMap());
 				}
@@ -76,15 +70,12 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 			counter++;
 		}
 
-        if( player.levelDoneEpisode1[15] ) {
-            showingBuyWindow = true;
-            if( !player.hasFullVersion() ) {
-                GUIWindow guiWindow = new GUIWindow(stage);
-                guiWindow.createBuyFinalWindow();
-            }
+        if( player.levelDone[15] ) {
+            stage.addAction(Actions.after(
+                    Actions.fadeOut(2f)));
         }
 
-		if( GemLord.DEBUGMODE ) {
+        if( GemLord.DEBUGMODE ) {
 			Enemy e = new Enemy();
 			e.setLocationOnMap(0,  0);
 			e.setHealth(999);
@@ -102,13 +93,6 @@ public class MapTraverseScreen implements Screen, InputProcessor {
 	public void render(final float delta) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-        if( showingBuyWindow ) {
-            // check for purchase success
-            if( GemLord.getInstance().player.hasFullVersion() ) {
-
-            }
-        }
 
 		stage.act(delta);
 		stage.draw();

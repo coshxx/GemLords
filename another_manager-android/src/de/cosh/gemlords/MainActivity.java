@@ -8,6 +8,7 @@ import android.os.*;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.android.vending.billing.IInAppBillingService;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AndroidApplication implements IActivityRequestHandler {
     protected AdView adView;
+    protected View gameView;
 
     IInAppBillingService mService;
 
@@ -41,17 +43,26 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
                 if( response == 0 ) {
                     ArrayList<String> ownedSkus =
                             ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
-                    for( String thisItem : ownedSkus ) {
+                    ArrayList<String> purchToken =
+                            ownedItems.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
+                    for( int i = 0; i < ownedSkus.size(); i++ ) {
+                        String thisItem = ownedSkus.get(i);
+                        String thisToken = purchToken.get(i);
+                        JSONObject jo = new JSONObject(thisToken);
+                        String token = jo.getString("purchaseToken");
                         if( thisItem.equals("full_version_no_ads")) {
                             fullVersionUser = true;
                         }
                         if( thisItem.equals("android.test.purchased")) {
+                            mService.consumePurchase(3, getPackageName(), token);
                             playWelcomeBack();
                         }
                     }
                 }
 
             } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
@@ -78,6 +89,42 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
         initialize(new GemLord(), cfg);
         */
 
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+
+        gameView = initializeForView(new GemLord(this), true);
+        adView = new AdView(this);
+        adView.setAdUnitId("ca-app-pub-7121879894953636/5591882705");
+        adView.setAdSize(AdSize.BANNER);
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("EFAC6CABE4081A83F75C76A7CDD574BA")
+                .build();
+
+        LinearLayout.LayoutParams adParams =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        LinearLayout.LayoutParams viewParams =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        layout.addView(adView, adParams);
+        layout.addView(gameView, viewParams);
+        setContentView(layout);
+
+        adView.setBackgroundColor(Color.TRANSPARENT);
+        adView.loadAd(request);
+
+        bindService(new Intent("com.android.vending.billing.InAppBillingService.BIND"),
+                mServiceConn, Context.BIND_AUTO_CREATE);
+
+        /*
         RelativeLayout layout = new RelativeLayout(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -109,7 +156,7 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
 
         bindService(new Intent("com.android.vending.billing.InAppBillingService.BIND"),
                 mServiceConn, Context.BIND_AUTO_CREATE);
-
+    */
 
     }
 
@@ -124,7 +171,7 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
                 }
                 case HIDE_ADS:
                 {
-                    adView.setVisibility(View.INVISIBLE);
+                    adView.setVisibility(View.GONE);
                     break;
                 }
             }

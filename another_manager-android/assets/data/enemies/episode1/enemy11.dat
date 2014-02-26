@@ -1,5 +1,5 @@
 {
-enemyImageLocation: data/textures/enemynecro.png,
+enemyImageLocation: enemynecro,
 enemyName: "Wizard",
 enemyNumber: 11,
 abilities: [

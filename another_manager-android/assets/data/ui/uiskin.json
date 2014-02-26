@@ -3,6 +3,7 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: { default-font: { file: bla.fnt },
 					    credit-font: { file: creditfont.fnt },
 					    mytest-font: { file: mytest.fnt },
 					    credit2-font: { file: credit2.fnt },
+					    intro-font: { file: introfont.fnt },
 					    sfx-font: { file: sfxfont.fnt }
 },
 com.badlogic.gdx.graphics.Color: {

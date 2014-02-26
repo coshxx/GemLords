@@ -96,8 +96,8 @@ public class GUIWindow {
 	}
 
 	private void fadeToGameScreen() {
-		myGame.mapTraverseScreen.enemyWindowOpen = false;
-		myGame.mapTraverseScreen.fadeMusic();
+		myGame.episode1TraverseScreen.enemyWindowOpen = false;
+		myGame.episode1TraverseScreen.fadeMusic();
 		window.addAction(Actions.moveBy(600, 0, 0.25f));
 		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
 			@Override
@@ -108,7 +108,7 @@ public class GUIWindow {
 	}
 
 	private void fadeToLootScreen() {
-        myGame.mapTraverseScreen.enemyWindowOpen = false;
+        myGame.episode1TraverseScreen.enemyWindowOpen = false;
 		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
 			@Override
 			public void run() {
@@ -118,23 +118,23 @@ public class GUIWindow {
 	}
 
 	private void fadeToMapScreen() {
-        myGame.mapTraverseScreen.enemyWindowOpen = false;
+        myGame.episode1TraverseScreen.enemyWindowOpen = false;
 		stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.run(new Runnable() {
 			@Override
 			public void run() {
-				myGame.setScreen(myGame.mapTraverseScreen);
+				myGame.setScreen(myGame.episode1TraverseScreen);
 			}
 		})));
 	}
 
 	private void hideEnemyWindow() {
 		window.addAction(Actions.moveBy(800, 0, 0.35f));
-		myGame.mapTraverseScreen.enemyWindowOpen = false;
+		myGame.episode1TraverseScreen.enemyWindowOpen = false;
 	}
 
 	public void showMapEnemyWindow(int enemyHP, Image enemyImage, String enemyName) {
-		if (!myGame.mapTraverseScreen.enemyWindowOpen) {
-			myGame.mapTraverseScreen.enemyWindowOpen = true;
+		if (!myGame.episode1TraverseScreen.enemyWindowOpen) {
+			myGame.episode1TraverseScreen.enemyWindowOpen = true;
 
             LanguageManager lm = LanguageManager.getInstance();
 			window = new Window(lm.getString("Challenge:"), skin);

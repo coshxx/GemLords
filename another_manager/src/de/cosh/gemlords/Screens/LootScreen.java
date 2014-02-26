@@ -42,7 +42,6 @@ public class LootScreen implements Screen {
 
     @Override
     public void hide() {
-        GemLord.getInstance().requestHandler.showAds(true);
     }
 
     @Override
@@ -71,7 +70,6 @@ public class LootScreen implements Screen {
 
     @Override
     public void show() {
-        GemLord.getInstance().requestHandler.showAds(false);
         stage = new Stage();
         table = new Table();
         table.setFillParent(true);
@@ -284,7 +282,7 @@ public class LootScreen implements Screen {
                             myGame.player.getActionBar().addToActionBar(item);
                         }
                         myGame.player.savePreferences();
-                        myGame.setScreen(myGame.mapTraverseScreen);
+                        myGame.setScreen(myGame.episode1TraverseScreen);
                     }
                 })));
             }
