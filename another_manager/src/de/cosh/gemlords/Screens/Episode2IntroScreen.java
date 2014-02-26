@@ -5,12 +5,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import de.cosh.gemlords.CustomActions.PlayScribbleSoundAction;
 import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 
@@ -39,10 +42,18 @@ public class Episode2IntroScreen implements Screen {
     public void show() {
         stage = new Stage(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         stage.setCamera(GemLord.getInstance().camera);
+        Gdx.input.setInputProcessor(stage);
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
         continueButton = new TextButton("Continue", s);
         continueButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         continueButton.setBounds(GemLord.VIRTUAL_WIDTH/2-200, 100, 400, 100);
+
+        continueButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GemLord.getInstance().setScreen(GemLord.getInstance().episode2TraverseScreen);
+            }
+        });
+
         introImage = new Image(new Texture(Gdx.files.internal("data/textures/intro.jpg")));
         introImage.setFillParent(true);
 
@@ -57,12 +68,12 @@ public class Episode2IntroScreen implements Screen {
         stage.addAction(Actions.fadeIn(2f));
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(s.getFont("intro-font"), Color.WHITE);
-        Label label1 = new Label("4000 years ago, the evil", s);
-        Label label2 = new Label("lord Lancenson gave all", s);
-        Label label3 = new Label("creatures the power to ", s);
-        Label label4 = new Label("swap gems on a board", s);
-        Label label5 = new Label("Worst Font EU?", s);
-        Label label6 = new Label("Yep.", s);
+        Label label1 = new Label("You did good my friend, ", s);
+        Label label2 = new Label("I have another job for you.", s);
+        Label label3 = new Label("Travel east, to the swamps, ", s);
+        Label label4 = new Label("a Fencreeper is mutated and", s);
+        Label label5 = new Label("gemswaps like a champion.", s);
+        Label label6 = new Label("Kill him. Your Dark Lord.", s);
         label1.setStyle(labelStyle);
         label1.setPosition(20, 800 );
 
@@ -90,6 +101,7 @@ public class Episode2IntroScreen implements Screen {
 
         label1.addAction(Actions.sequence(
                 Actions.delay(1f),
+                new PlayScribbleSoundAction(),
                 Actions.fadeIn(1f))
         );
 
@@ -125,11 +137,13 @@ public class Episode2IntroScreen implements Screen {
         stage.addActor(label4);
         stage.addActor(label5);
         stage.addActor(label6);
+
+        GemLord.soundPlayer.playSequence();
     }
 
     @Override
     public void hide() {
-
+        GemLord.soundPlayer.stopSequence();
     }
 
     @Override

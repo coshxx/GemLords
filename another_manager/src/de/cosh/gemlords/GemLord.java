@@ -22,8 +22,6 @@ public class GemLord extends Game {
 	public static final float ASPECT_RATIO = (float) VIRTUAL_WIDTH / (float) VIRTUAL_HEIGHT;
 	public static AssetManager assets;
 	public static SoundPlayer soundPlayer;
-	public static boolean DEBUGMODE = false;
-    public static boolean DEBUGITEMSADDED = false;
 	private static GemLord instance;
 	public OrthographicCamera camera;
 	private OrthographicCamera guiCamera;
@@ -128,7 +126,7 @@ public class GemLord extends Game {
 				GemLord.VIRTUAL_HEIGHT, width, height);
 		
 		float ratio = (float) width / (float) height;
-		if (ratio < 0.66f && ratio > 0.55f) {
+		if (ratio < 0.76f && ratio > 0.55f) {
 			stage.setViewport(GemLord.VIRTUAL_WIDTH,
 					GemLord.VIRTUAL_HEIGHT);
 			return;

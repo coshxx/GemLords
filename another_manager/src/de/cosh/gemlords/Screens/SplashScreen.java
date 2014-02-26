@@ -40,6 +40,7 @@ public class SplashScreen implements Screen {
 
 	private void loadAllAssets() {
 		GemLord.assets.load("data/textures/map.jpg", Texture.class);
+		GemLord.assets.load("data/textures/map2.jpg", Texture.class);
 		GemLord.assets.load("data/textures/splash.jpg", Texture.class);
 		GemLord.assets.load("data/textures/menu.png", Texture.class);
         GemLord.assets.load("data/textures/pack.atlas", TextureAtlas.class);
@@ -57,7 +58,9 @@ public class SplashScreen implements Screen {
         GemLord.assets.load("data/sounds/music3.ogg", Music.class);
         GemLord.assets.load("data/sounds/music4.ogg", Music.class);
         GemLord.assets.load("data/sounds/music5.ogg", Music.class);
+        GemLord.assets.load("data/sounds/sequence.ogg", Music.class);
         GemLord.assets.load("data/sounds/creditsmusic.ogg", Music.class);
+        GemLord.assets.load("data/sounds/scribble.ogg", Sound.class);
         GemLord.assets.load("data/sounds/loot.ogg", Music.class);
 		GemLord.assets.load("data/sounds/victory.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/boo.ogg", Sound.class);

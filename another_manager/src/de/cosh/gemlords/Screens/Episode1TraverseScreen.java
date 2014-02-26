@@ -58,7 +58,7 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
 			Enemy e = json.fromJson(Enemy.class, handle.readString());
 			e.setDefeated(player.levelDone[e.getEnemyNumber()]);
 			e.loadImage();
-			if( e.getEnemyNumber() == 0 || GemLord.DEBUGMODE) {
+			if( e.getEnemyNumber() == 0 ) {
 				e.addPositionalButtonToMap(e.getLocationOnMap(), e.getImage(), e.getHealth(), stage, myGame.enemyManager);
                 player.setPositionOnMap(e.getLocationOnMap());
 			} else {
@@ -79,14 +79,6 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
                             Actions.fadeOut(2f),
                             new EndEpisode1Action())));
         }
-
-        if( GemLord.DEBUGMODE ) {
-			Enemy e = new Enemy();
-			e.setLocationOnMap(0,  0);
-			e.setHealth(999);
-			e.setDropItemID(-1);
-			e.addPositionalButtonToMap(e.getLocationOnMap(), new Image(new Texture("data/textures/enemy.png")), 999, stage, myGame.enemyManager);
-		}
 	}
 
 	@Override
@@ -140,50 +132,6 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
 
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));
-
-		if( GemLord.DEBUGMODE && !GemLord.DEBUGITEMSADDED) {
-            GemLord.DEBUGITEMSADDED = true;
-
-            BaseItem item1, item2, item3, item4, item5,
-                    item6, item7, item8, item9, item10, item11,
-                    item12, item13;
-            item1 = new ItemMinorHealthPotion();
-            item2 = new ItemApprenticeRobe();
-            item3 = new ItemScholarRobe();
-            item4 = new ItemTotem();
-            item5 = new ItemDevRobe();
-            item6 = new ItemPocketWatch();
-            item7 = new ItemTerribleShield();
-            item8 = new ItemDagger();
-            item9 = new ItemBow();
-            item10 = new ItemAmulet();
-            item11 = new ItemRing();
-            item12 = new ItemMageRobe();
-            item13 = new ItemBetterShield();
-
-			myGame.player.getInventory().addItem(item1);
-			myGame.player.getInventory().addItem(item2);
-			myGame.player.getInventory().addItem(item3);
-			myGame.player.getInventory().addItem(item4);
-			myGame.player.getInventory().addItem(item5);
-			myGame.player.getInventory().addItem(item6);
-            myGame.player.getInventory().addItem(item7);
-            myGame.player.getInventory().addItem(item8);
-            myGame.player.getInventory().addItem(item9);
-            myGame.player.getInventory().addItem(item10);
-            myGame.player.getInventory().addItem(item11);
-            myGame.player.getInventory().addItem(item12);
-            myGame.player.getInventory().addItem(item13);
-
-            myGame.player.getActionBar().addToActionBar(item1);
-            myGame.player.getActionBar().addToActionBar(item3);
-            myGame.player.getActionBar().addToActionBar(item4);
-            //myGame.player.getActionBar().addToActionBar(item5);
-            //myGame.player.getActionBar().addToActionBar(item6);
-            myGame.player.getActionBar().addToActionBar(item9);
-            myGame.player.getActionBar().addToActionBar(item7);
-            myGame.player.getActionBar().addToActionBar(item8);
-		}
 	}
 
     @Override

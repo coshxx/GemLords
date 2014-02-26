@@ -18,7 +18,7 @@ public class GemLordDesktop implements IActivityRequestHandler {
         cfg.x = 300;
         cfg.y = 0;
         cfg.foregroundFPS = 0;
-        cfg.vSyncEnabled = false;
+        cfg.vSyncEnabled = true;
 		/*
 		cfg.width = 900;
 		cfg.height = 900;

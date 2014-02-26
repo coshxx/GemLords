@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import de.cosh.gemlords.CustomActions.PlayScribbleSoundAction;
 import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 
@@ -67,12 +68,12 @@ public class Episode1IntroScreen implements Screen {
         stage.addAction(Actions.fadeIn(2f));
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(s.getFont("intro-font"), Color.WHITE);
-        Label label1 = new Label("4000 years ago, the evil", s);
-        Label label2 = new Label("lord Lancenson gave all", s);
-        Label label3 = new Label("creatures the power to ", s);
-        Label label4 = new Label("swap gems on a board", s);
-        Label label5 = new Label("Worst Font EU?", s);
-        Label label6 = new Label("Yep.", s);
+        Label label1 = new Label("To whom it may concern", s);
+        Label label2 = new Label("Your evil lord Lancenson", s);
+        Label label3 = new Label("commands you to kill the", s);
+        Label label4 = new Label("giant mutated fly living", s);
+        Label label5 = new Label("on the eastern part of", s);
+        Label label6 = new Label("the coastal area. Go now.", s);
         label1.setStyle(labelStyle);
         label1.setPosition(20, 800 );
 
@@ -100,6 +101,7 @@ public class Episode1IntroScreen implements Screen {
 
         label1.addAction(Actions.sequence(
                 Actions.delay(1f),
+                new PlayScribbleSoundAction(),
                 Actions.fadeIn(1f))
         );
 
@@ -135,10 +137,13 @@ public class Episode1IntroScreen implements Screen {
         stage.addActor(label4);
         stage.addActor(label5);
         stage.addActor(label6);
+
+        GemLord.soundPlayer.playSequence();
     }
 
     @Override
     public void hide() {
+        GemLord.soundPlayer.stopSequence();
 
     }
 

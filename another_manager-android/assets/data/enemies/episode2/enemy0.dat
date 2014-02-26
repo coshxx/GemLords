@@ -1,0 +1,21 @@
+{
+enemyImageLocation: enemy,
+enemyName: "Swamp Ooze",
+enemyNumber: 16,
+abilities: [
+	{
+		class: de.cosh.gemlords.Abilities.AbilityAttack,
+		currentCooldown: 2,
+		cooldown: 2
+	},
+],
+locationOnMap: {
+	x: 35,
+	y: 908
+},
+healthBar: {
+	hp: 25,
+	maxHP: 25
+},
+dropItemID: -1
+}

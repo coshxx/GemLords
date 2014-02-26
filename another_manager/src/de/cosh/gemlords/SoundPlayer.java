@@ -20,6 +20,7 @@ public class SoundPlayer {
     private Sound lightningRod;
 	private Sound fireball_start;
     private Sound critical;
+    private Sound scribble;
 
 	private Sound gulp;
 	private Sound challenge;
@@ -38,6 +39,7 @@ public class SoundPlayer {
     private Sound woosh;
     private Sound smash;
 
+    private Music sequenceMusic;
     private Music lootMusic;
 	private Music mapMusic;
 	private Music loadoutMusic;
@@ -209,6 +211,15 @@ public class SoundPlayer {
         block.play();
     }
 
+    public void playSequence() {
+        sequenceMusic.play();
+    }
+
+    public void stopSequence() {
+        sequenceMusic.stop();
+        scribble.stop();
+    }
+
 	public void touchSounds() {
 		AssetManager assets = GemLord.assets;
         bow = assets.get("data/sounds/bow.ogg", Sound.class);
@@ -223,6 +234,7 @@ public class SoundPlayer {
 		victorySound = assets.get("data/sounds/victory.ogg", Sound.class);
 		loseSound = assets.get("data/sounds/boo.ogg", Sound.class);
 		abilityAttack = assets.get("data/sounds/abilityattack_fire.ogg", Sound.class);
+        sequenceMusic = assets.get("data/sounds/sequence.ogg", Music.class);
 		fireball_start = assets.get("data/sounds/abilityfireball_fire.ogg", Sound.class);
 		abilityPoison = assets.get("data/sounds/abilitypoison_fire.ogg", Sound.class);
 		totem = assets.get("data/sounds/totem.ogg", Sound.class);
@@ -241,6 +253,7 @@ public class SoundPlayer {
 		gameMusic2 = assets.get("data/sounds/music4.ogg", Music.class);
 		gameMusic3 = assets.get("data/sounds/music5.ogg", Music.class);
 		creditsMusic = assets.get("data/sounds/creditsmusic.ogg", Music.class);
+        scribble = assets.get("data/sounds/scribble.ogg", Sound.class);
 		awesome = assets.get("data/sounds/awesome.ogg", Sound.class);
 		smash = assets.get("data/sounds/smash.ogg", Sound.class);
         abilityBite = assets.get("data/sounds/bite.ogg", Sound.class);
@@ -252,6 +265,10 @@ public class SoundPlayer {
         gameMusic2.setLooping(true);
         creditsMusic.setLooping(true);
 	}
+
+    public void playScribble() {
+        scribble.play(0.3f);
+    }
 
 	public void stopLoadoutMusic() {
 		loadoutMusic.stop();
