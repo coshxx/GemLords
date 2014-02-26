@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class ActionBar {
     public static final int BARLENGTH = 6;
     private final float ACTION_PAD_X = 20;
-    private final float ACTION_SPACEING_X = 31;
+    private final float ACTION_SPACEING_X = 29;
+    private final float ACTION_PAD_Y = 114;
     private BaseItem[] itemsInBar;
     private Image[] itemBorders;
     private ParticleActor effect;
@@ -35,13 +36,13 @@ public class ActionBar {
     public void addToLoadoutScreen(final Stage stage) {
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
         actionBarImage = new Image(atlas.findRegion("actionbar"));
-        actionBarImage.setPosition(0, 150);
+        actionBarImage.setPosition(0, 80);
         stage.addActor(actionBarImage);
 
         for (int i = 0; i < BARLENGTH; i++) {
             final int index = i;
             itemBorders[i] = new Image(atlas.findRegion("item_border"));
-            itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), 170);
+            itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), ACTION_PAD_Y);
             itemBorders[i].clearListeners();
             itemBorders[i].addListener(new ClickListener() {
                 @Override
@@ -97,7 +98,7 @@ public class ActionBar {
             final int index = i;
 
             itemBorders[i] = new Image(atlas.findRegion("item_border"));
-            itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), 95);
+            itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), ACTION_PAD_Y);
             itemBorders[i].clearListeners();
             foreGround.addActor(itemBorders[i]);
             if (itemsInBar[i] != null) {
@@ -134,7 +135,7 @@ public class ActionBar {
                 item.setDrawText(false);
                 if (itemBorders[i] == null) {
                     itemBorders[i] = new Image(GemLord.assets.get("data/textures/item_border.png", Texture.class));
-                    itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), 95);
+                    itemBorders[i].setPosition((ACTION_PAD_X + ((i) * itemBorders[i].getWidth())) + ((i) * ACTION_SPACEING_X), ACTION_PAD_Y);
                     itemBorders[i].clearListeners();
                 }
                 item.setPosition(itemBorders[i].getX(), itemBorders[i].getY());
@@ -157,7 +158,7 @@ public class ActionBar {
         if (itemBorders[slot] == null) {
             TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
             itemBorders[slot] = new Image(atlas.findRegion("item_border"));
-            itemBorders[slot].setPosition((ACTION_PAD_X + ((slot) * itemBorders[slot].getWidth())) + ((slot) * ACTION_SPACEING_X), 95);
+            itemBorders[slot].setPosition((ACTION_PAD_X + ((slot) * itemBorders[slot].getWidth())) + ((slot) * ACTION_SPACEING_X), ACTION_PAD_Y);
             itemBorders[slot].clearListeners();
         }
         itemsInBar[slot].setPosition(itemBorders[slot].getX(), itemBorders[slot].getY());

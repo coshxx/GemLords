@@ -153,6 +153,7 @@ public class LoadoutScreen implements Screen, InputProcessor {
         if( selectBoxInventory == null ) {
             boxItemList = fillItemList(itemsHashMap);
             selectBoxInventory = new SelectBox(boxItemList.toArray(), s);
+            selectBoxInventory.getStyle().font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             selectBoxInventory.setBounds(20, GemLord.VIRTUAL_HEIGHT-100, 680, 50);
             selectBoxInventory.addListener(new ChangeListener() {
                 @Override
@@ -165,6 +166,7 @@ public class LoadoutScreen implements Screen, InputProcessor {
         selectBoxInventory.remove();
         boxItemList = fillItemList(itemsHashMap);
         selectBoxInventory = new SelectBox(boxItemList.toArray(), s);
+        selectBoxInventory.getStyle().font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         selectBoxInventory.setBounds(20, GemLord.VIRTUAL_HEIGHT - 100, 680, 50);
         selectBoxInventory.addListener(new ChangeListener() {
             @Override
