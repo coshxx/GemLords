@@ -21,6 +21,7 @@ public class AbilityFireball extends BaseAbility {
     private int xTarget, yTarget;
     private float x, y;
     private boolean fireballInTheAir;
+    private ParticleActor effect;
 
     public AbilityFireball() {
         abilityImageLocation = "abilityfireball";
@@ -28,6 +29,7 @@ public class AbilityFireball extends BaseAbility {
         abilityImage = new Image(atlas.findRegion(abilityImageLocation));
         setAbilityDamage(0);
         fireballInTheAir = false;
+        effect = new ParticleActor();
     }
 
     @Override
@@ -86,7 +88,7 @@ public class AbilityFireball extends BaseAbility {
                         Gem gem = cells[xStart][yStart].getGem();
                         cells[xStart][yStart].setEmpty(true);
 
-                        ParticleActor effect = new ParticleActor(gem.getX() + gem.getWidth() / 2, gem.getY() + gem.getHeight() / 2);
+                        effect.newParticleEffect(gem.getX() + gem.getWidth() / 2, gem.getY() + gem.getHeight() / 2);
                         effectGroup.addActor(effect);
 
                         gem.remove();

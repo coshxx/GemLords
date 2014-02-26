@@ -1,7 +1,7 @@
 
 pack.png
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 abilityattack
   rotate: false
@@ -489,7 +489,7 @@ wizardhat
 
 pack2.png
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 cell_back
   rotate: false

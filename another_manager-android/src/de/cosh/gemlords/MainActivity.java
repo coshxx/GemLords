@@ -30,13 +30,13 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
     private final int HIDE_ADS = 0;
 
     private boolean fullVersionUser;
-
+    private boolean googleConnectionEstablished;
 
     ServiceConnection mServiceConn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+            googleConnectionEstablished = true;
             mService = IInAppBillingService.Stub.asInterface(service);
-
             try {
                 Bundle ownedItems = mService.getPurchases(3, getPackageName(), "inapp", null);
                 int response = ownedItems.getInt("RESPONSE_CODE");
@@ -52,10 +52,11 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
                         String token = jo.getString("purchaseToken");
                         if( thisItem.equals("full_version_no_ads")) {
                             fullVersionUser = true;
+                            showAds(false);
                         }
                         if( thisItem.equals("android.test.purchased")) {
+                            // consume the test purchase...
                             mService.consumePurchase(3, getPackageName(), token);
-                            playWelcomeBack();
                         }
                     }
                 }
@@ -74,21 +75,10 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
         }
     };
 
-    private void playWelcomeBack() {
-        Toast.makeText(this, "Welcome back!", Toast.LENGTH_LONG).show();
-        fullVersionUser = true;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-        AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-        cfg.useGL20 = true;
-
-        initialize(new GemLord(), cfg);
-        */
-
+        googleConnectionEstablished = false;
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -118,46 +108,12 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
         layout.addView(gameView, viewParams);
         setContentView(layout);
 
+        adView.setVisibility(View.GONE);
         adView.setBackgroundColor(Color.TRANSPARENT);
         adView.loadAd(request);
 
         bindService(new Intent("com.android.vending.billing.InAppBillingService.BIND"),
                 mServiceConn, Context.BIND_AUTO_CREATE);
-
-        /*
-        RelativeLayout layout = new RelativeLayout(this);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-
-        View gameView = initializeForView(new GemLord(this), true);
-        adView = new AdView(this);
-        adView.setAdUnitId("ca-app-pub-7121879894953636/5591882705");
-        adView.setAdSize(AdSize.BANNER);
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("EFAC6CABE4081A83F75C76A7CDD574BA")
-                .build();
-
-        layout.addView(gameView);
-        RelativeLayout.LayoutParams adParams =
-                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-        adParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        adParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-
-        layout.addView(adView, adParams);
-        setContentView(layout);
-
-        adView.setBackgroundColor(Color.TRANSPARENT);
-        adView.loadAd(request);
-
-        bindService(new Intent("com.android.vending.billing.InAppBillingService.BIND"),
-                mServiceConn, Context.BIND_AUTO_CREATE);
-    */
-
     }
 
     protected Handler handler = new Handler() {
@@ -166,6 +122,8 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
             switch( msg.what ) {
                 case SHOW_ADS:
                 {
+                    if( fullVersionUser )
+                        break;
                     adView.setVisibility(View.VISIBLE);
                     break;
                 }
@@ -184,7 +142,7 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
     }
 
     @Override
-    public void showInAppPurchases() {
+    public void showRemoveAdsInAppPurchaseWindow() {
         handler.sendEmptyMessage(SHOW_PURCHASE_WINDOW);
 
         ArrayList<String> skuList = new ArrayList<String>();
@@ -205,11 +163,8 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
                     String sku = object.getString("productId");
                     String price = object.getString("price");
                     if( sku.equals("full_version_no_ads")) fullPrice = price;
-
                     Bundle buyIntentBundle = mService.getBuyIntent(3, getPackageName(), "android.test.purchased", "inapp", "");
-
                     PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
-
                     startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
                 }
             }
@@ -227,6 +182,11 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
     @Override
     public boolean isFullVersionUser() {
         return fullVersionUser;
+    }
+
+    @Override
+    public boolean googleConnectionEstablished() {
+        return googleConnectionEstablished;
     }
 
     @Override
@@ -249,13 +209,10 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
                 try {
                     jo = new JSONObject(purchaseData);
                     String sku = jo.getString("productId");
-                    System.out.println("Thanks for buying Gem Lords");
+                    fullVersionUser = true;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-            else {
-                System.out.println("canceled");
             }
         }
     }

@@ -13,11 +13,13 @@ class GemRemover {
 	private final float FADE_TIME = 0.25f;
 	private final MatchResult result;
 	private final RespawnRequest respawnRequest;
+    private ParticleActor effect;
 
 	public GemRemover(final Cell[][] cells, RespawnRequest respawnRequest) {
 		this.cells = cells;
 		this.result = new MatchResult();
 		this.respawnRequest = respawnRequest;
+        this.effect = new ParticleActor();
 	}
 
     public boolean doneFading() {
@@ -47,12 +49,12 @@ class GemRemover {
 					continue;
 				if (rem.isMarkedForSuperSpecialConversion()) {
 					rem.convertToSuperSpecial();
-					final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
+					effect.newParticleEffect(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
 					effectGroup.addActor(effect);
 					rem.unmarkRemoval();
 				} else if (rem.isMarkedForSpecialConversion()) {
 					rem.convertToSpecialGem();
-					final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
+					effect.newParticleEffect(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
 					effectGroup.addActor(effect);
 					rem.unmarkRemoval();
 				} else if (rem.isMarkedForRemoval()) {
@@ -95,7 +97,7 @@ class GemRemover {
 				if( rem == null )
 					continue;
 				rem.markGemForRemoval();
-				final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
+				effect.newParticleEffect(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
 				effectGroup.addActor(effect);
 				if (rem.getActions().size > 0 || rem.isMarkedForSpecialConversion() || rem.isMarkedForSuperSpecialConversion()) {
 					continue;
@@ -139,7 +141,7 @@ class GemRemover {
 			if (rem.isSpecialVerticalGem())
 				specialColExplode(x, effectGroup);
 			rem.markGemForRemoval();
-			final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
+			effect.newParticleEffect(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
 			effectGroup.addActor(effect);
 			if (rem.getActions().size > 0 || rem.isMarkedForSpecialConversion() || rem.isMarkedForSuperSpecialConversion()) {
 				continue;
@@ -157,7 +159,7 @@ class GemRemover {
 			if (rem.isSpecialHorizontalGem())
 				specialRowExplode(y, effectGroup);
 			rem.markGemForRemoval();
-			final ParticleActor effect = new ParticleActor(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
+			effect.newParticleEffect(rem.getX() + rem.getWidth() / 2, rem.getY() + rem.getHeight() / 2);
 			effectGroup.addActor(effect);
 			if (rem.getActions().size > 0 || rem.isMarkedForSpecialConversion() || rem.isMarkedForSuperSpecialConversion()) {
 				continue;

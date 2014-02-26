@@ -15,16 +15,19 @@ public class ParticleActor extends Actor {
 	private final ParticleEffectPool bombEffectPool;
 	private final Array<ParticleEffectPool.PooledEffect> effects;
 
-	public ParticleActor(final float x, final float y) {
+	public ParticleActor() {
 		effects = new Array<ParticleEffectPool.PooledEffect>();
 		bombEffect = new ParticleEffect();
 		bombEffect.load(Gdx.files.internal("data/particles/test.p"), Gdx.files.internal("data/particles"));
 		bombEffect.start();
 		bombEffectPool = new ParticleEffectPool(bombEffect, 1, 2);
-		final ParticleEffectPool.PooledEffect effect = bombEffectPool.obtain();
-		effect.setPosition(x, y);
-		effects.add(effect);
 	}
+
+    public void newParticleEffect(float x, float y) {
+        ParticleEffectPool.PooledEffect effect = bombEffectPool.obtain();
+        effect.setPosition(x, y);
+        effects.add(effect);
+    }
 
 	@Override
 	public void act(final float delta) {

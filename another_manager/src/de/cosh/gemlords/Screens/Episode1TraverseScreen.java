@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Json;
 
 import de.cosh.gemlords.CustomActions.EndEpisode1Action;
+import de.cosh.gemlords.CustomActions.ToMenuScreenAction;
 import de.cosh.gemlords.GemLord;
 import de.cosh.gemlords.Characters.Enemy;
 import de.cosh.gemlords.Characters.Player;
@@ -187,9 +188,14 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if( keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK )
-            GemLord.getInstance().setScreen(GemLord.getInstance().menuScreen);
-        return false;
+        if( keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK ) {
+            stage.addAction(Actions.sequence(
+                    Actions.fadeOut(1f),
+                    new ToMenuScreenAction()
+            ));
+            return true;
+        } else
+            return false;
     }
 
     @Override

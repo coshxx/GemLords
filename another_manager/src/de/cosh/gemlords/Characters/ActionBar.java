@@ -22,13 +22,14 @@ public class ActionBar {
     private final float ACTION_SPACEING_X = 31;
     private BaseItem[] itemsInBar;
     private Image[] itemBorders;
-
+    private ParticleActor effect;
     private Image actionBarImage;
 
 
     public ActionBar() {
         itemBorders = new Image[BARLENGTH];
         itemsInBar = new BaseItem[BARLENGTH];
+        effect = new ParticleActor();
     }
 
     public void addToLoadoutScreen(final Stage stage) {
@@ -55,9 +56,9 @@ public class ActionBar {
                                 item.setActionBarSlot(index);
                                 itemsInBar[index] = item;
                                 itemsInBar[index].setPosition(itemBorders[index].getX(), itemBorders[index].getY());
-                                ParticleActor p = new ParticleActor(itemBorders[index].getX() + (itemBorders[index].getWidth() / 2), itemBorders[index].getY() + itemBorders[index].getHeight() / 2);
+                                effect.newParticleEffect(itemBorders[index].getX() + (itemBorders[index].getWidth() / 2), itemBorders[index].getY() + itemBorders[index].getHeight() / 2);
                                 GemLord.soundPlayer.playWoosh();
-                                stage.addActor(p);
+                                stage.addActor(effect);
                                 item.addedToActionBar(true);
                                 item.unselect();
                                 item.setDrawText(false);

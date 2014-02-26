@@ -38,12 +38,17 @@ public class GemLordDesktop implements IActivityRequestHandler {
     }
 
     @Override
-    public void showInAppPurchases() {
+    public void showRemoveAdsInAppPurchaseWindow() {
         // nope
     }
 
     @Override
     public boolean isFullVersionUser() {
         return true;
+    }
+
+    @Override
+    public boolean googleConnectionEstablished() {
+        return false;
     }
 }

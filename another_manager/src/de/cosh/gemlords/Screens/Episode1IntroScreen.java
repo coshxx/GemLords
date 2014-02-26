@@ -5,12 +5,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.cosh.gemlords.CustomStyle;
 import de.cosh.gemlords.GemLord;
 
@@ -39,10 +41,18 @@ public class Episode1IntroScreen implements Screen {
     public void show() {
         stage = new Stage(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         stage.setCamera(GemLord.getInstance().camera);
+        Gdx.input.setInputProcessor(stage);
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
         continueButton = new TextButton("Continue", s);
         continueButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         continueButton.setBounds(GemLord.VIRTUAL_WIDTH/2-200, 100, 400, 100);
+
+        continueButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GemLord.getInstance().setScreen(GemLord.getInstance().episode1TraverseScreen);
+            }
+        });
+
         introImage = new Image(new Texture(Gdx.files.internal("data/textures/intro.jpg")));
         introImage.setFillParent(true);
 
