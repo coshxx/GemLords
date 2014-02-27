@@ -60,7 +60,7 @@
     <string key="Apprentice Robe" value="Starter Robe"/>
     <string key="Grants an additional&#10; 25 health" value="25 Leben mehr"/>
     <string key="Basic Ring" value="Starter Ring"/>
-    <string key="Increases crit chance&#10;by 5% for swaps" value="5% mehr kritische&#10;Trefferchance für Swaps" />
+    <string key="Increases crit chance&#10;by 5% for swaps" value="5% mehr kritische&#10;Trefferchance" />
     <string key="Decent Shield" value="Dezentes Schild"/>
     <string key="20% chance to block&#10;5-10 damage&#10;50% chance to heal for&#10;the blocked amount" value="20% Chance 5-10 Schaden&#10;zu blocken. 50% Chance&#10;diesen Schaden zu heilen"/>
     <string key="Valors Dagger" value="Valors Degen"/>
@@ -82,6 +82,8 @@
     <string key="Undo 100%&#10;of received damage&#10;Cooldown: 99" value="Stellt den im letzten Zug&#10;bekommenen Schaden zu 100%&#10;als Leben wieder her"/>
     <string key="Beta Totem" value="Beta Totem"/>
     <string key="Recover 1-4 health&#10;each turn&#10;Cooldown: 99" value="Stellt 1-4 Leben&#10;pro Zug wieder her&#10;Abklingzeit: 99"/>
+    <string key="Magic Ring" value="Magischer Ring"/>
+    <string key="Increases crit chance&#10;by 8% for swaps" value="8% mehr kritische&#10;Trefferchance"/>
 
     // enemies
     <string key="Scarecrow" value="Vogelscheuche"/>
@@ -97,6 +99,10 @@
     <string key="Red Bat" value="Rote Fledermaus"/>
     <string key="King Crab" value="Riesenkrabbe"/>
     <string key="Giant Fly" value="Riesenfliege" />
+
+    <string key="Swamp Ooze" value="Sumpf Schlamm" />
+    <string key="Bog Creature" value="Morast Kreatur"/>
+
 </language>
 
 </languages>

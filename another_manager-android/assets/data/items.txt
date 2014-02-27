@@ -15,6 +15,7 @@ id, item
 12, hunting bow
 13, apprentice robe
 14, beta totem
+15, magic ring
 
 1337, devrobe
 

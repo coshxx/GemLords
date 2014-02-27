@@ -14,4 +14,10 @@ public class EnemyManager {
 	public void setSelectedEnemy(final Enemy e) {
 		selectedEnemy = e;
 	}
+
+    public String getBackGround() {
+        if( selectedEnemy.getEnemyNumber() >= 0 && selectedEnemy.getEnemyNumber() <= 15)
+            return "background";
+        else return "backgroundswamp";
+    }
 }

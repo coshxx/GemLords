@@ -4,9 +4,14 @@ enemyName: "Swamp Ooze",
 enemyNumber: 16,
 abilities: [
 	{
-		class: de.cosh.gemlords.Abilities.AbilityAttack,
+		class: de.cosh.gemlords.Abilities.AbilityBow,
 		currentCooldown: 2,
 		cooldown: 2
+	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilityPoison,
+		currentCooldown: 0,
+		cooldown: 3
 	},
 ],
 locationOnMap: {
@@ -14,8 +19,8 @@ locationOnMap: {
 	y: 908
 },
 healthBar: {
-	hp: 25,
-	maxHP: 25
+	hp: 250,
+	maxHP: 250
 },
-dropItemID: -1
+dropItemID: 15
 }

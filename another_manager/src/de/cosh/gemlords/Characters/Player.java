@@ -2,6 +2,7 @@ package de.cosh.gemlords.Characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +21,8 @@ public class Player extends BaseCharacter {
     private int lastTurnDamageReceived;
     private Vector2 positionOnMap;
 
+    private boolean watchedEpisode2Intro;
+
     public Player(final GemLord myGame) {
         super();
         levelDone = new boolean[200];
@@ -30,6 +33,7 @@ public class Player extends BaseCharacter {
         playerInventory = new PlayerInventory();
         actionBar = new ActionBar();
         positionOnMap = new Vector2();
+        watchedEpisode2Intro = false;
     }
 
     public PlayerInventory getInventory() {
@@ -204,6 +208,8 @@ public class Player extends BaseCharacter {
 
         positionOnMap.x = prefs.getFloat("POMX:");
         positionOnMap.y = prefs.getFloat("POMY:");
+
+        watchedEpisode2Intro = prefs.getBoolean("WE2IS:");
     }
 
     public void savePreferences() {
@@ -243,6 +249,8 @@ public class Player extends BaseCharacter {
         prefs.putFloat("POMX:", positionOnMap.x);
         prefs.putFloat("POMY:", positionOnMap.y);
 
+        prefs.putBoolean("WE2IS:", watchedEpisode2Intro);
+
         prefs.flush();
     }
 
@@ -271,5 +279,20 @@ public class Player extends BaseCharacter {
 
     public boolean hasFullVersion() {
         return GemLord.getInstance().requestHandler.isFullVersionUser();
+    }
+
+    public void watchedEpisode2Intro() {
+        watchedEpisode2Intro = true;
+    }
+
+    public Screen getCurrentEpisodeScreen() {
+        if( levelDone[15] ) {
+            if( watchedEpisode2Intro ) {
+                return GemLord.getInstance().episode2TraverseScreen;
+            } else {
+                return GemLord.getInstance().episode1TraverseScreen;
+            }
+        }
+        return GemLord.getInstance().episode1TraverseScreen;
     }
 }

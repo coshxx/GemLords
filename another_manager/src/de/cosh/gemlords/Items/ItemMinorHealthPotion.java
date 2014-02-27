@@ -37,9 +37,7 @@ public class ItemMinorHealthPotion extends BaseItem implements UseItem {
         if( !GemLord.getInstance().gameScreen.getBoard().isPlayerTurn() )
             return;
 		if (currentCooldown <= 0) {
-			GemLord.getInstance();
 			GemLord.soundPlayer.playGulp();
-
             int healthRegenned = random.nextInt((20 - 10)+1);
             healthRegenned += 10;
 			GemLord.getInstance().player.increaseHealth(healthRegenned);

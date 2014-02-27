@@ -74,7 +74,7 @@ public class Board extends Group {
         effectGroup = new Group();
         effectGroup.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
-        final Image backImage = new Image(atlas.findRegion("background"));
+        final Image backImage = new Image(atlas.findRegion(GemLord.getInstance().enemyManager.getBackGround()));
         //backImage.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
         backImage.setFillParent(true);
         backGround.addActor(backImage);
@@ -211,7 +211,7 @@ public class Board extends Group {
                 foreGround.clear();
                 gemGroup.clear();
                 TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
-                final Image backImage = new Image(atlas.findRegion("background"));
+                final Image backImage = new Image(atlas.findRegion(GemLord.getInstance().enemyManager.getBackGround()));
                 backImage.setFillParent(true);
                 backGround.addActor(backImage);
                 fillWithRandomGems();

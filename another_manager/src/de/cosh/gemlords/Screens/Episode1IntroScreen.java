@@ -68,12 +68,14 @@ public class Episode1IntroScreen implements Screen {
         stage.addAction(Actions.fadeIn(2f));
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(s.getFont("intro-font"), Color.WHITE);
+
         Label label1 = new Label("To whom it may concern", s);
         Label label2 = new Label("Your evil lord Lancenson", s);
         Label label3 = new Label("commands you to kill the", s);
         Label label4 = new Label("giant mutated fly living", s);
         Label label5 = new Label("on the eastern part of", s);
         Label label6 = new Label("the coastal area. Go now.", s);
+
         label1.setStyle(labelStyle);
         label1.setPosition(20, 800 );
 

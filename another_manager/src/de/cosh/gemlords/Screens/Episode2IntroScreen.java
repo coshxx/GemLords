@@ -50,6 +50,8 @@ public class Episode2IntroScreen implements Screen {
 
         continueButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GemLord.getInstance().player.watchedEpisode2Intro();
+                GemLord.getInstance().player.savePreferences();
                 GemLord.getInstance().setScreen(GemLord.getInstance().episode2TraverseScreen);
             }
         });

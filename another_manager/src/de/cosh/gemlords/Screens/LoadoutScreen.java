@@ -120,7 +120,7 @@ public class LoadoutScreen implements Screen, InputProcessor {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GemLord.soundPlayer.stopLoadoutMusic();
-                GemLord.getInstance().setScreen(GemLord.getInstance().episode1TraverseScreen);
+                GemLord.getInstance().setScreen(GemLord.getInstance().player.getCurrentEpisodeScreen());
             }
         });
 
