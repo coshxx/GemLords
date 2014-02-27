@@ -116,8 +116,8 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
 		plex.addProcessor(stage);
         plex.addProcessor(new GestureDetector(this));
         plex.addProcessor(this);
-        Gdx.input.setCatchBackKey(true);
 		Gdx.input.setInputProcessor(plex);
+        Gdx.input.setCatchBackKey(true);
 
 		GemLord.soundPlayer.playGameMusic();
 		swapGame.init();

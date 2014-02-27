@@ -126,9 +126,10 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
 		GemLord.soundPlayer.playMapMusic();
 
         InputMultiplexer plex = new InputMultiplexer();
-        plex.addProcessor(stage);
         plex.addProcessor(this);
+        plex.addProcessor(stage);
 		Gdx.input.setInputProcessor(plex);
+        Gdx.input.setCatchBackKey(true);
 
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));
@@ -142,8 +143,8 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
                     new ToMenuScreenAction()
             ));
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 
     @Override

@@ -52,6 +52,7 @@ public class MenuScreen implements Screen {
         creditsButton = new TextButton(lm.getString("Credits"), skin);
         returnFromOptions = new TextButton(lm.getString("Back"), skin);
         buyGameButton = new TextButton(lm.getString("Remove Ads"), skin);
+        addButtonListeners();
     }
 
     @Override
@@ -98,6 +99,7 @@ public class MenuScreen implements Screen {
         this.stage = new Stage();
         GemLord.getInstance().soundPlayer.playMenuMusic();
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(false);
         table.setFillParent(true);
         backGround = new Image(GemLord.getInstance().assets.get(
                 "data/textures/menu.png", Texture.class));
@@ -112,7 +114,6 @@ public class MenuScreen implements Screen {
         titleImage.addAction(Actions.forever(Actions.sequence(
                 Actions.moveBy(0, 5f, 1f), Actions.moveBy(0, -5f, 1f))));
 
-        addButtonListeners();
 
         backGround.setBounds(0, 0, GemLord.VIRTUAL_WIDTH * 2, GemLord.VIRTUAL_HEIGHT);
 
@@ -149,7 +150,6 @@ public class MenuScreen implements Screen {
 
         returnFromOptions.setBounds(990, 260, 200, 50);
         returnFromOptions.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        returnFromOptions.getStyle().font.setScale(1f);
 
         stage.setCamera(GemLord.getInstance().camera);
         stage.addActor(backGround);
@@ -161,10 +161,17 @@ public class MenuScreen implements Screen {
         stage.addActor(optionsButton);
         stage.addActor(creditsButton);
         stage.addActor(exitGameButton);
-        if (GemLord.getInstance().requestHandler.googleConnectionEstablished()) {
+        if (GemLord.getInstance().requestHandler.googleConnectionOrCacheEstablished()) {
             if (!GemLord.getInstance().player.hasFullVersion()) {
                 GemLord.getInstance().requestHandler.showAds(true);
                 stage.addActor(buyGameButton);
+            }
+        } else {
+            // no connection to google, get last state from prefs
+            if (GemLord.getInstance().player.lastStateHasFullVersion()) {
+                GemLord.getInstance().requestHandler.showAds(false);
+            } else {
+                GemLord.getInstance().requestHandler.showAds(true);
             }
         }
         stage.addActor(returnFromOptions);
@@ -210,7 +217,7 @@ public class MenuScreen implements Screen {
     }
 
     private void addButtonListeners() {
-
+        /*
         continueButton.clearListeners();
         newGameButton.clearListeners();
         exitGameButton.clearListeners();
@@ -219,6 +226,7 @@ public class MenuScreen implements Screen {
         creditsButton.clearListeners();
         if (buyGameButton != null)
             buyGameButton.clearListeners();
+        */
 
         continueButton.addListener(new ClickListener() {
             @Override

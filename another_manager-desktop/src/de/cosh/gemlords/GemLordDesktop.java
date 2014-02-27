@@ -48,7 +48,7 @@ public class GemLordDesktop implements IActivityRequestHandler {
     }
 
     @Override
-    public boolean googleConnectionEstablished() {
+    public boolean googleConnectionOrCacheEstablished() {
         return false;
     }
 }

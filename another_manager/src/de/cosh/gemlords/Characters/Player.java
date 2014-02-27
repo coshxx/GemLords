@@ -20,6 +20,7 @@ public class Player extends BaseCharacter {
     private ActionBar actionBar;
     private int lastTurnDamageReceived;
     private Vector2 positionOnMap;
+    private boolean lastStateFullVersion;
 
     private boolean watchedEpisode2Intro;
 
@@ -209,6 +210,8 @@ public class Player extends BaseCharacter {
         positionOnMap.x = prefs.getFloat("POMX:");
         positionOnMap.y = prefs.getFloat("POMY:");
 
+        lastStateFullVersion = prefs.getBoolean("LSHFV:");
+
         watchedEpisode2Intro = prefs.getBoolean("WE2IS:");
     }
 
@@ -251,6 +254,8 @@ public class Player extends BaseCharacter {
 
         prefs.putBoolean("WE2IS:", watchedEpisode2Intro);
 
+        prefs.putBoolean("LSHFV:", lastStateFullVersion);
+
         prefs.flush();
     }
 
@@ -278,7 +283,13 @@ public class Player extends BaseCharacter {
     }
 
     public boolean hasFullVersion() {
-        return GemLord.getInstance().requestHandler.isFullVersionUser();
+        if( GemLord.getInstance().requestHandler.isFullVersionUser() ) {
+            lastStateFullVersion = true;
+            return true;
+        } else {
+            lastStateFullVersion = false;
+            return false;
+        }
     }
 
     public void watchedEpisode2Intro() {
@@ -294,5 +305,9 @@ public class Player extends BaseCharacter {
             }
         }
         return GemLord.getInstance().episode1TraverseScreen;
+    }
+
+    public boolean lastStateHasFullVersion() {
+        return lastStateFullVersion;
     }
 }
