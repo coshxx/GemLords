@@ -147,7 +147,7 @@ public class Board extends Group {
         for (int x = 0; x < MAX_SIZE_X; x++) {
             for (int y = 0; y < MAX_SIZE_Y; y++) {
                 cells[x][y] = new Cell(myGame, x, y);
-                cells[x][y].setColor(1f, 1f, 1f, 0.35f);
+                cells[x][y].setColor(1f, 1f, 1f, 0.8f);
                 cells[x][y].setBounds(CELL_PAD_X + (x * CELL_SIZE) + GemLord.VIRTUAL_WIDTH, CELL_PAD_Y + (y * CELL_SIZE), 80, 80);
                 cells[x][y].addAction(Actions.sequence(Actions.moveTo(CELL_PAD_X + (x * CELL_SIZE), CELL_PAD_Y + (y * CELL_SIZE), 0.50f),
                         Actions.moveBy(10f, 0f, 0.1f), Actions.moveBy(-10f, 0f, 0.1f)));
