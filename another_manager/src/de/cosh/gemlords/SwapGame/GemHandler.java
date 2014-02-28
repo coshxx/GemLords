@@ -40,53 +40,6 @@ public class GemHandler {
 		respawnRequest.clear();
 	}
 
-	private boolean shift() {
-		Gem fall;
-		boolean hadToShift = false;
-		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
-			for (int y = 0; y < Board.MAX_SIZE_Y; y++) {
-				Gem gem = cells[x][y].getGem();
-				if (gem.isDisabled()) {
-					if (y - 1 < 0)
-						continue;
-					if (cells[x][y - 1].getGem().isTypeNone()) {
-						if (x - 1 < 0) {
-							lastShiftRight = false;
-						}
-						if (x + 1 >= Board.MAX_SIZE_X) {
-							lastShiftRight = true;
-						}
-						if (lastShiftRight && !cells[x - 1][y].getGem().isTypeNone() && !cells[x-1][y].getGem().isDisabled()) {
-							lastShiftRight = false;
-							fall = cells[x - 1][y].getGem();
-							fall.addAction(Actions.after(Actions.sequence(Actions.delay(delay),
-									Actions.moveBy(Board.CELL_SIZE, -Board.CELL_SIZE, 0.15f))));
-							Gem temp = cells[x][y - 1].getGem();
-							cells[x][y - 1].setGem(fall);
-							cells[x - 1][y].setGem(temp);
-							delay += delayDelta;
-							hadToShift = true;
-							delay = 0f;
-						} else {
-							lastShiftRight = true;
-							if (!cells[x + 1][y].getGem().isTypeNone() && !cells[x+1][y].getGem().isDisabled()) {
-								fall = cells[x + 1][y].getGem();
-								fall.addAction(Actions.after(Actions.sequence(Actions.delay(delay),
-										Actions.moveBy(-Board.CELL_SIZE, -Board.CELL_SIZE, 0.15f))));
-								Gem temp = cells[x][y - 1].getGem();
-								cells[x][y - 1].setGem(fall);
-								cells[x + 1][y].setGem(temp);
-								hadToShift = true;
-								delay = 0f;
-							}
-						}
-					}
-				}
-			}
-		}
-		return hadToShift;
-	}
-
 	private void fall() {
 		Gem fall;
 		for (int x = 0; x < Board.MAX_SIZE_X; x++) {
@@ -97,9 +50,6 @@ public class GemHandler {
 						fall = cells[x][d].getGem();
 						if (fall.isTypeNone()) {
 							continue;
-						}
-						if (fall.isDisabled()) {
-							break;
 						}
 						//fall.fallBy(0, -(d - y));
 

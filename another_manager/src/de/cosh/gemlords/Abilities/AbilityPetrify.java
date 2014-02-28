@@ -3,6 +3,7 @@ package de.cosh.gemlords.Abilities;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -18,8 +19,10 @@ import de.cosh.gemlords.SwapGame.Gem;
  */
 public class AbilityPetrify extends BaseAbility {
 	public AbilityPetrify() {
-		abilityImageLocation = "data/textures/abilitypetrify.png";
-		abilityImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+		abilityImageLocation = "abilitypetrify";
+        TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+        abilityImage = new Image(atlas.findRegion(abilityImageLocation));
+        setAbilityDamage(0);
 	}
 
 	@Override
@@ -40,14 +43,11 @@ public class AbilityPetrify extends BaseAbility {
                 int x = r.nextInt(MAX_X);
                 int y = r.nextInt(MAX_Y);
                 gem = cells[x][y].getGem();
-            } while (gem.isDisabled() || gem.isTypeNone());
+            } while (gem.isTypeNone());
 
-            gem.disable();
-            gem.addAction(Actions.parallel(
-                    Actions.moveBy(gem.getWidth()/2, gem.getHeight()/2, 0.5f),
-                    Actions.scaleTo(0, 0, 0.5f)
-            ));
-            Image stoneImage = new Image(GemLord.assets.get(abilityImageLocation, Texture.class));
+
+            TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
+            Image stoneImage = new Image(atlas.findRegion(abilityImageLocation));
             stoneImage.setBounds(gem.getX()+gem.getWidth()/2, gem.getY() + gem.getHeight()/2, 80, 80);
              stoneImage.addAction(Actions.scaleTo(0, 0));
             stoneImage.addAction(Actions.parallel(

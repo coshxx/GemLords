@@ -4,25 +4,10 @@ enemyName: "Bog Creature",
 enemyNumber: 17,
 abilities: [
 	{
-		class: de.cosh.gemlords.Abilities.AbilityBow,
-		currentCooldown: 2,
-		cooldown: 2
-	},
-	{
-		class: de.cosh.gemlords.Abilities.AbilityThink,
+		class:	de.cosh.gemlords.Abilities.AbilityPetrify,
 		currentCooldown: 0,
-		cooldown: 0
-	},
-	{
-		class: de.cosh.gemlords.Abilities.AbilityDecentShield,
-		currentCooldown: 99,
-		cooldown: 99
-	},
-	{
-		class: de.cosh.gemlords.Abilities.AbilityMinorHealthPotion,
-		currentCooldown: 4,
 		cooldown: 10
-	}
+	},
 ],
 locationOnMap: {
 	x: 95,

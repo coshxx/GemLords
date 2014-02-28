@@ -118,14 +118,6 @@ public class Gem extends Image {
 		isFalling = b;
 	}
 
-	public void disable() {
-		isDisabled = true;
-	}
-
-	public boolean isDisabled() {
-		return isDisabled;
-	}
-
 	public void convertToSpecialGem() {
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
 		if (isSuperSpecialGem)
@@ -170,8 +162,6 @@ public class Gem extends Image {
 	}
 
 	public boolean equals(final Gem b) {
-		if (isDisabled || b.isDisabled())
-			return false;
 		if (isTypeNone() || b.isTypeNone())
 			return false;
 		if (isSuperSpecialGem())

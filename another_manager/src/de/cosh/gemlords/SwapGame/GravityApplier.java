@@ -20,9 +20,6 @@ class GravityApplier {
 						if (fall.isTypeNone()) {
 							continue;
 						}
-                        if( fall.isDisabled() ) {
-                            break;
-                        }
 						//fall.fallBy(0, -(d - y));
 						
 						fall.setMoving(Gem.MoveDirection.DIRECTION_VERTICAL);

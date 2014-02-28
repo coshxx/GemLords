@@ -116,10 +116,6 @@ class GemRemover {
 				final Gem rem = cells[x][y].getGem();
 				if (rem == null)
 					continue;
-				if (rem.isDisabled()) {
-					rem.getActions().clear();
-					continue;
-				}
 				if (rem.isMarkedForRemoval()) {
 					final StarEffect effect = new StarEffect(myGame);
 					effect.spawnStars(rem.getX(), rem.getY(), effectGroup);
