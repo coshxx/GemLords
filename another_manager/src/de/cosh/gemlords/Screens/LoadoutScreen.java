@@ -1,7 +1,7 @@
 package de.cosh.gemlords.Screens;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -53,7 +53,7 @@ public class LoadoutScreen implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		stage.act(delta);
 		stage.draw();
@@ -92,7 +92,8 @@ public class LoadoutScreen implements Screen, InputProcessor {
         if( boxItemList.size() == 0 )
             return;
 
-        selectBoxInventory = new SelectBox(boxItemList.toArray(), s);
+        selectBoxInventory = new SelectBox(s);
+        selectBoxInventory.setItems(boxItemList.toArray());
         selectBoxInventory.getStyle().font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         selectBoxInventory.setBounds(20, GemLord.VIRTUAL_HEIGHT-100, 680, 50);
         selectBoxInventory.addListener(new ChangeListener() {
@@ -152,7 +153,8 @@ public class LoadoutScreen implements Screen, InputProcessor {
     private void refreshItemList() {
         if( selectBoxInventory == null ) {
             boxItemList = fillItemList(itemsHashMap);
-            selectBoxInventory = new SelectBox(boxItemList.toArray(), s);
+            selectBoxInventory = new SelectBox(s);
+            selectBoxInventory.setItems(boxItemList.toArray());
             selectBoxInventory.getStyle().font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             selectBoxInventory.setBounds(20, GemLord.VIRTUAL_HEIGHT-100, 680, 50);
             selectBoxInventory.addListener(new ChangeListener() {
@@ -165,7 +167,8 @@ public class LoadoutScreen implements Screen, InputProcessor {
         }
         selectBoxInventory.remove();
         boxItemList = fillItemList(itemsHashMap);
-        selectBoxInventory = new SelectBox(boxItemList.toArray(), s);
+        selectBoxInventory = new SelectBox(s);
+        selectBoxInventory.setItems(boxItemList.toArray());
         selectBoxInventory.getStyle().font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         selectBoxInventory.setBounds(20, GemLord.VIRTUAL_HEIGHT - 100, 680, 50);
         selectBoxInventory.addListener(new ChangeListener() {

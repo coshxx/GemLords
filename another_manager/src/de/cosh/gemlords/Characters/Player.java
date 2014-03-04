@@ -3,6 +3,7 @@ package de.cosh.gemlords.Characters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -21,7 +22,7 @@ public class Player extends BaseCharacter {
     private int lastTurnDamageReceived;
     private Vector2 positionOnMap;
     private boolean lastStateFullVersion;
-
+    private Hearts hearts;
     private boolean watchedEpisode2Intro;
 
     public Player(final GemLord myGame) {
@@ -35,6 +36,7 @@ public class Player extends BaseCharacter {
         actionBar = new ActionBar();
         positionOnMap = new Vector2();
         watchedEpisode2Intro = false;
+        hearts = null;
     }
 
     public PlayerInventory getInventory() {
@@ -49,7 +51,7 @@ public class Player extends BaseCharacter {
         actionBar.addToBoard(foreGround);
     }
 
-    public void draw(final SpriteBatch batch, final float parentAlpha) {
+    public void draw(Batch batch, final float parentAlpha) {
         for (int i = 0; i < getDebuffs().size; i++) {
             getDebuffs().get(i).drawCooldown(batch, parentAlpha);
         }
@@ -66,6 +68,20 @@ public class Player extends BaseCharacter {
                     item.drawCooldown(batch, parentAlpha);
             }
         }
+    }
+
+    public void updateHearts() {
+        if( hearts == null ) {
+            hearts = new Hearts();
+        }
+        hearts.update();
+    }
+
+    public Hearts getHearts() {
+        if( hearts == null ) {
+            hearts = new Hearts();
+        }
+        return hearts;
     }
 
     @Override

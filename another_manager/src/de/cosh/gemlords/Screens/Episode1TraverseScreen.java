@@ -2,7 +2,7 @@ package de.cosh.gemlords.Screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -89,10 +89,12 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
 	@Override
 	public void render(final float delta) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		stage.act(delta);
 		stage.draw();
+
+        GemLord.getInstance().player.getHearts().update();
 
 		if (fadeMusic) {
 			GemLord.soundPlayer.fadeOutMapMusic(delta);
@@ -130,6 +132,9 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
         plex.addProcessor(stage);
 		Gdx.input.setInputProcessor(plex);
         Gdx.input.setCatchBackKey(true);
+
+
+        GemLord.getInstance().player.getHearts().addToStage(stage);
 
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));

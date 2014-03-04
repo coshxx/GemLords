@@ -1,8 +1,9 @@
 package de.cosh.gemlords.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -29,6 +30,8 @@ public class LootScreen implements Screen {
     private Skin skin;
     private Table table;
 
+    private TextButton button;
+
     public LootScreen(final GemLord gemLord, final EnemyManager enemyManager) {
         this.myGame = gemLord;
         this.enemyManager = enemyManager;
@@ -52,10 +55,14 @@ public class LootScreen implements Screen {
     @Override
     public void render(final float delta) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(delta);
         stage.draw();
+
+        if( Gdx.input.isKeyPressed(Input.Keys.F12)) {
+            button.getClickListener().clicked(null, 0, 0);
+        }
     }
 
     @Override
@@ -264,7 +271,7 @@ public class LootScreen implements Screen {
 
         }
         final BaseItem oldInventoryItem = oldItem;
-        TextButton button = new TextButton(lm.getString("Return to map"), skin);
+        button = new TextButton(lm.getString("Return to map"), skin);
         button.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         button.addListener(new ClickListener() {
             @Override

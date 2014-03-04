@@ -3,7 +3,7 @@ package de.cosh.gemlords.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -27,7 +27,7 @@ public class Episode2IntroScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(delta);
         stage.draw();
@@ -71,11 +71,11 @@ public class Episode2IntroScreen implements Screen {
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(s.getFont("intro-font"), Color.WHITE);
         Label label1 = new Label("You did good my friend, ", s);
-        Label label2 = new Label("I have another job for you.", s);
+        Label label2 = new Label("I have a job for you.", s);
         Label label3 = new Label("Travel east, to the swamps, ", s);
-        Label label4 = new Label("a Fencreeper is mutated and", s);
-        Label label5 = new Label("gemswaps like a champion.", s);
-        Label label6 = new Label("Kill him. Your Dark Lord.", s);
+        Label label4 = new Label("some creature is mutated.", s);
+        Label label5 = new Label("", s);
+        Label label6 = new Label("Kill it. Your Dark Lord.", s);
         label1.setStyle(labelStyle);
         label1.setPosition(20, 800 );
 

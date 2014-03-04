@@ -1,6 +1,6 @@
 package de.cosh.gemlords.Abilities;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import de.cosh.gemlords.Characters.BaseCharacter;
@@ -10,7 +10,7 @@ import de.cosh.gemlords.Characters.BaseCharacter;
  */
 public abstract interface Ability {
 
-	public abstract void drawCooldown(SpriteBatch batch, float parentAlpha);
+	public abstract void drawCooldown(Batch batch, float parentAlpha);
 
 	// use ability
 	public abstract boolean fire(BaseCharacter target);

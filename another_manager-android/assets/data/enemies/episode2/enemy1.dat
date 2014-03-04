@@ -1,6 +1,6 @@
 {
-enemyImageLocation: enemy,
-enemyName: "Bog Creature",
+enemyImageLocation: enemyorcsoldier,
+enemyName: "Orc Soldier",
 enemyNumber: 17,
 abilities: [
 	{

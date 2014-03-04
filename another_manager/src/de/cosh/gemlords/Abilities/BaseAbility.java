@@ -1,5 +1,6 @@
 package de.cosh.gemlords.Abilities;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -53,7 +54,7 @@ public class BaseAbility implements Ability {
 
     }
 
-    public void drawFire(SpriteBatch batch, float parentAlpha) {
+    public void drawFire(Batch batch, float parentAlpha) {
         return;
     }
 
@@ -85,7 +86,7 @@ public class BaseAbility implements Ability {
     }
 
     @Override
-    public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
+    public void drawCooldown(Batch batch, final float parentAlpha) {
         final Integer cooldown = getCurrentCooldown();
         GemLord.getInstance();
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);

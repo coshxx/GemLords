@@ -12,7 +12,6 @@ public class GemLordDesktop implements IActivityRequestHandler {
         }
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Gem Lords";
-        cfg.useGL20 = true;
         cfg.width = 518;
         cfg.height = 921;
         cfg.x = 300;

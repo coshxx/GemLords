@@ -58,12 +58,10 @@ public class HealthBar extends Actor {
     }
 
     @Override
-    public void draw(SpriteBatch batch, float parentAlpha) {
+    public void draw(Batch batch, float parentAlpha) {
         //super.draw(batch, parentAlpha);
-
         final Integer health = hp;
         final Integer maxhealth = maxHP;
-
         emptyBar.draw(batch, parentAlpha);
         //fullBar.draw(batch, parentAlpha);
         batch.draw(fullBar, left, bot); // +2 why????????

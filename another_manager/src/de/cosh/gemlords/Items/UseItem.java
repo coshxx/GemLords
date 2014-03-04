@@ -1,5 +1,6 @@
 package de.cosh.gemlords.Items;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.cosh.gemlords.Characters.BaseCharacter;
@@ -11,7 +12,7 @@ public abstract interface UseItem {
 
 	public abstract void onUse();
 
-	public abstract void drawCooldown(SpriteBatch batch, float parentAlpha);
+	public abstract void drawCooldown(Batch batch, float parentAlpha);
 
 	public abstract void turn();
 

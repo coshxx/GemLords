@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -76,7 +76,7 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/sounds/bite.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
 		GemLord.assets.load("data/sounds/menumusic.ogg", Music.class);
-
+        GemLord.assets.load("data/particles/test.p", ParticleEffect.class);
 		GemLord.assets.load("data/ui/uiskin.json", Skin.class);
 
 		GemLord.assets.load("data/sounds/abilityattack_fire.ogg", Sound.class);
@@ -96,7 +96,7 @@ public class SplashScreen implements Screen {
 	@Override
 	public void render(final float delta) {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		stage.act(delta);
 		stage.draw();

@@ -1,5 +1,6 @@
 package de.cosh.gemlords.SwapGame;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -93,10 +94,10 @@ public class Gem extends Image {
 	boolean fall(float delta) {
 		speed += ACCEL_FACTOR * delta;
         float toTranslate = speed * delta;
-        translate(0, -toTranslate);
+        moveBy(0, -toTranslate);
 		totalTranslated += toTranslate;
 		if (totalTranslated >= Board.CELL_SIZE) {
-			translate(0, totalTranslated - Board.CELL_SIZE);
+			moveBy(0, totalTranslated - Board.CELL_SIZE);
 			totalTranslated = 0;
 			cellY--;
 			if (cellY < Board.MAX_SIZE_Y) {
@@ -136,7 +137,7 @@ public class Gem extends Image {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
 		/*
 		 * super.draw(batch, parentAlpha); bmf.setColor(1f, 1f, 1f, 1f);

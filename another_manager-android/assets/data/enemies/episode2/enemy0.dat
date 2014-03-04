@@ -1,5 +1,5 @@
 {
-enemyImageLocation: enemy,
+enemyImageLocation: enemyooze,
 enemyName: "Swamp Ooze",
 enemyNumber: 16,
 abilities: [

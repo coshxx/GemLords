@@ -1,5 +1,6 @@
 package de.cosh.gemlords.Items;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -48,7 +49,7 @@ public class ItemPocketWatch extends BaseItem implements UseItem {
 	}
 
 	@Override
-    public void drawCooldown(SpriteBatch batch, float parentAlpha) {
+    public void drawCooldown(Batch batch, float parentAlpha) {
         bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
         LanguageManager lm = LanguageManager.getInstance();
         if( currentCooldown <= 0 ) {
