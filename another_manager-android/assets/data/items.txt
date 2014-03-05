@@ -16,6 +16,8 @@ id, item
 13, apprentice robe
 14, beta totem
 15, magic ring
+16, runed dagger
+17, runed robe
 
 1337, devrobe
 

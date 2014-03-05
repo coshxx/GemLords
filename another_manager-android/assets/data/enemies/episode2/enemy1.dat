@@ -4,10 +4,20 @@ enemyName: "Orc Soldier",
 enemyNumber: 17,
 abilities: [
 	{
-		class:	de.cosh.gemlords.Abilities.AbilityPetrify,
-		currentCooldown: 0,
-		cooldown: 10
+		class:	de.cosh.gemlords.Abilities.AbilityStrongAttack,
+		currentCooldown: 3,
+		cooldown: 3
 	},
+	{
+		class: 	de.cosh.gemlords.Abilities.AbilityBow,
+		currentCooldown: 5,
+		cooldown: 5
+	},
+	{
+		class:	de.cosh.gemlords.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	}
 ],
 locationOnMap: {
 	x: 95,
@@ -17,5 +27,5 @@ healthBar: {
 	hp: 260,
 	maxHP: 260
 },
-dropItemID: -1
+dropItemID: 16
 }

@@ -28,8 +28,6 @@ public class BaseCharacter {
 		buffs.add(buff);
 		buff.setPosition(0, healthBar.getY() + healthBar.getHeight());
 		buff.addBuffToGroup(getCharacterGroup());
-
-
 	}
 
 	void addToBoard(final Group foreGround) {
@@ -72,6 +70,7 @@ public class BaseCharacter {
 
 	void setHealthBarPosition(final int left, final int bot, final int width, final int height) {
 		healthBar.setPosition(left, bot, width, height);
+        healthBar.setY(bot);
 	}
 
 	void turn() {

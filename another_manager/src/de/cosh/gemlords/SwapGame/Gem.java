@@ -136,32 +136,6 @@ public class Gem extends Image {
 		}
 	}
 
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-		/*
-		 * super.draw(batch, parentAlpha); bmf.setColor(1f, 1f, 1f, 1f);
-		 * bmf.draw(batch, cellX + ", " + cellY, getX(), getY());
-		 */
-
-        /*
-		Stage stage = getStage();
-		GemLord myGame = GemLord.getInstance();
-
-		final Vector2 begin = stage.stageToScreenCoordinates(new Vector2(0, GemLord.VIRTUAL_HEIGHT - 277));
-		final Vector2 end = stage.stageToScreenCoordinates(new Vector2(GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT - 720));
-		final Rectangle scissor = new Rectangle();
-		final Rectangle clipBounds = new Rectangle(begin.x, begin.y, end.x, end.y);
-		ScissorStack.calculateScissors(myGame.camera, 0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT, batch.getTransformMatrix(),
-				clipBounds, scissor);
-		batch.flush();
-		ScissorStack.pushScissors(scissor);
-		super.draw(batch, parentAlpha);
-		batch.flush();
-		ScissorStack.popScissors();
-		*/
-	}
-
 	public boolean equals(final Gem b) {
 		if (isTypeNone() || b.isTypeNone())
 			return false;

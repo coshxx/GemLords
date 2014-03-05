@@ -73,6 +73,7 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/sounds/totem.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/gulp.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/pocketwatch.ogg", Sound.class);
+		GemLord.assets.load("data/sounds/wolfhowl.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/bite.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
 		GemLord.assets.load("data/sounds/menumusic.ogg", Music.class);

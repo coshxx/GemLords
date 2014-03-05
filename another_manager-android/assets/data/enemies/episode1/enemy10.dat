@@ -9,13 +9,8 @@ abilities: [
 		cooldown: 3
 	},
 	{
-		class: de.cosh.gemlords.Abilities.AbilityRedSmash,
+		class: de.cosh.gemlords.Abilities.AbilitySmash,
 		currentCooldown: 1,
-		cooldown: 4
-	},
-	{
-		class: de.cosh.gemlords.Abilities.AbilityBlueSmash,
-		currentCooldown: 2,
 		cooldown: 4
 	}
 ],

@@ -21,6 +21,7 @@ public class SoundPlayer {
 	private Sound fireball_start;
     private Sound critical;
     private Sound scribble;
+    private Sound howl;
 
 	private Sound gulp;
 	private Sound challenge;
@@ -258,6 +259,7 @@ public class SoundPlayer {
 		smash = assets.get("data/sounds/smash.ogg", Sound.class);
         abilityBite = assets.get("data/sounds/bite.ogg", Sound.class);
         gotItem = assets.get("data/sounds/gotitem.ogg", Sound.class);
+        howl = assets.get("data/sounds/wolfhowl.ogg", Sound.class);
 
         menuMusic.setLooping(true);
         gameMusic0.setLooping(true);
@@ -320,4 +322,7 @@ public class SoundPlayer {
         splash.stop();
     }
 
+    public void playHowl() {
+        howl.play();
+    }
 }

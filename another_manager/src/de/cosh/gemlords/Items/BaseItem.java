@@ -79,6 +79,10 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
                 return new ItemBetaTotem();
             case 15:
                 return new ItemMagicRing();
+            case 16:
+                return new ItemRunedDagger();
+            case 17:
+                return new ItemRunedRobe();
             default:
                 return null;
         }

@@ -99,7 +99,7 @@ public class MainActivity extends AndroidApplication implements IActivityRequest
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
-        gameView = initializeForView(new GemLord(this), true);
+        gameView = initializeForView(new GemLord(this));
         adView = new AdView(this);
         adView.setAdUnitId("ca-app-pub-7121879894953636/5591882705");
         adView.setAdSize(AdSize.BANNER);

@@ -84,6 +84,10 @@
     <string key="Recover 1-4 health&#10;each turn&#10;Cooldown: 99" value="Stellt 1-4 Leben&#10;pro Zug wieder her&#10;Abklingzeit: 99"/>
     <string key="Magic Ring" value="Magischer Ring"/>
     <string key="Increases crit chance&#10;by 8% for swaps" value="8% mehr kritische&#10;Trefferchance"/>
+    <string key="Runed Dagger" value="Runen Degen"/>
+    <string key="Increases your&#10;damage by 3 - 6" value="Erhöht den Schaden&#10;um 3 - 6"/>
+    <string key="Runed Robe" value="Runen Robe"/>
+    <string key="Grants an additional&#10; 75 health&#10;Increases crit chance&#10;by 3%" value="100 Leben mehr&#10;5% erhöhte Crit Chance"/>
 
     // enemies
     <string key="Scarecrow" value="Vogelscheuche"/>
@@ -101,7 +105,9 @@
     <string key="Giant Fly" value="Riesenfliege" />
 
     <string key="Swamp Ooze" value="Sumpf Schlamm" />
-    <string key="Bog Creature" value="Morast Kreatur"/>
+    <string key="Orc Soldier" value="Orc Soldat"/>
+    <string key="Moor Wolf" value="Moor Wolf"/>
+    <string key="Swamp Wizard" value="Sumpf Zauberer"/>
 
 </language>
 
