@@ -87,7 +87,7 @@
     <string key="Runed Dagger" value="Runen Degen"/>
     <string key="Increases your&#10;damage by 3 - 6" value="Erhöht den Schaden&#10;um 3 - 6"/>
     <string key="Runed Robe" value="Runen Robe"/>
-    <string key="Grants an additional&#10; 75 health&#10;Increases crit chance&#10;by 3%" value="100 Leben mehr&#10;5% erhöhte Crit Chance"/>
+    <string key="Grants an additional&#10; 100 health&#10;Increases crit chance&#10;by 5%" value="100 Leben mehr&#10;5% erhöhte Crit Chance"/>
 
     // enemies
     <string key="Scarecrow" value="Vogelscheuche"/>

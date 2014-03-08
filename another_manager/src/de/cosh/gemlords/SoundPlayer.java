@@ -22,6 +22,7 @@ public class SoundPlayer {
     private Sound critical;
     private Sound scribble;
     private Sound howl;
+    private Sound curse;
 
 	private Sound gulp;
 	private Sound challenge;
@@ -126,6 +127,10 @@ public class SoundPlayer {
 	public void playLootMusic() {
 		lootMusic.play();
 	}
+
+    public void playCurse() {
+        curse.play();
+    }
 
 	public void playLoseSound() {
 		loseSound.play();
@@ -254,6 +259,7 @@ public class SoundPlayer {
 		gameMusic2 = assets.get("data/sounds/music4.ogg", Music.class);
 		gameMusic3 = assets.get("data/sounds/music5.ogg", Music.class);
 		creditsMusic = assets.get("data/sounds/creditsmusic.ogg", Music.class);
+        curse = assets.get("data/sounds/curse.ogg", Sound.class);
         scribble = assets.get("data/sounds/scribble.ogg", Sound.class);
 		awesome = assets.get("data/sounds/awesome.ogg", Sound.class);
 		smash = assets.get("data/sounds/smash.ogg", Sound.class);

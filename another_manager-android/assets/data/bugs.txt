@@ -1,0 +1,2 @@
+lootscreen:
+alpha value of "old items", set it 0 at begining in case of update

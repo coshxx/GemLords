@@ -76,6 +76,7 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/sounds/wolfhowl.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/bite.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/loadoutmusic.ogg", Music.class);
+        GemLord.assets.load("data/sounds/curse.ogg", Sound.class);
 		GemLord.assets.load("data/sounds/menumusic.ogg", Music.class);
         GemLord.assets.load("data/particles/test.p", ParticleEffect.class);
 		GemLord.assets.load("data/ui/uiskin.json", Skin.class);

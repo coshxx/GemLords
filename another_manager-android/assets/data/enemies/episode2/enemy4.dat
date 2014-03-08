@@ -1,0 +1,32 @@
+{
+enemyImageLocation: enemydragon,
+enemyName: "Dragon",
+enemyNumber: 20,
+abilities: [
+	{
+		class: 	de.cosh.gemlords.Abilities.AbilityFireball,
+		currentCooldown: 3,
+		cooldown: 3
+	},
+	{
+		class:	de.cosh.gemlords.Abilities.AbilityBite,
+		currentCooldown: 4,
+		cooldown: 4
+	},
+	{
+		class: 	de.cosh.gemlords.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	}
+	
+],
+locationOnMap: {
+	x: 130,
+	y: 765
+},
+healthBar: {
+	hp: 360,
+	maxHP: 360
+},
+dropItemID: 17
+}
