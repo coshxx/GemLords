@@ -84,6 +84,7 @@ public class ActionBar {
                 continue;
             if (itemsInBar[i].equals(baseItem)) {
                 itemsInBar[i].addedToActionBar(false);
+                itemsInBar[i].setActionBarSlot(-1);
                 itemsInBar[i] = null;
             }
         }
