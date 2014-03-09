@@ -92,14 +92,13 @@ public class Episode2TraverseScreen implements Screen, InputProcessor {
 		stage.act(delta);
 		stage.draw();
 
-        GemLord.getInstance().player.getHearts().update();
+        //GemLord.getInstance().player.getHearts().update();
 
         float x = Gdx.input.getX();
         float y = Gdx.input.getY();
 
         Vector2 coords = new Vector2(x, y);
         stage.screenToStageCoordinates(coords);
-        System.out.println(coords.x +", " + coords.y);
 
 		if (fadeMusic) {
 			GemLord.soundPlayer.fadeOutMapMusic(delta);
@@ -139,7 +138,7 @@ public class Episode2TraverseScreen implements Screen, InputProcessor {
         Gdx.input.setCatchBackKey(true);
 
 
-        GemLord.getInstance().player.getHearts().addToStage(stage);
+        //GemLord.getInstance().player.getHearts().addToStage(stage);
 
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));

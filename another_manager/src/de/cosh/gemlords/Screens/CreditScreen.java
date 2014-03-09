@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -28,10 +29,10 @@ public class CreditScreen implements Screen, InputProcessor {
     public void show() {
         Gdx.input.setInputProcessor(this);
         Gdx.input.setCatchBackKey(true);
-
         batch = new SpriteBatch();
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class);
         bmf = s.getFont("credit-font");
+        bmf.setColor(1, 1, 1, 1);
         FileHandle fileHandle = Gdx.files.internal("data/credits.txt");
         credits = fileHandle.readString();
         yHeight = 0f;
@@ -54,8 +55,6 @@ public class CreditScreen implements Screen, InputProcessor {
 
         yHeight += delta * 75;
 
-
-
         batch.setProjectionMatrix(GemLord.getInstance().camera.combined);
         batch.begin();
         bmf.drawMultiLine(batch, credits, 0, yHeight, GemLord.VIRTUAL_WIDTH, BitmapFont.HAlignment.CENTER);
@@ -64,6 +63,7 @@ public class CreditScreen implements Screen, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
+
         shader.begin();
         shader.setUniformf("u_resolution", width, height);
         shader.end();

@@ -22,7 +22,7 @@ public class Player extends BaseCharacter {
     private int lastTurnDamageReceived;
     private Vector2 positionOnMap;
     private boolean lastStateFullVersion;
-    private Hearts hearts;
+    //private Hearts hearts;
     private boolean watchedEpisode2Intro;
 
     public Player(final GemLord myGame) {
@@ -36,7 +36,7 @@ public class Player extends BaseCharacter {
         actionBar = new ActionBar();
         positionOnMap = new Vector2();
         watchedEpisode2Intro = false;
-        hearts = null;
+        //hearts = null;
     }
 
     public PlayerInventory getInventory() {
@@ -70,6 +70,7 @@ public class Player extends BaseCharacter {
         }
     }
 
+    /*
     public void updateHearts() {
         if( hearts == null ) {
             hearts = new Hearts();
@@ -83,12 +84,11 @@ public class Player extends BaseCharacter {
         }
         return hearts;
     }
-
+*/
     @Override
     public void turn() {
         Enemy enemy = GemLord.getInstance().gameScreen.getBoard().getEnemy();
         GemLord.getInstance().afterActionReport.setHighestDamageDealtInOneTurn(enemy.getLastTurnDamageReceived());
-        System.out.println("Enemy dmg received last turn: " + enemy.getLastTurnDamageReceived());
         enemy.clearLastTurnReceivedDamage();
         super.turn();
         for (int i = 0; i < playerInventory.getAllItems().size(); i++) {

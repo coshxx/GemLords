@@ -41,10 +41,8 @@ public class ItemBetterShield extends BaseItem {
             GemLord.getInstance().soundPlayer.playBlock();
             int reduce = MathUtils.random(5, 10);
             if( MathUtils.random(1, 100) <= 50 ) {
-                System.out.println("The shield heals:" + reduce);
                 GemLord.getInstance().player.increaseHealth(reduce);
             }
-            System.out.println("The shield blocks: " + reduce );
             return (incomingDamage-reduce < 0) ? 0 : incomingDamage-reduce;
         }
         return incomingDamage;

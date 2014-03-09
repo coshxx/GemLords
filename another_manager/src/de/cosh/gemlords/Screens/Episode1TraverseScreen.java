@@ -94,7 +94,7 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
 		stage.act(delta);
 		stage.draw();
 
-        GemLord.getInstance().player.getHearts().update();
+        //GemLord.getInstance().player.getHearts().update();
 
 		if (fadeMusic) {
 			GemLord.soundPlayer.fadeOutMapMusic(delta);
@@ -134,7 +134,7 @@ public class Episode1TraverseScreen implements Screen, InputProcessor {
         Gdx.input.setCatchBackKey(true);
 
 
-        GemLord.getInstance().player.getHearts().addToStage(stage);
+        //GemLord.getInstance().player.getHearts().addToStage(stage);
 
 		stage.addAction(Actions.alpha(0));
 		stage.addAction(Actions.fadeIn(1));

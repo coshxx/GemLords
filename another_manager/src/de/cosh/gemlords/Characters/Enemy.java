@@ -82,8 +82,8 @@ public class Enemy extends BaseCharacter {
                                          final Stage stage, final EnemyManager enemyManager) {
         this.enemyImage = enemyImage;
         final Enemy e = this;
-        pointButton.setBounds(mapPos.x, mapPos.y, 30, 30);
-        pointButtonDone.setBounds(mapPos.x, mapPos.y, 30, 30);
+        pointButton.setBounds(mapPos.x, mapPos.y, 40, 40);
+        pointButtonDone.setBounds(mapPos.x, mapPos.y, 40, 40);
         setHealth(enemyHP);
         pointButton.addListener(new ClickListener() {
 
@@ -150,7 +150,6 @@ public class Enemy extends BaseCharacter {
 
     public void turn(Player player) {
         GemLord.getInstance().afterActionReport.setHighestDamageReceivedInOneTurn(player.getLastTurnDamageReceived());
-        System.out.println("Player last turn received damage: " + player.getLastTurnDamageReceived());
         player.clearLastTurnReceivedDamage();
         for (int i = 0; i < abilities.size; i++) {
             BaseAbility ability = abilities.get(i);

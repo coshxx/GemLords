@@ -24,7 +24,7 @@ public class GemLord extends Game {
 	public static SoundPlayer soundPlayer;
 	private static GemLord instance;
 	public OrthographicCamera camera;
-	private OrthographicCamera guiCamera;
+	public OrthographicCamera guiCamera;
 	public Rectangle viewport;
 	public Enemy enemy;
 	public EnemyManager enemyManager;
@@ -135,6 +135,7 @@ public class GemLord extends Game {
 		int viewportY = (int) (height - size.y) / 2;
 		int viewportWidth = (int) size.x;
 		int viewportHeight = (int) size.y;
+
 		Gdx.gl.glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
 		stage.setViewport(GemLord.VIRTUAL_WIDTH,
 				GemLord.VIRTUAL_HEIGHT, true, viewportX, viewportY,

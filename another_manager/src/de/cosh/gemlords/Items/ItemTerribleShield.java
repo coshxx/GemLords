@@ -40,7 +40,6 @@ public class ItemTerribleShield extends BaseItem {
             addAction(Actions.sequence(Actions.scaleTo(2f, 2f, 0.15f), Actions.scaleTo(1f, 1f, 0.15f)));
             GemLord.getInstance().soundPlayer.playBlock();
             int reduce = MathUtils.random(1, 5);
-            System.out.println("The shield blocks: " + reduce );
             return (incomingDamage-reduce < 0) ? 0 : incomingDamage-reduce;
         }
         return incomingDamage;

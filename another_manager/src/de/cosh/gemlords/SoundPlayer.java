@@ -117,7 +117,7 @@ public class SoundPlayer {
 
 	public void playDing(final int hits_during_current_move) {
 		final float pitch = hits_during_current_move / 10f;
-		ding.play(1f, 1f + pitch, 1f);
+		ding.play(1f, 1f + pitch, 0f);
 	}
 
 	public void playFireballStart() {
