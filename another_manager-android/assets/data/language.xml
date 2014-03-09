@@ -71,6 +71,8 @@
     <string key="Grants an additional&#10; 75 health&#10;Increases crit chance&#10;by 3%" value="75 Leben mehr&#10;3% erhöhte Crit Chance"/>
     <string key="Minor potion" value="Geringer Heiltrank" />
     <string key="Recover 10-20 hp&#10;Cooldown: 10" value="Stellt 10-20 Leben her&#10;Abklingzeit: 10"/>
+    <string key="Major potion" value="Grosser Heiltrank" />
+    <string key="Recover 20-40 hp&#10;Cooldown: 10" value="Stellt 20-40 Leben her&#10;Abklingzeit: 10"/>
     <string key="Alpha Totem" value="Alpha Totem"/>
     <string key="Recover 1-3 health&#10;each turn&#10;Cooldown: 99" value="Stellt 1-3 Leben&#10;pro Zug wieder her&#10;Abklingzeit: 99" />
     <string key="Scholars Robe" value="Robe des Gelehrten"/>
@@ -108,6 +110,9 @@
     <string key="Orc Soldier" value="Orc Soldat"/>
     <string key="Moor Wolf" value="Moor Wolf"/>
     <string key="Swamp Wizard" value="Sumpf Zauberer"/>
+    <string key="Dragon" value="Drache"/>
+    <string key="Swamp Thing" value="Sumpf Ding"/>
+    <string key="Green Ogre" value="Grüner Oger"/>
 
 </language>
 

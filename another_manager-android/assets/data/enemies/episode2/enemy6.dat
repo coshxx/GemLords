@@ -1,0 +1,32 @@
+{
+enemyImageLocation: enemyswampogre,
+enemyName: "Green Ogre",
+enemyNumber: 22,
+abilities: [
+	{
+		class: 	de.cosh.gemlords.Abilities.AbilitySmash,
+		currentCooldown: 4,
+		cooldown: 4
+	},
+	{
+		class:	de.cosh.gemlords.Abilities.AbilityPoison,
+		currentCooldown: 6,
+		cooldown: 6
+	},
+	{
+		class: 	de.cosh.gemlords.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	}
+	
+],
+locationOnMap: {
+	x: 120,
+	y: 670
+},
+healthBar: {
+	hp: 340,
+	maxHP: 340
+},
+dropItemID: -1
+}

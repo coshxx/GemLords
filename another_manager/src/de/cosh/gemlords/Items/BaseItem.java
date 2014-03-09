@@ -83,6 +83,8 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
                 return new ItemRunedDagger();
             case 17:
                 return new ItemRunedRobe();
+            case 18:
+                return new ItemMajorHealthPotion();
             default:
                 return null;
         }

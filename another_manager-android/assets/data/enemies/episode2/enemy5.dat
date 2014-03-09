@@ -1,0 +1,27 @@
+{
+enemyImageLocation: enemyswampthing,
+enemyName: "Swamp Thing",
+enemyNumber: 21,
+abilities: [
+	{
+		class: 	de.cosh.gemlords.Abilities.AbilityStrongAttack,
+		currentCooldown: 3,
+		cooldown: 3
+	},
+	{
+		class: 	de.cosh.gemlords.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	}
+	
+],
+locationOnMap: {
+	x: 150,
+	y: 720
+},
+healthBar: {
+	hp: 260,
+	maxHP: 260
+},
+dropItemID: 18
+}

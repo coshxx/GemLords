@@ -18,6 +18,7 @@ id, item
 15, magic ring
 16, runed dagger
 17, runed robe
+18, major health potion
 
 1337, devrobe
 
