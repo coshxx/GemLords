@@ -19,6 +19,8 @@ id, item
 16, runed dagger
 17, runed robe
 18, major health potion
+19, sword
+20, master robe
 
 1337, devrobe
 

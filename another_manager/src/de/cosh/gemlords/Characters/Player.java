@@ -64,7 +64,8 @@ public class Player extends BaseCharacter {
                 if (item.getItemSlotType() == BaseItem.ItemSlotType.POTION ||
                         item.getItemSlotType() == BaseItem.ItemSlotType.BOW_ACTIVE ||
                         item.getItemSlotType() == BaseItem.ItemSlotType.WATCH_ACTIVE ||
-                        item.getItemSlotType() == BaseItem.ItemSlotType.TOTEM_ACTIVE)
+                        item.getItemSlotType() == BaseItem.ItemSlotType.TOTEM_ACTIVE ||
+                        item.getItemSlotType() == BaseItem.ItemSlotType.SWORD_THROW)
                     item.drawCooldown(batch, parentAlpha);
             }
         }
@@ -95,7 +96,8 @@ public class Player extends BaseCharacter {
             BaseItem currentItem = playerInventory.getAllItems().get(i);
             if (currentItem.isAddedToActionBar()) {
                 if (currentItem.getItemSlotType() == BaseItem.ItemSlotType.POTION ||
-                        currentItem.getItemSlotType() == BaseItem.ItemSlotType.BOW_ACTIVE) {
+                        currentItem.getItemSlotType() == BaseItem.ItemSlotType.BOW_ACTIVE ||
+                        currentItem.getItemSlotType() == BaseItem.ItemSlotType.SWORD_THROW) {
                     currentItem.turn();
                 }
             }
@@ -281,7 +283,7 @@ public class Player extends BaseCharacter {
         }
         getInventory().clearInventory();
         getActionBar().clear();
-
+        watchedEpisode2Intro = false;
     }
 
     public boolean existsPreferences() {

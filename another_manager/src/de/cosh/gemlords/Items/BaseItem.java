@@ -85,6 +85,10 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
                 return new ItemRunedRobe();
             case 18:
                 return new ItemMajorHealthPotion();
+            case 19:
+                return new ItemSword();
+            case 20:
+                return new ItemMasterRobe();
             default:
                 return null;
         }
@@ -217,6 +221,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
         TOTEM_ACTIVE,
         SHIELD,
         WEAPON_PASSIVE,
+        SWORD_THROW,
         RING_PASSIVE,
         AMULET_PASSIVE
     }

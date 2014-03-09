@@ -13,8 +13,8 @@ import de.cosh.gemlords.Characters.Enemy;
 import de.cosh.gemlords.Characters.Player;
 import de.cosh.gemlords.CustomActions.ToMenuScreenAction;
 import de.cosh.gemlords.GUI.GUIButton;
+import de.cosh.gemlords.GUI.GUIWindow;
 import de.cosh.gemlords.GemLord;
-import de.cosh.gemlords.Items.*;
 
 /**
  * Created by cosh on 10.12.13.
@@ -71,12 +71,12 @@ public class Episode2TraverseScreen implements Screen, InputProcessor {
 			}
 			counter++;
 		}
-
-        if( player.levelDone[15] ) {
-            /*stage.addAction(Actions.after(
-                    Actions.fadeOut(2f)));
-                    */
+        /*
+        if( player.levelDone[23] ) {
+            GUIWindow guiWindow = new GUIWindow(stage);
+            guiWindow.createThanksSoFarWindow();
         }
+        */
 	}
 
 	@Override

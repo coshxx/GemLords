@@ -29,10 +29,8 @@
     <string key="Enemy turn" value="Gegner Zug"/>
     <string key="Ready" value="Bereit"/>
     <string key="Return to map" value="Zur Karte"/>
-    <string key="Buy the full version" value="Vollversion kaufen"/>
-    <string key="Thank you for playing Gem Lords.&#10;If you enjoyed this game,&#10;please consider buying&#10;the full version. This will allow me&#10;to keep on developing games and&#10;will allow you to keep on playing&#10;and also remove all ads&#10;Do you wish to buy the game now?&#10;Full version gets you:&#10;*No ads&#10;*What we have of Episode 2 so far"
-            value ="Vielen Dank, dass Du Gem Lords&#10;gespielt hast. Wenn Dir das Spiel &#10;gefallen hat, hast Du jetzt die Möglichkeit&#10;es zu kaufen. Dann kannst Du&#10;weiterspielen, ich weiterentwickeln&#10;und alle sind glücklich.&#10;Die Vollversion bringt Dir:&#10;*Keine Ads&#10;*Einen Teil von Episode 2&#10;" />
-    <string key="Buy now" value="Jetzt kaufen" />
+    <string key="Thank you" value="Danke"/>
+    <string key="Thanks for playing&#10;Updates coming soon" value="Danke fürs Spielen&#10;Updates kommen bald"/>
     <string key="Buy" value="Kaufen"/>
     <string key="Remove Ads" value="Ads entfernen" />
 
@@ -90,6 +88,10 @@
     <string key="Increases your&#10;damage by 3 - 6" value="Erhöht den Schaden&#10;um 3 - 6"/>
     <string key="Runed Robe" value="Runen Robe"/>
     <string key="Grants an additional&#10; 100 health&#10;Increases crit chance&#10;by 5%" value="100 Leben mehr&#10;5% erhöhte Crit Chance"/>
+    <string key="Sword" value="Schwert"/>
+    <string key="Throw your Sword for&#10;1-60 Damage&#10;Cooldown: 10" value="Wirf dein Schwert für&#10;1-60 Schaden&#10;Abklingzeit: 10"/>
+    <string key="Master Robe" value="Meister Robe"/>
+    <string key="Grants an additional&#10; 125 health&#10;Increases crit chance&#10;by 6%" value="125 Leben mehr&#10;6% erhöhte Crit Chance"/>
 
     // enemies
     <string key="Scarecrow" value="Vogelscheuche"/>
@@ -113,7 +115,10 @@
     <string key="Dragon" value="Drache"/>
     <string key="Swamp Thing" value="Sumpf Ding"/>
     <string key="Green Ogre" value="Grüner Oger"/>
-
+    <string key="Mud Maggot" value="Matsch Made"/>
+    <string key="Knight" value="Ritter"/>
+    <string key="Bog Creature" value="Morast Kreatur"/>
+    <string key="Electric Eel" value="Elektrischer Aal"/>
 </language>
 
 </languages>

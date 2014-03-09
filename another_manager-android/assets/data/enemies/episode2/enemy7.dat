@@ -1,0 +1,21 @@
+{
+enemyImageLocation: enemymudmaggot,
+enemyName: "Mud Maggot",
+enemyNumber: 23,
+abilities: [
+	{
+		class: 	de.cosh.gemlords.Abilities.AbilityMudBolt,
+		currentCooldown: 2,
+		cooldown: 2
+	}
+],
+locationOnMap: {
+	x: 180,
+	y: 620
+},
+healthBar: {
+	hp: 360,
+	maxHP: 360
+},
+dropItemID: -1
+}

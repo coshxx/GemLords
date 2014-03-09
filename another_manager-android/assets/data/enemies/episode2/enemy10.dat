@@ -1,0 +1,32 @@
+{
+enemyImageLocation: enemyeel,
+enemyName: "Electric Eel",
+enemyNumber: 26,
+abilities: [
+	{
+		class: de.cosh.gemlords.Abilities.AbilityLightningRod,
+		currentCooldown: 5,
+		cooldown: 1
+	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilityLightningRod,
+		currentCooldown: 6,
+		cooldown: 1
+	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilityLightningRod,
+		currentCooldown: 7,
+		cooldown: 1
+	},
+
+],
+locationOnMap: {
+	x: 350,
+	y: 720
+},
+healthBar: {
+	hp: 350,
+	maxHP: 350
+},
+dropItemID: 20
+}

@@ -4,14 +4,14 @@ import de.cosh.gemlords.Characters.BaseCharacter;
 import de.cosh.gemlords.LanguageManager;
 
 
-public class ItemRunedRobe extends BaseItem {
+public class ItemMasterRobe extends BaseItem {
 
-	public ItemRunedRobe() {
-		super("robe_mage");
+	public ItemMasterRobe() {
+		super("robe_master");
         LanguageManager lm = LanguageManager.getInstance();
 		itemNumber = 17;
-		setItemName(lm.getString("Runed Robe"));
-		setItemText(lm.getString("Grants an additional\n 100 health\nIncreases crit chance\nby 5%"));
+		setItemName(lm.getString("Master Robe"));
+		setItemText(lm.getString("Grants an additional\n 125 health\nIncreases crit chance\nby 6%"));
 		setItemSlotType(ItemSlotType.ROBE_ARMOR);
 	}
 
@@ -21,12 +21,12 @@ public class ItemRunedRobe extends BaseItem {
 	}
 
     public int getCritChanceIncrease() {
-        return 5;
+        return 6;
     }
 
 	@Override
 	public int preFirstTurnBuff(BaseCharacter wearer) {
-		wearer.preGameIncreaseHealth(100);
-		return 100;
+		wearer.preGameIncreaseHealth(125);
+		return 125;
 	}
 }

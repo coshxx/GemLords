@@ -23,6 +23,8 @@ public class SoundPlayer {
     private Sound scribble;
     private Sound howl;
     private Sound curse;
+    private Sound mudBolt;
+    private Sound swordThrow;
 
 	private Sound gulp;
 	private Sound challenge;
@@ -248,6 +250,7 @@ public class SoundPlayer {
 		loadoutMusic = assets.get("data/sounds/loadoutmusic.ogg", Music.class);
         lightningRod = assets.get("data/sounds/lightningrod.ogg", Sound.class);
 		slideIn = assets.get("data/sounds/slidein.ogg", Sound.class);
+        mudBolt = assets.get("data/sounds/abilitymudbolt.ogg", Sound.class);
         petrify = assets.get("data/sounds/abilitypetrify.ogg");
 		pocketwatch = assets.get("data/sounds/pocketwatch.ogg", Sound.class);
 		menuMusic = assets.get("data/sounds/menumusic.ogg", Music.class);
@@ -266,6 +269,7 @@ public class SoundPlayer {
         abilityBite = assets.get("data/sounds/bite.ogg", Sound.class);
         gotItem = assets.get("data/sounds/gotitem.ogg", Sound.class);
         howl = assets.get("data/sounds/wolfhowl.ogg", Sound.class);
+        swordThrow = assets.get("data/sounds/swordthrow.ogg", Sound.class);
 
         menuMusic.setLooping(true);
         gameMusic0.setLooping(true);
@@ -330,5 +334,13 @@ public class SoundPlayer {
 
     public void playHowl() {
         howl.play();
+    }
+
+    public void playMudBolt() {
+        mudBolt.play();
+    }
+
+    public void playSwordThrow() {
+        swordThrow.play();
     }
 }

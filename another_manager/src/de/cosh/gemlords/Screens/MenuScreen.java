@@ -28,10 +28,8 @@ public class MenuScreen implements Screen {
     private Skin skin;
 
     private TextButton newGameButton;
-    private TextButton optionsButton;
     private TextButton exitGameButton;
     private TextButton creditsButton;
-    private TextButton returnFromOptions;
     private TextButton continueButton;
     private TextButton buyGameButton;
     private Image backGround;
@@ -47,10 +45,8 @@ public class MenuScreen implements Screen {
         LanguageManager lm = LanguageManager.getInstance();
         continueButton = new TextButton(lm.getString("Continue"), skin);
         newGameButton = new TextButton(lm.getString("New Game"), skin);
-        optionsButton = new TextButton(lm.getString("Options"), skin);
         exitGameButton = new TextButton(lm.getString("Exit Game"), skin);
         creditsButton = new TextButton(lm.getString("Credits"), skin);
-        returnFromOptions = new TextButton(lm.getString("Back"), skin);
         buyGameButton = new TextButton(lm.getString("Remove Ads"), skin);
         addButtonListeners();
     }
@@ -119,14 +115,12 @@ public class MenuScreen implements Screen {
 
         continueButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         newGameButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
-        optionsButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         creditsButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         exitGameButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
 
         if (buyGameButton != null) {
             buyGameButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         }
-        returnFromOptions.setStyle(CustomStyle.getInstance().getTextButtonStyle());
 
         continueButton.setBounds(265, 500, 200, 50);
         continueButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -134,22 +128,16 @@ public class MenuScreen implements Screen {
         newGameButton.setBounds(265, 440, 200, 50);
         newGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-        optionsButton.setBounds(265, 380, 200, 50);
-        optionsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-        creditsButton.setBounds(265, 320, 200, 50);
+        creditsButton.setBounds(265, 380, 200, 50);
         creditsButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-        exitGameButton.setBounds(265, 260, 200, 50);
+        exitGameButton.setBounds(265, 320, 200, 50);
         exitGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         if (buyGameButton != null) {
             buyGameButton.setBounds(265, 180, 200, 50);
             buyGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
-
-        returnFromOptions.setBounds(990, 260, 200, 50);
-        returnFromOptions.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         stage.setCamera(GemLord.getInstance().camera);
         stage.addActor(backGround);
@@ -158,7 +146,6 @@ public class MenuScreen implements Screen {
             stage.addActor(continueButton);
         }
         stage.addActor(newGameButton);
-        stage.addActor(optionsButton);
         stage.addActor(creditsButton);
         stage.addActor(exitGameButton);
         if (GemLord.getInstance().requestHandler.googleConnectionOrCacheEstablished()) {
@@ -174,7 +161,6 @@ public class MenuScreen implements Screen {
                 GemLord.getInstance().requestHandler.showAds(true);
             }
         }
-        stage.addActor(returnFromOptions);
         stage.addAction(Actions.alpha(0));
         stage.addAction(Actions.fadeIn(0.5f));
     }
@@ -184,9 +170,7 @@ public class MenuScreen implements Screen {
 
         continueButton.clearActions();
         newGameButton.clearActions();
-        optionsButton.clearActions();
         exitGameButton.clearActions();
-        returnFromOptions.clearActions();
         creditsButton.clearActions();
 
         if (buyGameButton != null)
@@ -198,16 +182,10 @@ public class MenuScreen implements Screen {
         newGameButton.addAction(Actions.forever(Actions.sequence(
                 Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
 
-        optionsButton.addAction(Actions.forever(Actions.sequence(
-                Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
-
         exitGameButton.addAction(Actions.forever(Actions.sequence(
                 Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
 
         creditsButton.addAction(Actions.forever(Actions.sequence(
-                Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
-
-        returnFromOptions.addAction(Actions.forever(Actions.sequence(
                 Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
 
         if (buyGameButton != null) {
@@ -269,29 +247,6 @@ public class MenuScreen implements Screen {
                                 Gdx.app.exit();
                             }
                         })));
-            }
-        });
-
-        optionsButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (!stageShiftingRight) {
-                    stage.addAction(Actions.moveBy(-stage.getWidth(), 0, 0.5f));
-                    stageShiftingLeft = false;
-                    stageShiftingRight = true;
-                }
-
-            }
-        });
-
-        returnFromOptions.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (!stageShiftingLeft) {
-                    stage.addAction(Actions.moveBy(stage.getWidth(), 0, 0.5f));
-                    stageShiftingLeft = true;
-                    stageShiftingRight = false;
-                }
             }
         });
 
