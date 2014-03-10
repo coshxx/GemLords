@@ -5,13 +5,13 @@ enemyNumber: 20,
 abilities: [
 	{
 		class: 	de.cosh.gemlords.Abilities.AbilityFireball,
-		currentCooldown: 3,
-		cooldown: 3
+		currentCooldown: 2,
+		cooldown: 2
 	},
 	{
 		class:	de.cosh.gemlords.Abilities.AbilityBite,
-		currentCooldown: 4,
-		cooldown: 4
+		currentCooldown: 5,
+		cooldown: 5
 	},
 	{
 		class: 	de.cosh.gemlords.Abilities.AbilityThink,

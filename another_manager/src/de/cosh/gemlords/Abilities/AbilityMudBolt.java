@@ -102,7 +102,7 @@ public class AbilityMudBolt extends BaseAbility {
                 }
 
                 float temp = damage.damage;
-                temp *= 1.5f;
+                temp *= 2f;
                 damage.damage = (int)temp;
 
                 if( MathUtils.randomBoolean() ) {
