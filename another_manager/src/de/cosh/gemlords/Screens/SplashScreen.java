@@ -43,6 +43,7 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/textures/map2.jpg", Texture.class);
 		GemLord.assets.load("data/textures/splash.jpg", Texture.class);
 		GemLord.assets.load("data/textures/menu.png", Texture.class);
+
         GemLord.assets.load("data/textures/pack.atlas", TextureAtlas.class);
 
 		GemLord.assets.load("data/sounds/bang.ogg", Sound.class);
@@ -89,7 +90,6 @@ public class SplashScreen implements Screen {
 		GemLord.assets.load("data/sounds/abilitypetrify.ogg", Sound.class);
 
 		GemLord.assets.load("data/sounds/awesome.ogg", Sound.class);
-
 	}
 
 	@Override
