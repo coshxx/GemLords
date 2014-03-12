@@ -1,6 +1,6 @@
 package de.cosh.gemlords.Abilities;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -57,7 +57,7 @@ public class LightningBolt {
 
     }
 
-    public void draw(Batch batch, float parentAlpha) {
+    public void draw(SpriteBatch batch, float parentAlpha) {
         for (LightningLine l : lightningLines)
             l.draw(batch, parentAlpha);
     }

@@ -2,7 +2,7 @@ package de.cosh.gemlords.Screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
@@ -192,7 +192,7 @@ public class GameScreen implements Screen, GestureListener, InputProcessor {
         return false;
     }
 
-    public Batch getBatch() {
+    public SpriteBatch getBatch() {
         return stage.getSpriteBatch();
     }
 

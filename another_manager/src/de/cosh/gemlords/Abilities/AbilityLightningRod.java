@@ -1,7 +1,7 @@
 package de.cosh.gemlords.Abilities;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
@@ -130,7 +130,7 @@ public class AbilityLightningRod extends BaseAbility {
 
 
 
-    public void drawFire(Batch batch, float parentAlpha) {
+    public void drawFire(SpriteBatch batch, float parentAlpha) {
         Color color = new Color(1, 1, 1, parentAlpha);
         switch (chosenGem ) {
             case 0:

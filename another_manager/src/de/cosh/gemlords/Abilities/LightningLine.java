@@ -1,6 +1,6 @@
 package de.cosh.gemlords.Abilities;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -32,7 +32,7 @@ public class LightningLine {
     public Vector2 getStart() { return start; }
     public Vector2 getEnd() { return end; }
 
-    public void draw(Batch batch, float parentAlpha) {
+    public void draw(SpriteBatch batch, float parentAlpha) {
         Vector2 oldEnd = new Vector2(end);
         Vector2 tangent = new Vector2(oldEnd.sub(start));
         float rotation = (float)Math.toDegrees(Math.atan2(tangent.y, tangent.x));

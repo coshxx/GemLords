@@ -1,6 +1,6 @@
 package de.cosh.gemlords.SwapGame;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -94,10 +94,10 @@ public class Gem extends Image {
 	boolean fall(float delta) {
 		speed += ACCEL_FACTOR * delta;
         float toTranslate = speed * delta;
-        moveBy(0, -toTranslate);
+        translate(0, -toTranslate);
 		totalTranslated += toTranslate;
 		if (totalTranslated >= Board.CELL_SIZE) {
-			moveBy(0, totalTranslated - Board.CELL_SIZE);
+			translate(0, totalTranslated - Board.CELL_SIZE);
 			totalTranslated = 0;
 			cellY--;
 			if (cellY < Board.MAX_SIZE_Y) {

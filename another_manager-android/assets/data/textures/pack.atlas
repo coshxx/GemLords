@@ -1,7 +1,7 @@
 
 pack.png
 format: RGBA8888
-filter: MipMapLinearNearest,Linear
+filter: MipMapLinearNearest,Nearest
 repeat: none
 background
   rotate: false
@@ -167,7 +167,7 @@ menuskin
 
 pack2.png
 format: RGBA8888
-filter: MipMapLinearNearest,Linear
+filter: MipMapLinearNearest,Nearest
 repeat: none
 title
   rotate: false
@@ -368,7 +368,7 @@ buff_border
 
 pack3.png
 format: RGBA8888
-filter: MipMapLinearNearest,Linear
+filter: MipMapLinearNearest,Nearest
 repeat: none
 debuff_border
   rotate: false
@@ -625,7 +625,7 @@ itemsword
 
 pack4.png
 format: RGBA8888
-filter: MipMapLinearNearest,Linear
+filter: MipMapLinearNearest,Nearest
 repeat: none
 enemykingcrab
   rotate: false
@@ -721,7 +721,7 @@ robe
 
 pack5.png
 format: RGBA8888
-filter: MipMapLinearNearest,Linear
+filter: MipMapLinearNearest,Nearest
 repeat: none
 robe_mage
   rotate: false

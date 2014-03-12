@@ -1,6 +1,6 @@
 package de.cosh.gemlords.Characters;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -42,7 +42,7 @@ public class Buff {
 		group.addActor(buffImage);
 	}
 
-	public void drawCooldown(Batch batch, final float parentAlpha) {
+	public void drawCooldown(SpriteBatch batch, final float parentAlpha) {
 		final Integer cooldown = turns - turnsComplete;
 		bmf.setColor(1f, 1f, 1f, parentAlpha);
 		bmf.draw(batch, cooldown.toString(), buffImage.getX(), buffImage.getY());

@@ -3,7 +3,7 @@ package de.cosh.gemlords.Characters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -51,7 +51,7 @@ public class Player extends BaseCharacter {
         actionBar.addToBoard(foreGround);
     }
 
-    public void draw(Batch batch, final float parentAlpha) {
+    public void draw(SpriteBatch batch, final float parentAlpha) {
         for (int i = 0; i < getDebuffs().size; i++) {
             getDebuffs().get(i).drawCooldown(batch, parentAlpha);
         }

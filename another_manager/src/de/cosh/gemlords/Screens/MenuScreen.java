@@ -99,10 +99,13 @@ public class MenuScreen implements Screen {
         table.setFillParent(true);
         backGround = new Image(GemLord.getInstance().assets.get(
                 "data/textures/menu.png", Texture.class));
+        backGround.setFillParent(true);
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
         Image titleImage = new Image(atlas.findRegion("title"));
 
-        titleImage.setPosition(0, GemLord.VIRTUAL_HEIGHT - titleImage.getHeight());
+        titleImage.setPosition(GemLord.VIRTUAL_WIDTH/2-titleImage.getWidth()/2, GemLord.VIRTUAL_HEIGHT - titleImage.getHeight()*2);
+        titleImage.setOrigin(titleImage.getWidth()/2, titleImage.getHeight()/2);
+        titleImage.setScale(2f);
 
         table.setBackground(backGround.getDrawable());
 

@@ -1,7 +1,7 @@
 package de.cosh.gemlords.Characters;
 
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -23,7 +23,7 @@ class FloatingNumbers extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        this.moveBy(0, delta * 50);
+        this.translate(0, delta * 50);
     }
 
     public void setup(int value, float x, float y, boolean isCrit) {
@@ -34,7 +34,7 @@ class FloatingNumbers extends Actor {
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
+    public void draw(SpriteBatch batch, float parentAlpha) {
         bmf.setScale(2f);
         if (value > 0) {
             bmf.setColor(0f, 1f, 0f, parentAlpha * this.getColor().a);

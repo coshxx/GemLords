@@ -1,7 +1,7 @@
 package de.cosh.gemlords.SwapGame;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -45,7 +45,7 @@ public class ParticleActor extends Actor {
 	}
 
 	@Override
-	public void draw(Batch batch, final float parentAlpha) {
+	public void draw(SpriteBatch batch, final float parentAlpha) {
 		for (int i = effects.size - 1; i >= 0; i--) {
 			final ParticleEffectPool.PooledEffect effect = effects.get(i);
 			effect.draw(batch);

@@ -1,6 +1,6 @@
 package de.cosh.gemlords.Items;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -109,7 +109,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
     }
 
     @Override
-    public void drawCooldown(Batch batch, float parentAlpha) {
+    public void drawCooldown(SpriteBatch batch, float parentAlpha) {
     }
 
     @Override
@@ -138,7 +138,7 @@ public abstract class BaseItem extends Image implements UseItem, Comparable<Base
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
+    public void draw(SpriteBatch batch, float parentAlpha) {
         if (selected)
             itemBorder.setColor(1f, 0f, 0f, parentAlpha * getColor().a);
         else itemBorder.setColor(1f, 1f, 1f, parentAlpha * getColor().a);

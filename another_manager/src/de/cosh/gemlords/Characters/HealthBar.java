@@ -57,7 +57,7 @@ public class HealthBar extends Actor {
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
+    public void draw(SpriteBatch batch, float parentAlpha) {
         //super.draw(batch, parentAlpha);
         final Integer health = hp;
         final Integer maxhealth = maxHP;

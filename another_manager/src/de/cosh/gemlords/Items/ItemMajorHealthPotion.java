@@ -1,6 +1,6 @@
 package de.cosh.gemlords.Items;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import de.cosh.gemlords.Characters.BaseCharacter;
 import de.cosh.gemlords.GemLord;
@@ -46,7 +46,7 @@ public class ItemMajorHealthPotion extends BaseItem implements UseItem {
 	}
 
 	@Override
-    public void drawCooldown(Batch batch, float parentAlpha) {
+    public void drawCooldown(SpriteBatch batch, float parentAlpha) {
         bmf.setColor(1f, 1f, 1f, getColor().a * parentAlpha);
         LanguageManager lm = LanguageManager.getInstance();
         if( currentCooldown <= 0 ) {

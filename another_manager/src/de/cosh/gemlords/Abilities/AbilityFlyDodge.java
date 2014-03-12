@@ -1,6 +1,6 @@
 package de.cosh.gemlords.Abilities;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
@@ -39,7 +39,7 @@ public class AbilityFlyDodge extends BaseAbility {
     }
 
     @Override
-    public void drawCooldown(final Batch batch, final float parentAlpha) {
+    public void drawCooldown(final SpriteBatch batch, final float parentAlpha) {
         return;
     }
 }

@@ -1,7 +1,7 @@
 package de.cosh.gemlords.SwapGame;
 
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -106,7 +106,7 @@ public class Board extends Group {
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
+    public void draw(SpriteBatch batch, float parentAlpha) {
         //super.draw(batch, parentAlpha);
         backGround.draw(batch, parentAlpha);
         foreGround.draw(batch, parentAlpha);

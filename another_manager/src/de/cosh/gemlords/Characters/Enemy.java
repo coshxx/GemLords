@@ -2,7 +2,7 @@ package de.cosh.gemlords.Characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -121,7 +121,7 @@ public class Enemy extends BaseCharacter {
 
     }
 
-    public void draw(Batch batch, float parentAlpha) {
+    public void draw(SpriteBatch batch, float parentAlpha) {
         for (int i = 0; i < abilities.size; i++) {
             final BaseAbility current = abilities.get(i);
             current.drawCooldown(batch, parentAlpha);
