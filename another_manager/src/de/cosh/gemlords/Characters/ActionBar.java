@@ -36,7 +36,7 @@ public class ActionBar {
     public void addToLoadoutScreen(final Stage stage) {
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
         actionBarImage = new Image(atlas.findRegion("actionbar"));
-        actionBarImage.setPosition(0, 80);
+        actionBarImage.setBounds(0, 80, 720, 162);
         stage.addActor(actionBarImage);
 
         for (int i = 0; i < BARLENGTH; i++) {
@@ -93,7 +93,7 @@ public class ActionBar {
     public void addToBoard(Group foreGround) {
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
         actionBarImage = new Image(atlas.findRegion("actionbar"));
-        actionBarImage.setPosition(0, 80);
+        actionBarImage.setBounds(0, 80, 720, 162);
         foreGround.addActor(actionBarImage);
         for (int i = 0; i < BARLENGTH; i++) {
             final int index = i;

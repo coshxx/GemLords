@@ -36,12 +36,11 @@ public class HealthBar extends Actor {
             last -= delta * shrinkRate;
             if( last < 0 )
                 last = 0;
-            fullBar.setRegionWidth((int) last);
+
         }
 
         if( target > last ) {
             last += delta * shrinkRate;
-            fullBar.setRegionWidth((int) last);
         }
 
         //fullBar.setBounds(left, bot, done*width, height);
@@ -64,9 +63,8 @@ public class HealthBar extends Actor {
         final Integer maxhealth = maxHP;
         emptyBar.draw(batch, parentAlpha);
         //fullBar.draw(batch, parentAlpha);
-        batch.draw(fullBar, left, bot); // +2 why????????
-
-        GemLord.getInstance();
+        //batch.draw(fullBar, left, bot, last, height);
+        batch.draw(fullBar.getTexture(), left, bot, 0, 0, last, height, 1, 1, 0, fullBar.getRegionX(), fullBar.getRegionY(), (int)last/2, fullBar.getRegionHeight(), false, false);
         Skin s = GemLord.assets.get("data/ui/uiskin.json", Skin.class)	;
         bmf = s.getFont("default-font");
         bmf.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -114,6 +112,7 @@ public class HealthBar extends Actor {
         TextureAtlas atlas = GemLord.assets.get("data/textures/pack.atlas", TextureAtlas.class);
         emptyBar = new Sprite(atlas.findRegion("emptyhp"));
         fullBar = new TextureRegion(atlas.findRegion("fullhp"));
+
         /*
         emptyBar = new Sprite(new Texture(Gdx.files.internal("data/textures/raw-atlas/emptyhp.png")));
         fullBar = new TextureRegion(new Texture(Gdx.files.internal("data/textures/raw-atlas/fullhp.png")));
@@ -131,9 +130,7 @@ public class HealthBar extends Actor {
         this.height = height;
 
         emptyBar.setBounds(left, bot, width, height);
-
         last = done * width;
-        //fullBar = new TextureRegion(fullBar.getTexture(), (int)last, (int)height);
     }
 
     public void increaseHealth(int hp) {
