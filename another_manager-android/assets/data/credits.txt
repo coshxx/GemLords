@@ -62,8 +62,12 @@ www.freesound.org
 
 Music
 ==============================
-Document1 :)
-Composer: Phil the skill
+Document1
+Composer: Valor
+www.samenet.de
+
+Document2
+Composer: Valor
 www.samenet.de
 
 Down

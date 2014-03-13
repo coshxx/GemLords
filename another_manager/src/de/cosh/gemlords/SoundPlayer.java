@@ -52,6 +52,7 @@ public class SoundPlayer {
     private Music gameMusic1;
     private Music gameMusic2;
     private Music gameMusic3;
+    private Music gameMusic4;
     private Music creditsMusic;
 	private float mapMusicVolume;
 
@@ -179,7 +180,7 @@ public class SoundPlayer {
 
 	public void playGameMusic() {
         Random r = new Random();
-        int choice = r.nextInt(6);
+        int choice = r.nextInt(7);
         if( choice == 0 )
 		    gameMusic0.play();
         else if( choice == 1 ) {
@@ -195,6 +196,9 @@ public class SoundPlayer {
         }
         else if (choice == 5 ) {
             gameMusic3.play();
+        }
+        else if (choice == 6 ) {
+            gameMusic4.play();
         }
 	}
 
@@ -261,6 +265,7 @@ public class SoundPlayer {
 		gameMusic1 = assets.get("data/sounds/music3.ogg", Music.class);
 		gameMusic2 = assets.get("data/sounds/music4.ogg", Music.class);
 		gameMusic3 = assets.get("data/sounds/music5.ogg", Music.class);
+		gameMusic4 = assets.get("data/sounds/music6.ogg", Music.class);
 		creditsMusic = assets.get("data/sounds/creditsmusic.ogg", Music.class);
         curse = assets.get("data/sounds/curse.ogg", Sound.class);
         scribble = assets.get("data/sounds/scribble.ogg", Sound.class);
