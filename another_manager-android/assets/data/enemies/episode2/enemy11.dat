@@ -1,0 +1,27 @@
+{
+enemyImageLocation: enemyboar,
+enemyName: "Evil Boar",
+enemyNumber: 27,
+abilities: [
+	{
+		class: de.cosh.gemlords.Abilities.AbilityStrongAttack,
+		currentCooldown: 3,
+		cooldown: 3
+	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilitySqueal,
+		currentCooldown: 5,
+		cooldown: 5
+	},
+
+],
+locationOnMap: {
+	x: 400,
+	y: 790
+},
+healthBar: {
+	hp: 300,
+	maxHP: 300
+},
+dropItemID: -1
+}

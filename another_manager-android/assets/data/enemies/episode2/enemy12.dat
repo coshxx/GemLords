@@ -1,0 +1,27 @@
+{
+enemyImageLocation: enemyzombie,
+enemyName: "Swamp Lord",
+enemyNumber: 28,
+abilities: [
+	{
+		class: de.cosh.gemlords.Abilities.AbilityCurse,
+		currentCooldown: 0,
+		cooldown: 99
+	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	},
+
+],
+locationOnMap: {
+	x: 500,
+	y: 770
+},
+healthBar: {
+	hp: 350,
+	maxHP: 350
+},
+dropItemID: -1
+}

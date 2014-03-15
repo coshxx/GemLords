@@ -71,10 +71,12 @@ public class Episode2TraverseScreen implements Screen, InputProcessor {
 			}
 			counter++;
 		}
+        /*
         if( player.levelDone[26] ) {
             GUIWindow guiWindow = new GUIWindow(stage);
             guiWindow.createThanksSoFarWindow();
         }
+        */
 	}
 
 	@Override
