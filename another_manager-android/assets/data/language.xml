@@ -124,6 +124,11 @@
     <string key="Evil Boar" value="Böser Eber"/>
     <string key="Swamp Zombie" value="Sumpf Zombie"/>
     <string key="Swamp Lord" value="Sumpf Lord"/>
+
+    <string key="Forest Bear" value="Wald Bär"/>
+    <string key="Forest Spider" value="Wald Spinne"/>
+    <string key="Forest Scorpion" value="Wald Skorpion"/>
+
 </language>
 
 </languages>

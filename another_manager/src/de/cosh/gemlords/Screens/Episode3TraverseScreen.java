@@ -14,6 +14,7 @@ import de.cosh.gemlords.Characters.Player;
 import de.cosh.gemlords.CustomActions.EndEpisode2Action;
 import de.cosh.gemlords.CustomActions.ToMenuScreenAction;
 import de.cosh.gemlords.GUI.GUIButton;
+import de.cosh.gemlords.GUI.GUIWindow;
 import de.cosh.gemlords.GemLord;
 
 /**
@@ -72,14 +73,10 @@ public class Episode3TraverseScreen implements Screen, InputProcessor {
 			counter++;
 		}
 
-        /*
-        if( player.levelDone[29] ) {
-            stage.addAction(Actions.after(
-                    Actions.sequence(
-                            Actions.fadeOut(2f),
-                            new EndEpisode2Action())));
+        if( player.levelDone[32] ) {
+            GUIWindow guiWindow = new GUIWindow(stage);
+            guiWindow.createThanksSoFarWindow();
         }
-        */
 	}
 
 	@Override

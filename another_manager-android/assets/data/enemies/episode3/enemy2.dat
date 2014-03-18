@@ -1,0 +1,26 @@
+{
+enemyImageLocation: enemyscorpion,
+enemyName: "Forest Scorpion",
+enemyNumber: 32,
+abilities: [
+	{
+		class: de.cosh.gemlords.Abilities.AbilityStrongAttack,
+		currentCooldown: 3,
+		cooldown: 3
+	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilityBite,
+		currentCooldown: 2,
+		cooldown: 3
+	},
+],
+locationOnMap: {
+	x: 240,
+	y: 1000
+},
+healthBar: {
+	hp: 420,
+	maxHP: 420
+},
+dropItemID: -1
+}

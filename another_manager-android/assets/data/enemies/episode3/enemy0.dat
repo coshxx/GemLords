@@ -1,16 +1,26 @@
 {
-enemyImageLocation: enemynecro,
+enemyImageLocation: enemybear,
 enemyName: "Forest Bear",
 enemyNumber: 30,
 abilities: [
+	{
+		class: de.cosh.gemlords.Abilities.AbilitySmash,
+		currentCooldown: 1,
+		cooldown: 4
+	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	}
 ],
 locationOnMap: {
 	x: 230,
 	y: 1200
 },
 healthBar: {
-	hp: 240,
-	maxHP: 240
+	hp: 400,
+	maxHP: 400
 },
 dropItemID: -1
 }

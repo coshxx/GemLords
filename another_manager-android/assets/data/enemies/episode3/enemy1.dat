@@ -1,0 +1,25 @@
+{
+enemyImageLocation: enemyspider,
+enemyName: "Forest Spider",
+enemyNumber: 31,
+abilities: [
+	{
+		class: de.cosh.gemlords.Abilities.AbilityCurse,
+		currentCooldown: 0,
+		cooldown: 99
+	},
+	{	class: de.cosh.gemlords.Abilities.AbilityPoison,
+		currentCooldown: 0,
+		cooldown: 8
+	}
+],
+locationOnMap: {
+	x: 220,
+	y: 1100
+},
+healthBar: {
+	hp: 420,
+	maxHP: 420
+},
+dropItemID: -1
+}
