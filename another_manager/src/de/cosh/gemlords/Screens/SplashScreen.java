@@ -41,6 +41,7 @@ public class SplashScreen implements Screen {
 	private void loadAllAssets() {
 		GemLord.assets.load("data/textures/map.jpg", Texture.class);
 		GemLord.assets.load("data/textures/map2.jpg", Texture.class);
+		GemLord.assets.load("data/textures/map3.jpg", Texture.class);
 		GemLord.assets.load("data/textures/splash.jpg", Texture.class);
 		GemLord.assets.load("data/textures/menu.png", Texture.class);
 

@@ -1,0 +1,32 @@
+{
+enemyImageLocation: enemynecro,
+enemyName: "Swamp Lord",
+enemyNumber: 29,
+abilities: [
+	{
+		class: de.cosh.gemlords.Abilities.AbilityFlyDagger,
+		currentCooldown: 99,
+		cooldown: 99
+	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilityMudBolt,
+		currentCooldown: 5,
+		cooldown: 5
+	},
+	{
+		class: de.cosh.gemlords.Abilities.AbilityThink,
+		currentCooldown: 0,
+		cooldown: 0
+	},
+
+],
+locationOnMap: {
+	x: 550,
+	y: 750
+},
+healthBar: {
+	hp: 240,
+	maxHP: 240
+},
+dropItemID: 21
+}

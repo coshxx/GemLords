@@ -39,6 +39,9 @@ public class GemLord extends Game {
     public Episode2IntroScreen episode2IntroScreen;
     public Episode2TraverseScreen episode2TraverseScreen;
 
+    public Episode3IntroScreen episode3IntroScreen;
+    public Episode3TraverseScreen episode3TraverseScreen;
+
 	public MenuScreen menuScreen;
     public AfterActionReport afterActionReport;
 	public Player player;
@@ -78,6 +81,9 @@ public class GemLord extends Game {
 
         episode2IntroScreen = new Episode2IntroScreen();
         episode2TraverseScreen = new Episode2TraverseScreen(this);
+
+        episode3IntroScreen = new Episode3IntroScreen();
+        episode3TraverseScreen = new Episode3TraverseScreen(this);
 
 		bitmapFont = new BitmapFont();
         loadoutScreen = new LoadoutScreen();

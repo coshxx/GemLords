@@ -92,6 +92,8 @@
     <string key="Throw your Sword for&#10;1-60 Damage&#10;Cooldown: 10" value="Wirf dein Schwert für&#10;1-60 Schaden&#10;Abklingzeit: 10"/>
     <string key="Master Robe" value="Meister Robe"/>
     <string key="Grants an additional&#10; 125 health&#10;Increases crit chance&#10;by 6%" value="125 Leben mehr&#10;6% erhöhte Crit Chance"/>
+    <string key="Rune Bow" value="Runen Bogen" />
+    <string key="Deal 20 - 35 damage&#10;Cooldown: 5" value="Fügt 20 - 35 Schaden zu&#10;Abklingzeit: 5" />
 
     // enemies
     <string key="Scarecrow" value="Vogelscheuche"/>
@@ -120,6 +122,8 @@
     <string key="Bog Creature" value="Morast Kreatur"/>
     <string key="Electric Eel" value="Elektrischer Aal"/>
     <string key="Evil Boar" value="Böser Eber"/>
+    <string key="Swamp Zombie" value="Sumpf Zombie"/>
+    <string key="Swamp Lord" value="Sumpf Lord"/>
 </language>
 
 </languages>

@@ -24,6 +24,7 @@ public class Player extends BaseCharacter {
     private boolean lastStateFullVersion;
     //private Hearts hearts;
     private boolean watchedEpisode2Intro;
+    private boolean watchedEpisode3Intro;
 
     public Player(final GemLord myGame) {
         super();
@@ -36,6 +37,7 @@ public class Player extends BaseCharacter {
         actionBar = new ActionBar();
         positionOnMap = new Vector2();
         watchedEpisode2Intro = false;
+        watchedEpisode3Intro = false;
         //hearts = null;
     }
 
@@ -231,6 +233,7 @@ public class Player extends BaseCharacter {
         lastStateFullVersion = prefs.getBoolean("LSHFV:");
 
         watchedEpisode2Intro = prefs.getBoolean("WE2IS:");
+        watchedEpisode3Intro = prefs.getBoolean("WE3IS:");
     }
 
     public void savePreferences() {
@@ -271,6 +274,7 @@ public class Player extends BaseCharacter {
         prefs.putFloat("POMY:", positionOnMap.y);
 
         prefs.putBoolean("WE2IS:", watchedEpisode2Intro);
+        prefs.putBoolean("WE3IS:", watchedEpisode3Intro);
 
         prefs.putBoolean("LSHFV:", lastStateFullVersion);
 
@@ -284,6 +288,7 @@ public class Player extends BaseCharacter {
         getInventory().clearInventory();
         getActionBar().clear();
         watchedEpisode2Intro = false;
+        watchedEpisode3Intro = false;
     }
 
     public boolean existsPreferences() {
@@ -315,6 +320,11 @@ public class Player extends BaseCharacter {
     }
 
     public Screen getCurrentEpisodeScreen() {
+        if( levelDone[29] ) {
+            if( watchedEpisode3Intro ) {
+                return GemLord.getInstance().episode3TraverseScreen;
+            }
+        }
         if( levelDone[15] ) {
             if( watchedEpisode2Intro ) {
                 return GemLord.getInstance().episode2TraverseScreen;
@@ -327,5 +337,9 @@ public class Player extends BaseCharacter {
 
     public boolean lastStateHasFullVersion() {
         return lastStateFullVersion;
+    }
+
+    public void watchedEpisode3Intro() {
+        watchedEpisode3Intro = true;
     }
 }

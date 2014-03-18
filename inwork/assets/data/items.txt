@@ -21,6 +21,7 @@ id, item
 18, major health potion
 19, sword
 20, master robe
+21, rune bow
 
 1337, devrobe
 

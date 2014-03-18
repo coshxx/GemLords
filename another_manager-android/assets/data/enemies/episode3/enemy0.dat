@@ -1,0 +1,16 @@
+{
+enemyImageLocation: enemynecro,
+enemyName: "Forest Bear",
+enemyNumber: 30,
+abilities: [
+],
+locationOnMap: {
+	x: 230,
+	y: 1200
+},
+healthBar: {
+	hp: 240,
+	maxHP: 240
+},
+dropItemID: -1
+}

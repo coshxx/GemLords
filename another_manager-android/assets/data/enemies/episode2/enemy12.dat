@@ -1,6 +1,6 @@
 {
 enemyImageLocation: enemyzombie,
-enemyName: "Swamp Lord",
+enemyName: "Swamp Zombie",
 enemyNumber: 28,
 abilities: [
 	{

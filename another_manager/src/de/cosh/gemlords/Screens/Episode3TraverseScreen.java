@@ -11,17 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Json;
 import de.cosh.gemlords.Characters.Enemy;
 import de.cosh.gemlords.Characters.Player;
-import de.cosh.gemlords.CustomActions.EndEpisode1Action;
 import de.cosh.gemlords.CustomActions.EndEpisode2Action;
 import de.cosh.gemlords.CustomActions.ToMenuScreenAction;
 import de.cosh.gemlords.GUI.GUIButton;
-import de.cosh.gemlords.GUI.GUIWindow;
 import de.cosh.gemlords.GemLord;
 
 /**
  * Created by cosh on 10.12.13.
  */
-public class Episode2TraverseScreen implements Screen, InputProcessor {
+public class Episode3TraverseScreen implements Screen, InputProcessor {
 	public boolean enemyWindowOpen;
 	private boolean fadeMusic;
 	private Image mapImage;
@@ -29,7 +27,7 @@ public class Episode2TraverseScreen implements Screen, InputProcessor {
 	private Json json;
 	private Stage stage;
 
-	public Episode2TraverseScreen(final GemLord gemLord) {
+	public Episode3TraverseScreen(final GemLord gemLord) {
 		myGame = gemLord;
 		json = new Json();
 	}
@@ -53,7 +51,7 @@ public class Episode2TraverseScreen implements Screen, InputProcessor {
 		Player player = GemLord.getInstance().player;
 		int counter = 0;
 		while( true ) {
-			FileHandle handle = Gdx.files.internal("data/enemies/episode2/enemy" + counter + ".dat");
+			FileHandle handle = Gdx.files.internal("data/enemies/episode3/enemy" + counter + ".dat");
 			if( !handle.exists() )
 				break;
 			Enemy e = json.fromJson(Enemy.class, handle.readString());
@@ -74,12 +72,14 @@ public class Episode2TraverseScreen implements Screen, InputProcessor {
 			counter++;
 		}
 
+        /*
         if( player.levelDone[29] ) {
             stage.addAction(Actions.after(
                     Actions.sequence(
                             Actions.fadeOut(2f),
                             new EndEpisode2Action())));
         }
+        */
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class Episode2TraverseScreen implements Screen, InputProcessor {
 		fadeMusic = false;
 		enemyWindowOpen = false;
 
-		mapImage = new Image(GemLord.assets.get("data/textures/map2.jpg", Texture.class));
+		mapImage = new Image(GemLord.assets.get("data/textures/map3.jpg", Texture.class));
 		mapImage.setBounds(0, 0, GemLord.VIRTUAL_WIDTH, GemLord.VIRTUAL_HEIGHT);
 		stage.addActor(mapImage);
 
