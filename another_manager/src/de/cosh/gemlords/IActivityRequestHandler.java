@@ -5,7 +5,4 @@ package de.cosh.gemlords;
  */
 public interface IActivityRequestHandler {
     public void showAds(boolean show);
-    public void showRemoveAdsInAppPurchaseWindow();
-    public boolean isFullVersionUser();
-    public boolean googleConnectionOrCacheEstablished();
 }

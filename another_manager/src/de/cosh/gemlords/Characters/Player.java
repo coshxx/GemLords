@@ -305,16 +305,6 @@ public class Player extends BaseCharacter {
         return positionOnMap;
     }
 
-    public boolean hasFullVersion() {
-        if( GemLord.getInstance().requestHandler.isFullVersionUser() ) {
-            lastStateFullVersion = true;
-            return true;
-        } else {
-            lastStateFullVersion = false;
-            return false;
-        }
-    }
-
     public void watchedEpisode2Intro() {
         watchedEpisode2Intro = true;
     }

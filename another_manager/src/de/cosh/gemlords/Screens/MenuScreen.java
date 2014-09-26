@@ -31,7 +31,6 @@ public class MenuScreen implements Screen {
     private TextButton exitGameButton;
     private TextButton creditsButton;
     private TextButton continueButton;
-    private TextButton buyGameButton;
     private Image backGround;
     private BitmapFont test;
 
@@ -47,7 +46,6 @@ public class MenuScreen implements Screen {
         newGameButton = new TextButton(lm.getString("New Game"), skin);
         exitGameButton = new TextButton(lm.getString("Exit Game"), skin);
         creditsButton = new TextButton(lm.getString("Credits"), skin);
-        buyGameButton = new TextButton(lm.getString("Remove Ads"), skin);
         addButtonListeners();
     }
 
@@ -70,14 +68,6 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
-
-        if (GemLord.getInstance().requestHandler.isFullVersionUser()) {
-            if (buyGameButton != null) {
-                buyGameButton.remove();
-                buyGameButton = null;
-            }
-            GemLord.getInstance().requestHandler.showAds(false);
-        }
     }
 
     @Override
@@ -121,10 +111,6 @@ public class MenuScreen implements Screen {
         creditsButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
         exitGameButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
 
-        if (buyGameButton != null) {
-            buyGameButton.setStyle(CustomStyle.getInstance().getTextButtonStyle());
-        }
-
         continueButton.setBounds(265, 500, 200, 50);
         continueButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
@@ -137,11 +123,6 @@ public class MenuScreen implements Screen {
         exitGameButton.setBounds(265, 320, 200, 50);
         exitGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-        if (buyGameButton != null) {
-            buyGameButton.setBounds(265, 180, 200, 50);
-            buyGameButton.getStyle().font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        }
-
         stage.setCamera(GemLord.getInstance().camera);
         stage.addActor(backGround);
         stage.addActor(titleImage);
@@ -151,19 +132,9 @@ public class MenuScreen implements Screen {
         stage.addActor(newGameButton);
         stage.addActor(creditsButton);
         stage.addActor(exitGameButton);
-        if (GemLord.getInstance().requestHandler.googleConnectionOrCacheEstablished()) {
-            if (!GemLord.getInstance().player.hasFullVersion()) {
-                GemLord.getInstance().requestHandler.showAds(true);
-                stage.addActor(buyGameButton);
-            }
-        } else {
-            // no connection to google, get last state from prefs
-            if (GemLord.getInstance().player.lastStateHasFullVersion()) {
-                GemLord.getInstance().requestHandler.showAds(false);
-            } else {
-                GemLord.getInstance().requestHandler.showAds(true);
-            }
-        }
+
+        GemLord.getInstance().requestHandler.showAds(true);
+
         stage.addAction(Actions.alpha(0));
         stage.addAction(Actions.fadeIn(0.5f));
     }
@@ -175,9 +146,6 @@ public class MenuScreen implements Screen {
         newGameButton.clearActions();
         exitGameButton.clearActions();
         creditsButton.clearActions();
-
-        if (buyGameButton != null)
-            buyGameButton.clearActions();
 
         continueButton.addAction(Actions.forever(Actions.sequence(
                 Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
@@ -191,10 +159,6 @@ public class MenuScreen implements Screen {
         creditsButton.addAction(Actions.forever(Actions.sequence(
                 Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
 
-        if (buyGameButton != null) {
-            buyGameButton.addAction(Actions.forever(Actions.sequence(
-                    Actions.moveBy(0, 5f, 0.5f), Actions.moveBy(0, -5f, 0.5f))));
-        }
     }
 
     private void addButtonListeners() {
@@ -266,14 +230,5 @@ public class MenuScreen implements Screen {
                         })));
             }
         });
-
-        if (buyGameButton != null) {
-            buyGameButton.addListener(new ClickListener() {
-                public void clicked(InputEvent event, float x, float y) {
-                    GemLord.getInstance().requestHandler.showRemoveAdsInAppPurchaseWindow();
-                }
-            });
-        }
-
     }
 }
